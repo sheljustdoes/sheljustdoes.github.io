@@ -19,10 +19,15 @@
 
   --terracotta: #d4603a;
   --amber:      #e8a830;
+  --amber-soft: #f0c263;
+  --amber-deep: #b07d1a;
   --blush:      #e8b4a2;
   --indigo:     #3a4d8f;
+  --indigo-soft:#5069a8;
+  --indigo-deep:#2f3e7a;
   --forest:     #2e5a45;
   --dusty-blue: #7a8fb5;
+  --plum:       #7a4d72;
 
   /* Neutral scale (grayscale UI baseline) */
   --g-0: #141210;
