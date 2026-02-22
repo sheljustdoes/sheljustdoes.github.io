@@ -494,7 +494,8 @@ a.event-link:hover .event-text  .label::after {
 }
 
 /* ── Details panel link ────────────────────────────── */
-.details-link {
+.details-link,
+.details-link-2 {
   display: inline-block;
   margin-top: 0.75rem;
   font-family: var(--mono);
@@ -505,11 +506,17 @@ a.event-link:hover .event-text  .label::after {
   text-decoration: none;
 }
 
-.details-link[hidden] {
+.details-link-2 {
+  margin-left: 0.75rem;
+}
+
+.details-link[hidden],
+.details-link-2[hidden] {
   display: none !important;
 }
 
-.details-link:hover {
+.details-link:hover,
+.details-link-2:hover {
   text-decoration: underline;
   text-underline-offset: 2px;
 }

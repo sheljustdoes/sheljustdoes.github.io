@@ -39,6 +39,7 @@
 				<div class="details-scores" hidden></div>
 				<div class="details-tags" hidden></div>
 				<a class="details-link" href="#" target="_blank" rel="noopener" hidden>Open link ↗</a>
+				<a class="details-link-2" href="#" target="_blank" rel="noopener" hidden>Open link ↗</a>
 			</div>
 		</div>
 
@@ -432,7 +433,8 @@
 									data-complexity="4"
 									data-tags="machine-learning, deep-learning, transformers, skill-tree, self-directed-learning"
 									data-summary="Applied Scientist curriculum: a structured learning path and reference set for applied research, experimentation, and production ML."
-									data-link="https://github.com/sheljustdoes/scintilla">
+									data-link="https://github.com/sheljustdoes/scintilla"
+								data-link2="https://sheljustdoes.github.io/scintilla/">
 									<div class="event-card" style="
 										--card-color: var(--amber);
 										--card-text:  rgba(30,28,26,0.9);
@@ -458,7 +460,7 @@
 												--card-text:  rgba(30,28,26,0.9);
 												--card-date:  rgba(30,28,26,0.55);">
 												<span class="date">2026–</span>
-												<span class="label">lumen<br>scintilla. Constellations</span>
+												<span class="label">lumen<br>Projects & Notebooks<br>derived from scintilla.</span>
 											</div>
 										</button>
 									</div>
@@ -489,6 +491,7 @@
 			const scoresEl  = detailsPanel.querySelector('.details-scores');
 			const tagsEl    = detailsPanel.querySelector('.details-tags');
 			const linkEl    = detailsPanel.querySelector('.details-link');
+			const link2El   = detailsPanel.querySelector('.details-link-2');
 			const clearBtn  = detailsPanel.querySelector('.details-clear');
 
 			// Each trigger can carry its own data-* or inherit from its .event-col.
@@ -502,8 +505,10 @@
 				const summary = trigger.dataset.summary || col?.dataset.summary;
 				const link    = trigger.dataset.link    || null;
 				const linkLabel = trigger.dataset.linkLabel || null;
+				const link2     = trigger.dataset.link2     || null;
+				const link2Label = trigger.dataset.link2Label || null;
 				if (!summary) continue;
-				entries.push({ trigger, kind, title, date, summary, link, linkLabel });
+				entries.push({ trigger, kind, title, date, summary, link, linkLabel, link2, link2Label });
 			}
 
 			const cardEl = t => t.querySelector('.event-card, .event-text');
@@ -743,6 +748,21 @@
 				linkEl.style.display = '';
 			}
 
+			function hideDetailsLink2() {
+				if (!link2El) return;
+				link2El.hidden = true;
+				link2El.removeAttribute('href');
+				link2El.style.display = 'none';
+			}
+
+			function showDetailsLink2(href, text) {
+				if (!link2El) return;
+				link2El.href = href;
+				if (text) link2El.textContent = text;
+				link2El.hidden = false;
+				link2El.style.display = '';
+			}
+
 			function hideDetailsScores() {
 				if (!scoresEl) return;
 				scoresEl.hidden = true;
@@ -840,6 +860,7 @@
 			}
 
 			hideDetailsLink();
+			hideDetailsLink2();
 			hideDetailsScores();
 			hideDetailsTags();
 			applyProjectStyling();
@@ -857,6 +878,7 @@
 					if (summaryEl) summaryEl.textContent = 'Click a career/education event to see a short summary here.';
 					if (linkEl) linkEl.textContent = 'Open link ↗';
 					hideDetailsLink();
+					hideDetailsLink2();
 					hideDetailsScores();
 					hideDetailsTags();
 					return;
@@ -875,20 +897,30 @@
 				}
 				if (entry.kind !== 'project') {
 					hideDetailsLink();
+					hideDetailsLink2();
 					return;
 				}
 				if (!entry.link) {
 					hideDetailsLink();
-					return;
+				} else {
+					let text = entry.linkLabel;
+					if (!text) {
+						if (entry.link.includes('github.com')) text = 'View on GitHub ↗';
+						else if (entry.link.includes('doi.org')) text = 'View publication ↗';
+						else text = 'Open link ↗';
+					}
+					showDetailsLink(entry.link, text);
 				}
-
-				let text = entry.linkLabel;
-				if (!text) {
-					if (entry.link.includes('github.com')) text = 'View on GitHub ↗';
-					else if (entry.link.includes('doi.org')) text = 'View publication ↗';
-					else text = 'Open link ↗';
+				if (!entry.link2) {
+					hideDetailsLink2();
+				} else {
+					let text2 = entry.link2Label;
+					if (!text2) {
+						if (entry.link2.includes('github.io')) text2 = 'Visit site ↗';
+						else text2 = 'Open link ↗';
+					}
+					showDetailsLink2(entry.link2, text2);
 				}
-				showDetailsLink(entry.link, text);
 			}
 
 			for (const { trigger } of entries) {
