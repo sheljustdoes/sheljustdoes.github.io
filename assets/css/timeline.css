@@ -147,6 +147,29 @@ html, body {
   color: var(--primary);
 }
 
+/* ── Résumé button ─────────────────────────────────── */
+.resume-btn {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.35rem 0.9rem;
+  border: 1.5px solid var(--charcoal);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--charcoal);
+  color: var(--cream);
+  text-decoration: none;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.resume-btn:hover {
+  background: var(--near-black);
+  border-color: var(--near-black);
+  color: var(--cream);
+}
+
 /* ── Details panel (left) ──────────────────────────── */
 .details-panel {
   margin-top: 1.25rem;

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shel Burkes, PhD — Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream:       #F5F1EB;
+    --parchment:   #EAE4D9;
+    --warm-taupe:  #C8BFB0;
+    --charcoal:    #1E1C1A;
+    --near-black:  #141210;
+    --terracotta:  #D4603A;
+    --amber:       #E8A830;
+    --indigo:      #3A4D8F;
+    --forest:      #2E5A45;
+    --dusty-blue:  #7A8FB5;
+    --blush:       #E8B4A2;
+
+    --font-display: 'Outfit', sans-serif;
+    --font-body:    'Lora', Georgia, serif;
+    --font-mono:    'DM Mono', monospace;
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 64px 80px;
+  }
+
+  /* ── COLOR STRIP ── */
+  .color-strip { display: none; }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 32px;
+    margin-bottom: 6px;
+  }
+
+  .name {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--charcoal);
+  }
+
+  .name em {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--terracotta);
+  }
+
+  .contact {
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--warm-taupe);
+    line-height: 1.9;
+    letter-spacing: 0.02em;
+  }
+
+  .contact a {
+    color: var(--indigo);
+    text-decoration: none;
+  }
+
+  .contact a:hover { color: var(--terracotta); }
+
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--parchment);
+    margin-top: 10px;
+  }
+
+  .title-mono {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warm-taupe);
+  }
+
+  .title-dot {
+    width: 5px;
+    height: 5px;
+    flex-shrink: 0;
+  }
+
+  /* ── SECTION LABELS ── */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.63rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-taupe);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--parchment);
+  }
+
+  section { margin-bottom: 40px; }
+
+  /* ── SUMMARY ── */
+  .summary {
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    line-height: 1.78;
+    color: var(--charcoal);
+    max-width: 700px;
+  }
+
+  .summary strong {
+    font-weight: 500;
+    color: var(--indigo);
+  }
+
+  /* ── SKILLS ── */
+  .skills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--charcoal);
+    border: 1.5px solid var(--charcoal);
+    padding: 4px 14px;
+    border-radius: 999px;
+    background: transparent;
+  }
+
+  .skill.core { color: #fff; letter-spacing: 0.07em; }
+  .skill.core:nth-child(1) { background: var(--indigo);     border-color: var(--indigo); }
+  .skill.core:nth-child(2) { background: var(--terracotta); border-color: var(--terracotta); }
+  .skill.core:nth-child(3) { background: var(--forest);     border-color: var(--forest); }
+  .skill.core:nth-child(4) { background: var(--amber);      border-color: var(--amber); color: var(--near-black); }
+  .skill.core:nth-child(5) { background: var(--dusty-blue); border-color: var(--dusty-blue); }
+
+  /* ── JOBS ── */
+  .job {
+    display: grid;
+    grid-template-columns: 148px 1fr;
+    gap: 0 28px;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--parchment);
+  }
+
+  .job:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .job-meta { padding-top: 2px; }
+
+  .job-company {
+    font-family: var(--font-mono);
+    font-size: 0.63rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 4px;
+  }
+
+  .job-date {
+    font-family: var(--font-mono);
+    font-size: 0.61rem;
+    color: var(--warm-taupe);
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+  }
+
+  .job-title {
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+
+  .job-lead {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.87rem;
+    color: var(--charcoal);
+    line-height: 1.65;
+    margin-bottom: 10px;
+    padding-left: 12px;
+    border-left: 2px solid var(--terracotta);
+  }
+
+  .job ul { list-style: none; padding: 0; }
+
+  .job li {
+    font-family: var(--font-body);
+    font-size: 0.84rem;
+    color: #4a4540;
+    line-height: 1.65;
+    padding: 2px 0 2px 16px;
+    position: relative;
+  }
+
+  .job li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--warm-taupe);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    top: 5px;
+  }
+
+  .job li strong {
+    font-weight: 500;
+    color: var(--charcoal);
+  }
+
+  .stat-pill {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--forest);
+    border: 1.5px solid var(--forest);
+    background: transparent;
+    padding: 2px 10px;
+    border-radius: 999px;
+    margin-left: 3px;
+    position: relative;
+    top: -1px;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .project {
+    border: 1px solid var(--parchment);
+    padding: 16px 18px;
+    position: relative;
+  }
+
+  .project-accent {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+  }
+
+  .project-name {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 2px;
+  }
+
+  .project-tag {
+    font-family: var(--font-mono);
+    font-size: 0.59rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--warm-taupe);
+    margin-bottom: 8px;
+  }
+
+  .project-desc {
+    font-family: var(--font-body);
+    font-size: 0.79rem;
+    color: #5a5550;
+    line-height: 1.6;
+  }
+
+  .project-stat {
+    display: inline-block;
+    margin-top: 8px;
+    font-family: var(--font-display);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--amber);
+    border: 1.5px solid var(--amber);
+    background: transparent;
+    padding: 3px 12px;
+    border-radius: 999px;
+  }
+
+  .project.wide { grid-column: span 2; }
+
+  /* ── EDUCATION ── */
+  .edu-row {
+    display: grid;
+    grid-template-columns: 148px 1fr auto;
+    gap: 0 28px;
+    align-items: baseline;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--parchment);
+  }
+
+  .edu-row:last-child { border-bottom: none; }
+
+  .edu-level {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--warm-taupe);
+  }
+
+  .edu-degree {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.88rem;
+    color: var(--charcoal);
+  }
+
+  .edu-inst {
+    font-family: var(--font-mono);
+    font-size: 0.61rem;
+    color: var(--warm-taupe);
+    letter-spacing: 0.04em;
+    text-align: right;
+  }
+
+  /* ── FOOTER ── */
+  .resume-footer {
+    margin-top: 48px;
+    padding-top: 18px;
+    border-top: 1px solid var(--parchment);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .resume-footer span {
+    font-family: var(--font-mono);
+    font-size: 0.61rem;
+    color: var(--warm-taupe);
+    letter-spacing: 0.07em;
+  }
+
+  .footer-blocks { display: flex; gap: 4px; }
+  .footer-blocks div { width: 13px; height: 13px; }
+
+  @media print {
+    body { padding: 32px 40px; font-size: 13px; }
+    .color-strip { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 28px 20px; }
+    .header { grid-template-columns: 1fr; }
+    .contact { text-align: left; margin-top: 12px; }
+    .name { font-size: 2.2rem; }
+    .job { grid-template-columns: 1fr; gap: 4px; }
+    .job-meta { display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project.wide { grid-column: span 1; }
+    .edu-row { grid-template-columns: 1fr; gap: 2px; }
+    .edu-inst { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="color-strip">
+  <div style="background:var(--indigo); flex:3;"></div>
+  <div style="background:var(--terracotta); flex:2;"></div>
+  <div style="background:var(--amber); flex:1;"></div>
+  <div style="background:var(--forest); flex:1;"></div>
+  <div style="background:var(--warm-taupe); flex:2;"></div>
+</div>
+
+<header>
+  <div class="header">
+    <div class="name">Shel Burkes<em>, PhD</em></div>
+    <div class="contact">
+      <a href="mailto:shel.burkes@gmail.com">shel.burkes@gmail.com</a><br>
+      <a href="https://linkedin.com/in/shelburkes" target="_blank">linkedin.com/in/shelburkes</a><br>
+      <a href="https://sheljustdoes.github.io" target="_blank">sheljustdoes.github.io</a><br>
+      ORCID 0000-0002-7339-1060
+    </div>
+  </div>
+  <div class="title-row">
+    <div class="title-dot" style="background:var(--terracotta);"></div>
+    <span class="title-mono">Principal Applied Scientist</span>
+    <div class="title-dot" style="background:var(--indigo);"></div>
+    <span class="title-mono">ML Research</span>
+    <div class="title-dot" style="background:var(--amber);"></div>
+    <span class="title-mono">Health Sensing</span>
+    <div class="title-dot" style="background:var(--forest);"></div>
+    <span class="title-mono">Computational Biology</span>
+  </div>
+</header>
+
+<section>
+  <div class="section-label">Research Profile</div>
+  <p class="summary">PhD scientist specializing in <strong>machine learning, clustering analysis, and physiological signal characterization.</strong> I develop novel measurement frameworks and composite scoring systems from complex, multi-modal health and biological datasets — including <strong>original metrics where no formal quantification previously existed.</strong> Experienced in taking research from exploratory concept to validated methodology across consumer health sensing, biological sequence analysis, and applied generative AI.</p>
+</section>
+
+<section>
+  <div class="section-label">Technical Skills</div>
+  <div class="skills-wrap">
+    <span class="skill core">Time Series Analysis</span>
+    <span class="skill core">Clustering Specialist</span>
+    <span class="skill core">Novel Metric Development</span>
+    <span class="skill core">Composite Scoring Systems</span>
+    <span class="skill core">Physiological Signal Characterization</span>
+    <span class="skill">Python</span>
+    <span class="skill">PyTorch</span>
+    <span class="skill">TensorFlow</span>
+    <span class="skill">Scikit-learn</span>
+    <span class="skill">Deep Learning</span>
+    <span class="skill">Statistical Modeling</span>
+    <span class="skill">Experimental Design</span>
+    <span class="skill">Hypothesis Testing</span>
+    <span class="skill">Signal Processing</span>
+    <span class="skill">PCA · UMAP · K-means</span>
+    <span class="skill">Model Evaluation</span>
+    <span class="skill">Dimensionality Reduction</span>
+    <span class="skill">Bioinformatics</span>
+    <span class="skill">SQL</span>
+    <span class="skill">MongoDB</span>
+    <span class="skill">AWS Athena · SageMaker</span>
+    <span class="skill">Databricks · Snowflake</span>
+    <span class="skill">Git · Bash</span>
+    <span class="skill">Tableau · Plotly Dash</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Experience</div>
+
+  <div class="job">
+    <div class="job-meta">
+      <div class="job-company">Boehringer Ingelheim</div>
+      <div class="job-date">Sep 2025 — Present</div>
+    </div>
+    <div class="job-body">
+      <div class="job-title">Principal Applied Scientist & Senior Data Scientist (Generative AI)</div>
+      <ul>
+        <li>Prototyped and directed development of generative AI and LLM-based solutions, building foundational implementations in <strong>Python, PyTorch, and TensorFlow</strong> before partnering with engineering for production delivery.</li>
+        <li>Designed an <strong>LLM-based misinformation detection pipeline</strong> using Databricks and Snowflake — delivered a production-ready PoC in <strong>60 days</strong> with automated content classification, clustering, and trend detection.</li>
+        <li>Built a <strong>financial potential modeling tool</strong> to estimate purchasing capacity across major customer portfolios, enabling commercial teams to refine targeting and prioritize high-value outreach.</li>
+        <li>Navigated regulated data-access processes in a pharmaceutical environment, ensuring all modeling activities complied with internal governance and regulatory standards.</li>
+        <li>Mentored junior data scientists on modeling techniques, code structure, and best practices for scalable, maintainable AI development.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-meta">
+      <div class="job-company">FitSkin</div>
+      <div class="job-date">Sep 2021 — Sep 2025</div>
+    </div>
+    <div class="job-body">
+      <div class="job-title">Senior Data Scientist</div>
+      <div class="job-lead">Led original research into the computational quantification of physiological skin properties, developing novel metrics and deep learning systems to measure attributes — including radiance, tone, and inflammation — that previously existed only as qualitative descriptors.</div>
+      <ul>
+        <li>Developed <strong>lambent</strong>, a novel composite scoring system quantifying skin radiance from multi-modal physiological features — the first formalized computational measure of this property. <span class="stat-pill">Pearson r = 0.64</span> <span class="stat-pill">96.8% extreme-class accuracy</span></li>
+        <li>Built <strong>iridis</strong>, a perceptual skin tone classification system using K-means and Visual Transformers (ViT) on <strong>2M+ diverse skin images</strong>, addressing inclusivity gaps in scales like Monk.</li>
+        <li>Developed <strong>argus</strong>, a CNN-based anomaly detection system for large clinical imaging databases, deployed via AWS SageMaker.</li>
+        <li>Worked with real-time <strong>capacitive sensor data</strong> capturing physiological skin states, building longitudinal profiling systems modeling individual baselines over time — directly analogous to continuous health sensing from wearable devices.</li>
+        <li>Investigated computational quantification of hyperpigmentation, redness/inflammation, and hair follicle structure — characterizing previously unmeasured biological attributes from sensor and image data.</li>
+        <li>Led <strong>A/B testing and causal inference</strong> projects using rigorous experimental protocols to isolate causal effects and inform product decisions across diverse populations.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-meta">
+      <div class="job-company">Syngenta</div>
+      <div class="job-date">Sep 2021 — Sep 2022</div>
+    </div>
+    <div class="job-body">
+      <div class="job-title">Data Scientist</div>
+      <ul>
+        <li>Built <strong>predictive models on haplotype biological datasets</strong> to optimize trait selection based on environmental and genetic factors.</li>
+        <li>Designed and deployed scalable bioinformatics pipelines for trait-based prediction and optimization, integrating results into relational databases.</li>
+        <li>Led launch of a decision-making analytics platform as <strong>Product Owner</strong> using Agile and Scrum methodologies.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-meta">
+      <div class="job-company">NC Research Campus</div>
+      <div class="job-date">Sep 2020 — Sep 2021</div>
+    </div>
+    <div class="job-body">
+      <div class="job-title">Postdoctoral Researcher</div>
+      <ul>
+        <li>Designed analytical pipelines for large-scale <strong>next-generation sequencing (NGS)</strong> datasets in Python within UNIX and cloud/HPC environments.</li>
+        <li>Led computational biology projects applying machine learning to NGS datasets for protein sequence analysis and peptide/protein structure annotation.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-meta">
+      <div class="job-company">UNC Charlotte</div>
+      <div class="job-date">Jan 2017 — Sep 2020</div>
+    </div>
+    <div class="job-body">
+      <div class="job-title">Graduate Researcher & Teaching Assistant</div>
+      <ul>
+        <li>Designed real-time analytical pipelines for large-scale genomic data including <strong>A. sativa genome annotation</strong> using Illumina and PacBio sequencing.</li>
+        <li>Instructed courses and advised students on bioinformatics tools and data analysis methodologies.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Selected Projects</div>
+  <div class="projects-grid">
+
+    <div class="project">
+      <div class="project-accent" style="background:var(--terracotta);"></div>
+      <div class="project-name">lambent.</div>
+      <div class="project-tag">Radiance Qualification · 2025–</div>
+      <div class="project-desc">Novel composite scoring system quantifying skin radiance — the first formalized computational measure of a property previously assessed only qualitatively. Validated against expert grading using an optimized XGBoost ensemble.</div>
+      <div><span class="project-stat">Pearson r = 0.64 · 96.8% extreme-class accuracy</span></div>
+    </div>
+
+    <div class="project">
+      <div class="project-accent" style="background:var(--indigo);"></div>
+      <div class="project-name">iridis.</div>
+      <div class="project-tag">Skin Tone Classification · 2024–</div>
+      <div class="project-desc">Perceptual classification system using K-means and Visual Transformers (ViT) on 2M+ diverse skin images. Addresses inclusivity gaps in existing scales with applications in personalized health sensing.</div>
+    </div>
+
+    <div class="project">
+      <div class="project-accent" style="background:var(--forest);"></div>
+      <div class="project-name">topos.</div>
+      <div class="project-tag">Stability-First Discovery Framework · 2025–</div>
+      <div class="project-desc">Formal framework using biological LLMs to validate and compare clustering methodologies — enabling rigorous go/no-go decisions in research pipelines and earlier resource reallocation.</div>
+    </div>
+
+    <div class="project">
+      <div class="project-accent" style="background:var(--dusty-blue);"></div>
+      <div class="project-name">argus.</div>
+      <div class="project-tag">Clinical Imaging QC · AWS SageMaker · 2022–</div>
+      <div class="project-desc">CNN-based anomaly detection system for large clinical imaging databases. Deployed via AWS SageMaker with client-facing SDK for real-time outlier identification.</div>
+    </div>
+
+    <div class="project wide">
+      <div class="project-accent" style="background: linear-gradient(90deg, var(--indigo) 0%, var(--terracotta) 50%, var(--amber) 100%);"></div>
+      <div class="project-name">RepBox.</div>
+      <div class="project-tag">BMC Bioinformatics · Published 2023 · doi:10.1186/s12859-023-05419-5</div>
+      <div class="project-desc">Bioinformatics pipeline for identification and classification of novel repetitive genomic elements. Demonstrated 7% growth in detected repetitive elements and increased diversity of identified types across the A. sativa genome.</div>
+      <div><span class="project-stat">Peer-reviewed · BMC Bioinformatics 2023</span></div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Education</div>
+  <div class="edu-row">
+    <div class="edu-level">PhD</div>
+    <div class="edu-degree">Data Science & Bioinformatics</div>
+    <div class="edu-inst">UNC Charlotte</div>
+  </div>
+  <div class="edu-row">
+    <div class="edu-level">MS</div>
+    <div class="edu-degree">Data Science & Bioinformatics</div>
+    <div class="edu-inst">UNC Charlotte</div>
+  </div>
+  <div class="edu-row">
+    <div class="edu-level">BS</div>
+    <div class="edu-degree">Biology</div>
+    <div class="edu-inst">UNC Charlotte</div>
+  </div>
+</section>
+
+<footer class="resume-footer">
+  <span>sheljustdoes.github.io · Tucker, GA · Remote</span>
+  <div class="footer-blocks">
+    <div style="background:var(--indigo);"></div>
+    <div style="background:var(--terracotta);"></div>
+    <div style="background:var(--amber);"></div>
+    <div style="background:var(--forest);"></div>
+  </div>
+  <span>ORCID 0000-0002-7339-1060</span>
+</footer>
+
+</body>
+</html>
