@@ -5,32 +5,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>shel. — resume</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
+    /* Ground */
     --cream:       #F5F1EB;
     --parchment:   #EAE4D9;
-    --warm-taupe:  #C8BFB0;
+    --taupe:       #C8BFB0;
+    --warm-taupe:  #C8BFB0; /* alias */
     --charcoal:    #1E1C1A;
-    --near-black:  #141210;
+    --ink:         #141210;
+    --near-black:  #141210; /* alias */
+
+    /* Archive */
     --terracotta:  #D4603A;
     --amber:       #E8A830;
-    --indigo:      #3A4D8F;
-    --forest:      #2E5A45;
-    --dusty-blue:  #7A8FB5;
     --blush:       #E8B4A2;
+    --blush-deep:  #D4896E;
+    --indigo:      #3A4D8F;
+    --indigo-pale: #B8C0DC;
+    --forest:      #2E5A45;
+    --forest-pale: #A8C4B4;
+    --dusty-blue:  #7A8FB5;
+    --sage:        #7A8C6E;
+    --sage-pale:   #C4D0B8;
+    --rose-dust:   #C4887A;
 
-    --font-display: 'Outfit', sans-serif;
-    --font-body:    'Lora', Georgia, serif;
-    --font-mono:    'DM Mono', monospace;
+    /* Typography */
+    --display: 'Outfit', sans-serif;
+    --serif:   'Lora', Georgia, serif;
+    --mono:    'DM Mono', monospace;
+
+    /* Legacy aliases */
+    --font-display: var(--display);
+    --font-body:    var(--serif);
+    --font-mono:    var(--mono);
   }
 
   body {
     background: var(--cream);
     color: var(--charcoal);
-    font-family: var(--font-body);
+    font-family: var(--serif);
     font-size: 15px;
     line-height: 1.6;
     max-width: 860px;
@@ -51,7 +69,7 @@
   }
 
   .name {
-    font-family: var(--font-display);
+    font-family: var(--display);
     font-size: 3rem;
     font-weight: 600;
     letter-spacing: -0.03em;
@@ -60,7 +78,7 @@
   }
 
   .name em {
-    font-family: var(--font-body);
+    font-family: var(--serif);
     font-style: italic;
     font-weight: 400;
     color: var(--terracotta);
@@ -68,7 +86,7 @@
 
   .contact {
     text-align: right;
-    font-family: var(--font-mono);
+    font-family: var(--mono);
     font-size: 0.68rem;
     color: var(--warm-taupe);
     line-height: 1.9;
@@ -94,7 +112,7 @@
   }
 
   .title-mono {
-    font-family: var(--font-mono);
+    font-family: var(--mono);
     font-size: 0.68rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -109,7 +127,7 @@
 
   /* ── SECTION LABELS ── */
   .section-label {
-    font-family: var(--font-mono);
+    font-family: var(--mono);
     font-size: 0.63rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -131,7 +149,7 @@
 
   /* ── SUMMARY ── */
   .summary {
-    font-family: var(--font-body);
+    font-family: var(--serif);
     font-size: 0.98rem;
     line-height: 1.78;
     color: var(--charcoal);
@@ -151,7 +169,7 @@
   }
 
   .skill {
-    font-family: var(--font-display);
+    font-family: var(--display);
     font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.01em;
@@ -188,7 +206,7 @@
   .job-meta { padding-top: 2px; }
 
   .job-company {
-    font-family: var(--font-mono);
+    font-family: var(--mono);
     font-size: 0.63rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -197,7 +215,7 @@
   }
 
   .job-date {
-    font-family: var(--font-mono);
+    font-family: var(--mono);
     font-size: 0.61rem;
     color: var(--warm-taupe);
     letter-spacing: 0.04em;
@@ -205,7 +223,7 @@
   }
 
   .job-title {
-    font-family: var(--font-display);
+    font-family: var(--display);
     font-size: 0.98rem;
     font-weight: 600;
     color: var(--charcoal);
@@ -214,7 +232,7 @@
   }
 
   .job-lead {
-    font-family: var(--font-body);
+    font-family: var(--serif);
     font-style: italic;
     font-size: 0.87rem;
     color: var(--charcoal);
@@ -227,7 +245,7 @@
   .job ul { list-style: none; padding: 0; }
 
   .job li {
-    font-family: var(--font-body);
+    font-family: var(--serif);
     font-size: 0.84rem;
     color: #4a4540;
     line-height: 1.65;
@@ -240,7 +258,7 @@
     position: absolute;
     left: 0;
     color: var(--warm-taupe);
-    font-family: var(--font-mono);
+    font-family: var(--mono);
     font-size: 0.68rem;
     top: 5px;
   }
@@ -252,7 +270,7 @@
 
   .stat-pill {
     display: inline-block;
-    font-family: var(--font-display);
+    font-family: var(--display);
     font-size: 0.65rem;
     font-weight: 600;
     letter-spacing: 0.01em;
@@ -287,7 +305,7 @@
   }
 
   .project-name {
-    font-family: var(--font-body);
+    font-family: var(--serif);
     font-style: italic;
     font-size: 1rem;
     font-weight: 500;
@@ -296,7 +314,7 @@
   }
 
   .project-tag {
-    font-family: var(--font-mono);
+    font-family: var(--mono);
     font-size: 0.59rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -305,7 +323,7 @@
   }
 
   .project-desc {
-    font-family: var(--font-body);
+    font-family: var(--serif);
     font-size: 0.79rem;
     color: #5a5550;
     line-height: 1.6;
@@ -314,7 +332,7 @@
   .project-stat {
     display: inline-block;
     margin-top: 8px;
-    font-family: var(--font-display);
+    font-family: var(--display);
     font-size: 0.68rem;
     font-weight: 600;
     letter-spacing: 0.01em;
@@ -340,7 +358,7 @@
   .edu-row:last-child { border-bottom: none; }
 
   .edu-level {
-    font-family: var(--font-mono);
+    font-family: var(--mono);
     font-size: 0.62rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -348,14 +366,14 @@
   }
 
   .edu-degree {
-    font-family: var(--font-display);
+    font-family: var(--display);
     font-weight: 500;
     font-size: 0.88rem;
     color: var(--charcoal);
   }
 
   .edu-inst {
-    font-family: var(--font-mono);
+    font-family: var(--mono);
     font-size: 0.61rem;
     color: var(--warm-taupe);
     letter-spacing: 0.04em;
@@ -373,7 +391,7 @@
   }
 
   .resume-footer span {
-    font-family: var(--font-mono);
+    font-family: var(--mono);
     font-size: 0.61rem;
     color: var(--warm-taupe);
     letter-spacing: 0.07em;
@@ -408,7 +426,7 @@
   <div style="background:var(--terracotta); flex:2;"></div>
   <div style="background:var(--amber); flex:1;"></div>
   <div style="background:var(--forest); flex:1;"></div>
-  <div style="background:var(--warm-taupe); flex:2;"></div>
+  <div style="background:var(--taupe); flex:2;"></div>
 </div>
 
 <header>
