@@ -1,5 +1,4 @@
-
-.DS_Store
+*.DS_Store
 *.html.html
 .render_temp_index.html.html
 .DS_Store
@@ -12,7 +11,3 @@
 .idea/workspace.xml
 .render_temp_index.html.html
 .well-known/
-.DS_Store
-.DS_Store
-.DS_Store
-.DS_Store
