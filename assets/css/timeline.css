@@ -80,7 +80,11 @@ html, body {
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(30,28,26,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30,28,26,0.055) 1px, transparent 1px);
+  background-size: 28px 28px;
   color: var(--ink);
   font-family: var(--body);
   font-size: 14px;
@@ -107,7 +111,7 @@ html, body {
   position: sticky;
   left: 0;
   z-index: 10;
-  background: #f7f3ee;
+  background: var(--cream);
   overflow-y: auto;
 }
 
@@ -133,7 +137,7 @@ html, body {
   font-family: var(--display);
   font-weight: 600;
   font-style: normal;
-  color: var(--terracotta);
+  color: var(--charcoal);
 }
 
 /* ── Social icons ──────────────────────────────────── */

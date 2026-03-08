@@ -46,7 +46,11 @@
   }
 
   body {
-    background: var(--cream);
+    background-color: var(--cream);
+    background-image:
+      linear-gradient(rgba(30,28,26,0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,28,26,0.055) 1px, transparent 1px);
+    background-size: 28px 28px;
     color: var(--charcoal);
     font-family: var(--serif);
     font-size: 15px;
@@ -383,25 +387,45 @@
   /* ── FOOTER ── */
   .resume-footer {
     margin-top: 48px;
-    padding-top: 18px;
-    border-top: 1px solid var(--parchment);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding-top: 16px;
+    border-top: 2px solid var(--charcoal);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: baseline;
   }
 
-  .resume-footer span {
+  .resume-footer .f-mark {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: var(--charcoal);
+    line-height: 1;
+  }
+
+  .resume-footer .f-center {
+    text-align: center;
+    font-family: var(--serif);
+    font-size: 0.81rem;
+    font-style: italic;
+    color: var(--warm-taupe);
+  }
+
+  .resume-footer .f-right {
+    text-align: right;
     font-family: var(--mono);
     font-size: 0.61rem;
     color: var(--warm-taupe);
     letter-spacing: 0.07em;
+    line-height: 2;
   }
 
-  .footer-blocks { display: flex; gap: 4px; }
-  .footer-blocks div { width: 13px; height: 13px; }
-
   @media print {
-    body { padding: 32px 40px; font-size: 13px; }
+    body {
+      padding: 32px 40px;
+      font-size: 13px;
+      background-image: none;
+    }
     .color-strip { display: none; }
   }
 
@@ -633,14 +657,12 @@
 </section>
 
 <footer class="resume-footer">
-  <span>sheljustdoes.github.io · Tucker, GA · Remote</span>
-  <div class="footer-blocks">
-    <div style="background:var(--indigo);"></div>
-    <div style="background:var(--terracotta);"></div>
-    <div style="background:var(--amber);"></div>
-    <div style="background:var(--forest);"></div>
+  <div class="f-mark">shel<span style="font-family:var(--display);font-weight:600;color:var(--charcoal);">.</span></div>
+  <div class="f-center">sheljustdoes.github.io &nbsp;·&nbsp; Atlanta Metro &nbsp;·&nbsp; Remote</div>
+  <div class="f-right">
+    ORCID 0000-0002-7339-1060<br>
+    shel.burkes
   </div>
-  <span>ORCID 0000-0002-7339-1060</span>
 </footer>
 
 </body>
