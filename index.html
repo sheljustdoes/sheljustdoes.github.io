@@ -236,15 +236,15 @@
 								data-title="argus."
 								data-date="2022–2023"
 								data-ai="4"
-								data-complexity="3"
-								data-tags="cnn, computer-vision, anomaly-detection, aws-sagemaker"
-								data-summary="Clinical imaging anomaly detection pipeline built around a convolutional neural network (CNN) trained on a broad set of non-anomalous images to learn normal patterns and flag anomalous captures before they enter downstream analysis workflows.">
+								data-complexity="4"
+								data-tags="cell-painting, anomaly-detection, autoencoder, isolation-forest, pytorch, umap"
+								data-summary="Dual-branch anomaly detection pipeline for 6-channel Cell Painting (RxRx3-core) microscopy images. UV channel (Hoechst/DNA) is processed by a convolutional autoencoder scored by reconstruction error; non-UV channels (ConA, Actin, Syto14, MitoTracker, WGA) use pre-computed OpenPhenom embeddings scored with Isolation Forest. Both branches are fused into a joint anomaly score, with a downstream perturbation-type classification head evaluated by ROC-AUC and UMAP visualization.">
 								<div class="event-card" style="
 									--card-color: var(--terracotta);
 									--card-text:  rgba(245,241,235,0.92);
 									--card-date:  rgba(245,241,235,0.7);">
 									<span class="date">2022–23</span>
-									<span class="label">argus.<br>Clinical Imaging QC<br>AWS SageMaker</span>
+									<span class="label">argus.<br>Cell Painting QC<br>Dual-Branch Pipeline</span>
 									</div>
 								</button>
 						</div>
@@ -261,16 +261,16 @@
 									data-kind="project"
 									data-title="iridis."
 									data-date="2024"
-									data-ai="3"
+									data-ai="2"
 									data-complexity="2"
-									data-tags="vision-transformers, computer-vision, clustering"
-									data-summary="Skin tone classification system using Vision Transformers and perceptual clustering. Produced a patentable approach to categorizing skin tone from clinical imaging data across diverse populations.">
+									data-tags="color-science, lab-space, ciede2000, clustering, skin-tone"
+									data-summary="Open-data research pipeline for skin-adjacent color analysis. Extracts robust CIE Lab/LCh features from images using median-based sampling, clusters them with MiniBatchKMeans, and merges nearby clusters using CIEDE2000 perceptual distance. Exports centroid-level and per-image feature tables alongside an interactive 3D Lab-space visualization.">
 									<div class="event-card" style="
 										--card-color: var(--terracotta);
 									--card-text:  rgba(30,28,26,0.9);
 									--card-date:  rgba(30,28,26,0.55);">
 									<span class="date">2024</span>
-									<span class="label">iridis.<br>Skin Tone Classification<br>Perceptual Clustering</span>
+									<span class="label">iridis.<br>Color Analysis<br>Lab/LCh Clustering</span>
 								</div>
 							</button>
 						</div>
@@ -287,16 +287,16 @@
 									data-kind="project"
 									data-title="lambent."
 									data-date="2025"
-									data-ai="5"
-									data-complexity="5"
-									data-tags="ml, data-science, imaging, measurement"
-									data-summary="Soft light radiance quantification system leveraging multiple deep learning methods to measure skin luminosity and surface light diffusion from imaging data, supporting efficacy validation and clinical evaluation workflows.">
+									data-ai="3"
+									data-complexity="4"
+									data-tags="color-science, feature-extraction, ita, skin-glow, supervised-modeling, face-regions"
+									data-summary="Open-image pipeline for estimating interpretable skin-glow proxy features from images. Extracts region-level color (Lab, ITA, hue), texture, and specular/reflectance signals across up to six face regions, aggregates to subject-level tables, and optionally fits supervised models when grading labels are provided. Supports folder-mode and manifest-mode ingestion.">
 									<div class="event-card" style="
 										--card-color: var(--terracotta);
 										--card-text:  rgba(30,28,26,0.9);
 										--card-date:  rgba(30,28,26,0.55);">
 									<span class="date">2025</span>
-									<span class="label">lambent.<br>Soft Light<br>Radiance Qualification</span>
+									<span class="label">lambent.<br>Skin Glow<br>Proxy Pipeline</span>
 									</div>
 								</button>
 						</div>
