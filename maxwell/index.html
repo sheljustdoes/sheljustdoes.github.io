@@ -1,0 +1,343 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Outfit:wght@300;400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  .page { background:#1A1816; font-family:'Outfit',sans-serif; }
+
+  /* NAV */
+  .nav {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:24px 48px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .nav-brand { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.18em; color:rgba(255,255,255,0.7); }
+  .nav-contact { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#B8C0DC; }
+  .nav-menu { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.35); }
+
+  /* HERO */
+  .hero {
+    padding:12px 48px 0;
+    min-height:400px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+
+  .hero-headline {
+    font-family:'Outfit',sans-serif;
+    font-weight:500;
+    font-size:clamp(64px,12vw,120px);
+    letter-spacing:-4px;
+    line-height:1.0;
+    color:#F8F6F2;
+  }
+
+  /* Service list */
+  .service-list {
+    padding:0 0 40px;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+
+  .sl-item {
+    font-family:'Outfit',sans-serif;
+    font-size:17px;
+    font-weight:400;
+    letter-spacing:-0.2px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:6px 0;
+    opacity:0.28;
+    cursor:pointer;
+    color:#F8F6F2;
+  }
+
+  .sl-item.active {
+    opacity:1;
+    color:#B8C0DC;
+    font-weight:500;
+  }
+
+  .sl-dot { width:5px; height:5px; border-radius:50%; background:#B8C0DC; flex-shrink:0; }
+  .sl-empty { width:5px; height:5px; flex-shrink:0; }
+
+  /* TAG ROW SECTION */
+  .tag-section {
+    background:#141210;
+    border-top:1px solid rgba(255,255,255,0.06);
+    padding:28px 48px;
+  }
+
+  .tag-section-label {
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.2);
+    display:block;
+    margin-bottom:16px;
+  }
+
+  .tag-row {
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  .tag {
+    font-family:'Outfit',sans-serif;
+    font-size:12px;
+    font-weight:500;
+    padding:7px 16px;
+    border-radius:999px;
+    letter-spacing:0.01em;
+    white-space:nowrap;
+  }
+
+  .t-terra  { background:#D4603A; color:#F5F1EB; }
+  .t-amber  { background:#E8A830; color:#1A1816; }
+  .t-blush  { background:#E8B4A2; color:#1A1816; }
+  .t-sage   { background:#C4D0B8; color:#1A1816; }
+  .t-forest { background:#2E5A45; color:#C4D0B8; }
+  .t-pale   { background:#B8C0DC; color:#1A1816; }
+  .t-cream  { background:#F5F1EB; color:#1A1816; }
+  .t-ghost  { background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.45); border:1px solid rgba(255,255,255,0.1); }
+
+  /* GRID SECTION */
+  .grid-section {
+    background:#1A1816;
+    border-top:1px solid rgba(255,255,255,0.06);
+    padding:48px 48px 52px;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
+    background-size:32px 32px;
+  }
+
+  .grid-label {
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.22);
+    display:block;
+    margin-bottom:32px;
+  }
+
+  .g-cols3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:rgba(255,255,255,0.06); margin-bottom:1px; }
+  .g-cols4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:1px; background:rgba(255,255,255,0.06); margin-bottom:1px; }
+  .g-cols2 { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(255,255,255,0.06); }
+
+  .cell { background:#1A1816; padding:28px 24px; }
+
+  .c-label {
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.22);
+    display:block;
+    margin-bottom:12px;
+  }
+
+  .c-big {
+    font-family:'Outfit',sans-serif;
+    font-weight:700;
+    font-size:clamp(28px,4.5vw,48px);
+    letter-spacing:-2px;
+    line-height:0.95;
+    color:#F8F6F2;
+    margin-bottom:8px;
+  }
+
+  .c-big.terra { color:#D4603A; }
+  .c-big.amber { color:#E8A830; }
+  .c-big.sage  { color:#C4D0B8; }
+  .c-big.pale  { color:#B8C0DC; }
+
+  .c-title {
+    font-family:'Outfit',sans-serif;
+    font-size:15px;
+    font-weight:600;
+    color:#F8F6F2;
+    margin-bottom:8px;
+    letter-spacing:-0.3px;
+  }
+
+  .c-wide {
+    font-family:'Outfit',sans-serif;
+    font-size:clamp(22px,3.5vw,36px);
+    font-weight:600;
+    letter-spacing:-1px;
+    line-height:1.1;
+    color:#F8F6F2;
+  }
+
+  .c-body {
+    font-family:'Outfit',sans-serif;
+    font-size:12px;
+    font-weight:300;
+    line-height:1.8;
+    color:rgba(255,255,255,0.38);
+  }
+
+  .c-mono {
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    color:rgba(255,255,255,0.28);
+    line-height:2.1;
+  }
+
+  /* FOOTER */
+  .footer {
+    background:#141210;
+    border-top:1px solid rgba(255,255,255,0.06);
+    padding:0 48px;
+    overflow:hidden;
+  }
+
+  .footer-top {
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:24px 0;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-meta { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; color:rgba(255,255,255,0.22); line-height:2.1; }
+  .footer-cta  { font-family:'Outfit',sans-serif; font-size:14px; font-weight:300; color:rgba(255,255,255,0.35); font-style:italic; }
+
+  .footer-bleed {
+    font-family:'Outfit',sans-serif;
+    font-weight:800;
+    font-size:clamp(88px,17vw,168px);
+    letter-spacing:-7px;
+    line-height:0.82;
+    color:rgba(255,255,255,0.04);
+    margin-bottom:-0.15em;
+    white-space:nowrap;
+    overflow:hidden;
+  }
+</style>
+
+<div class="page">
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="nav-brand">maxwell co/</div>
+    <div class="nav-contact">Contact</div>
+    <div class="nav-menu">Menu</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-headline">Our Work</div>
+    <div class="service-list">
+      <div class="sl-item"><div class="sl-empty"></div>All</div>
+      <div class="sl-item active"><div class="sl-dot"></div>Analytics Infrastructure</div>
+      <div class="sl-item"><div class="sl-empty"></div>AI Implementation</div>
+      <div class="sl-item"><div class="sl-empty"></div>Custom Built Solutions</div>
+      <div class="sl-item"><div class="sl-empty"></div>Research &amp; Strategy</div>
+    </div>
+  </div>
+
+  <!-- TAG ROW -->
+  <div class="tag-section">
+    <span class="tag-section-label">Specialties</span>
+    <div class="tag-row">
+      <span class="tag t-terra">Model deployment</span>
+      <span class="tag t-amber">Data pipelines</span>
+      <span class="tag t-sage">Dashboards</span>
+      <span class="tag t-blush">Fine-tuning</span>
+      <span class="tag t-pale">API integration</span>
+      <span class="tag t-forest">Data warehousing</span>
+      <span class="tag t-cream">Sprint delivery</span>
+      <span class="tag t-ghost">Production monitoring</span>
+      <span class="tag t-ghost">Custom tooling</span>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid-section">
+    <span class="grid-label">How we work</span>
+
+    <div class="g-cols3">
+      <div class="cell">
+        <span class="c-label">Approach</span>
+        <div class="c-wide">Built to run<br>without us.</div>
+      </div>
+      <div class="cell">
+        <span class="c-label">Philosophy</span>
+        <div class="c-body" style="font-size:13px;line-height:1.85;">We don't do vague strategy decks. We build the system, train the model, and ship the dashboard — leaving you with something durable that your team can own.</div>
+      </div>
+      <div class="cell">
+        <span class="c-label">Delivery</span>
+        <div class="c-body" style="font-size:13px;line-height:1.85;">Sprint-based with clear milestones. You see progress weekly. Every engagement ends with documented, maintainable work — not a dependency on us.</div>
+      </div>
+    </div>
+
+    <div class="g-cols4">
+      <div class="cell">
+        <span class="c-label">Model</span>
+        <div class="c-big terra">Sprint<br>based.</div>
+      </div>
+      <div class="cell">
+        <span class="c-label">Avg. engagement</span>
+        <div class="c-big amber">6–12<br>wks.</div>
+      </div>
+      <div class="cell">
+        <span class="c-label">Focus</span>
+        <div class="c-big sage">Ship &amp;<br>sustain.</div>
+      </div>
+      <div class="cell">
+        <span class="c-label">Output</span>
+        <div class="c-big pale">Runs in<br>prod.</div>
+      </div>
+    </div>
+
+    <div class="g-cols3">
+      <div class="cell">
+        <span class="c-label">01 — Analytics</span>
+        <div class="c-title">Infrastructure &amp; Pipelines</div>
+        <div class="c-body">Data warehouse setup, ETL pipelines, BI dashboards, and reporting systems built for real-world scale.</div>
+      </div>
+      <div class="cell">
+        <span class="c-label">02 — AI</span>
+        <div class="c-title">Implementation &amp; Deployment</div>
+        <div class="c-body">Model selection, fine-tuning, API integration, and production monitoring. From prototype to production.</div>
+      </div>
+      <div class="cell">
+        <span class="c-label">03 — Custom</span>
+        <div class="c-title">Bespoke Solutions</div>
+        <div class="c-body">Internal tools, automation workflows, and custom applications designed around your specific data and processes.</div>
+      </div>
+    </div>
+
+    <div class="g-cols2">
+      <div class="cell">
+        <span class="c-label">Start a project</span>
+        <div class="c-mono">hello@maxwellco.io<br>maxwellco.io</div>
+      </div>
+      <div class="cell">
+        <span class="c-label">Entity</span>
+        <div class="c-mono">Maxwell Co. LLC<br>Analytics &amp; AI Consulting<br>Est. 2026</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-top">
+      <div class="footer-meta">Maxwell Co. &nbsp;/&nbsp; Built to run.<br>hello@maxwellco.io</div>
+      <div class="footer-cta">Ready when you are.</div>
+    </div>
+    <div class="footer-bleed">Maxwell</div>
+  </div>
+
+</div>
