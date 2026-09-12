@@ -1,0 +1,21 @@
+# Next.js
+node_modules/
+.next/
+out/
+next-env.d.ts
+
+*.DS_Store
+*.html.html
+.render_temp_index.html.html
+.DS_Store
+.idea/ChatGPTCopilotChannelManager.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/shelvasha.github.io.iml
+.idea/vcs.xml
+.idea/workspace.xml
+.render_temp_index.html.html
+.well-known/
+.DS_Store
+.DS_Store

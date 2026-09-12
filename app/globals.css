@@ -1,0 +1,10 @@
+/* Intentionally minimal. Each route owns its own full stylesheet (matching
+   the original three separate static pages) to avoid cross-route CSS bleed.
+   Cross-page navigation uses plain anchor tags, not next/link, so a route
+   style tag is never left mounted underneath the next one. */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
