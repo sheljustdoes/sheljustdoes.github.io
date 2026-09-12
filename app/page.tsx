@@ -161,9 +161,7 @@ export default function HomePage() {
             <Trigger id="fitskin" variant="card" date="2021–25" label={<>Applied Scientist<br />Independent Consultant</>} style={roleCard("fitskin", "dusty-blue", false)} />
           </Column>
 
-          <Column dot={dotColor("argus")} projectBelow={<ProjectTrigger id="argus" label={<>argus.<br />Cell Painting QC<br />Dual-Branch Pipeline</>} />} />
           <Column dot={dotColor("iridis")} projectBelow={<ProjectTrigger id="iridis" label={<>iridis.<br />Color Analysis<br />Lab/LCh Clustering</>} />} />
-          <Column dot={dotColor("lambent")} projectBelow={<ProjectTrigger id="lambent" label={<>lambent.<br />Skin Glow<br />Proxy Pipeline</>} />} />
 
           <Column dot="indigo">
             <Trigger id="bi" variant="card" date="2025–Now" label={<>Principal Applied<br />Scientist<br />Boehringer Ingelheim</>} style={roleCard("bi", "indigo", false)} />
@@ -260,9 +258,7 @@ export default function HomePage() {
 function colorTokenFor(id: string): string {
   const map: Record<string, string> = {
     repbox: "dusty-blue",
-    argus: "terracotta",
     iridis: "terracotta",
-    lambent: "terracotta",
     veridian: "forest",
     topos: "indigo",
     scintilla: "amber",

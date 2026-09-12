@@ -206,10 +206,6 @@ export default function ResumePage() {
       <section>
         <div className="section-label">Selected Projects</div>
         <div className="projects-grid">
-          <Project accent="var(--terracotta)" name="lambent." tag="Radiance Qualification · 2025–" stat="Pearson r = 0.64 · 96.8% extreme-class accuracy">
-            Novel composite scoring system quantifying skin radiance — the first formalized computational measure of a property previously
-            assessed only qualitatively. Validated against expert grading using an optimized XGBoost ensemble.
-          </Project>
           <Project accent="var(--indigo)" name="iridis." tag="Perceptual Color Analysis · 2024–">
             Open-data pipeline extracting robust CIE Lab/LCh color features from ~17.8K dermatology images, clustering with MiniBatchKMeans
             and CIEDE2000 perceptual merging. Discovered clusters are ~2.5x more predictable than clinical Fitzpatrick labels from identical
@@ -222,10 +218,6 @@ export default function ResumePage() {
           <Project accent="var(--forest)" name="topos." tag="Stability-First Discovery Framework · 2025–">
             Stability-certified protocol for deciding when latent structure in high-dimensional biological data is real: perturbation
             stability, matched-model comparison, and explicit go/kill criteria before expensive escalation. Applied across three organisms.
-          </Project>
-          <Project accent="var(--dusty-blue)" name="argus." tag="Clinical Imaging QC · AWS SageMaker · 2022–">
-            CNN-based anomaly detection system for large clinical imaging databases. Deployed via AWS SageMaker with client-facing SDK for
-            real-time outlier identification.
           </Project>
           <Project accent="var(--sage)" name="recolo." tag="Agent Memory Architecture · 2026–">
             Bio-inspired memory framework for LLM agents: episodic and semantic memory stores, tunable decay, salience-based retrieval, and
