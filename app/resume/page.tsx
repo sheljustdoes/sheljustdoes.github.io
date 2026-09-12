@@ -206,16 +206,16 @@ export default function ResumePage() {
       <section>
         <div className="section-label">Selected Projects</div>
         <div className="projects-grid">
-          <Project accent="var(--indigo)" name="iridis." tag="Perceptual Color Analysis · 2024–">
+          <Project accent="var(--indigo)" name="iridis." tag="Perceptual Color Analysis · 2024–" href="/projects/iridis/">
             Open-data pipeline extracting robust CIE Lab/LCh color features from ~17.8K dermatology images, clustering with MiniBatchKMeans
             and CIEDE2000 perceptual merging. Discovered clusters are ~2.5x more predictable than clinical Fitzpatrick labels from identical
             features.
           </Project>
-          <Project accent="var(--indigo-pale)" name="veridian." tag="Research Cognition Engine · 2025–">
+          <Project accent="var(--indigo-pale)" name="veridian." tag="Research Cognition Engine · 2025–" href="/projects/veridian/">
             Corpus-grounded research cognition engine: retrieves PubMed literature, clusters and semantically summarizes it, grounds a
             user&apos;s own reasoning against the retrieved corpus, and builds a typed knowledge graph of clusters and entities.
           </Project>
-          <Project accent="var(--forest)" name="topos." tag="Stability-First Discovery Framework · 2025–">
+          <Project accent="var(--forest)" name="topos." tag="Stability-First Discovery Framework · 2025–" href="/projects/topos/">
             Stability-certified protocol for deciding when latent structure in high-dimensional biological data is real: perturbation
             stability, matched-model comparison, and explicit go/kill criteria before expensive escalation. Applied across three organisms.
           </Project>
@@ -304,6 +304,7 @@ function Project({
   tag,
   stat,
   wide,
+  href,
   children,
 }: {
   accent: string;
@@ -311,6 +312,7 @@ function Project({
   tag: string;
   stat?: string;
   wide?: boolean;
+  href?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -323,6 +325,11 @@ function Project({
         <div>
           <span className="project-stat">{stat}</span>
         </div>
+      )}
+      {href && (
+        <a className="project-link" href={href}>
+          Read the write-up →
+        </a>
       )}
     </div>
   );
@@ -387,6 +394,9 @@ section { margin-bottom: 40px; }
 .project-desc { font-family: var(--serif); font-size: 0.79rem; color: #5a5550; line-height: 1.6; }
 .project-stat { display: inline-block; margin-top: 8px; font-family: var(--display); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.01em;
   color: var(--amber); border: 1.5px solid var(--amber); background: transparent; padding: 3px 12px; border-radius: 999px; }
+.project-link { display: block; margin-top: 10px; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--terracotta); text-decoration: none; }
+.project-link:hover { text-decoration: underline; text-underline-offset: 2px; }
 .project.wide { grid-column: span 2; }
 .edu-row { display: grid; grid-template-columns: 148px 1fr auto; gap: 0 28px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--parchment); }
 .edu-row:last-child { border-bottom: none; }
