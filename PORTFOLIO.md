@@ -576,7 +576,9 @@ pure, unit-tested functions. Lesson code runs in the browser with Pyodide, loade
 first use, and the app and its catalog keep working offline. An end-to-end browser test
 runs a full lesson under the production security headers, with an accessibility scan of
 every screen. The first lesson, Probability, has been reviewed and ships as catalog release
-v0.1.0; the player serves it from a private deployment until the learner test.
+v0.1.0; the player serves it from a private deployment until the learner test. Its look
+comes from a brand stylesheet shared with ponere and lumen and served from this site, so
+one change restyles all three.
 
 ### lumen — the authoring pipeline behind scintilla
 **Status:** Implemented · Python; Claude API at authoring time only; veridian Check
@@ -616,7 +618,9 @@ lesson, Probability, passed validation on its first draft, and Check found every
 supported by its source. Reviewing it also surfaced a real defect: every correct answer sat
 in the same position. The validator now rejects that, and the pipeline varies it. After
 review, the lesson was published as the first immutable catalog release, v0.1.0: 35
-lessons listed, one available.
+lessons listed, one available. A local viewer shows each release as a shelf of subjects,
+one collapsible book per module with its lessons as chapters, and opens any published
+lesson's record: sources, Check verdicts, checkpoints and review.
 
 ### catasta — research-pipeline demo pattern
 **Status:** Designed (reference pattern) · FastAPI, Next.js, TypeScript
@@ -725,7 +729,8 @@ A single-user system for taking a rough idea to a published post: capture, a lif
 that moves ideas from draft to live to dormant so nothing sits untouched, platform-specific
 drafting shaped to how each platform actually works, and a log of what shipped where.
 AI-assisted drafting turns a rough capture into a platform-ready draft grounded in stored
-voice and platform notes — always a suggestion, never auto-published.
+voice and platform notes — always a suggestion, never auto-published. Its colours and
+typefaces come from the brand stylesheet it shares with scintilla and lumen.
 
 ### mara — multi-tenant pricing API
 **Status:** Shipped · Next.js route handlers, TypeScript, Postgres, Vercel Cron, Vitest
