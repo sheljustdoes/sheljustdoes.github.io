@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>veridian — literature check</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,300;0,400;0,500;0,600;0,700&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@300;400;500&display=swap');
+:root {
+  --cream:#F5F1EB; --parchment:#EAE4D9; --taupe:#C8BFB0; --charcoal:#1E1C1A;
+  --terracotta:#D4603A; --amber:#E8A830; --indigo:#3A4D8F; --forest:#2E5A45; --ink2:#6A6257;
+  --display:'Outfit', sans-serif; --serif:'Lora', Georgia, serif; --mono:'DM Mono', monospace;
+}
+* { box-sizing: border-box; }
+body { margin:0; background:var(--cream); color:var(--charcoal); font-family:var(--serif); }
+.wrap { max-width: 820px; margin: 0 auto; padding: 40px 16px 80px; }
+
+/* mono-is-utility */
+.banner, label, .meta, .tag, .status, footer, .score, .tabs button, .verdict, .stance, select { font-family: var(--mono); }
+.banner {
+  display:block; margin-bottom:28px; padding:10px 14px;
+  border:1px solid var(--terracotta); border-left-width:3px;
+  font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--terracotta);
+}
+/* display-is-structure */
+h1 { font-family:var(--display); font-size:2.4rem; font-weight:600; letter-spacing:-0.02em; margin:0 0 .3rem; }
+h2 { font-family:var(--display); font-size:1.25rem; font-weight:500; margin:0 0 .6rem; line-height:1.35; }
+.hit h3 { font-family:var(--display); font-size:1rem; font-weight:500; margin:0 0 .45rem; line-height:1.35; }
+/* serif-is-voice */
+.sub { font-size:0.95rem; color:var(--ink2); margin:0 0 2rem; }
+.lede { font-size:0.95rem; color:var(--ink2); margin:0 0 1.4rem; }
+
+.tabs { display:flex; gap:0; border-bottom:2px solid var(--charcoal); margin-bottom:1.8rem; }
+.tabs button { background:transparent; color:var(--ink2); border:none; border-bottom:3px solid transparent;
+               margin-bottom:-2px; padding:10px 16px 9px; }
+.tabs button[aria-selected="true"] { color:var(--charcoal); border-bottom-color:var(--terracotta); }
+[hidden] { display:none !important; }
+
+label { display:block; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink2); margin:0 0 .55rem; }
+textarea, input[type=text] {
+  width:100%; padding:13px 15px; font-family:var(--serif); font-size:1rem;
+  color:var(--charcoal); background:#FFFDF9; border:1px solid var(--taupe); border-radius:2px;
+}
+textarea { min-height:76px; resize:vertical; }
+textarea:focus, input:focus, select:focus { outline:none; border-color:var(--terracotta); }
+select { font-size:0.75rem; padding:9px 10px; background:#FFFDF9; border:1px solid var(--taupe); border-radius:2px; color:var(--charcoal); }
+.row { display:flex; gap:10px; align-items:center; margin-top:14px; flex-wrap:wrap; }
+button {
+  font-family:var(--mono); font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase;
+  padding:10px 18px; border-radius:2px; border:1px solid var(--charcoal);
+  background:var(--charcoal); color:var(--cream); cursor:pointer;
+}
+button.ghost { background:transparent; color:var(--charcoal); }
+button:disabled { opacity:.35; cursor:not-allowed; }
+.status { font-size:0.68rem; letter-spacing:0.06em; color:var(--ink2); }
+
+.source { display:flex; gap:18px; flex-wrap:wrap; margin-bottom:1.2rem; font-size:0.92rem; }
+.source label { display:flex; gap:7px; align-items:center; text-transform:none; letter-spacing:0; font-family:var(--serif);
+                font-size:0.92rem; color:var(--charcoal); margin:0; cursor:pointer; }
+.panel { border:1px solid var(--parchment); background:#FFFDF9; padding:16px 18px; margin-bottom:1.6rem; }
+.corpus-line { font-family:var(--mono); font-size:0.68rem; letter-spacing:0.05em; color:var(--ink2); margin-top:12px; }
+.bar { height:3px; background:var(--parchment); margin-top:10px; }
+.bar > i { display:block; height:100%; width:0; background:var(--terracotta); transition:width .15s; }
+
+.hit { background:#FFFDF9; border:1px solid var(--parchment); border-radius:2px; padding:16px 18px; margin-top:14px; }
+.meta { display:flex; gap:9px; flex-wrap:wrap; align-items:center; font-size:0.62rem;
+        letter-spacing:0.08em; text-transform:uppercase; color:var(--ink2); margin-bottom:.6rem; }
+.tag { border:1px solid var(--parchment); border-radius:999px; padding:2px 9px; }
+.score { color:var(--terracotta); font-variant-numeric:tabular-nums; font-weight:500; }
+.abs { font-size:0.9rem; color:var(--ink2); max-height:5.2em; overflow:hidden; }
+.note { border-left:2px solid var(--charcoal); padding:14px 18px; margin:2.5rem 0 0; background:var(--parchment); font-size:0.92rem; }
+.note b { font-family:var(--mono); font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; }
+a { color:var(--indigo); }
+footer { margin-top:3rem; padding-top:18px; border-top:2px solid var(--charcoal);
+         font-size:0.65rem; letter-spacing:0.05em; color:var(--ink2); }
+
+/* worked examples */
+.claims { display:flex; flex-direction:column; gap:6px; margin-bottom:1.6rem; }
+.claims button { text-align:left; text-transform:none; letter-spacing:0; font-family:var(--serif); font-size:0.9rem;
+                 background:#FFFDF9; color:var(--charcoal); border:1px solid var(--parchment);
+                 display:flex; gap:10px; align-items:baseline; padding:9px 12px; }
+.claims button[aria-pressed="true"] { border-color:var(--charcoal); border-left:3px solid var(--terracotta); }
+.claims .dot { flex:none; font-family:var(--mono); font-size:0.62rem; letter-spacing:0.06em; }
+.verdict { display:inline-block; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase;
+           padding:4px 10px; border:1px solid currentColor; border-radius:2px; }
+.v-supported { color:var(--forest); } .v-contradicted { color:var(--terracotta); }
+.v-contested { color:var(--amber); } .v-unsupported { color:var(--ink2); }
+.pair { display:flex; gap:22px; flex-wrap:wrap; align-items:center; margin:.8rem 0 1rem; }
+.pair span.k { font-family:var(--mono); font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink2); margin-right:8px; }
+.miss { font-family:var(--mono); font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--terracotta); }
+.keynote { font-size:0.88rem; color:var(--ink2); font-style:italic; margin:0 0 1rem; }
+blockquote { margin:.2rem 0 .6rem; padding:0 0 0 14px; border-left:2px solid var(--taupe); font-size:0.95rem; }
+.why { font-size:0.86rem; color:var(--ink2); }
+.stance { font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:500; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="banner">Prototype · the interface is provisional and not yet designed</div>
+  <h1>veridian</h1>
+  <p class="sub" id="sub">Loading…</p>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tab-examples" aria-selected="true" aria-controls="view-examples">Judged examples</button>
+    <button role="tab" id="tab-retrieve" aria-selected="false" aria-controls="view-retrieve">Retrieve evidence</button>
+  </div>
+
+  <!-- ───────────── judged examples ───────────── -->
+  <section id="view-examples" role="tabpanel">
+    <p class="lede" id="ex-lede">
+      The full Check pipeline — retrieve, select sentences, judge, decide — on held-out claims,
+      run offline with a hosted judge. Each verdict sits beside the answer-key label, and the
+      sentences are quoted from the papers, not written by the model.
+    </p>
+    <div class="corpus-line" style="margin:0 0 8px">● matches the key · ○ disagrees · colour is the verdict:
+      <span class="v-supported">supported</span> · <span class="v-contradicted">contradicted</span> ·
+      <span class="v-unsupported">unsupported</span></div>
+    <div class="claims" id="ex-list"></div>
+    <div id="ex-detail"></div>
+  </section>
+
+  <!-- ───────────── live retrieval ───────────── -->
+  <section id="view-retrieve" role="tabpanel" hidden>
+    <div class="source" role="radiogroup" aria-label="Corpus">
+      <label><input type="radio" name="src" value="demo" checked> Frozen demo corpus</label>
+      <label><input type="radio" name="src" value="live"> Any topic, live from PubMed</label>
+    </div>
+
+    <div class="panel" id="live-panel" hidden>
+      <label for="topic">PubMed search</label>
+      <input type="text" id="topic" placeholder="e.g. GLP-1 agonists alcohol use disorder">
+      <div class="row">
+        <select id="limit" aria-label="Number of papers">
+          <option value="10">10 papers</option>
+          <option value="25" selected>25 papers</option>
+          <option value="50">50 papers</option>
+        </select>
+        <button id="build">Build corpus</button>
+        <span class="status" id="build-status"></span>
+      </div>
+      <div class="bar" hidden id="bar"><i></i></div>
+    </div>
+    <div class="corpus-line" id="corpus-line"></div>
+
+    <div style="margin-top:1.4rem">
+      <label for="claim">Claim to ground</label>
+      <textarea id="claim">Metformin extends lifespan in humans.</textarea>
+      <div class="row">
+        <button id="go" disabled>Retrieve evidence</button>
+        <button id="flip" class="ghost" disabled>Negate the claim</button>
+        <span class="status" id="status"></span>
+      </div>
+    </div>
+
+    <div id="results"></div>
+
+    <div class="note">
+      <b>What this tab does and does not do.</b> It retrieves — it does not judge.
+      Everything runs in your browser: the demo corpus is precomputed, a live corpus is
+      fetched from PubMed and embedded on your machine, and your claim is embedded locally
+      with the same 23&nbsp;MB model. No key and no backend; the only requests are to
+      PubMed and, once, for the model.
+      <br><br>
+      Press <em>Negate the claim</em> and watch the same papers come back. That is not a
+      bug — a claim and its negation embed at cosine ≈ 0.93, so retrieval is a
+      <em>recall</em> device and cannot tell them apart. Deciding support versus
+      contradiction is a separate reading step; the <em>Judged examples</em> tab shows it.
+    </div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script type="module">
+import { AutoTokenizer, AutoModel, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.6';
+env.allowLocalModels = false;
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const statusEl = $('status');
+
+// ── tabs ──────────────────────────────────────────────────────────────
+for (const tab of document.querySelectorAll('[role=tab]')) {
+  tab.onclick = () => {
+    for (const t of document.querySelectorAll('[role=tab]')) {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on);
+      $(t.getAttribute('aria-controls')).hidden = !on;
+    }
+  };
+}
+
+// ── embedding model (shared by corpus building and claims) ────────────
+let payload, embedder = null;
+let corpus = { articles: [], vectors: [], label: '' };   // what retrieval searches
+let demoCorpus = null;
+
+function decodeVectors(b64, dim) {
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  const flat = new Float32Array(bytes.buffer);
+  const rows = [];
+  for (let i = 0; i < flat.length; i += dim) rows.push(flat.subarray(i, i + dim));
+  return rows;
+}
+
+async function getEmbedder(onStatus) {
+  if (embedder) return embedder;
+  const { model, max_length } = payload.embedding;
+  onStatus('loading embedding model (~23 MB, cached after first use)…');
+  const tokenizer = await AutoTokenizer.from_pretrained(model);
+  const net = await AutoModel.from_pretrained(model, { dtype: 'q8' });
+
+  // Mirrors OnnxEmbedder exactly: fixed-length padding, mean pooling over the
+  // attention mask, L2 normalize, one text at a time. The fixed length is not cosmetic —
+  // this model is int8-quantized and its output shifts with sequence length, so padding
+  // to the batch maximum instead would put this vector in a different space from the corpus.
+  embedder = async (text) => {
+    const enc = await tokenizer([text], { padding: 'max_length', max_length, truncation: true });
+    const out = await net(enc);
+    const h = out.last_hidden_state;
+    const [, seq, dim] = h.dims;
+    const mask = enc.attention_mask.data;
+    const vec = new Float32Array(dim);
+    let n = 0;
+    for (let i = 0; i < seq; i++) {
+      if (Number(mask[i]) === 0) continue;
+      n++;
+      for (let d = 0; d < dim; d++) vec[d] += h.data[i * dim + d];
+    }
+    let norm = 0;
+    for (let d = 0; d < dim; d++) { vec[d] /= n; norm += vec[d] * vec[d]; }
+    norm = Math.sqrt(norm) || 1;
+    for (let d = 0; d < dim; d++) vec[d] /= norm;
+    return vec;
+  };
+  return embedder;
+}
+
+// ── live PubMed corpus ────────────────────────────────────────────────
+// Same E-utilities calls and the same parsing rules as veridian/retrieval.py, done in the
+// browser: NCBI serves these endpoints with CORS open, so no proxy is needed. Unkeyed
+// requests are limited to 3 per second; a build makes two.
+const EUTILS = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/';
+const EVIDENCE_RANK = [
+  ['Meta-Analysis', 'synthesis'], ['Network Meta-Analysis', 'synthesis'], ['Systematic Review', 'synthesis'],
+  ['Practice Guideline', 'guideline'], ['Guideline', 'guideline'],
+  ['Randomized Controlled Trial', 'trial'], ['Controlled Clinical Trial', 'trial'], ['Clinical Trial', 'trial'],
+  ['Observational Study', 'observational'], ['Comparative Study', 'observational'],
+  ['Scoping Review', 'narrative_review'], ['Review', 'narrative_review'],
+  ['Case Reports', 'case_report'], ['Editorial', 'commentary'], ['Comment', 'commentary'], ['Letter', 'commentary'],
+];
+const evidenceType = (types) => (EVIDENCE_RANK.find(([l]) => types.includes(l)) || [, 'primary_study'])[1];
+
+function parsePubmed(xml) {
+  const doc = new DOMParser().parseFromString(xml, 'application/xml');
+  const out = [];
+  for (const node of doc.querySelectorAll('PubmedArticle')) {
+    const pmid = node.querySelector('PMID')?.textContent.trim();
+    const abstract = [...node.querySelectorAll('Abstract > AbstractText')].map((a) => {
+      const body = a.textContent.trim();
+      const label = a.getAttribute('Label');
+      return body && (label ? `${label}: ${body}` : body);
+    }).filter(Boolean).join(' ');
+    if (!pmid || !abstract) continue;            // like parse_articles: no abstract, no record
+    const yearText = node.querySelector('PubDate > Year')?.textContent
+      || node.querySelector('PubDate > MedlineDate')?.textContent?.slice(0, 4);
+    const types = [...node.querySelectorAll('PublicationType')].map((p) => p.textContent);
+    const mesh = [...node.querySelectorAll('MeshHeading')].map((h) => {
+      const d = h.querySelector('DescriptorName');
+      return d && {
+        term: d.textContent,
+        major: d.getAttribute('MajorTopicYN') === 'Y'
+          || [...h.querySelectorAll('QualifierName')].some((q) => q.getAttribute('MajorTopicYN') === 'Y'),
+      };
+    }).filter(Boolean);
+    out.push({
+      pmid, abstract, mesh, publication_types: types, evidence_type: evidenceType(types),
+      title: node.querySelector('ArticleTitle')?.textContent.trim() ?? '',
+      year: parseInt(yearText, 10) || null,
+      journal: node.querySelector('Journal > Title')?.textContent ?? null,
+    });
+  }
+  return out;
+}
+
+async function buildLiveCorpus() {
+  const topic = $('topic').value.trim();
+  if (!topic) return;
+  const limit = Number($('limit').value);
+  const say = (t) => { $('build-status').textContent = t; };
+  const bar = $('bar'), fill = bar.firstElementChild;
+  $('build').disabled = $('go').disabled = $('flip').disabled = true;
+  try {
+    say('searching PubMed…');
+    const q = new URLSearchParams({ db: 'pubmed', term: topic, retmax: limit, retmode: 'json', sort: 'relevance', tool: 'veridian-demo' });
+    const search = await (await fetch(EUTILS + 'esearch.fcgi?' + q)).json();
+    const ids = search.esearchresult?.idlist ?? [];
+    const total = Number(search.esearchresult?.count ?? 0);
+    if (!ids.length) { say('no papers matched that search'); return; }
+
+    say(`fetching ${ids.length} records…`);
+    const f = new URLSearchParams({ db: 'pubmed', id: ids.join(','), retmode: 'xml', tool: 'veridian-demo' });
+    const res = await fetch(EUTILS + 'efetch.fcgi?' + f);
+    if (!res.ok) throw new Error(`PubMed returned HTTP ${res.status}`);
+    const articles = parsePubmed(await res.text());
+    if (!articles.length) { say('none of the matches has an abstract'); return; }
+
+    const embed = await getEmbedder(say);
+    bar.hidden = false;
+    const vectors = [];
+    const t0 = performance.now();
+    for (let i = 0; i < articles.length; i++) {
+      say(`embedding ${i + 1} / ${articles.length} on this machine…`);
+      fill.style.width = `${((i + 1) / articles.length) * 100}%`;
+      vectors.push(await embed(`${articles[i].title} ${articles[i].abstract}`));
+    }
+    corpus = {
+      articles, vectors,
+      label: `${articles.length} abstracts for “${topic}” — top ${ids.length} of ${total.toLocaleString()} PubMed matches by relevance, `
+        + `${ids.length - articles.length} skipped for having no abstract · embedded in ${((performance.now() - t0) / 1000).toFixed(1)} s`,
+    };
+    $('corpus-line').textContent = corpus.label;
+    say('ready');
+  } catch (err) {
+    say(`failed: ${err.message}`);
+  } finally {
+    bar.hidden = true; fill.style.width = '0';
+    $('build').disabled = false;
+    if (corpus.articles.length) $('go').disabled = $('flip').disabled = false;
+  }
+}
+
+function useSource(src) {
+  $('live-panel').hidden = src !== 'live';
+  $('results').innerHTML = '';
+  if (src === 'demo') {
+    corpus = demoCorpus;
+  } else {
+    corpus = { articles: [], vectors: [], label: 'No live corpus yet — search a topic above.' };
+  }
+  $('corpus-line').textContent = corpus.label;
+  $('go').disabled = $('flip').disabled = !corpus.articles.length;
+}
+
+// ── retrieval over whichever corpus is active ─────────────────────────
+function render(hits) {
+  $('results').innerHTML = hits.map(({ article, score }) => {
+    const mesh = (article.mesh || []).filter((m) => m.major).slice(0, 4)
+      .map((m) => `<span class="tag">${esc(m.term)}</span>`).join('');
+    return `<div class="hit">
+      <h3>${esc(article.title)}</h3>
+      <div class="meta">
+        <span class="score">${score.toFixed(3)}</span>
+        <span class="tag">${esc(article.evidence_type.replace(/_/g, ' '))}</span>
+        <span>${esc(article.year ?? '')} · ${esc(article.journal ?? '')}</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/${esc(article.pmid)}/" target="_blank" rel="noopener">PMID ${esc(article.pmid)}</a>
+        ${mesh}
+      </div>
+      <div class="abs">${esc(article.abstract)}</div>
+    </div>`;
+  }).join('');
+}
+
+async function retrieve() {
+  const claim = $('claim').value.trim();
+  if (!claim || !corpus.articles.length) return;
+  $('go').disabled = true;
+  try {
+    const embed = await getEmbedder((t) => { statusEl.textContent = t; });
+    statusEl.textContent = 'embedding claim…';
+    const t0 = performance.now();
+    const q = await embed(claim);
+    const scored = corpus.vectors.map((v, i) => {
+      let dot = 0;
+      for (let d = 0; d < q.length; d++) dot += v[d] * q[d];
+      return { article: corpus.articles[i], score: dot };
+    });
+    scored.sort((a, b) => b.score - a.score);
+    render(scored.slice(0, 5));
+    statusEl.textContent = `${Math.round(performance.now() - t0)} ms, in-browser`;
+  } catch (err) {
+    statusEl.textContent = `failed: ${err.message}`;
+  } finally {
+    $('go').disabled = false;
+  }
+}
+
+function negate(text) {
+  const swaps = [
+    [/\bdoes not\b/i, 'does'], [/\bdo not\b/i, 'do'], [/\bis not\b/i, 'is'],
+    [/\bare not\b/i, 'are'], [/\bno longer\b/i, 'still'],
+    [/\bextends\b/i, 'does not extend'], [/\breduces\b/i, 'does not reduce'],
+    [/\bincreases\b/i, 'does not increase'], [/\bimproves\b/i, 'does not improve'],
+    [/\bprevents\b/i, 'does not prevent'], [/\bcauses\b/i, 'does not cause'],
+  ];
+  for (const [re, to] of swaps) if (re.test(text)) return text.replace(re, to);
+  return text.replace(/\.$/, '') + ' — this is not the case.';
+}
+
+// ── judged examples ───────────────────────────────────────────────────
+const vbadge = (v) => `<span class="verdict v-${esc(v)}">${esc(v)}</span>`;
+
+function showExample(ex, button, scroll = false) {
+  for (const b of $('ex-list').children) b.setAttribute('aria-pressed', b === button);
+  const flags = [ex.null_result && 'the only evidence is a null result, which the key counts as unsupported',
+                 ex.secondhand && 'the evidence is a review’s synthesis, flagged second-hand'].filter(Boolean);
+  const evidence = ex.evidence.length ? ex.evidence.map((e) => `<div class="hit">
+      <div class="meta">
+        <span class="stance v-${e.stance === 'supports' ? 'supported' : 'contradicted'}">${esc(e.stance)}</span>
+        ${e.section ? `<span class="tag">${esc(e.section.toLowerCase())}</span>` : ''}
+        ${e.population ? `<span class="tag">${esc(e.population)}</span>` : ''}
+        ${e.evidence_type ? `<span class="tag">${esc(e.evidence_type.replace(/_/g, ' '))}</span>` : ''}
+        <span>${esc(e.year ?? '')}</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/${esc(e.pmid)}/" target="_blank" rel="noopener">PMID ${esc(e.pmid)}</a>
+      </div>
+      <h3>${esc(e.title)}</h3>
+      <blockquote>${esc(e.quote)}</blockquote>
+      <div class="why">${esc(e.reasoning)}</div>
+    </div>`).join('')
+    : `<p class="keynote">No sentence was judged to support or contradict the claim.</p>`;
+  $('ex-detail').innerHTML = `
+    <h2>${esc(ex.claim)}</h2>
+    <div class="pair">
+      <div><span class="k">Verdict</span>${vbadge(ex.verdict)}</div>
+      <div><span class="k">Answer key</span>${vbadge(ex.key)}</div>
+      ${ex.agrees ? '' : '<span class="miss">disagrees with the key</span>'}
+    </div>
+    ${ex.key_notes ? `<p class="keynote">Key note: ${esc(ex.key_notes)}</p>` : ''}
+    ${flags.length ? `<p class="keynote">${esc(flags.join('; '))}.</p>` : ''}
+    <div class="corpus-line">Read ${ex.sentences_read} sentences from ${ex.papers_read} papers · ${ex.evidence.length} judged as evidence</div>
+    ${evidence}`;
+  if (scroll) $('ex-detail').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function loadExamples() {
+  const res = await fetch('examples.json');
+  if (!res.ok) throw new Error(`examples.json — HTTP ${res.status}`);
+  const data = await res.json();
+  const { agree, n } = data.agreement;
+  $('ex-lede').insertAdjacentHTML('beforeend',
+    ` <br><br>This page shows one fresh run with <code>${esc(data.judge)}</code>: ${agree} of ${n} verdicts match the key.
+      The published accuracy — 86% on these 21 claims — comes from the single scored run; the
+      judge is not deterministic, so a verdict here can differ from it.`);
+  for (const ex of data.examples) {
+    const b = document.createElement('button');
+    b.innerHTML = `<span class="dot v-${esc(ex.verdict)}">${ex.agrees ? '●' : '○'}</span><span>${esc(ex.claim)}</span>`;
+    b.title = ex.agrees ? 'matches the answer key' : 'disagrees with the answer key';
+    b.onclick = () => showExample(ex, b, true);
+    $('ex-list').append(b);
+  }
+  const first = data.examples.find((e) => e.evidence.length) || data.examples[0];
+  showExample(first, $('ex-list').children[data.examples.indexOf(first)]);
+}
+
+// ── boot ──────────────────────────────────────────────────────────────
+(async () => {
+  try {
+    const res = await fetch('payload.json');
+    if (!res.ok) throw new Error(`payload.json — HTTP ${res.status}`);
+    payload = await res.json();
+    demoCorpus = {
+      articles: payload.articles,
+      vectors: decodeVectors(payload.vectors_base64, payload.embedding.dim),
+      label: `${payload.articles.length} PubMed abstracts · query: ${payload.query} · frozen ${payload.built_at}`
+        + (payload.corpus_digest ? ` · digest ${payload.corpus_digest}` : ''),
+    };
+    $('sub').textContent = 'Check a claim against the literature, with the sentences behind the verdict.';
+    $('foot').innerHTML =
+      `Embeddings: <code>${esc(payload.embedding.model)}</code> (${esc(payload.embedding.dtype)}, ` +
+      `${payload.embedding.dim}d, padded to ${payload.embedding.max_length}). ` +
+      `The demo corpus is embedded offline in Python with the identical ONNX weights — the two runtimes ` +
+      `agree to cosine 1.000000, which is checked by a test.`;
+    useSource('demo');
+  } catch (err) {
+    $('sub').textContent = `Could not load the corpus: ${err.message}`;
+    $('sub').style.color = 'var(--terracotta)';
+  }
+  loadExamples().catch((err) => { $('ex-detail').textContent = `Could not load the examples: ${err.message}`; });
+})();
+
+for (const r of document.querySelectorAll('input[name=src]')) r.onchange = () => useSource(r.value);
+$('build').onclick = buildLiveCorpus;
+$('topic').onkeydown = (e) => { if (e.key === 'Enter') buildLiveCorpus(); };
+$('go').onclick = retrieve;
+$('flip').onclick = () => { $('claim').value = negate($('claim').value); retrieve(); };
+</script>
+</body>
+</html>
