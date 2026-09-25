@@ -1,0 +1,83 @@
+/* sheljustdoes brand tokens: the one place the apps' look is defined.
+   Served at https://sheljustdoes.github.io/brand/tokens.css and linked at runtime by
+   scintilla, ponere and lumen's viewer, so a change here restyles all of them with the
+   next Pages deploy. Apps keep their own layout CSS but take every colour, typeface and
+   radius from here. See README.md in this folder before renaming or removing a token. */
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500;600;700&display=swap");
+
+:root {
+  /* Surfaces, lightest to darkest */
+  --surface: #FFFFFF;          /* cards */
+  --canvas: #FAF8F4;           /* page */
+  --band: #F2EFE8;             /* bars, headers, grouped areas */
+  --sunken: #EDEAE3;           /* wells, inputs, quiet fills */
+  --tile-off: #EFEDE8;         /* empty steppers and grid cells */
+
+  /* Ink. All three meet WCAG AA on --canvas, --band and --surface. */
+  --ink: #16140F;
+  --ink-2: #4A4640;
+  --ink-3: #655F55;
+  --on-dark: #FFFFFF;          /* text on an --ink or accent fill */
+
+  /* Rules */
+  --rule: #E4DFD5;
+  --rule-strong: #CFC8BB;
+
+  /* Accents. Terracotta is the brand colour; the rest are used sparingly. */
+  --terracotta: #A8431F;
+  --terracotta-tint: #F6DDD2;
+  --forest: #2E5A45;
+  --indigo: #3A4D8F;
+  --amber: #B07D1A;
+  --dusty-blue: #5F7399;
+
+  /* Pastel tints for chips, tiles and charts */
+  --tint-sage: #D5E4DA;
+  --tint-blush: #F4D9D1;
+  --tint-indigo: #D9DEF0;
+  --tint-amber: #F6E6BE;
+  --tint-rose: #EBD7D2;
+  --tint-stone: #E2DED6;
+  --tint-sky: #D6E6F0;
+  --hl-term: #F6E6BE;
+
+  /* Type */
+  --display: "Outfit", system-ui, sans-serif;   /* interface and headings */
+  --serif: "Lora", Georgia, serif;              /* reading text and asides */
+  --mono: "DM Mono", ui-monospace, monospace;   /* labels, numbers, code */
+
+  /* Shape */
+  --radius: 14px;
+  --radius-sm: 9px;
+  --radius-pill: 999px;
+
+  color-scheme: light;
+}
+
+/* Dark theme: follows the system unless the page sets data-theme="light" on <html>;
+   data-theme="dark" forces it. An app without dark styles should set data-theme="light". */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface: #232220; --canvas: #171614; --band: #1D1C19; --sunken: #2A2826; --tile-off: #2C2A27;
+    --ink: #F1EEE8; --ink-2: #C9C4BA; --ink-3: #B3ADA4; --on-dark: #16140F;
+    --rule: #34322E; --rule-strong: #4A4742;
+    --terracotta: #E77A55; --terracotta-tint: #4A2A1F;
+    --forest: #7FB89B; --indigo: #9BACE6; --amber: #E3B350; --dusty-blue: #9DB0D6;
+    --tint-sage: #2C3B32; --tint-blush: #432F2A; --tint-indigo: #2D3350; --tint-amber: #43391F;
+    --tint-rose: #3F2F2B; --tint-stone: #34312C; --tint-sky: #283A45;
+    --hl-term: #4A3F1F;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --surface: #232220; --canvas: #171614; --band: #1D1C19; --sunken: #2A2826; --tile-off: #2C2A27;
+  --ink: #F1EEE8; --ink-2: #C9C4BA; --ink-3: #B3ADA4; --on-dark: #16140F;
+  --rule: #34322E; --rule-strong: #4A4742;
+  --terracotta: #E77A55; --terracotta-tint: #4A2A1F;
+  --forest: #7FB89B; --indigo: #9BACE6; --amber: #E3B350; --dusty-blue: #9DB0D6;
+  --tint-sage: #2C3B32; --tint-blush: #432F2A; --tint-indigo: #2D3350; --tint-amber: #43391F;
+  --tint-rose: #3F2F2B; --tint-stone: #34312C; --tint-sky: #283A45;
+  --hl-term: #4A3F1F;
+  color-scheme: dark;
+}

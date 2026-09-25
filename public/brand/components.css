@@ -1,0 +1,89 @@
+/* sheljustdoes brand components: shared, opt-in building blocks on top of tokens.css.
+   Every class starts with "b-" so it never collides with an app's own classes. Link
+   tokens.css first. */
+
+/* ---- Labels ---- */
+.b-eyebrow {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
+}
+.b-meta { font-family: var(--display); font-size: 13px; color: var(--ink-3); }
+.b-wordmark { font-family: var(--display); font-weight: 700; letter-spacing: -0.04em; color: var(--ink); }
+.b-wordmark::after { content: "."; color: var(--terracotta); }
+
+/* ---- Pills and chips ---- */
+.b-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--display); font-size: 12px; font-weight: 500; line-height: 1;
+  padding: 5px 10px; border-radius: var(--radius-pill);
+  border: 1px solid var(--rule-strong); color: var(--ink-2); background: transparent;
+  white-space: nowrap;
+}
+.b-pill.is-ok { background: var(--tint-sage); border-color: transparent; color: var(--forest); }
+.b-pill.is-accent { background: var(--terracotta-tint); border-color: transparent; color: var(--terracotta); }
+.b-pill.is-muted { background: var(--tile-off); border-color: transparent; color: var(--ink-3); }
+
+.b-button {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  font-family: var(--display); font-size: 14px; font-weight: 500;
+  padding: 10px 18px; border-radius: var(--radius-pill);
+  border: 1px solid var(--ink); background: var(--ink); color: var(--on-dark);
+}
+.b-button.is-ghost { background: transparent; color: var(--ink); border-color: var(--rule-strong); }
+
+/* ---- Cards ---- */
+.b-card {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: var(--radius); padding: 20px 22px;
+}
+
+/* ---- Dot stepper: one dot per item, filled when done ---- */
+.b-dots { display: inline-flex; gap: 4px; }
+.b-dots > i { width: 8px; height: 8px; border-radius: 50%; background: var(--tile-off); border: 1px solid var(--rule-strong); }
+.b-dots > i.is-on { background: var(--forest); border-color: var(--forest); }
+
+/* ---- Book: a collapsible subject whose chapters are listed when open ----
+   <details class="b-book">
+     <summary class="b-book-head">
+       <span class="b-book-num">01</span>
+       <span class="b-book-title">Title<span class="b-meta">5 chapters</span></span>
+       <span class="b-book-aside">…</span>
+     </summary>
+     <ol class="b-chapters"><li class="b-chapter">…</li></ol>
+   </details> */
+.b-book {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: var(--radius); margin: 12px 0; overflow: hidden;
+}
+.b-book-head {
+  display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 16px;
+  padding: 18px 22px; cursor: pointer; list-style: none;
+}
+.b-book-head::-webkit-details-marker { display: none; }
+.b-book-head::after {
+  content: ""; width: 9px; height: 9px; margin: 0 4px 4px 0;
+  border-right: 2px solid var(--ink-3); border-bottom: 2px solid var(--ink-3);
+  transform: rotate(45deg); transition: transform 0.2s ease;
+}
+.b-book[open] > .b-book-head::after { transform: rotate(225deg); margin: 4px 4px 0 0; }
+.b-book[open] > .b-book-head { border-bottom: 1px solid var(--rule); background: var(--band); }
+.b-book-head:hover { background: var(--band); }
+.b-book-num { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--terracotta); min-width: 2ch; }
+.b-book-title { display: flex; flex-direction: column; gap: 2px; font-family: var(--display); font-size: 18px; font-weight: 500; color: var(--ink); }
+.b-book-aside { display: flex; align-items: center; gap: 10px; }
+
+.b-chapters { list-style: none; margin: 0; padding: 0; }
+.b-chapter { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: start; padding: 14px 22px; border-top: 1px solid var(--rule); }
+.b-chapter:first-child { border-top: 0; }
+.b-chapter > :last-child:not(:nth-child(2)) { justify-self: end; }
+.b-chapter-num { font-family: var(--mono); font-size: 12px; color: var(--ink-3); padding-top: 3px; min-width: 3ch; }
+.b-chapter-title { font-family: var(--display); font-size: 15px; font-weight: 500; color: var(--ink); }
+.b-chapter-body { font-family: var(--serif); font-size: 14px; line-height: 1.55; color: var(--ink-2); margin-top: 2px; }
+
+@media (max-width: 560px) {
+  .b-book-head { grid-template-columns: auto 1fr auto; padding: 16px; gap: 12px; }
+  .b-book-aside { grid-column: 2 / 3; grid-row: 2; }
+  .b-chapter { grid-template-columns: auto 1fr; padding: 12px 16px; }
+  .b-chapter > :last-child:not(:nth-child(2)) { grid-column: 2; justify-self: start; }
+}
+@media (prefers-reduced-motion: reduce) { .b-book-head::after { transition: none; } }

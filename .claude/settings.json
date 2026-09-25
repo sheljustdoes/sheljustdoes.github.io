@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git push*)",
+            "command": "/Users/shel/Github/sheljustdoes/sheljustdoes.github.io/scripts/squash-history.sh",
+            "timeout": 60,
+            "statusMessage": "Checking commit history depth..."
+          }
+        ]
+      }
+    ]
+  }
+}

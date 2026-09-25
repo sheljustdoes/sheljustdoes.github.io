@@ -1,0 +1,526 @@
+{
+ "built_at": "2026-09-24",
+ "corpus_digest": "a6d0da333db4",
+ "answer_key": "df63cd1532dc",
+ "split": "heldout",
+ "judge": "claude-opus-5",
+ "config": {
+  "retrieval": "sentence",
+  "top_k": 8,
+  "sentences_per_article": 3
+ },
+ "agreement": {
+  "agree": 19,
+  "n": 21
+ },
+ "examples": [
+  {
+   "id": "h01",
+   "claim": "Metformin increases leukocyte telomere length compared with placebo in adults with prediabetes.",
+   "key": "supported",
+   "key_notes": "Placebo-controlled RCT — the design c34 lacked, so the effect claim is supported here.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "supported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "41661273",
+     "stance": "supports",
+     "quote": "Metformin is associated with decreased telomere attrition and increased telomeric protein RAP1 expression in both diabetic patients and in the fibroblast model.",
+     "reasoning": "Asserts the paper's own finding that metformin is associated with decreased telomere attrition (i.e., greater preserved telomere length) in human patients, directionally consistent with the claim, though in diabetic rather than prediabetic subjects.",
+     "section": null,
+     "title": "Metformin exhibits gender specific impact on telomere dynamics by enhancing RAP1 expression in type-2 diabetes mellitus.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "cells in vitro"
+    },
+    {
+     "pmid": "41661273",
+     "stance": "supports",
+     "quote": "Compared to healthy volunteers, telomere attrition was markedly reduced in diabetic patients who were on metformin.",
+     "reasoning": "Reports the study's own result that telomere attrition was markedly reduced in metformin-treated patients versus healthy controls, directionally consistent with metformin preserving/lengthening leukocyte telomeres.",
+     "section": null,
+     "title": "Metformin exhibits gender specific impact on telomere dynamics by enhancing RAP1 expression in type-2 diabetes mellitus.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "cells in vitro"
+    }
+   ]
+  },
+  {
+   "id": "h02",
+   "claim": "Metformin shortens leukocyte telomere length in adults with prediabetes.",
+   "key": "contradicted",
+   "key_notes": "Opposite direction of h01.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "contradicted",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "41661273",
+     "stance": "contradicts",
+     "quote": "Metformin is associated with decreased telomere attrition and increased telomeric protein RAP1 expression in both diabetic patients and in the fibroblast model.",
+     "reasoning": "The paper's own finding is that metformin is associated with decreased telomere attrition (i.e., preservation of telomere length) in patients, the opposite direction of telomere shortening claimed.",
+     "section": null,
+     "title": "Metformin exhibits gender specific impact on telomere dynamics by enhancing RAP1 expression in type-2 diabetes mellitus.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "cells in vitro"
+    },
+    {
+     "pmid": "41661273",
+     "stance": "contradicts",
+     "quote": "Compared to healthy volunteers, telomere attrition was markedly reduced in diabetic patients who were on metformin.",
+     "reasoning": "Reports markedly reduced telomere attrition in metformin-treated patients, i.e., less shortening, which is the opposite effect from that claimed.",
+     "section": null,
+     "title": "Metformin exhibits gender specific impact on telomere dynamics by enhancing RAP1 expression in type-2 diabetes mellitus.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "cells in vitro"
+    }
+   ]
+  },
+  {
+   "id": "h03",
+   "claim": "Metformin use is associated with a higher incidence of hypomagnesemia.",
+   "key": "supported",
+   "key_notes": "Association, consistent pre- and post-propensity matching.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "supported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "42221780",
+     "stance": "supports",
+     "quote": "Furthermore, elevated levels of HbA1c and the administra-tion of metformin were associated with a higher incidence of hypomagnesemia, corroborating both pre-PSM and post-PSM analyses.",
+     "reasoning": "Directly reports metformin administration associated with higher incidence of hypomagnesemia in humans.",
+     "section": "RESULTS",
+     "title": "Sodium-glucose co-transporter 2 inhibitors are negatively correlated with hypomagnesemia in elderly patients with type 2 diabetes.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "humans"
+    }
+   ]
+  },
+  {
+   "id": "h04",
+   "claim": "Metformin use is associated with a lower incidence of hypomagnesemia.",
+   "key": "contradicted",
+   "key_notes": "Opposite direction of h03.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "contradicted",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "42221780",
+     "stance": "contradicts",
+     "quote": "Furthermore, elevated levels of HbA1c and the administra-tion of metformin were associated with a higher incidence of hypomagnesemia, corroborating both pre-PSM and post-PSM analyses.",
+     "reasoning": "The study's own results state metformin administration was associated with a HIGHER incidence of hypomagnesemia, the opposite direction of the claim.",
+     "section": "RESULTS",
+     "title": "Sodium-glucose co-transporter 2 inhibitors are negatively correlated with hypomagnesemia in elderly patients with type 2 diabetes.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "humans"
+    }
+   ]
+  },
+  {
+   "id": "h05",
+   "claim": "Metformin alters autophagy flux in chemotherapy-treated muscle cells.",
+   "key": "unsupported",
+   "key_notes": "Null hidden inside a sentence led by another drug: 'Rapamycin, but not metformin'.",
+   "null_result": true,
+   "secondhand": false,
+   "verdict": "unsupported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": []
+  },
+  {
+   "id": "h06",
+   "claim": "Metformin attenuates cardiac fibrosis in aged Apoe-deficient mice.",
+   "key": "supported",
+   "key_notes": "Mouse study.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "supported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "42587816",
+     "stance": "supports",
+     "quote": "These findings were corroborated in aged Apoe-/- mice, where metformin reduced the expression of cardiac fibroblast differentiation markers and enhanced FAO-associated markers.",
+     "reasoning": "Own in vivo result: in aged Apoe-/- mice metformin reduced cardiac fibroblast differentiation markers, directly supporting attenuation of cardiac fibrosis in that model.",
+     "section": null,
+     "title": "Metformin Inhibits Cardiac Fibroblast Differentiation by Promoting Fatty Acid β-Oxidation: Implications for Age-Associated Cardiac Fibrosis.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "animals"
+    },
+    {
+     "pmid": "42727477",
+     "stance": "supports",
+     "quote": "Treatment with Mito-Esc or metformin significantly attenuated cardiac hypertrophy, fibrosis, inflammation, and oxidative stress in aged Apoe-/- mice.",
+     "reasoning": "Paper's own result states metformin significantly attenuated cardiac fibrosis in aged Apoe-/- mice.",
+     "section": null,
+     "title": "Mitochondria-targeted esculetin mitigates age-associated cardiac remodeling through coordinated activation of AMPK-SIRT1 and inhibition of p38 MAPK signaling.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "cells in vitro"
+    },
+    {
+     "pmid": "42587816",
+     "stance": "supports",
+     "quote": "Collectively, our findings demonstrate that metformin suppresses cardiac fibroblast differentiation and senescence by preserving mitochondrial bioenergetics through FAO-dependent mechanisms, revealing a metabolic basis for its anti-fibrotic actions and supporting its therapeutic potential in age-related cardiovascular disease.",
+     "reasoning": "Conclusion of the same study asserting metformin's anti-fibrotic actions via suppression of cardiac fibroblast differentiation, a finding derived in part from aged Apoe-/- mice.",
+     "section": null,
+     "title": "Metformin Inhibits Cardiac Fibroblast Differentiation by Promoting Fatty Acid β-Oxidation: Implications for Age-Associated Cardiac Fibrosis.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "animals"
+    }
+   ]
+  },
+  {
+   "id": "h07",
+   "claim": "Metformin reduces cardiac fibrosis in older adults.",
+   "key": "unsupported",
+   "key_notes": "Population trap: the evidence is aged mice.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "unsupported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": []
+  },
+  {
+   "id": "h08",
+   "claim": "Metformin protects C. elegans from streptococcal-derived hydrogen peroxide.",
+   "key": "supported",
+   "key_notes": "Worm study.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "supported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "42503569",
+     "stance": "supports",
+     "quote": "Pretreatment of worms with metformin provided significant dose-dependent protection from streptococcal-derived H2O2.",
+     "reasoning": "Directly states metformin pretreatment gave dose-dependent protection of worms from streptococcal-derived H2O2, matching the claim.",
+     "section": null,
+     "title": "p38 MAPK and MDT-15 mediate SKN-1-dependent metformin-induced protection against mitis group streptococci in Caenorhabditis elegans.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "mice"
+    }
+   ]
+  },
+  {
+   "id": "h09",
+   "claim": "Metformin prevents excessive age-associated weight gain in middle-aged mice.",
+   "key": "supported",
+   "key_notes": "Mouse study.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "supported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "41954672",
+     "stance": "supports",
+     "quote": "Metformin-treated middle-aged mice maintained body weight comparable to that of young adult controls, preventing excessive age-associated weight gain.",
+     "reasoning": "Directly states metformin-treated middle-aged mice prevented excessive age-associated weight gain, matching the claim and population.",
+     "section": null,
+     "title": "Metformin promotes healthspan by attenuating frailty and preserving musculoskeletal function-structure in middle-aged mice.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "animals"
+    }
+   ]
+  },
+  {
+   "id": "h10",
+   "claim": "Metformin preserves musculoskeletal integrity in older adults.",
+   "key": "unsupported",
+   "key_notes": "Population trap: 'in middle-aged mice'.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "contradicted",
+   "agrees": false,
+   "sentences_read": 22,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "41751275",
+     "stance": "contradicts",
+     "quote": "In contrast, randomized interventional trials in metabolically healthy older adults indicate that metformin can blunt resistance exercise-induced muscle hypertrophy and protein synthesis, likely through sustained activation of AMP-activated protein kinase (AMPK) and consequent suppression of mammalian target of rapamycin complex 1 (mTORC1) signaling.",
+     "reasoning": "Synthesizes randomized trials in older adults showing metformin blunts exercise-induced muscle hypertrophy and protein synthesis, an effect opposite to preserving musculoskeletal integrity.",
+     "section": null,
+     "title": "Metformin for Longevity and Sarcopenia: A Therapeutic Paradox in Aging.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "humans"
+    }
+   ]
+  },
+  {
+   "id": "h11",
+   "claim": "Metformin extends average lifespan in vertebrates as effectively as rapamycin.",
+   "key": "unsupported",
+   "key_notes": "Closest call in either key. 41759197's own findings concern variance in age at death; 'metformin is less effective' describes a meta-analysis (Aging Cell 2025, PMID 40532901) that is NOT in the corpus, cited in passing — background under rule 1, so unsupported. Shel's check: outside the corpus that meta-analysis and the NIA ITP found metformin did not significantly extend vertebrate or mouse lifespan.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "contradicted",
+   "agrees": false,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "41759197",
+     "stance": "contradicts",
+     "quote": "A recent meta-analysis of vertebrate data found that dietary restriction (DR) and the DR-mimetic, rapamycin, generally increase the average age-at-death, while metformin (also considered a DR-mimetic) is less effective.",
+     "reasoning": "Directly states that in vertebrate data rapamycin generally increases average age-at-death while metformin is less effective, the opposite of equal effectiveness.",
+     "section": null,
+     "title": "No evidence for squaring the survival curve: lifespan-extending treatments increase variation in age- at-death.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "animals"
+    }
+   ]
+  },
+  {
+   "id": "h12",
+   "claim": "Metformin improves late-life mating success in male C. elegans.",
+   "key": "supported",
+   "key_notes": "Worm study; one of only two compounds that did.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "supported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "41701440",
+     "stance": "supports",
+     "quote": "However, reproductive healthspan measured by mating success in late life improved under only two tested conditions, sulforaphane and metformin.",
+     "reasoning": "Directly reports that late-life mating success improved under metformin (and sulforaphane) in C. elegans males.",
+     "section": null,
+     "title": "Pro-longevity compounds extend Caenorhabditis elegans male lifespan and reproductive healthspan.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "C. elegans"
+    }
+   ]
+  },
+  {
+   "id": "h13",
+   "claim": "Metformin increases retrotransposon insertion frequency in yeast.",
+   "key": "unsupported",
+   "key_notes": "Null: 'without increasing insertion frequency'.",
+   "null_result": true,
+   "secondhand": false,
+   "verdict": "unsupported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": []
+  },
+  {
+   "id": "h14",
+   "claim": "Metformin reduces Ty1 Gag-like protein levels in yeast.",
+   "key": "supported",
+   "key_notes": "Yeast study; same sentence as h13, different half.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "supported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "41707917",
+     "stance": "supports",
+     "quote": "Despite this transcriptional activation, metformin reduces TYA Gag-like protein levels without increasing insertion frequency, revealing an uncoupling between retrotransposon expression and mobility.",
+     "reasoning": "Directly states metformin reduces TYA Gag-like protein levels in a yeast study.",
+     "section": null,
+     "title": "Metformin-induced longevity is associated with retrotransposon dynamics in yeast chronological aging.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "yeast"
+    }
+   ]
+  },
+  {
+   "id": "h15",
+   "claim": "Metformin reduces SASP-related gene expression in luminal breast cancer cells in vitro.",
+   "key": "supported",
+   "key_notes": "Cell-line study.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "supported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "41895619",
+     "stance": "supports",
+     "quote": "Metformin also reduced SASP-related gene expression, thereby limiting autocrine signaling effects on migration, mammosphere formation, and drug sensitivity.",
+     "reasoning": "This is the paper's own in vitro finding in luminal breast cancer cells, explicitly stating metformin reduced SASP-related gene expression, matching the claim directly.",
+     "section": null,
+     "title": "Metformin reduces senescence induced by obesity-related inflammation in luminal breast cancer through estrogen receptor beta modulation.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "cells in vitro"
+    }
+   ]
+  },
+  {
+   "id": "h16",
+   "claim": "Metformin reduces tumour senescence in women with luminal breast cancer.",
+   "key": "unsupported",
+   "key_notes": "In-vitro trap: cell lines, MeSH-tagged Humans.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "unsupported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": []
+  },
+  {
+   "id": "h17",
+   "claim": "Metformin improves pregnancy outcomes in mouse models of inflammation-induced miscarriage.",
+   "key": "supported",
+   "key_notes": "Mouse models; metformin and dasatinib+quercetin were each tested.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "supported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "41975562",
+     "stance": "supports",
+     "quote": "In interventional studies, senotherapies with metformin or dasatinib plus quercetin restored placental development and improved pregnancy outcomes in both IL33-deficient and inflammation-induced miscarriage models.",
+     "reasoning": "Directly reports that metformin senotherapy restored placental development and improved pregnancy outcomes in inflammation-induced miscarriage mouse models.",
+     "section": null,
+     "title": "Trophoblast aging driven by IL33 deficiency elevates recurrent pregnancy loss risk through SNAP29 lactylation-mediated autophagy impairment.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "mice"
+    }
+   ]
+  },
+  {
+   "id": "h18",
+   "claim": "Metformin prevents recurrent miscarriage in women.",
+   "key": "unsupported",
+   "key_notes": "Population trap: the intervention was in mouse models.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "unsupported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": []
+  },
+  {
+   "id": "h19",
+   "claim": "Metformin has a near-zero effect on HbA1c.",
+   "key": "contradicted",
+   "key_notes": "Attribution trap: the near-zero effect is rapamycin's; metformin's is 'moderate'.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "contradicted",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "42579881",
+     "stance": "contradicts",
+     "quote": "Apart from its primary role in lowering blood glucose levels, metformin has been shown to have several effects at the molecular level.",
+     "reasoning": "The review asserts metformin's primary role is lowering blood glucose levels, which is opposite to the claim of a near-zero glycemic (HbA1c) effect.",
+     "section": null,
+     "title": "Metformin at the convergence of aging and longevity.",
+     "year": 2026,
+     "evidence_type": "narrative_review",
+     "population": null
+    }
+   ]
+  },
+  {
+   "id": "h20",
+   "claim": "Metformin use is associated with a lower risk of dry age-related macular degeneration.",
+   "key": "supported",
+   "key_notes": "JUDGEMENT CALL. A systematic review's synthesis, so it counts under the review rule — but the verb is 'suggested'. Is that a hedge (unsupported) or a cautious report of findings (supported)? Also sits beside the corpus's null on early and late AMD (c17, c43). Shel's check: supported outside the corpus too, with a duration effect — stronger after five or more years — which fits the corpus's nulls on early and late AMD.",
+   "null_result": false,
+   "secondhand": true,
+   "verdict": "supported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": [
+    {
+     "pmid": "41948241",
+     "stance": "supports",
+     "quote": "Observational studies suggested that metformin use was associated with a lower risk of AMD development, particularly dry AMD, with stronger associations observed with a longer duration and higher cumulative exposure.",
+     "reasoning": "Review's synthesis explicitly states metformin use was associated with lower risk of AMD, particularly dry AMD.",
+     "section": null,
+     "title": "Effects of Metformin on Mitochondrial Health and Oxidative Stress in Age-Related Macular Degeneration: A Systematic Review.",
+     "year": 2026,
+     "evidence_type": "narrative_review",
+     "population": "humans"
+    },
+    {
+     "pmid": "41633708",
+     "stance": "supports",
+     "quote": "We have found a significant association between metformin use and reduction in incidence of intermediate AMD by 37% in people with diabetes over 5 years.",
+     "reasoning": "Own result: significant 37% reduction in incidence of intermediate (non-neovascular/dry) AMD with metformin use in people with diabetes.",
+     "section": "CONCLUSIONS",
+     "title": "Metformin and incidence of age-related macular degeneration in people with diabetes: a population-based 5-year case-control study.",
+     "year": 2026,
+     "evidence_type": "primary_study",
+     "population": "humans"
+    }
+   ]
+  },
+  {
+   "id": "h21",
+   "claim": "Metformin reduces migraine frequency.",
+   "key": "unsupported",
+   "key_notes": "Off-topic control; no paper mentions migraine.",
+   "null_result": false,
+   "secondhand": false,
+   "verdict": "unsupported",
+   "agrees": true,
+   "sentences_read": 24,
+   "papers_read": 8,
+   "evidence": []
+  }
+ ]
+}
