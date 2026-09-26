@@ -328,6 +328,14 @@ export default function FragariaPage() {
         lead probe on subgenome 1B at 1.7 Mb, while flagging the 1C &quot;locus&quot; as a probe that cannot tell the homoeologs apart. That
         confirms the placement and explains why one locus looked like three.
       </p>
+      <p>
+        Then the test that mattered: does the allele do anything outside Florida? A public UC Davis set (Feldmann et al. 2024) has 529
+        genotyped individuals with fruit weight, including hybrids with the wild <em>F. chiloensis</em> &apos;Del Norte&apos;. The test was
+        fixed before the files were opened. There the allele varies well, yet its effect is −0.18 g per copy, with an interval that rules
+        out an effect of Florida&apos;s size. &apos;Del Norte&apos; does carry two copies, but its elite mates carry almost none, so all its
+        hybrids have exactly one and the wild test could not run. The locus is real in Florida lines and does not transfer to UC Davis, which
+        takes down both practical readings built on it: the Florida-to-UC Davis crossing lead and the wild-donor reading.
+      </p>
 
       <h2>Limits</h2>
       <p>
@@ -339,13 +347,13 @@ export default function FragariaPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Results committed (Stage 2x).</strong> Six protocols, five amendments and a check, code, 52 unit tests, every setting&apos;s scores and these figures
+        <strong>Results committed (Stage 2x).</strong> Six protocols, six amendments and a check, code, 52 unit tests, every setting&apos;s scores and these figures
         are committed; each Stage 0 run takes about 21 minutes on a laptop, Stages 1b and 1c about 7, Stage 2x under one. Each protocol was
         committed before its code, and the code before the result.
       </p>
       <p>
-        The nonlinear hypothesis is closed as not supported. Next: narrow the 1B haplotype, and test whether the wild haplotype raises fruit
-        size in a wild cross. Every lesson here went
+        The nonlinear hypothesis is closed as not supported, and the one fruit-size lead did not replicate outside Florida. Next: whether
+        the marker tags a different haplotype at UC Davis, or the effect depends on background. Every lesson here went
         upstream into <a href="/projects/topos/">topos</a>, which now enforces them in code.
       </p>
     </>
