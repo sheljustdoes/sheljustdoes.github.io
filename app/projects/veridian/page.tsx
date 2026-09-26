@@ -87,7 +87,7 @@ export default function VeridianPage() {
 
       <h2>Try it</h2>
       <p>
-        <a href="/demos/veridian/">Open the demo →</a> It runs entirely in your browser, with no API key and no backend. Two tabs:
+        <a href="/demos/veridian/">Open the demo →</a> It runs entirely in your browser, with no API key and no backend. Three tabs:
       </p>
       <ul>
         <li>
@@ -99,6 +99,11 @@ export default function VeridianPage() {
           <strong>Retrieve evidence</strong> — over the frozen 150-paper corpus, or <em>any topic</em>: the page searches PubMed directly,
           keeps the top 10, 25 or 50 papers, and embeds them on your machine. Live topics get retrieval only, because judging needs a hosted
           model.
+        </li>
+        <li>
+          <strong>Explore map</strong> — the frozen corpus in three groups, each named by its distinctive MeSH terms, with the papers nearest
+          its centre and the findings they state. The stability evidence sits beside the map: no number of groups survives resampling, so
+          the map is flagged as a sketch rather than a finding.
         </li>
       </ul>
       <p>
@@ -116,7 +121,7 @@ export default function VeridianPage() {
         sentence-level grounding and the in-browser retrieval demo are built and tested. Explore was rebuilt next with nothing generated:
         clusters labelled by their distinctive MeSH terms, represented by the papers nearest their centroid, with the cluster count chosen
         by resampling stability. On this corpus no count is stable (three clusters reach 0.63; the original map&apos;s ten reach 0.28), so
-        the old map was mostly arbitrary, and the new one says so. It is not yet in the demo. On 21 held-out claims, written before any fix and scored once, the rebuilt pipeline reached 86% verdict accuracy
+        the old map was mostly arbitrary, and the new one says so, in the demo, beside the map. On 21 held-out claims, written before any fix and scored once, the rebuilt pipeline reached 86% verdict accuracy
         (95% interval 65–95%) against 48% for the original rule, which called every claim supported. A first run on development claims had
         scored 55%; its errors were diagnosed — a rule the judge was never given, and evidence that never reached it — and fixed in general
         form rather than tuned claim by claim. The legacy module is still
