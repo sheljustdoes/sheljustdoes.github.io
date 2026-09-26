@@ -225,7 +225,9 @@ embeddings still reached 0.690 (CI 0.651–0.724), 0.169 above the count, and MT
 stayed above chance (0.579, CI 0.540–0.615). **So the embeddings do see more than a cell
 count.** Unmatched, they tied it again. A check made after scoring (not pre-registered):
 binning within each experiment, a stricter match, keeps the overall result above chance
-(0.588) but pulls MTOR alone to 0.548, whose interval includes 0.5. The dual-branch design
+(0.588) but pulls MTOR alone to 0.548, whose interval includes 0.5; and bin by bin, the
+embeddings' signal sits in the three lowest-count deciles (AUC 0.68–0.85) and is near chance
+above them. The dual-branch design
 stays a failure; the embedding branch alone carries real signal.
 
 ### oncos — survival prediction from 3D CT
