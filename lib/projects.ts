@@ -88,7 +88,7 @@ export const PROJECTS: Project[] = [
     id: "argus", name: "argus", area: "phenotyping", status: "Results committed", date: "2026–",
     link: "/projects/argus/", linkLabel: "Read the write-up →",
     summary:
-      "Anomaly detection for Cell Painting on Recursion's public RxRx3-core: a UV-channel autoencoder and an Isolation Forest over OpenPhenom embeddings, fused by rank, tested under a protocol fixed in advance on PLK1 and MTOR knockouts held out by experiment. The dual-branch design failed its test: the autoencoder ranked knockouts as less anomalous than controls (AUC 0.32), fusion fell to 0.53, and the embedding branch (0.71) only tied a nuclei count.",
+      "Anomaly detection for Cell Painting on Recursion's public RxRx3-core, tested in two pre-registered runs against a baseline that only counts cells. The dual-branch design failed: the UV autoencoder ranked knockouts as less anomalous than controls (AUC 0.32, replicated on fresh experiments), and the embeddings only tied the cell count. Scoring nuclear pixels alone removed the inversion and left no signal; regressing out cell count did not remove its influence. Nothing yet sees more than a cell count.",
   },
   {
     id: "oncos", name: "oncos", area: "phenotyping", status: "Implemented, in progress", date: "2026–", featured: true,
@@ -98,16 +98,16 @@ export const PROJECTS: Project[] = [
 
   // ---- Certified structure in biological data ----
   {
-    id: "topos", name: "topos", area: "structure", status: "Designed (protocol)", date: "2025–", featured: true,
+    id: "topos", name: "topos", area: "structure", status: "Implemented (Stage 0 checks)", date: "2025–", featured: true,
     link: "/projects/topos/", linkLabel: "Read the write-up →",
     summary:
-      "A stability-certification protocol for deciding when latent structure in high-dimensional biological data is real enough to act on: eight gating stages ending in an explicit GO/KILL/HOLD verdict, matched-model comparison, density-appropriate validation, and mandatory confound auditing. Specified for soybean, sorghum and octoploid strawberry; Stage 0 has been executed on strawberry.",
+      "A stability-certification protocol for deciding when latent structure in high-dimensional biological data is real enough to act on: eight gating stages ending in an explicit GO/KILL/HOLD verdict. Stage 0 is a tested Python package whose every module enforces a rule learned on real data — declared missing-value codes, stability from resampling rather than seeds, untestable confounds blocking a GO, kinship-based relatedness control, deduplicated grids, and non-redundancy measured on rows both pipelines cluster.",
   },
   {
     id: "fragaria", name: "fragaria", area: "structure", status: "Results committed (Stage 0)", date: "2026–", featured: true,
     link: "/projects/fragaria/", linkLabel: "Read the write-up →",
     summary:
-      "Nonlinear haplotype topology in octoploid strawberry: does manifold learning recover stable haplogroup structure beyond PCA, despite dosage ambiguity and subgenome uncertainty? The only topos case study with executed analysis. After an audit found the first Stage 0 invalid, a pre-registered rebuild — missing calls decoded, families thinned, stability from resampling across 189 pipeline settings — returned GO narrowly: two PCA settings pass, finding structure that tracks germplasm source; no UMAP setting passes, so the nonlinear hypothesis is not yet supported.",
+      "Nonlinear haplotype topology in octoploid strawberry: does manifold learning recover stable haplogroup structure beyond PCA? An audit found the first Stage 0 invalid; two pre-registered rebuilds followed. The second — 234 unrelated accessions by KING kinship, missingness tested within germplasm source — returns GO in every sensitivity run. PCA and UMAP find the same two groups wherever both cluster, so stable structure exists and nothing yet shows structure beyond PCA.",
   },
   {
     id: "indicium", name: "indicium", area: "structure", status: "Designed (Stage 0 complete)", date: "2026–",
