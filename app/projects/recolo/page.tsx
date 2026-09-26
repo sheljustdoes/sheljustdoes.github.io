@@ -1,3 +1,5 @@
+import Figure from "../Figure";
+
 export const metadata = { title: "recolo. — shel." };
 
 export default function RecoloPage() {
@@ -63,6 +65,17 @@ export default function RecoloPage() {
         memories. The loss comes from the design choices themselves. The main one is that forgetting on a fixed clock assumes the
         timescale of future questions is known in advance. Here it was not, and nothing in recolo adapts to it.
       </p>
+      <Figure
+        n={1}
+        src="/projects/recolo/fig1_v1.png"
+        alt="Two panels. a: answer accuracy with 95% intervals on 99 held-out questions: plain retrieval 73%, recolo with decay off 71%, full history 43%, recolo with consolidation off 34%, with salience off 33%, as shipped 32%, most recent turns 9%. b: accuracy by question type for plain retrieval, recolo with decay off, and recolo as shipped; the shipped version is lowest on every type, 4% on multi-session questions."
+        lead="As shipped, recolo lost to plain retrieval, and switching decay off recovered the whole gap."
+      >
+        <b>a</b>, Answer accuracy on the 99 held-out LongMemEval questions, each approach filling the same 6,000-token context from the
+        same memories; 95% intervals from a bootstrap over questions. Switching off salience or consolidation changes nothing; switching
+        off decay recovers 38 points. <b>b</b>, The same three approaches by question type (number of questions in brackets). Abstention
+        and preference questions (six each) are omitted.
+      </Figure>
 
       <p>
         A second protocol built decay that adapts to the history it runs on: relative to the history&apos;s span, counted in sessions
@@ -75,6 +88,16 @@ export default function RecoloPage() {
         retrieval on knowledge-update questions. Two protocols, one conclusion: decay, fixed or adaptive, does not help an agent answer
         from its own history. At best it does no harm.
       </p>
+      <Figure
+        n={2}
+        src="/projects/recolo/fig2_v2.png"
+        alt="Two panels. a: evidence-turn recall on the tuning set for each decay mode across its grid, from strongest to weakest decay; span-relative rises from 34% to 71%, session-counted from 15% to 44%, tie-break stays at 96 to 97%, level with plain retrieval at 97%. b: answer accuracy on 119 held-out questions: plain retrieval 76%, tie-break 77%, span-relative 55%, session-counted 34%, most recent turns 12%."
+        lead="Adaptive decay only stopped hurting when it stopped decaying."
+      >
+        <b>a</b>, Evidence-turn recall on the 61 tuning questions for every setting of each decay mode, strongest decay on the left. Recall
+        rises as decay weakens, and only the tie-break mode, which can barely move anything, matches plain retrieval (dashed line).
+        <b>b</b>, Answer accuracy on 119 held-out questions for the chosen setting of each mode, with 95% intervals.
+      </Figure>
       <p>
         A third protocol turned decay off and gave the other two mechanisms the form the results pointed to. Salience came from
         recurrence, a topic returning in a later session, and was allowed only to break near-ties. Consolidation stopped showing its
@@ -85,6 +108,18 @@ export default function RecoloPage() {
         was built for, and both intervals end at zero. A gate fixed in advance sends only an arm that beats plain retrieval to the paid
         answer-accuracy step, so this protocol cost nothing.
       </p>
+      <Figure
+        n={3}
+        src="/projects/recolo/fig3_v3.png"
+        alt="Three panels. a: plain retrieval's evidence recall on the tuning set by context budget, from 72% at 500 tokens to 97% at 6,000, with multi-session questions lower, 69% at 1,000 tokens; a line marks the 1,000-token v3 budget. b: recall difference from plain retrieval for each tuning setting; the chosen weakest settings are at zero and every stronger setting is below, down to minus 19 points. c: held-out differences with 95% intervals: salience minus 0.5 points, the index minus 0.6 points on multi-session questions, both intervals ending at zero; the index overall plus 0.4, a secondary comparison."
+        lead="With decay off, neither salience nor consolidation retrieves evidence better than plain similarity."
+      >
+        <b>a</b>, Why the budget is tight: at 6,000 tokens plain retrieval already finds 97% of the evidence on the tuning questions, so a
+        ranking change has nothing to find; at 1,000 it finds 85%, and 69% on multi-session questions. <b>b</b>, Every tuning setting
+        against plain retrieval. Settings strong enough to change the ranking all lower recall, so the fixed rule chose the weakest.
+        <b>c</b>, The pre-registered held-out comparisons on 171 answerable questions, with 95% intervals. Neither primary comparison
+        beats plain retrieval, so the gate kept the paid answer-accuracy run from spending anything.
+      </Figure>
       <p>
         Three protocols, one answer: none of recolo&apos;s bio-inspired mechanisms helps an agent choose what to read from its own
         history.
