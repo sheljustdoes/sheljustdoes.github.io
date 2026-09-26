@@ -801,7 +801,7 @@ descriptions whose words never appear in the code. It runs in two stages. BM25 a
 568M-parameter cross-encoder reranks only those. Notebooks are read as code and
 markdown, without outputs.
 
-**Measured** on 35 answerable, hand-labelled queries across a JavaScript web application
+**Measured** on 35 answerable, labelled queries across a JavaScript web application
 and a Python/notebook research codebase (iridis), with three queries whose feature does
 not exist:
 
@@ -813,9 +813,10 @@ not exist:
 
 The honest reading: at top-1 no local model yet beats keyword search. The replicated
 gain is the shortlist, where a correct file is in the top three for 33 of 35 queries
-against 28 for BM25, now at a tenth of the brute-force cost. Three labels were widened
+against 28 for BM25, now at a tenth of the brute-force cost on the larger codebase. Three labels were widened
 after the first run showed defensible answers they had missed. Both versions are
-reported, and the sample is small.
+reported, and the sample is small. The labels were drafted by Claude against the source and
+have not yet been reviewed by a person.
 
 **Not yet built:** calibration, which would turn scores into probabilities and let `find`
 answer "not here" (no single threshold separates absent features yet); the per-file

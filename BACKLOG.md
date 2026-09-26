@@ -9,8 +9,8 @@ Created 2026-09-22.
 
 ## P0 — Project coverage
 
-Seven projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `topos`,
-`veridian`, `recolo`, `menhir`) while `PORTFOLIO.md` describes twenty-five.
+Eight projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `topos`,
+`veridian`, `recolo`, `noul`, `menhir`) while `PORTFOLIO.md` describes twenty-five.
 
 - [x] Restructure around three product lines with flagships. Done 2026-09-25:
       `PORTFOLIO.md` and `lib/projects.ts` share six sections (three lines, three
@@ -22,8 +22,10 @@ Seven projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `top
       (fragaria `docs/stage0_audit.md`); PORTFOLIO.md and the summary say so.
 - [ ] Write up `fragaria` after its Stage 0 is rerun under the rebuilt rubric (fragaria
       BACKLOG P0a). Link it from the topos write-up.
-- [ ] Later write-ups: `noul` after its labels are reviewed; `oncos` only if Shel opens
-      its methods; `indicium` once a count has run.
+- [x] Write up `noul`. Done 2026-09-25 at Shel's request, before the label review, with
+      the labels disclosed as Claude-drafted and unreviewed. Update it when the review lands.
+- [ ] Later write-ups: `oncos` only if Shel opens its methods; `indicium` once a count
+      has run.
 - [x] Bring the iridis write-up in line with its entry. Done 2026-09-25: dates, the exact
       accuracy ranges, the masking negative finding, and the single-atlas limit.
 - [ ] Decide whether `PORTFOLIO.md` should render as a route on the site rather than
