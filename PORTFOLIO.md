@@ -219,7 +219,8 @@ insertion polymorphisms in sorghum and the insertions indicium adds to precision
 evidence.
 
 **Flagship:** topos, the method. So far one stage has been executed, on strawberry
-(fragaria); the other case studies are specified and not yet run.
+(fragaria). An audit of that stage found its GO uninformative, and its lessons are being
+written back into the protocol. The other case studies are specified and not yet run.
 
 ### topos — stability certification for latent structure
 **Status:** Designed (protocol) · methodology, 8 stage specifications
@@ -254,8 +255,17 @@ recover stable haplogroup structure beyond linear PCA in an octoploid context, w
 dosage ambiguity, subgenome assignment uncertainty and homoeologous exchange all
 complicate interpretation. Stage 0 has been executed: consensus co-occurrence, stability
 dashboards, embedding analysis and a decision-rubric scorecard are committed as figures
-and reports. The Stage 0 scorecard is being audited before its verdict is reported
-here. Stage 1 is specified but not yet run. The only topos case study with
+and reports. Stage 1 is specified but not yet run.
+
+**Stage 0 audit.** The Stage 0 scorecard says GO, and it reproduces exactly from a clean
+kernel, but the GO is not evidence of stable structure. Three of its five criteria pass by
+construction: stability and noise stability were measured across seeds on a deterministic
+pipeline (PCA + HDBSCAN), where agreement is 1.0 automatically, and the only confound
+tested, missingness, has no variance after QC. The fifth criterion is defined as the
+confound result. Only density-based validity (DBCV 0.526) is informative. Stage 0 shows a
+working, reproducible pipeline; the rubric is rebuilt before Stage 1, with stability from
+resampling the data and a zero-variance confound blocking GO rather than passing. The
+same rules go upstream into topos. The only topos case study with
 executed analysis.
 
 ### indicium — graded evidence for precision medicine

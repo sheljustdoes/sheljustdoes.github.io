@@ -106,7 +106,7 @@ export const PROJECTS: Project[] = [
   {
     id: "fragaria", name: "fragaria", area: "structure", status: "Results committed (Stage 0)", date: "2026–", featured: true,
     summary:
-      "Nonlinear haplotype topology in octoploid strawberry: does manifold learning recover stable haplogroup structure beyond PCA, despite dosage ambiguity and subgenome uncertainty? The only topos case study with executed analysis — consensus co-occurrence, stability dashboards, embedding analysis and a decision-rubric scorecard are committed; the scorecard is being audited before its verdict is reported.",
+      "Nonlinear haplotype topology in octoploid strawberry: does manifold learning recover stable haplogroup structure beyond PCA, despite dosage ambiguity and subgenome uncertainty? The only topos case study with executed analysis — consensus co-occurrence, stability dashboards, embedding analysis and a decision-rubric scorecard are committed. An audit found the Stage 0 GO reproducible but uninformative — three of five criteria pass by construction — so the rubric is being rebuilt before Stage 1.",
   },
   {
     id: "indicium", name: "indicium", area: "structure", status: "Designed (Stage 0 complete)", date: "2026–",
