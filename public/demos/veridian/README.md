@@ -6,7 +6,9 @@ What is settled: the mechanism. The demo corpus and its embeddings are precomput
 a live corpus is fetched from PubMed E-utilities (CORS-open) and embedded in the browser;
 a reader's claim is embedded client-side by the same model. No key and no backend. The
 "negate the claim" control returns the same papers, which is the architecture's own argument
-made visible. `examples.json` holds judged held-out claims, precomputed offline.
+made visible. `examples.json` holds judged held-out claims, precomputed offline. `explore.json` is the Explore
+map (built by `scripts/build_explore.py`), keyed to the payload's corpus digest; the page refuses
+to draw it for a different corpus.
 
 What is not settled: everything about how it looks and how it is structured. The styling
 here borrows the site's tokens (`--cream` / `--charcoal` / `--terracotta`, and the
@@ -18,4 +20,4 @@ this directory removes it cleanly.
 It is linked from the veridian write-up with a prototype note, and not from the graph.
 
 Source of truth for the page and the payload builder is the private `veridian` repo
-(`web/`, `scripts/build_payload.py`). Regenerate `payload.json` and `examples.json` there and copy them across.
+(`web/`, `scripts/build_payload.py`). Regenerate `payload.json`, `examples.json` and `explore.json` there and copy them across.
