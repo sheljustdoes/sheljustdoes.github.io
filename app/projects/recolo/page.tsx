@@ -91,7 +91,7 @@ export default function RecoloPage() {
       <Figure
         n={2}
         src="/projects/recolo/fig2_v2.png"
-        alt="Two panels. a: evidence-turn recall on the tuning set for each decay mode across its grid, from strongest to weakest decay; span-relative rises from 34% to 71%, session-counted from 15% to 44%, tie-break stays at 96 to 97%, level with plain retrieval at 97%. b: answer accuracy on 119 held-out questions: plain retrieval 76%, tie-break 76%, span-relative 55%, session-counted 34%, most recent turns 12%."
+        alt="Two panels. a: evidence-turn recall on the tuning set for each decay mode across its grid, from strongest to weakest decay; span-relative rises from 34% to 71%, session-counted from 15% to 44%, tie-break stays at 96 to 97%, level with plain retrieval at 97%. b: answer accuracy on 119 held-out questions: plain retrieval 76%, tie-break 77%, span-relative 55%, session-counted 34%, most recent turns 12%."
         lead="Adaptive decay only stopped hurting when it stopped decaying."
       >
         <b>a</b>, Evidence-turn recall on the 61 tuning questions for every setting of each decay mode, strongest decay on the left. Recall
