@@ -61,14 +61,23 @@ discovered cluster ID — under matched classifiers so the comparison isn't conf
 model choice.
 
 **Results.** Benchmarked on Fitzpatrick17k (12,631 images; 12,222 with valid labels), with
-and without masking, under both Random Forest and TabPFN. Discovered clusters are
-consistently **2.5–2.8× more predictable** than the clinical labels meant to summarize
-them (95.8–96.3% vs. 34.6–42.3% accuracy). The lesion-exclusion U-Net reaches held-out
-Dice 0.889 / IoU 0.818 on ISIC 2018 Task 1 (2,594 dermoscopy images).
+and without masking, under both Random Forest and TabPFN. **Measured skin colour barely
+tracks Fitzpatrick type.** Type explains 7% of the variance in lightness (L*) and 12% in
+yellowness (b*); the middle half of type I (L* 53–71) overlaps the middle half of type IV
+(47–61); and predicting type from colour reaches 34.6–42.3% accuracy against 33.8% for
+always guessing the commonest type. **Masking does not help:** isolating skin from
+background and lesion was expected to make type more predictable, and accuracy stayed flat
+or fell slightly. The lesion-exclusion U-Net reaches held-out Dice 0.889 / IoU 0.818 on
+ISIC 2018 Task 1 (2,594 dermoscopy images).
 
-The second finding is the more interesting one because it is negative: **masking does not
-close the gap and does not even help.** Isolating skin from background and lesion
-contamination was expected to improve clinical-label predictability. It did not.
+**Correction (2026-09-26).** Earlier versions reported the discovered clusters as 2.5–2.8×
+more predictable than Fitzpatrick labels (95.8–96.3% against 34.6–42.3%) and read that as
+evidence the scale discards real structure. It is not evidence. The clusters are defined
+from the same colour features the classifier uses, so predicting them is largely true by
+construction. And the perceptual merge chains transitively: one cluster ends up with 68%
+of the images and spans nearly the whole lightness range, so the 96% sits against a 68%
+baseline. What stands is the weak link between colour and type, which in uncalibrated
+clinical photographs cannot yet separate the scale's coarseness from capture variation.
 
 **Limit.** Every Fitzpatrick17k image in the benchmark comes from a single source atlas.
 The source is therefore constant rather than a confound, but the result is established on
