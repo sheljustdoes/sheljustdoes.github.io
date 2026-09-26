@@ -236,7 +236,7 @@ and UMAP agree on. Every lesson became a rule in the package. The other case stu
 specified and not yet run.
 
 ### topos — stability certification for latent structure
-**Status:** Implemented (Stage 0 checks) · Python package, 8 stage specifications, 26 tests
+**Status:** Implemented (Stage 0 checks) · Python package, 8 stage specifications, 27 tests
 
 High-dimensional biological analysis has a well-known failure mode: embed, cluster, find
 something that looks structured, interpret it. Nonlinear methods make this worse rather
@@ -304,7 +304,7 @@ Stage 1's test. The lessons go upstream into topos. The only topos case study wi
 executed analysis.
 
 ### indicium — graded evidence for precision medicine
-**Status:** Designed (Stage 0 complete) · open human genomics, CIViC, CPIC
+**Status:** Results committed (Stage 1, inconclusive) · open human genomics, CIViC, CPIC
 
 Precision-medicine knowledge bases mostly describe single-nucleotide variants and short
 indels. Transposable element insertions and larger structural variants are
@@ -322,7 +322,16 @@ that indicium closes is fixed in that framework's own repository. Hypotheses, ev
 gates are written, and Stage 0 is complete: an audit of data access, licences and prior
 work. Three arms go ahead. One hypothesis turned out to be largely published already and
 is being reframed as a replication with a stability analysis. The somatic arm stays
-deferred, because its primary data is controlled-access. No analysis has run.
+deferred, because its primary data is controlled-access.
+
+**The replication ran once (2026-09-26), pre-registered and signed off in advance.** It
+catalogues 69 polymorphic mobile-element insertions in or near the highest-evidence CPIC
+pharmacogenes, 61% of checkable calls confirmed by long-read assemblies. Its stability
+verdict came back negative, but uninformatively: two of the four pre-registered
+perturbation axes turned out not to vary in the public call set, which capped every site
+below the stability threshold by construction. That is reported as it is, the repair
+waits on a signed-off change, and the check that would have caught it before the run
+now lives in topos. The other arms have not started.
 
 ### glyma — soybean haplogroup discovery
 **Status:** Designed (Stage 0) · *Glycine max*, SoySNP50K

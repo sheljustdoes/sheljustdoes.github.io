@@ -93,7 +93,7 @@ export default function ToposPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Implemented (Stage 0 checks).</strong> Eight stage specifications and a tested Python package (26 tests) whose modules
+        <strong>Implemented (Stage 0 checks).</strong> Eight stage specifications and a tested Python package (27 tests) whose modules
         enforce the rules above: loading, stability, confounds, kinship, grids, matched comparison and the decision record. veridian&apos;s
         Explore already uses it to choose a cluster count. Next: fragaria&apos;s own scripts move onto it, and Stage 3&apos;s certification
         gets built when a case study reaches it.
