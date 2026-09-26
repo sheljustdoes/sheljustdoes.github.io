@@ -190,6 +190,40 @@ export default function FragariaPage() {
         Panel b is an analysis made after the result.
       </Figure>
 
+      <h2>Stage 1b: a wild panel</h2>
+      <p>
+        Cultivated strawberry&apos;s structure is already explained by breeding, so the better test of the question is a population
+        breeding never shaped. Stage 1b took a public whole-genome panel of 202 wild woodland strawberries (<em>F. vesca</em>, diploid,
+        sampled across Europe; Toivainen et al. 2026, released CC0) and ran the Stage 0 checks and the Stage 1 test on it. The protocol
+        was committed before the data was downloaded, and an amendment, made after inspecting the file and before any embedding,
+        handled what it did not anticipate: the genotypes are imputed, so no missingness confound can be tested, and sites are labelled
+        only by country. Kinship pruning kept 176 unrelated plants.
+      </p>
+      <p>
+        Stage 0&apos;s checks passed on an east–west split (Finland, the Baltics and Russia against the rest), as the paper&apos;s own
+        analysis would predict. The Stage 1 rule then returned GO: three nonlinear settings on the whole panel, and four inside the
+        western group, found stable clusters their matched linear settings did not. The expectation had been HOLD or KILL.
+      </p>
+      <Figure
+        n={6}
+        src="/projects/fragaria/fig6_stage1b.png"
+        alt="Two panels of country-by-cluster count grids, countries ordered from Portugal to Russia. a: whole panel; UMAP with HDBSCAN finds three clusters, south and central Europe, the North Atlantic (Norway 44, Iceland 13, UK 7), and the east (Finland 22, Lithuania 7, Russia 7, Norway 5); PCA with k-means at k 3 finds almost the same three. b: western group; UMAP with k-means at k 3 separates Iberia (Spain 16), central and southern Europe, and the North Atlantic; PCA with k-means at k 5 recovers Iberia and central-southern Europe and splits the North Atlantic into Iceland and two Norwegian groups."
+        lead="What the qualifying nonlinear partitions are, beside a linear one that passes the same gates."
+      >
+        Accessions per country (rows) and cluster (columns). <b>a</b>, Whole panel: a qualifying UMAP→HDBSCAN partition and PCA→k-means
+        at k 3 find the same three groups; the eastern cluster is identical. <b>b</b>, Western group: the qualifying UMAP partition
+        (all four qualifying settings give this one) and PCA→k-means at k 5, which splits the North Atlantic further. Both panels are
+        an analysis made after the result.
+      </Figure>
+      <p>
+        <strong>The GO does not mean what it says.</strong> The rule compared each nonlinear setting only with the linear one sharing its
+        clusterer. On this panel, density clustering on PCA coordinates fails outright, so any working nonlinear setting beat it. But
+        k-means on the same PCA coordinates passes every gate and recovers the same clusters, and in the western group it finds more.
+        Wild woodland strawberry has stable, geographic structure beyond the east–west split, in Iberia, the North Atlantic and
+        central-southern Europe, and it is linear. The pre-registered outcome stands as recorded; the reading is that it does not support
+        the hypothesis, and the rule needs a stricter linear comparison before any next stage.
+      </p>
+
       <h2>Limits</h2>
       <p>
         One array, with pseudo-diploid calls on an octoploid, and no batch or plate records, so missingness is the only technical
@@ -200,13 +234,13 @@ export default function FragariaPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Results committed (Stage 0).</strong> Three protocols, code, 17 unit tests, every setting&apos;s scores and these figures
-        are committed; each run takes about 21 minutes on a laptop. Each protocol was committed before its code, and the code before the
-        result.
+        <strong>Results committed (Stage 1b).</strong> Four protocols, code, 22 unit tests, every setting&apos;s scores and these figures
+        are committed; each Stage 0 run takes about 21 minutes on a laptop, Stage 1b about 7. Each protocol was committed before its code,
+        and the code before the result.
       </p>
       <p>
-        Next is Stage 1, drafted and awaiting review: a test for stable structure <em>within</em> each of the two groups that a manifold
-        method finds and a matched linear one does not, with agreement measured only on accessions both cluster. Every lesson here went
+        Next is a decision: pre-register a stricter test, in which no passing linear setting under any clusterer may recover the
+        nonlinear partition, or close the question as linear on both panels. Stage 1 on the cultivated panel stays on hold. Every lesson here went
         upstream into <a href="/projects/topos/">topos</a>, which now enforces them in code.
       </p>
     </>
