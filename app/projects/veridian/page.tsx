@@ -112,9 +112,11 @@ export default function VeridianPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Implemented, under rework.</strong> Check was rebuilt first, since it was the broken half: the corpus layer, sentence-level
-        grounding and the in-browser retrieval demo are built and tested. Explore — the map and its summaries — still runs only in the
-        original app and is next. On 21 held-out claims, written before any fix and scored once, the rebuilt pipeline reached 86% verdict accuracy
+        <strong>Results committed (Check); Explore rebuilt.</strong> Check was rebuilt first, since it was the broken half: the corpus layer,
+        sentence-level grounding and the in-browser retrieval demo are built and tested. Explore was rebuilt next with nothing generated:
+        clusters labelled by their distinctive MeSH terms, represented by the papers nearest their centroid, with the cluster count chosen
+        by resampling stability. On this corpus no count is stable (three clusters reach 0.63; the original map&apos;s ten reach 0.28), so
+        the old map was mostly arbitrary, and the new one says so. It is not yet in the demo. On 21 held-out claims, written before any fix and scored once, the rebuilt pipeline reached 86% verdict accuracy
         (95% interval 65–95%) against 48% for the original rule, which called every claim supported. A first run on development claims had
         scored 55%; its errors were diagnosed — a rule the judge was never given, and evidence that never reached it — and fixed in general
         form rather than tuned claim by claim. The legacy module is still

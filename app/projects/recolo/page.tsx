@@ -71,9 +71,12 @@ export default function RecoloPage() {
         $10.65 to run.
       </p>
       <p>
-        Next is decay that adapts to the history it runs on: relative to the span of the history, or counted in sessions rather than
-        hours. It will be tested on LongMemEval questions that played no part in this run. Knowledge-update questions are the bar, because
-        that is where decay has to beat plain retrieval to justify existing.
+        The next protocol built decay that adapts to the history it runs on: relative to the history&apos;s span, counted in sessions
+        rather than hours, or used only to break near-ties. Parameters were chosen on 61 fresh questions and tested on 119 more. On
+        evidence recall, which needs no model, none beats plain similarity: span-relative decay keeps 75% of the evidence turns and
+        session-counted decay 43%, against 96% for plain retrieval, while the tie-breaking mode matches it exactly. Plain retrieval
+        already finds every knowledge-update evidence turn, so decay&apos;s only remaining chance is keeping superseded facts out of the
+        context. The answer-accuracy run that tests that is planned, at about $3, and not yet run.
       </p>
     </>
   );

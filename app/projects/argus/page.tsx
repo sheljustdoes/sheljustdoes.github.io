@@ -111,6 +111,64 @@ export default function ArgusPage() {
         and no gain from fusion (true, and worse than expected).
       </p>
 
+      <h2>A second run: can anything see past the cell count?</h2>
+      <p>
+        Two repairs followed from the first result, and both were designed after seeing it. Scoring them on the same held-out
+        experiments would reuse a test set that had already shaped them, so the second protocol scored them once on eight experiments
+        nobody had touched: 1,150 wells, 862 knockouts, 72 plates.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Detector</th>
+            <th>ROC-AUC (95% CI)</th>
+            <th>MTOR (95% CI)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nuclei count (baseline)</td>
+            <td>0.703 (0.676–0.731)</td>
+            <td>0.615 (0.586–0.645)</td>
+          </tr>
+          <tr>
+            <td>Embeddings, Isolation Forest</td>
+            <td>0.724 (0.693–0.757)</td>
+            <td>0.598 (0.554–0.644)</td>
+          </tr>
+          <tr>
+            <td>Embeddings, cell count regressed out</td>
+            <td>0.712 (0.676–0.748)</td>
+            <td>0.584 (0.534–0.634)</td>
+          </tr>
+          <tr>
+            <td>UV autoencoder, nuclear pixels only</td>
+            <td>0.480 (0.448–0.512)</td>
+            <td>0.499 (0.467–0.532)</td>
+          </tr>
+          <tr>
+            <td>UV autoencoder, whole image (v1)</td>
+            <td>0.321 (0.293–0.348)</td>
+            <td>0.424 (0.393–0.453)</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>The first result replicated.</strong> On new experiments the whole-image autoencoder scored in the wrong direction again,
+        and the embeddings tied the cell count again.
+      </p>
+      <p>
+        <strong>Scoring nuclear pixels removed the inversion and left nothing.</strong> Once empty background could no longer lower the
+        error, the autoencoder sat at chance, 0.22 below the cell count.
+      </p>
+      <p>
+        <strong>Removing cell count did not remove it.</strong> The pre-registered check passed: with cell count regressed out of the
+        embeddings, MTOR knockouts still scored above chance (0.58). But a check made after scoring showed the residualized score
+        still tracked cell count almost as strongly as before (Spearman −0.48, against −0.51), and ranked wells almost exactly as the
+        original did. A linear regression per embedding dimension cannot remove a nonlinear dependence, so that 0.58 cannot be called
+        signal beyond cell count. The control did not do its job, and the page says so rather than reporting the pass.
+      </p>
+
       <h2>Limits</h2>
       <p>
         One cell type, one imaging site per well, 16 of 176 CRISPR experiments, and two anomaly genes. The autoencoder runs at 128 × 128,
@@ -121,15 +179,14 @@ export default function ArgusPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Results committed.</strong> The protocol, detectors, plate bootstrap and results are committed with 8 unit tests, and
+        <strong>Results committed, two runs.</strong> Both protocols, the detectors, plate bootstrap and results are committed with 11 unit tests, and
         the whole evaluation reruns in about a minute on a laptop. No images or trained models are committed, because the dataset
         licence treats trained models as derivative technology. The one deviation was an Apple-silicon training crash fixed before any
         score was produced; no setting changed.
       </p>
       <p>
-        Each next step is a new pre-registered run, not a re-scoring of this one. First, a UV score that does not reward empty background:
-        reconstruction error on nuclear pixels only, or a per-nucleus morphology score. Second, regressing the cell count out of the
-        embedding score to see whether anything is left for MTOR.
+        Next, as another pre-registered run on unscored experiments: compare knockouts with controls only within matched cell-count
+        bins, so no score can win on cell count alone. A per-nucleus morphology score is the other untried route.
       </p>
       <p>
         We used the RxRx3-core dataset, available from Recursion Pharmaceuticals at{" "}
