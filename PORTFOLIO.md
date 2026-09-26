@@ -574,7 +574,9 @@ arrives from different sources as separate encodes, so duplicate detection match
 tags and duration rather than file hashes, grades each match by how much agrees, and
 quarantines rather than deletes. Duration alone proved too weak — an album is full of songs
 of near-identical length — so a match also needs the title or the track slot to agree, and
-a person's "not a duplicate" judgement is remembered per pair of files.
+a person's "not a duplicate" judgement is remembered per pair of files. Artwork a user sets,
+album covers and artist photos alike, is written where the streaming server and every
+client read it — into the files and the artist's folder — not into the app's own database.
 
 Notable for its **failure handling against an uncooperative upstream**: randomized pacing
 between requests, a single delayed retry for transient rate-limiting that resumes only the
