@@ -6,7 +6,17 @@ what each one does, how it works, what it has actually produced, and where it st
 Maintained as the canonical reference for these projects. When a project changes
 materially, this file changes with it.
 
-**Last updated:** 2026-09-24
+**Last updated:** 2026-09-25
+
+**How this index is organized**
+
+Three product lines, each led by a flagship: perceptual & imaging phenotyping, certified
+structure in biological data, and research cognition. The same way of working runs
+through all three: results are compared against a plain baseline, protocols are
+committed before scoring where the work allows it (argus, recolo, oncos), and a negative
+result is reported as it came out — iridis, argus and recolo each include one. The
+supporting sections that follow show how the work gets built and shipped: production
+applications, learning tools, and portfolio tooling.
 
 **Status vocabulary**
 
@@ -19,7 +29,15 @@ materially, this file changes with it.
 
 ---
 
-## Research — perceptual & imaging phenotyping
+## Perceptual & imaging phenotyping
+
+Measurement science for visible traits that have no ground truth: skin tone, skin
+radiance, cell morphology and tumor appearance on CT. Each is measured against a fixed
+baseline — clinical labels, a nuclei count, classical survival models — rather than on
+its own terms. Capture comes first, because lambent showed that the camera can move a
+score further than the skin does.
+
+**Flagship:** iridis. **Also here:** lambent (optics), argus (Cell Painting), oncos (3D CT).
 
 ### iridis — perceptual skin-tone phenotyping
 **Status:** Results committed · Python, PyTorch, scikit-learn, TabPFN, rembg
@@ -175,8 +193,6 @@ CI −0.206 to −0.152). The embedding branch reached 0.711, a tie with the nuc
 more caveat surfaced in the design: OpenPhenom embeds all six channels, so the embedding
 branch was never UV-free.
 
----
-
 ### oncos — survival prediction from 3D CT
 **Status:** Implemented, in progress · public imaging data · PyTorch
 
@@ -188,7 +204,17 @@ further along.
 
 ---
 
-## Research — manifold stability & genomics
+## Certified structure in biological data
+
+Deciding when latent structure in high-dimensional biological data is real enough to act
+on. topos is the protocol: eight gated stages that end in an explicit GO, KILL or HOLD.
+The case studies apply it to crop genomes and to human precision medicine. A thread
+through transposable elements runs across them, from repbox's element discovery to
+insertion polymorphisms in sorghum and the insertions indicium adds to precision-medicine
+evidence.
+
+**Flagship:** topos, the method. So far one stage has been executed, on strawberry
+(fragaria); the other case studies are specified and not yet run.
 
 ### topos — stability certification for latent structure
 **Status:** Designed (protocol) · methodology, 8 stage specifications
@@ -223,8 +249,30 @@ recover stable haplogroup structure beyond linear PCA in an octoploid context, w
 dosage ambiguity, subgenome assignment uncertainty and homoeologous exchange all
 complicate interpretation. Stage 0 has been executed: consensus co-occurrence, stability
 dashboards, embedding analysis and a decision-rubric scorecard are committed as figures
-and reports. Stage 1 is specified but not yet run. The only topos case study with
+and reports. The Stage 0 scorecard is being audited before its verdict is reported
+here. Stage 1 is specified but not yet run. The only topos case study with
 executed analysis.
+
+### indicium — graded evidence for precision medicine
+**Status:** Designed (Stage 0 complete) · open human genomics, CIViC, CPIC
+
+Precision-medicine knowledge bases mostly describe single-nucleotide variants and short
+indels. Transposable element insertions and larger structural variants are
+under-represented in them. indicium brings three kinds of evidence into one knowledge
+graph, where every edge records its source and evidence level:
+- pharmacogenomics, checked against CPIC guidelines as exact ground truth
+- a cancer-variant evidence agent, evaluated against CIViC's curated evidence
+- hypotheses generated over the combined graph, evaluated with a temporal holdout
+
+It is the first project built on this portfolio's own frameworks as a stack. topos gates
+every hypothesis, sorghum's insertion-polymorphism methods move from plants to humans,
+veridian checks whether evidence supports each claim, recolo provides agent memory, argus
+contributes Cell Painting phenomics, and catasta serves the demo. Each framework's gap
+that indicium closes is fixed in that framework's own repository. Hypotheses, evidence
+gates are written, and Stage 0 is complete: an audit of data access, licences and prior
+work. Three arms go ahead. One hypothesis turned out to be largely published already and
+is being reframed as a replication with a stability analysis. The somatic arm stays
+deferred, because its primary data is controlled-access. No analysis has run.
 
 ### glyma — soybean haplogroup discovery
 **Status:** Designed (Stage 0) · *Glycine max*, SoySNP50K
@@ -249,33 +297,19 @@ semantic versioning, a release process, and smoke-test diagnostics
 (`run` / `check` / `smoke` / `smoke-report`). Demonstrated 7% growth in detected elements
 across the *A. sativa* genome. Public.
 
-### indicium — graded evidence for precision medicine
-**Status:** Designed (Stage 0 complete) · open human genomics, CIViC, CPIC
-
-Precision-medicine knowledge bases mostly describe single-nucleotide variants and short
-indels. Transposable element insertions and larger structural variants are
-under-represented in them. indicium brings three kinds of evidence into one knowledge
-graph, where every edge records its source and evidence level:
-- pharmacogenomics, checked against CPIC guidelines as exact ground truth
-- a cancer-variant evidence agent, evaluated against CIViC's curated evidence
-- hypotheses generated over the combined graph, evaluated with a temporal holdout
-
-It is the first project built on this portfolio's own frameworks as a stack. topos gates
-every hypothesis, sorghum's insertion-polymorphism methods move from plants to humans,
-veridian checks whether evidence supports each claim, recolo provides agent memory, argus
-contributes Cell Painting phenomics, and catasta serves the demo. Each framework's gap
-that indicium closes is fixed in that framework's own repository. Hypotheses, evidence
-gates are written, and Stage 0 is complete: an audit of data access, licences and prior
-work. Three arms go ahead. One hypothesis turned out to be largely published already and
-is being reframed as a replication with a stability analysis. The somatic arm stays
-deferred, because its primary data is controlled-access. No analysis has run.
-
 ---
 
-## AI systems & agent architecture
+## Research cognition
+
+Tools that help a researcher check what they read and keep what they learn. Each is
+measured against a plain baseline on held-out data. veridian grounds claims in the
+literature. recolo tested whether a biologically inspired memory helps an LLM agent, and
+it did not.
+
+**Flagship:** veridian.
 
 ### veridian — literature review: map the disagreement, check the claim
-**Status:** Implemented, under rework · Python, ONNX Runtime, transformers.js, PubMed E-utilities, Anthropic API
+**Status:** Results committed (Check) · Explore under rework · Python, ONNX Runtime, transformers.js, PubMed E-utilities, Anthropic API
 
 Entering an unfamiliar research domain means facing thousands of papers with no visible
 hierarchy of concepts, no sense of which interpretations are dominant versus emerging, and
@@ -485,195 +519,9 @@ Direct successor to veridian: it takes that project's core insight — semantic 
 as a general-purpose meaning-compression mechanism — and redirects it from external
 literature to an agent's own persistent memory.
 
-### noul — non-generative answers about code
-**Status:** Results committed (`find` only) · Python, PyTorch, Hugging Face Transformers · 41 labelled queries, 2 codebases
-
-Coding agents answer "where is X" by reading files into their context, where every file
-is re-sent with every later turn. TypeSafe's Jev points at an alternative: a model that
-returns typed, calibrated numbers instead of prose, in a single pass. Jev is API-only and
-its architecture unpublished, so noul asks how much of that shape can be rebuilt from open
-models running locally, with no text generation and nothing leaving the machine.
-
-`find` ranks files by how well they match a plain-language description, including
-descriptions whose words never appear in the code. It runs in two stages. BM25 and a
-33M-parameter embedding model, fused by reciprocal rank, shortlist 20 chunks, and a
-568M-parameter cross-encoder reranks only those. Notebooks are read as code and
-markdown, without outputs.
-
-**Measured** on 35 answerable, hand-labelled queries across a JavaScript web application
-and a Python/notebook research codebase (iridis), with three queries whose feature does
-not exist:
-
-| | P@1 | R@3 | s / query |
-|---|---:|---:|---:|
-| BM25 alone | 0.63 | 0.80 | < 0.01 |
-| Reranker over every chunk | 0.66 | 0.94 | 6.7–25.6 |
-| **Two-stage** | **0.69** | **0.94** | **2.2–2.3** |
-
-The honest reading: at top-1 no local model yet beats keyword search. The replicated
-gain is the shortlist, where a correct file is in the top three for 33 of 35 queries
-against 28 for BM25, now at a tenth of the brute-force cost. Three labels were widened
-after the first run showed defensible answers they had missed. Both versions are
-reported, and the sample is small.
-
-**Not yet built:** calibration, which would turn scores into probabilities and let `find`
-answer "not here" (no single threshold separates absent features yet); the per-file
-yes/no `ask` mode; and a test on a large codebase, where the shortlist actually has to
-prove itself. A Claude Code skill already fronts it with a small-model agent, which the
-local scorer is meant to replace for all but ambiguous cases.
-
-### legere — ensemble handwriting recognition scaffold
-**Status:** Designed (scaffold) · Python, module structure for TrOCR, Donut, PaddleOCR, SimpleHTR
-
-A structural design for extracting handwritten field values from mixed-content forms on
-premises — no document content leaving the building, which is the constraint that shapes
-the whole architecture. Template-based field segmentation feeds a benchmarking matrix in
-which every model is tested against every field type before routing is assigned, a
-vision-language model arbitrates across model predictions, and low-confidence fields route
-to a human review queue with per-field provenance.
-
-The repository is the **skeleton for that design, not a working system**: each model
-adapter is an interface stub, and the arbitration layer is placeholder logic pending a
-real implementation. The value here is the separation of concerns — a common prediction
-interface per model, arbitration isolated from prediction, evaluation isolated from both —
-which is what makes the design extensible.
-
 ---
 
-## Education & knowledge systems
-
-### scintilla — a free lesson player that checks understanding throughout
-**Status:** Implemented · plain HTML, CSS and ES modules; Pyodide; offline service worker
-
-A free learning platform for data science, ML and AI, built as a pair: lumen authors and
-verifies curricula, scintilla teaches them in the browser with no account and no cost. The
-design targets the usual failures of self-paced courses — passive content, one easy quiz at
-the end, lessons that never connect, and nothing that schedules review.
-
-- **Lessons of 5–10 minutes**, each opening with a bridge from what came before, with a
-  checkpoint every few paragraphs and at least one hands-on item — predict-then-run, spot
-  the bug, or Python run in the browser with Pyodide.
-- **A Feynman self-check** against the lesson's principles. A "no" routes the learner down
-  the prerequisite graph to the missing idea, then back.
-- **Review scheduled by FSRS**, over progress stored locally as an append-only event log,
-  so sync across devices cannot conflict and the platform keeps working with its backend
-  down.
-- **Nothing is generated while a learner uses it.** Every lesson is generated, verified
-  and reviewed at authoring time, so no learner needs an API key and the cost per extra
-  learner is near zero.
-
-The primary metric is delayed recall at 7 and 30 days, not completion. The first
-curriculum is outlined: 35 lessons across a shared core (Python for data, math essentials,
-machine-learning basics) and a data-science track that runs from exploration and inference
-to a first neural network. The MVP is one of those lessons built end to end through lumen
-and tested with four learners.
-
-The player is implemented and runs end to end against lumen's catalog releases. It checks
-each release's schema version and sanitises every piece of lesson text to a small allowed
-markup set. It records progress as an append-only event log with export and import, and
-derives the weekly streak, its forgiveness rules and the "learned" status from that log in
-pure, unit-tested functions. Lesson code runs in the browser with Pyodide, loaded only on
-first use, and the app and its catalog keep working offline. An end-to-end browser test
-runs a full lesson under the production security headers, with an accessibility scan of
-every screen. The first lesson, Probability, has been reviewed and ships as catalog release
-v0.1.0; the player serves it from a private deployment until the learner test. Its look
-comes from a brand stylesheet shared with ponere and lumen and served from this site, so
-one change restyles all three.
-
-### lumen — the authoring pipeline behind scintilla
-**Status:** Implemented · Python; Claude API at authoring time only; veridian Check
-
-Builds scintilla's curriculum as a versioned static catalog: retrieve openly licensed
-sources, generate with a pinned Claude model, verify, review by hand, publish. The catalog
-schema is the only contract between the two repositories, and a release that fails
-validation is never published. The rules that matter to learners are enforced by the
-build: every lesson bridges to its neighbours, every principle has a pinned source and two
-representations, every answer key is verified by string match, computation or an
-executable check, and every wrong option maps to a named misconception.
-
-Claims are verified with veridian's Check engine, which grounds each principle's statement
-in sentences from its source and sends anything unsupported to review. Content is licensed
-CC BY-SA 4.0, so it cannot later be put behind a paywall. An earlier pipeline — study notes
-refined into three-tier prose and pushed across repositories — never published a section
-and is retired; its authoring prompt carries into the new content playbook.
-
-The first artifact of the new pipeline is the catalog outline: 35 lessons, each with its
-prerequisites and a stated learner outcome, in a prerequisite graph with a single root.
-Every item of the two earlier plans — 74 planned sections and 29 skill-tree nodes — is
-mapped into it, deferred to a named future track, or retired with a reason, and a checker
-run in CI proves none is missing and that every prerequisite comes first.
-
-The catalog schema (v0.1) is defined too: JSON Schemas for a lesson and a release, and a
-validator for the rules a schema can't express. It checks that bridges follow the
-prerequisite graph and that every principle has a pinned source revision and two
-representations. It also checks that every wrong option names a misconception and every
-answer key verifies, by string match or exact arithmetic. Only reviewed lessons can enter a
-release.
-
-The pipeline runs. It fetches the pinned source revisions and drafts a lesson with Claude
-under structured output against the schema, feeding any validation failures back for
-repair. veridian's Check then grounds every principle in its source, as advice for the
-reviewer, and the lesson must pass review before a release will include it. The first
-lesson, Probability, passed validation on its first draft, and Check found every principle
-supported by its source. Reviewing it also surfaced a real defect: every correct answer sat
-in the same position. The validator now rejects that, and the pipeline varies it. After
-review, the lesson was published as the first immutable catalog release, v0.1.0: 35
-lessons listed, one available. A local viewer shows each release as a shelf of subjects,
-one collapsible book per module with its lessons as chapters, and opens any published
-lesson's record: sources, Check verdicts, checkpoints and review.
-
-### catasta — research-pipeline demo pattern
-**Status:** Designed (reference pattern) · FastAPI, Next.js, TypeScript
-
-A documented pattern for turning a research pipeline into a polished interactive demo
-without shipping the pipeline itself to the browser: a Python backend where the science
-lives and stays server-side, paired with a TypeScript frontend where people experience it.
-Two deployment topologies — embedded (one shared backend, demos as routes) and standalone
-(forked per project) — sharing an identical `preprocess → predict → postprocess` contract.
-
-### bibliotheca — reading index
-**Status:** Shipped · GitHub Actions, Google Books API
-
-A public reading shelf driven entirely by filenames: an ISBN-13-named file pushed to a
-status folder triggers an Action that resolves metadata through the Google Books API and
-publishes to the public shelf. Moving a file between folders updates reading status and
-completion date. The file is the signal.
-
-### bibliotheca-archive — the automation behind the shelf
-**Status:** Shipped · GitHub Actions, Google Books API, Git LFS
-
-The private counterpart to bibliotheca, and where its automation actually runs. Adding an
-ISBN-13-named file to a status folder fires an Action that resolves the work through the
-Google Books API and writes the resulting metadata across to the public shelf repository,
-which rebuilds itself. Moving a file between folders updates reading status and stamps a
-completion date; an optional sidecar JSON carries a rating and note that get merged in.
-
-Binary files are handled through Git LFS. The design point is that **the filesystem is the
-interface** — there is no form, no database and no admin UI, and the only action required
-is putting a file where it belongs.
-
-### custos — cross-portfolio tooling
-**Status:** Shipped · POSIX shell, GitHub Actions
-
-Tooling that operates across every project rather than inside any one of them, built
-around a single rule: if an automation would still make sense as a hook on one
-repository's own pushes, it belongs in that repository, not here.
-
-Its first tool reports development rotation — which projects have gone longest without
-real work. It separates *any* commit from a commit that touched something other than
-markdown, and ranks on the latter, so documentation activity cannot disguise a project
-that has not been developed in months. Each row carries the first unchecked item from
-that project's backlog, so the report answers what is overdue and what to do next
-together.
-
-A scheduled workflow runs the same script weekly against treeless clones of every
-repository — full history and trees, no file contents — so the automated report and the
-local one are the same implementation and cannot drift apart. Results are written to a
-single issue that is edited in place rather than reopened.
-
----
-
-## Applications & production systems
+## Supporting — production systems
 
 Privately hosted, single- or small-tenant web applications. Repositories are not public;
 the engineering is described here. Personal and third-party data is excluded by design.
@@ -778,6 +626,201 @@ per-track endpoints remain for callers that already know their track.
 - **An operations platform for a moving company** — Next.js, Postgres through Drizzle,
   Auth.js, Stripe, transactional email and SMS, PDF estimates and e-signatures, taking a job
   from quote request to completion. Its pricing is served by mara, above.
+
+---
+
+## Supporting — learning & knowledge tools
+
+A lesson player and its authoring pipeline, which uses veridian's Check to verify every
+generated claim, plus a public reading index.
+
+### scintilla — a free lesson player that checks understanding throughout
+**Status:** Implemented · plain HTML, CSS and ES modules; Pyodide; offline service worker
+
+A free learning platform for data science, ML and AI, built as a pair: lumen authors and
+verifies curricula, scintilla teaches them in the browser with no account and no cost. The
+design targets the usual failures of self-paced courses — passive content, one easy quiz at
+the end, lessons that never connect, and nothing that schedules review.
+
+- **Lessons of 5–10 minutes**, each opening with a bridge from what came before, with a
+  checkpoint every few paragraphs and at least one hands-on item — predict-then-run, spot
+  the bug, or Python run in the browser with Pyodide.
+- **A Feynman self-check** against the lesson's principles. A "no" routes the learner down
+  the prerequisite graph to the missing idea, then back.
+- **Review scheduled by FSRS**, over progress stored locally as an append-only event log,
+  so sync across devices cannot conflict and the platform keeps working with its backend
+  down.
+- **Nothing is generated while a learner uses it.** Every lesson is generated, verified
+  and reviewed at authoring time, so no learner needs an API key and the cost per extra
+  learner is near zero.
+
+The primary metric is delayed recall at 7 and 30 days, not completion. The first
+curriculum is outlined: 35 lessons across a shared core (Python for data, math essentials,
+machine-learning basics) and a data-science track that runs from exploration and inference
+to a first neural network. The MVP is one of those lessons built end to end through lumen
+and tested with four learners.
+
+The player is implemented and runs end to end against lumen's catalog releases. It checks
+each release's schema version and sanitises every piece of lesson text to a small allowed
+markup set. It records progress as an append-only event log with export and import, and
+derives the weekly streak, its forgiveness rules and the "learned" status from that log in
+pure, unit-tested functions. Lesson code runs in the browser with Pyodide, loaded only on
+first use, and the app and its catalog keep working offline. An end-to-end browser test
+runs a full lesson under the production security headers, with an accessibility scan of
+every screen. The first lesson, Probability, has been reviewed and ships as catalog release
+v0.1.0; the player serves it from a private deployment until the learner test. Its look
+comes from a brand stylesheet shared with ponere and lumen and served from this site, so
+one change restyles all three.
+
+### lumen — the authoring pipeline behind scintilla
+**Status:** Implemented · Python; Claude API at authoring time only; veridian Check
+
+Builds scintilla's curriculum as a versioned static catalog: retrieve openly licensed
+sources, generate with a pinned Claude model, verify, review by hand, publish. The catalog
+schema is the only contract between the two repositories, and a release that fails
+validation is never published. The rules that matter to learners are enforced by the
+build: every lesson bridges to its neighbours, every principle has a pinned source and two
+representations, every answer key is verified by string match, computation or an
+executable check, and every wrong option maps to a named misconception.
+
+Claims are verified with veridian's Check engine, which grounds each principle's statement
+in sentences from its source and sends anything unsupported to review. Content is licensed
+CC BY-SA 4.0, so it cannot later be put behind a paywall. An earlier pipeline — study notes
+refined into three-tier prose and pushed across repositories — never published a section
+and is retired; its authoring prompt carries into the new content playbook.
+
+The first artifact of the new pipeline is the catalog outline: 35 lessons, each with its
+prerequisites and a stated learner outcome, in a prerequisite graph with a single root.
+Every item of the two earlier plans — 74 planned sections and 29 skill-tree nodes — is
+mapped into it, deferred to a named future track, or retired with a reason, and a checker
+run in CI proves none is missing and that every prerequisite comes first.
+
+The catalog schema (v0.1) is defined too: JSON Schemas for a lesson and a release, and a
+validator for the rules a schema can't express. It checks that bridges follow the
+prerequisite graph and that every principle has a pinned source revision and two
+representations. It also checks that every wrong option names a misconception and every
+answer key verifies, by string match or exact arithmetic. Only reviewed lessons can enter a
+release.
+
+The pipeline runs. It fetches the pinned source revisions and drafts a lesson with Claude
+under structured output against the schema, feeding any validation failures back for
+repair. veridian's Check then grounds every principle in its source, as advice for the
+reviewer, and the lesson must pass review before a release will include it. The first
+lesson, Probability, passed validation on its first draft, and Check found every principle
+supported by its source. Reviewing it also surfaced a real defect: every correct answer sat
+in the same position. The validator now rejects that, and the pipeline varies it. After
+review, the lesson was published as the first immutable catalog release, v0.1.0: 35
+lessons listed, one available. A local viewer shows each release as a shelf of subjects,
+one collapsible book per module with its lessons as chapters, and opens any published
+lesson's record: sources, Check verdicts, checkpoints and review.
+
+### bibliotheca — reading index
+**Status:** Shipped · GitHub Actions, Google Books API
+
+A public reading shelf driven entirely by filenames: an ISBN-13-named file pushed to a
+status folder triggers an Action that resolves metadata through the Google Books API and
+publishes to the public shelf. Moving a file between folders updates reading status and
+completion date. The file is the signal.
+
+### bibliotheca-archive — the automation behind the shelf
+**Status:** Shipped · GitHub Actions, Google Books API, Git LFS
+
+The private counterpart to bibliotheca, and where its automation actually runs. Adding an
+ISBN-13-named file to a status folder fires an Action that resolves the work through the
+Google Books API and writes the resulting metadata across to the public shelf repository,
+which rebuilds itself. Moving a file between folders updates reading status and stamps a
+completion date; an optional sidecar JSON carries a rating and note that get merged in.
+
+Binary files are handled through Git LFS. The design point is that **the filesystem is the
+interface** — there is no form, no database and no admin UI, and the only action required
+is putting a file where it belongs.
+
+---
+
+## Supporting — tooling & designs
+
+Tooling that keeps the portfolio honest and moving, and designs not yet built out.
+
+### custos — cross-portfolio tooling
+**Status:** Shipped · POSIX shell, GitHub Actions
+
+Tooling that operates across every project rather than inside any one of them, built
+around a single rule: if an automation would still make sense as a hook on one
+repository's own pushes, it belongs in that repository, not here.
+
+Its first tool reports development rotation — which projects have gone longest without
+real work. It separates *any* commit from a commit that touched something other than
+markdown, and ranks on the latter, so documentation activity cannot disguise a project
+that has not been developed in months. Each row carries the first unchecked item from
+that project's backlog, so the report answers what is overdue and what to do next
+together.
+
+A scheduled workflow runs the same script weekly against treeless clones of every
+repository — full history and trees, no file contents — so the automated report and the
+local one are the same implementation and cannot drift apart. Results are written to a
+single issue that is edited in place rather than reopened.
+
+### catasta — research-pipeline demo pattern
+**Status:** Designed (reference pattern) · FastAPI, Next.js, TypeScript
+
+A documented pattern for turning a research pipeline into a polished interactive demo
+without shipping the pipeline itself to the browser: a Python backend where the science
+lives and stays server-side, paired with a TypeScript frontend where people experience it.
+Two deployment topologies — embedded (one shared backend, demos as routes) and standalone
+(forked per project) — sharing an identical `preprocess → predict → postprocess` contract.
+
+### noul — non-generative answers about code
+**Status:** Results committed (`find` only) · Python, PyTorch, Hugging Face Transformers · 41 labelled queries, 2 codebases
+
+Coding agents answer "where is X" by reading files into their context, where every file
+is re-sent with every later turn. TypeSafe's Jev points at an alternative: a model that
+returns typed, calibrated numbers instead of prose, in a single pass. Jev is API-only and
+its architecture unpublished, so noul asks how much of that shape can be rebuilt from open
+models running locally, with no text generation and nothing leaving the machine.
+
+`find` ranks files by how well they match a plain-language description, including
+descriptions whose words never appear in the code. It runs in two stages. BM25 and a
+33M-parameter embedding model, fused by reciprocal rank, shortlist 20 chunks, and a
+568M-parameter cross-encoder reranks only those. Notebooks are read as code and
+markdown, without outputs.
+
+**Measured** on 35 answerable, hand-labelled queries across a JavaScript web application
+and a Python/notebook research codebase (iridis), with three queries whose feature does
+not exist:
+
+| | P@1 | R@3 | s / query |
+|---|---:|---:|---:|
+| BM25 alone | 0.63 | 0.80 | < 0.01 |
+| Reranker over every chunk | 0.66 | 0.94 | 6.7–25.6 |
+| **Two-stage** | **0.69** | **0.94** | **2.2–2.3** |
+
+The honest reading: at top-1 no local model yet beats keyword search. The replicated
+gain is the shortlist, where a correct file is in the top three for 33 of 35 queries
+against 28 for BM25, now at a tenth of the brute-force cost. Three labels were widened
+after the first run showed defensible answers they had missed. Both versions are
+reported, and the sample is small.
+
+**Not yet built:** calibration, which would turn scores into probabilities and let `find`
+answer "not here" (no single threshold separates absent features yet); the per-file
+yes/no `ask` mode; and a test on a large codebase, where the shortlist actually has to
+prove itself. A Claude Code skill already fronts it with a small-model agent, which the
+local scorer is meant to replace for all but ambiguous cases.
+
+### legere — ensemble handwriting recognition scaffold
+**Status:** Designed (scaffold) · Python, module structure for TrOCR, Donut, PaddleOCR, SimpleHTR
+
+A structural design for extracting handwritten field values from mixed-content forms on
+premises — no document content leaving the building, which is the constraint that shapes
+the whole architecture. Template-based field segmentation feeds a benchmarking matrix in
+which every model is tested against every field type before routing is assigned, a
+vision-language model arbitrates across model predictions, and low-confidence fields route
+to a human review queue with per-field provenance.
+
+The repository is the **skeleton for that design, not a working system**: each model
+adapter is an interface stub, and the arbitration layer is placeholder logic pending a
+real implementation. The value here is the separation of concerns — a common prediction
+interface per model, arbitration isolated from prediction, evaluation isolated from both —
+which is what makes the design extensible.
 
 ---
 
