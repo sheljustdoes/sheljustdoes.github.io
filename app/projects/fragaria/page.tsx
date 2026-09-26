@@ -272,7 +272,29 @@ export default function FragariaPage() {
         groups the two measures disagree, which is the useful part: crossing eastern <em>virginiana</em> with <em>chiloensis</em> adds the
         most heterozygosity, while western <em>virginiana</em> with <em>chiloensis</em> together carry the most of what the programs lack.
         The programs themselves hold almost no private alleles. These are diversity measures: they count favourable, neutral and harmful
-        alleles alike. Linking them to fruit size and yield, through the same study&apos;s association data, is the next stage.
+        alleles alike.
+      </p>
+      <p>
+        The second part links them to traits. The same study released fruit-size and yield records for 1,787 Florida breeding lines typed
+        on a 50K array. The array&apos;s coordinates do not match the whole-genome reference, but 52 lines were genotyped on both, which
+        maps every array chromosome to its genome counterpart and tags each associated array marker with a genome site. A mixed-model
+        association scan then found three fruit-size loci and no yield locus.
+      </p>
+      <Figure
+        n={9}
+        src="/projects/fragaria/fig9_stage2x_b.png"
+        alt="Two panels. a: association scans across the genome for fruit size, with three markers above the significance line, all on homoeologous group 1, and for yield, with none. b: for each fruit-size locus, the frequency of the size-increasing allele by group. At 1B, 4.1 Mb: F. chiloensis 0.43, eastern virginiana 0.23, western 0.09, Florida program 0.40, UC Davis 0.07, programs pooled 0.21. At 1A, 4.8 Mb: all wild groups 0.03 or less, programs pooled 0.10. At 1C, 1.2 Mb: eastern virginiana 0.27, chiloensis and western virginiana near 0, programs pooled 0.16."
+        lead="At the strongest fruit-size locus, wild F. chiloensis carries the size-increasing allele at twice the programs' frequency."
+      >
+        <b>a</b>, Mixed-model association scans; dashed line, the Bonferroni threshold. <b>b</b>, Frequency of the allele that increases
+        fruit size, by group, at each locus; vertical bar, the two programs pooled.
+      </Figure>
+      <p>
+        At the strongest locus, Pacific <em>F. chiloensis</em> carries the size-increasing allele at 0.43, against 0.21 across the
+        programs, and eastern <em>F. virginiana</em> at 0.23. At a second, eastern <em>F. virginiana</em> is the only wild source. The
+        third&apos;s allele is absent from every wild group, which fits a variant enriched under breeding. Two cautions. The three loci sit at
+        the start of the three group-1 homoeologs, so they may be one locus seen through array probes that match more than one subgenome.
+        And the tags were found in Florida lines, so a wild allele&apos;s effect is inferred, not measured in a wild background.
       </p>
 
       <h2>Limits</h2>
@@ -285,13 +307,13 @@ export default function FragariaPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Results committed (Stage 2x).</strong> Six protocols, code, 40 unit tests, every setting&apos;s scores and these figures
+        <strong>Results committed (Stage 2x).</strong> Six protocols, code, 44 unit tests, every setting&apos;s scores and these figures
         are committed; each Stage 0 run takes about 21 minutes on a laptop, Stages 1b and 1c about 7, Stage 2x under one. Each protocol was
         committed before its code, and the code before the result.
       </p>
       <p>
-        The nonlinear hypothesis is closed as not supported. Next is part B of Stage 2x: an association study on the Florida program&apos;s
-        fruit-size and yield data, then how often each wild group carries the favourable alleles. Every lesson here went
+        The nonlinear hypothesis is closed as not supported. Next: whether the three fruit-size loci are one, and whether their tags hold
+        in wild backgrounds. Every lesson here went
         upstream into <a href="/projects/topos/">topos</a>, which now enforces them in code.
       </p>
     </>
