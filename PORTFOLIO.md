@@ -558,7 +558,7 @@ with no genuine contested claims in it. Total cost of every run: under $6.
 138 tests, running offline against committed fixtures.
 
 ### recolo — bio-inspired memory for LLM agents
-**Status:** Results committed · Python, SQLite, numpy · v0.1.0, 65 tests · LongMemEval, 99 held-out questions
+**Status:** Results committed · Python, SQLite, numpy · v0.1.0, 77 tests · LongMemEval, three protocols, 400 held-out questions
 
 Context engineering addresses what enters the window now. Biological memory architecture
 addresses what accumulates and is selectively forgotten over time. recolo combines both,
@@ -620,6 +620,21 @@ plain retrieval answered 0.76; the tie-breaking mode matched it (0.77, no detect
 difference), span-relative decay fell to 0.55 and session-counted decay to 0.34, and none
 beat plain retrieval on knowledge-update questions. Across both protocols, decay — fixed
 or adaptive — does not help an agent answer from its own history; at best it does no harm.
+
+**Salience and consolidation, third protocol (2026-09-26).** With decay off, the two
+remaining mechanisms were rebuilt as the evaluations suggested: salience from recurrence (a
+topic returning in a later session), used only to break near-ties; and consolidation as an
+index, where a query matching a cluster pulls in its member episodes and no label is ever
+shown. The test ran at a 1,000-token budget, where ranking decides what the reader sees
+(at 6,000 tokens plain retrieval already finds 97% of the evidence), on all 182 questions
+no earlier run had touched. On the tuning questions, every setting strong enough to change
+the ranking lowered recall. On the held-out questions neither mechanism beat plain
+retrieval: salience −0.005 in evidence recall (CI −0.013 to 0.000), consolidation −0.006 on
+multi-session questions (CI −0.017 to 0.000). A gate fixed in advance sends only an arm that
+beats plain retrieval to the paid answer-accuracy step, so this protocol spent nothing.
+Across three protocols, none of recolo's bio-inspired mechanisms helps an agent choose
+context from its own history; plain retrieval over its store is the configuration that
+works.
 
 Direct successor to veridian: it takes that project's core insight — semantic clustering
 as a general-purpose meaning-compression mechanism — and redirects it from external
