@@ -123,8 +123,11 @@ export default function NoulPage() {
         <strong>On a strict rule, multi-file answers are the weakness.</strong> The measures above count a query as right if <em>any</em>
         correct file appears. Counting it only when <em>every</em> correct file is in the top five, every single-file query passes (26 of
         26), but only 4 of the 9 queries with several correct files do, fewer than keyword search (5) and brute force (6). The shortlist
-        keeps the best 20 chunks, which tend to come from one dominant file, so secondary files never reach the reranker. That is the
-        next thing to fix, judged on the strict rule first.
+        keeps the best 20 chunks, which tend to come from one dominant file, so secondary files never reach the reranker. A
+        pre-registered fix spread the shortlist across files: on these queries it lifted multi-file completeness from 4 to 6 of 9, but
+        on a fresh held-out codebase, labelled before noul ever ran on it with every label backed by a cited line, it made no
+        difference (16 of 17 complete either way). The default stays as it was. The one held-out miss was a source file pushed out of
+        the top five by test files that mention the same functions, which is what gets measured next.
       </p>
       <p>
         <strong>It cannot say &ldquo;not here&rdquo;.</strong> On each codebase, two or three answerable queries score below the
@@ -146,8 +149,8 @@ export default function NoulPage() {
         is meant to replace for all but ambiguous cases.
       </p>
       <p>
-        Next: a shortlist that keeps several files, so multi-file answers come back complete; label verification that does not depend on
-        reading the code; then a large open-source repository, calibration so
+        Next: keep test files from crowding out source files; more held-out codebases with cited labels; then a large open-source
+        repository, calibration so
         &ldquo;not here&rdquo; becomes a probability, and the per-file yes/no <code>ask</code> mode. The agent it would replace will
         be scored on the same labels, so that comparison becomes a measurement rather than an anecdote.
       </p>
