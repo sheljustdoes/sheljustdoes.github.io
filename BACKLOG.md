@@ -9,14 +9,15 @@ Created 2026-09-22.
 
 ## P0 — Project coverage
 
-Six projects have long-form write-up pages (`iridis`, `lambent`, `topos`, `veridian`,
-`recolo`, `menhir`) while `PORTFOLIO.md` describes twenty-five.
+Seven projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `topos`,
+`veridian`, `recolo`, `menhir`) while `PORTFOLIO.md` describes twenty-five.
 
 - [x] Restructure around three product lines with flagships. Done 2026-09-25:
       `PORTFOLIO.md` and `lib/projects.ts` share six sections (three lines, three
       supporting); `/projects/` is the products index; the build enforces one flagship
       per line, listed first, with a write-up.
-- [ ] Write up `argus` — results committed, pre-registered negative result, no page yet.
+- [x] Write up `argus`. Done 2026-09-25: `/projects/argus/`, linked from the résumé,
+      graph panel and products index.
 - [ ] Write up `fragaria` once its Stage 0 scorecard is audited (see fragaria BACKLOG):
       the only executed proof behind the topos line. Link it from the topos write-up.
 - [ ] Later write-ups: `noul` after its labels are reviewed; `oncos` only if Shel opens
