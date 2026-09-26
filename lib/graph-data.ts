@@ -347,6 +347,7 @@ const AUTHORED: AuthoredNode[] = [
       "Grounded in Xie (2025) on LLM forgetting and Anthropic's context-engineering framework",
       "Extends veridian's insight — semantic clustering as meaning compression — from external literature to an agent's own memory",
       "Evaluated on LongMemEval (99 held-out questions): 0.32 as shipped against 0.73 for plain retrieval; ablations trace the loss to fixed-clock decay",
+      "Two more pre-registered protocols tested adaptive decay, then salience and consolidation with decay off: none beat plain retrieval",
     ],
     keywords: ["Agent Memory", "Episodic Memory", "Semantic Memory", "Memory Consolidation", "Temporal Decay", "Salience Scoring", "Context Engineering", "SQLite", "Clustering", "Negative Results", "Pre-registered Protocols"] },
 
