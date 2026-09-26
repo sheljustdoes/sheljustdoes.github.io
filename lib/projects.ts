@@ -76,7 +76,7 @@ export const PROJECTS: Project[] = [
     id: "iridis", name: "iridis", area: "phenotyping", status: "Results committed", date: "2023–2025", featured: true,
     link: "/projects/iridis/", linkLabel: "Read the write-up →",
     summary:
-      "Perceptual skin-tone phenotyping over ~17.8K open dermatology images (Fitzpatrick17k, ISIC 2018). A layered masking pipeline — foreground segmentation plus a ResNet18-U-Net lesion mask (held-out Dice 0.889) — isolates skin before CIE Lab featurization and CIEDE2000 perceptual clustering. Discovered clusters proved 2.5–2.8× more predictable than clinical Fitzpatrick labels from identical features; masking did not close the gap — a negative finding reported as-is.",
+      "Perceptual skin-tone phenotyping over ~17.8K open dermatology images (Fitzpatrick17k, ISIC 2018). A layered masking pipeline — foreground segmentation plus a ResNet18-U-Net lesion mask (held-out Dice 0.889) — isolates skin before CIE Lab featurization and CIEDE2000 perceptual clustering. Measured colour barely tracks Fitzpatrick type: type explains 7% of lightness variance, and predicting it from colour barely beats guessing the commonest type (35–42% against 34%); masking did not help. An earlier claim that discovered clusters were 2.5–2.8× more predictable was withdrawn as largely circular.",
   },
   {
     id: "lambent", name: "lambent", area: "phenotyping", status: "Results committed", date: "2023–", featured: true,
