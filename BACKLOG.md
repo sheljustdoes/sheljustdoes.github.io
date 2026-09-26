@@ -9,8 +9,8 @@ Created 2026-09-22.
 
 ## P0 — Project coverage
 
-Eight projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `topos`,
-`veridian`, `recolo`, `noul`, `menhir`) while `PORTFOLIO.md` describes twenty-five.
+Nine projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `topos`,
+`fragaria`, `veridian`, `recolo`, `noul`, `menhir`) while `PORTFOLIO.md` describes twenty-five.
 
 - [x] Restructure around three product lines with flagships. Done 2026-09-25:
       `PORTFOLIO.md` and `lib/projects.ts` share six sections (three lines, three
@@ -22,7 +22,9 @@ Eight projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `top
       (fragaria `docs/stage0_audit.md`); PORTFOLIO.md and the summary say so.
 - [x] Rerun fragaria's Stage 0 under a rebuilt, pre-registered rubric. Done 2026-09-25:
       GO narrowly, PCA only (fragaria `build/stage0_v2/RESULTS.md`).
-- [ ] Write up `fragaria` — now unblocked. Link it from the topos write-up.
+- [x] Write up `fragaria`, with journal-style figures. Done 2026-09-26: `/projects/fragaria/`,
+      linked from the topos write-up, whose table and status were corrected to match
+      PORTFOLIO.md (glyma and sorghum had been shown as Stage 0 complete).
 - [x] Write up `noul`. Done 2026-09-25 at Shel's request, before the label review, with
       the labels disclosed as Claude-drafted and unreviewed. Update it when the review lands.
 - [ ] Later write-ups: `oncos` only if Shel opens its methods; `indicium` once a count
