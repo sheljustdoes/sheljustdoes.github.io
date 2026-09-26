@@ -889,8 +889,10 @@ is less flattering.** Every single-file query has its file in the top five, but 
 9 multi-file queries have all their files there, fewer than keyword search (5). The
 20-chunk shortlist keeps the best chunks, which tend to come from one dominant file, so
 secondary files never reach the reranker. Overall, 30 of 35 queries are complete in the
-top five (keyword search 27). Complete retrieval of multi-file answers is the next thing
-to fix, judged on this strict rule first and partial credit second.
+top five (keyword search 27). A pre-registered fix — a shortlist spread across files —
+lifted multi-file completeness from 4 to 6 of 9 on these queries but made no difference on
+a fresh held-out codebase (16 of 17 either way), so the default is unchanged. The held-out
+miss points somewhere else: test files crowding a source file out of the top five.
 
 **Not yet built:** calibration, which would turn scores into probabilities and let `find`
 answer "not here" (no single threshold separates absent features yet); the per-file
