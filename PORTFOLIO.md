@@ -219,8 +219,9 @@ insertion polymorphisms in sorghum and the insertions indicium adds to precision
 evidence.
 
 **Flagship:** topos, the method. So far one stage has been executed, on strawberry
-(fragaria). An audit of that stage found its GO uninformative, and its lessons are being
-written back into the protocol. The other case studies are specified and not yet run.
+(fragaria). An audit found the first run invalid; the rebuilt, pre-registered run returns
+GO narrowly, for linear structure only, and its lessons are being written back into the
+protocol. The other case studies are specified and not yet run.
 
 ### topos — stability certification for latent structure
 **Status:** Designed (protocol) · methodology, 8 stage specifications
@@ -253,19 +254,24 @@ certification regardless of how clean it looks).
 A topos case study on *Fragaria × ananassa* testing whether nonlinear manifold methods
 recover stable haplogroup structure beyond linear PCA in an octoploid context, where
 dosage ambiguity, subgenome assignment uncertainty and homoeologous exchange all
-complicate interpretation. Stage 0 has been executed: consensus co-occurrence, stability
-dashboards, embedding analysis and a decision-rubric scorecard are committed as figures
-and reports. Stage 1 is specified but not yet run.
+complicate interpretation. Stage 0 has been run twice; Stage 1 is specified but not yet
+run.
 
-**Stage 0 audit.** The Stage 0 scorecard says GO, and it reproduces exactly from a clean
-kernel, but the GO is not evidence of stable structure. Three of its five criteria pass by
-construction: stability and noise stability were measured across seeds on a deterministic
-pipeline (PCA + HDBSCAN), where agreement is 1.0 automatically, and the only confound
-tested, missingness, has no variance after QC. The fifth criterion is defined as the
-confound result. Only density-based validity (DBCV 0.526) is informative. Stage 0 shows a
-working, reproducible pipeline; the rubric is rebuilt before Stage 1, with stability from
-resampling the data and a zero-variance confound blocking GO rather than passing. The
-same rules go upstream into topos. The only topos case study with
+**The first Stage 0 was invalid.** Its GO reproduced exactly, but an audit found the
+file's missing calls (`-1`) were never decoded, so about 930K of them entered PCA as a
+genotype value, and three of five rubric criteria passed by construction: seed-only
+stability on a deterministic pipeline, and a missingness check that saw no missing data.
+
+**Stage 0 v2, pre-registered: GO, narrowly, for linear structure only.** Rebuilt with
+missing calls decoded, full-sib families thinned to three members (one family has 187),
+and stability measured by resampling 80% of accessions and markers 20 times, across 189
+pipeline settings on 925 individuals. Two PCA→HDBSCAN settings pass every gate —
+the minimum the rule allows — with stability 0.82–0.84 and two or three clusters that
+track germplasm source (USDA accessions, named cultivars, the breeding program). No UMAP
+setting passes, so nothing yet supports the nonlinear hypothesis. The gate that bites is
+missingness: it fails 22 of the 24 stable, valid settings, and appears entangled with
+source through array ascertainment. Without the family cap, clusters were 72–100% a
+single family. The lessons go upstream into topos. The only topos case study with
 executed analysis.
 
 ### indicium — graded evidence for precision medicine
