@@ -6,7 +6,7 @@ what each one does, how it works, what it has actually produced, and where it st
 Maintained as the canonical reference for these projects. When a project changes
 materially, this file changes with it.
 
-**Last updated:** 2026-09-25
+**Last updated:** 2026-09-26
 
 **How this index is organized**
 
@@ -177,7 +177,7 @@ Results are generated into `docs/open_validation.md` from the run's JSON, so the
 documented numbers cannot drift from the run that produced them.
 
 ### argus — dual-branch fluorescence anomaly detection
-**Status:** Results committed · PyTorch, scikit-learn · RxRx3-core, 848 held-out wells across 54 plates
+**Status:** Results committed · PyTorch, scikit-learn · RxRx3-core, two pre-registered runs, 14 held-out experiments
 
 Anomaly detection over Cell Painting microscopy, splitting the six stains by excitation
 wavelength: a UV branch (Hoechst/DNA, ~350 nm) scored by a convolutional autoencoder's
@@ -197,6 +197,17 @@ CI −0.206 to −0.152). The embedding branch reached 0.711, a tie with the nuc
 (0.712): better on PLK1 (0.83 against 0.79), worse on MTOR (0.59 against 0.64). One
 more caveat surfaced in the design: OpenPhenom embeds all six channels, so the embedding
 branch was never UV-free.
+
+**A second pre-registered run (v2)** tested two repairs on eight experiments nobody had
+scored (1,150 wells, 72 plates), because the repairs were designed after seeing v1. v1
+replicated: the autoencoder inverted again (0.32) and the embeddings tied the cell count
+again. Scoring reconstruction error on nuclear pixels only removed the inversion and left
+no signal at all (0.48). Regressing cell count out of the embeddings looked like it left a
+real MTOR signal (0.58, interval above 0.5), but a check made after scoring showed the
+residualized score still tracked cell count almost as strongly (Spearman −0.48 against
+−0.51): a linear regression cannot remove a nonlinear dependence, so the control did not do
+its job. Nothing yet sees more than a cell count; the next run compares wells within
+matched cell-count bins.
 
 ### oncos — survival prediction from 3D CT
 **Status:** Implemented, in progress · public imaging data · PyTorch
@@ -218,13 +229,14 @@ through transposable elements runs across them, from repbox's element discovery 
 insertion polymorphisms in sorghum and the insertions indicium adds to precision-medicine
 evidence.
 
-**Flagship:** topos, the method. So far one stage has been executed, on strawberry
-(fragaria). An audit found the first run invalid; the rebuilt, pre-registered run returns
-GO narrowly, for linear structure only, and its lessons are being written back into the
-protocol. The other case studies are specified and not yet run.
+**Flagship:** topos, the method, now a tested package for Stage 0. One stage has been
+executed, on strawberry (fragaria): an audit found the first run invalid, and two
+pre-registered rebuilds end in a GO that holds across sensitivities, for structure PCA
+and UMAP agree on. Every lesson became a rule in the package. The other case studies are
+specified and not yet run.
 
 ### topos — stability certification for latent structure
-**Status:** Designed (protocol) · methodology, 8 stage specifications
+**Status:** Implemented (Stage 0 checks) · Python package, 8 stage specifications, 26 tests
 
 High-dimensional biological analysis has a well-known failure mode: embed, cluster, find
 something that looks structured, interpret it. Nonlinear methods make this worse rather
@@ -239,7 +251,13 @@ across eight gating stages from Data Landscape Audit through an explicit GO/KILL
 Value Audit.
 
 The protocol is specified across three organisms — soybean, sorghum and octoploid
-strawberry — with Stage 0 executed on strawberry to date.
+strawberry — with Stage 0 executed on strawberry to date. Stage 0 is now a tested Python
+package, and each module enforces a rule the strawberry case taught: missing-value codes
+declared at load; stability from resampling the data, with seed agreement refused for a
+deterministic pipeline; a confound with no variance treated as untestable; relatedness
+capped with structure-robust kinship; grids deduplicated before settings are counted;
+and non-redundancy measured on rows both pipelines cluster, so extra coverage is not
+mistaken for different structure. veridian's Explore uses it to choose its cluster count.
 
 Three design commitments distinguish it: **matched-model comparison** (embedding choices
 compared under equivalent clustering assumptions, never cherry-picked pairings);
@@ -254,8 +272,8 @@ certification regardless of how clean it looks).
 A topos case study on *Fragaria × ananassa* testing whether nonlinear manifold methods
 recover stable haplogroup structure beyond linear PCA in an octoploid context, where
 dosage ambiguity, subgenome assignment uncertainty and homoeologous exchange all
-complicate interpretation. Stage 0 has been run twice; Stage 1 is specified but not yet
-run.
+complicate interpretation. Stage 0 has been run three times; Stage 1 is drafted and
+awaiting review.
 
 **The first Stage 0 was invalid.** Its GO reproduced exactly, but an audit found the
 file's missing calls (`-1`) were never decoded, so about 930K of them entered PCA as a
@@ -271,7 +289,18 @@ track germplasm source (USDA accessions, named cultivars, the breeding program).
 setting passes, so nothing yet supports the nonlinear hypothesis. The gate that bites is
 missingness: it fails 22 of the 24 stable, valid settings, and appears entangled with
 source through array ascertainment. Without the family cap, clusters were 72–100% a
-single family. The lessons go upstream into topos. The only topos case study with
+single family.
+
+**Stage 0 v3, pre-registered: GO, and it holds.** Three fixes v2 called for: relatedness
+capped with KING-robust kinship rather than family labels (234 unrelated accessions; the
+standard relationship matrix was rejected because it read population structure as
+kinship), a deduplicated grid, and a missingness gate tested within germplasm source.
+GO in the primary run and both sensitivities, carried by UMAP pipelines as well as PCA.
+The structure is the same either way: on the accessions both methods cluster, the
+partitions are identical — breeding-program lines against USDA accessions and named
+cultivars. UMAP only assigns the diverse accessions PCA leaves as noise. So stable,
+confound-defensible structure exists, and nothing yet shows structure beyond PCA; that is
+Stage 1's test. The lessons go upstream into topos. The only topos case study with
 executed analysis.
 
 ### indicium — graded evidence for precision medicine
@@ -330,7 +359,7 @@ it did not.
 **Flagship:** veridian.
 
 ### veridian — literature review: map the disagreement, check the claim
-**Status:** Results committed (Check) · Explore under rework · Python, ONNX Runtime, transformers.js, PubMed E-utilities, Anthropic API
+**Status:** Results committed (Check) · Explore rebuilt · Python, ONNX Runtime, transformers.js, PubMed E-utilities, Anthropic API
 
 Entering an unfamiliar research domain means facing thousands of papers with no visible
 hierarchy of concepts, no sense of which interpretations are dominant versus emerging, and
@@ -376,8 +405,13 @@ interpretation layer on top of them did not.
 
 **The rework rebuilt Check first**, since it was the broken half: a claim retrieves
 specific abstracts and receives a verdict with the evidence cited by PMID, measured against
-hand-labelled claims rather than asserted. Explore — the cluster map and its summaries —
-still runs only in the legacy app and is next. The same engine also verifies lumen's
+hand-labelled claims rather than asserted. **Explore was rebuilt next**, with nothing
+generated: clusters are labelled by the MeSH terms that distinguish them, represented by
+the papers nearest their centroid and the findings those papers state, and the cluster
+count is chosen by resampling stability using topos. On the frozen corpus no count is
+stable (the best, three clusters, reaches 0.63), and the legacy map's ten clusters score
+0.28, so that map was mostly arbitrary partitioning; the rebuilt map says so instead of
+drawing false confidence. It is not yet shown in the demo. The same engine also verifies lumen's
 curriculum, grounding each generated principle in its source before review.
 
 Retrieval itself is not the differentiator — general research agents and existing tools do
@@ -533,8 +567,17 @@ indistinguishable from plain retrieval. Salience and consolidation have no measu
 effect. Decay also failed at its own job: on questions where a newer fact replaces an old
 one, recolo scored 0.43 against 0.79 for plain retrieval. With every mechanism off, recolo
 and plain retrieval select identical memories, so the gap comes from the mechanisms, not
-the plumbing. The next step is decay that adapts to the history's timescale, tested on
-questions that played no part in this run.
+the plumbing.
+
+**Adaptive decay, second protocol (2026-09-26).** Three decay modes that adapt to the
+history — relative to its span, counted in sessions, or only breaking near-ties — were
+built, tuned on 61 new questions and tested on 119 more, none used before. On evidence
+recall, which needs no model, none beats plain similarity: span-relative decay keeps 75%
+of evidence turns and session-counted decay 43%, against 96% for plain retrieval, and the
+tie-breaking mode is indistinguishable from it. Plain retrieval already finds every
+knowledge-update evidence turn. The answer-accuracy run that could still show decay
+helping, by keeping superseded facts out of the context, is planned and costed but not
+yet run.
 
 Direct successor to veridian: it takes that project's core insight — semantic clustering
 as a general-purpose meaning-compression mechanism — and redirects it from external
