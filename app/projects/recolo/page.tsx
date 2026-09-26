@@ -93,7 +93,8 @@ export default function RecoloPage() {
       </p>
       <p>
         Three protocols, one answer: none of recolo&apos;s bio-inspired mechanisms helps an agent choose what to read from its own
-        history. The store and retrieval loop are sound, and plain similarity retrieval over them is the configuration that works.
+        history. The store and retrieval loop are sound, and plain similarity retrieval over them is the configuration that works, so it is
+        now the library&apos;s default; each mechanism is opt-in, and the designed configuration is kept for reproducing the results.
       </p>
     </>
   );
