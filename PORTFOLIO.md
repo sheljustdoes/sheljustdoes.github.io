@@ -267,7 +267,9 @@ declared at load; stability from resampling the data, with seed agreement refuse
 deterministic pipeline; a confound with no variance treated as untestable; relatedness
 capped with structure-robust kinship; grids deduplicated before settings are counted;
 and non-redundancy measured on rows both pipelines cluster, so extra coverage is not
-mistaken for different structure. veridian's Explore uses it to choose its cluster count.
+mistaken for different structure. fragaria's scored Stage 0 runs on the package and
+reproduces its committed results byte for byte; veridian's Explore uses it to choose its
+cluster count.
 
 Three design commitments distinguish it: **matched-model comparison** (embedding choices
 compared under equivalent clustering assumptions, never cherry-picked pairings);
