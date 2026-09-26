@@ -41,7 +41,7 @@ export default function ToposPage() {
               <a href="/projects/fragaria/">fragaria</a>
             </td>
             <td>Octoploid strawberry</td>
-            <td>0 run; GO, narrowly, PCA only</td>
+            <td>0 run three times; GO, holds across sensitivities</td>
           </tr>
           <tr>
             <td>glyma</td>
@@ -63,8 +63,9 @@ export default function ToposPage() {
       <h2>What the first case study taught the protocol</h2>
       <p>
         fragaria&apos;s first Stage 0 returned GO, and an audit found it invalid. Its missing calls were never decoded, three rubric
-        criteria passed by construction, and the pipeline that won was chosen by the same metric that made it look perfect. The rebuilt,
-        pre-registered run returned GO narrowly, for linear structure only. Four rules came out of it, and they now belong to the
+        criteria passed by construction, and the pipeline that won was chosen by the same metric that made it look perfect. Two
+        pre-registered rebuilds followed; the second, on accessions pruned to no relatives, returns a GO that holds across sensitivity
+        runs, for structure that PCA and UMAP agree on exactly wherever both cluster. The rules that came out of it now belong to the
         protocol rather than to one case study:
       </p>
       <ul>
@@ -80,12 +81,22 @@ export default function ToposPage() {
           Parameter grids are deduplicated before a rule counts settings, and missingness is tested within groups when it may be
           biological, as array ascertainment made it in strawberry.
         </li>
+        <li>
+          Relatedness is capped with a structure-robust kinship estimator. The standard relationship matrix read population structure
+          as kinship, and pruning with it would have removed almost all of the diverse accessions.
+        </li>
+        <li>
+          Non-redundancy is measured on the rows both pipelines cluster. Over all rows, fragaria&apos;s linear and nonlinear partitions
+          disagreed (ARI 0.68); on the rows both clustered they were identical. The difference was coverage, not structure.
+        </li>
       </ul>
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Designed (protocol).</strong> Eight stage specifications and one executed case-study stage. The next step is making the
-        protocol executable: stability, matched-model comparison and confound checks as a package that enforces the rules above.
+        <strong>Implemented (Stage 0 checks).</strong> Eight stage specifications and a tested Python package (26 tests) whose modules
+        enforce the rules above: loading, stability, confounds, kinship, grids, matched comparison and the decision record. veridian&apos;s
+        Explore already uses it to choose a cluster count. Next: fragaria&apos;s own scripts move onto it, and Stage 3&apos;s certification
+        gets built when a case study reaches it.
       </p>
     </>
   );

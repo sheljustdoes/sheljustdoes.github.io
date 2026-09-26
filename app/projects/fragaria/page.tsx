@@ -23,8 +23,8 @@ export default function FragariaPage() {
       <span className="kicker">Project — 2026–</span>
       <h1>fragaria.</h1>
       <p className="tagline">
-        Is there stable haplogroup structure in cultivated strawberry, and is any of it nonlinear? The first answer came back GO. An
-        audit found it invalid. A pre-registered rebuild says GO again, narrowly, and only for structure a linear projection can find.
+        Is there stable haplogroup structure in cultivated strawberry, and is any of it nonlinear? The first answer came back GO, and an
+        audit found it invalid. Two pre-registered rebuilds later, the answer is yes to the first question, and not yet to the second.
       </p>
 
       <h2>Why this exists</h2>
@@ -167,26 +167,62 @@ export default function FragariaPage() {
         cluster drawn from a single full-sib family, after thinning to three per family (blue) and on the full panel (red).
       </Figure>
 
+      <h2>The third run: fixing what the second one found</h2>
+      <p>
+        The second run left three problems, and a third protocol, committed before its code, fixed them. <strong>Relatives.</strong> The
+        family cap misses half-sibs: 22 accessions from eight related families still sat together. The third run removes relatives by
+        measured kinship instead, pruning until no two accessions are second-degree relatives or closer, which leaves 234. The usual
+        genomic relationship matrix was tried first and rejected. It treats the breeding program&apos;s allele frequencies as the norm, so
+        diverse accessions looked related merely for sharing alleles that are rare in the program, and pruning with it would have kept 5
+        of 190 USDA accessions. KING-robust kinship does not have that bias. <strong>Missingness</strong> is now tested within each germplasm
+        source, so the gate no longer penalizes clusters for following source. <strong>The grid</strong> no longer counts one setting twice.
+      </p>
+      <p>
+        <strong>The verdict is GO, and this time it holds.</strong> It passes in the primary run and in both sensitivity runs, one with a
+        looser kinship cut (480 accessions) and one restricted to markers that genotype cleanly in every source. Removing relatives
+        stabilized the UMAP→HDBSCAN pipelines, whose median stability rose from 0.35 to 0.76 (Fig. 5a), and 29 of their settings pass
+        every gate.
+      </p>
+      <p>
+        That looks like support for the nonlinear hypothesis. It is not. The pre-registered non-redundancy check, comparing the best
+        linear and nonlinear partitions, gave an agreement of 0.68, which reads as partial disagreement. A check made after the result
+        found the disagreement is entirely noise: on the 157 samples both pipelines assign to a cluster, their partitions are
+        identical (Fig. 5b). Both find the same two groups, breeding-program lines against USDA accessions and named cultivars. UMAP
+        simply assigns 79 of the 80 samples PCA→HDBSCAN leaves as noise, 75 of them to the diverse group. It adds coverage, not
+        structure.
+      </p>
+
+      <Figure
+        n={5}
+        src="/projects/fragaria/fig5_v3.png"
+        alt="Two panels. a: stability by pipeline family in the second and third runs; UMAP to HDBSCAN rises from a median of 0.35 to 0.76, other families change little. b: the first two principal components of 237 samples, with a program cluster on the right and a diverse cluster on the left; hollow markers show 79 samples PCA left as noise that UMAP assigned."
+        lead="What removing relatives changed, and what it did not."
+      >
+        <b>a</b>, Stability (median adjusted Rand index over resampled draws) for every setting in the second run (grey circles, panel
+        with relatives) and the third (blue squares, 234 unrelated accessions); black bars mark medians; dashed line, the 0.80 bar.
+        <b>b</b>, The passing PCA→HDBSCAN and UMAP→HDBSCAN partitions on the first two principal components. Filled markers, samples both
+        pipelines cluster, where the partitions are identical; hollow markers, samples PCA→HDBSCAN leaves as noise and UMAP assigns.
+        Panel b is an analysis made after the result.
+      </Figure>
+
       <h2>Limits</h2>
       <p>
-        One array, with pseudo-diploid calls on an octoploid. No batch or plate records exist, so missingness is the only technical
-        confound, and it is entangled with source. The family cap controls full-sibs but not half-sibs: 22 accessions from eight related
-        2016 families still sit together after thinning, though the passing setting labels them noise. And the HDBSCAN grid counted one
-        setting twice, which does not affect this verdict but would weaken a rule that asks for two.
+        One array, with pseudo-diploid calls on an octoploid, and no batch or plate records, so missingness is the only technical
+        confound. Removing relatives leaves 234 accessions, because the breeding program is densely related: 124 of its 1,227 genotyped
+        lines survive. And two groups is the coarsest structure a Stage 0 can certify. Whether a manifold method finds finer stable
+        structure inside either group is the real test, and nothing here answers it.
       </p>
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Results committed (Stage 0).</strong> The protocol, code, 10 unit tests, every setting&apos;s scores and these figures
-        are committed, and the full run takes about 21 minutes on a laptop. The protocol was committed before the code, and the code
-        before the result.
+        <strong>Results committed (Stage 0).</strong> Three protocols, code, 17 unit tests, every setting&apos;s scores and these figures
+        are committed; each run takes about 21 minutes on a laptop. Each protocol was committed before its code, and the code before the
+        result.
       </p>
       <p>
-        Before Stage 1: separate ascertainment from technical failure by testing missingness within each source, or on markers that
-        genotype cleanly in every group; cap relatedness by kinship rather than family labels; remove the duplicate setting. Then the
-        real test, whether a manifold method finds stable structure beyond this PCA reference, gets pre-registered against it. The
-        lessons also go upstream: topos now requires missing-value codes to be declared and decoded at load, and parameter grids to be
-        deduplicated before any rule counts settings.
+        Next is Stage 1, drafted and awaiting review: a test for stable structure <em>within</em> each of the two groups that a manifold
+        method finds and a matched linear one does not, with agreement measured only on accessions both cluster. Every lesson here went
+        upstream into <a href="/projects/topos/">topos</a>, which now enforces them in code.
       </p>
     </>
   );
