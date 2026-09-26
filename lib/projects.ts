@@ -88,7 +88,7 @@ export const PROJECTS: Project[] = [
     id: "argus", name: "argus", area: "phenotyping", status: "Results committed", date: "2026–",
     link: "/projects/argus/", linkLabel: "Read the write-up →",
     summary:
-      "Anomaly detection for Cell Painting on Recursion's public RxRx3-core, tested in two pre-registered runs against a baseline that only counts cells. The dual-branch design failed: the UV autoencoder ranked knockouts as less anomalous than controls (AUC 0.32, replicated on fresh experiments), and the embeddings only tied the cell count. Scoring nuclear pixels alone removed the inversion and left no signal; regressing out cell count did not remove its influence. Nothing yet sees more than a cell count.",
+      "Anomaly detection for Cell Painting on Recursion's public RxRx3-core, tested in three pre-registered runs against a baseline that only counts cells. The dual-branch design failed: the UV autoencoder ranked knockouts as less anomalous than controls (AUC 0.32, replicated on fresh experiments), and the embeddings only tied the cell count. Scoring nuclear pixels alone removed the inversion and left no signal; regressing out cell count did not remove its influence. A third run compared each knockout only with controls of the same cell count: there the embeddings still separated them (AUC 0.69, against 0.52 for the count), so they see more than a cell count, though the subtler MTOR signal weakens under a stricter post-hoc match.",
   },
   {
     id: "oncos", name: "oncos", area: "phenotyping", status: "Implemented, in progress", date: "2026–", featured: true,
