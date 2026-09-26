@@ -7,7 +7,8 @@ export default function ArgusPage() {
       <h1>argus.</h1>
       <p className="tagline">
         Anomaly detection for Cell Painting microscopy, tested under a protocol fixed in advance against a baseline that only counts
-        cells. The design failed the test, and the page says so.
+        cells. The dual-branch design failed the test, and the page says so. A third run, which compares wells only with controls of the
+        same cell count, shows that the embedding branch does see more than a count.
       </p>
 
       <h2>Why this exists</h2>
@@ -169,9 +170,65 @@ export default function ArgusPage() {
         signal beyond cell count. The control did not do its job, and the page says so rather than reporting the pass.
       </p>
 
+      <h2>A third run: compare like with like</h2>
+      <p>
+        Regression tried to take cell count out of the score. The third protocol takes it out of the comparison instead. Control wells
+        are cut into ten bins by nuclei fraction, and each knockout is compared only with controls in its own bin. Inside a bin, a
+        score that only counts nuclei has almost nothing to work with, so the protocol builds in a check: the cell count itself must
+        score between 0.45 and 0.55, or the bins did not do their job. It was scored once on fifteen more experiments nobody had
+        touched: 2,108 wells on 135 plates. 1,533 of 1,578 knockouts had a control with a matching count.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Detector</th>
+            <th>Matched AUC (95% CI)</th>
+            <th>MTOR matched (95% CI)</th>
+            <th>Unmatched</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Embeddings, Isolation Forest</td>
+            <td>0.690 (0.651–0.724)</td>
+            <td>0.579 (0.540–0.615)</td>
+            <td>0.700</td>
+          </tr>
+          <tr>
+            <td>UV autoencoder, nuclear pixels only</td>
+            <td>0.555 (0.516–0.594)</td>
+            <td>0.551 (0.515–0.586)</td>
+            <td>0.500</td>
+          </tr>
+          <tr>
+            <td>Nuclei count (baseline)</td>
+            <td>0.521 (0.480–0.562)</td>
+            <td>0.491 (0.453–0.527)</td>
+            <td>0.686</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>The check passed, and the embeddings kept their signal.</strong> With count matched, the cell count fell to 0.521, as
+        it should. The embeddings held at 0.690, 0.169 above it (95% CI 0.113–0.222), and the subtler MTOR knockouts stayed above chance
+        at 0.579. This is the first argus result a cell count cannot explain. Unmatched, the embeddings tied the count for the third
+        time, which is exactly why the earlier runs could not see the difference.
+      </p>
+      <p>
+        <strong>Two expectations were wrong.</strong> The protocol predicted that most PLK1 wells would have fewer nuclei than any control
+        and drop out of the comparison; only 30 of 791 did. PLK1 thins wells without emptying them. It also predicted the nuclear-pixel
+        autoencoder would stay at chance; matched on count, it came out slightly above (0.555).
+      </p>
+      <p>
+        <strong>A check made after scoring, labelled as such.</strong> Twenty bins instead of ten change nothing. Bins drawn within each
+        experiment, a stricter match with only about 35 controls per experiment, shrink the effect: 0.588 overall, still above chance,
+        but MTOR alone falls to 0.548, with an interval that includes 0.5. The overall finding survives every binning tried; the MTOR
+        finding survives only the one fixed in advance, and the next run should make the stricter match its primary test.
+      </p>
+
       <h2>Limits</h2>
       <p>
-        One cell type, one imaging site per well, 16 of 176 CRISPR experiments, and two anomaly genes. The autoencoder runs at 128 × 128,
+        One cell type, one imaging site per well, 39 of 176 CRISPR experiments across three test sets, and two anomaly genes. The autoencoder runs at 128 × 128,
         which may lose nuclear detail. The embeddings are OpenPhenom&apos;s alone; no image model was trained on the visible channels.
         None of this rescues the design: the autoencoder&apos;s failure comes from what reconstruction error rewards, not from sample
         size.
@@ -179,14 +236,15 @@ export default function ArgusPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Results committed, two runs.</strong> Both protocols, the detectors, plate bootstrap and results are committed with 11 unit tests, and
+        <strong>Results committed, three runs.</strong> All three protocols, the detectors, plate bootstrap and results are committed with 14 unit tests, and
         the whole evaluation reruns in about a minute on a laptop. No images or trained models are committed, because the dataset
         licence treats trained models as derivative technology. The one deviation was an Apple-silicon training crash fixed before any
         score was produced; no setting changed.
       </p>
       <p>
-        Next, as another pre-registered run on unscored experiments: compare knockouts with controls only within matched cell-count
-        bins, so no score can win on cell count alone. A per-nucleus morphology score is the other untried route.
+        Next, as another pre-registered run on unscored experiments: make the within-experiment match the primary test, with enough
+        experiments that every bin holds more than a handful of controls. A per-nucleus morphology score would test whether the
+        autoencoder&apos;s small matched signal comes from nuclear shape.
       </p>
       <p>
         We used the RxRx3-core dataset, available from Recursion Pharmaceuticals at{" "}
