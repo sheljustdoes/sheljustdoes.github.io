@@ -110,9 +110,9 @@ export const PROJECTS: Project[] = [
       "Nonlinear haplotype topology in octoploid strawberry: does manifold learning recover stable haplogroup structure beyond PCA? An audit found the first Stage 0 invalid; two pre-registered rebuilds followed. The second — 234 unrelated accessions by KING kinship, missingness tested within germplasm source — returns GO in every sensitivity run. PCA and UMAP find the same two groups wherever both cluster, so stable structure exists and nothing yet shows structure beyond PCA.",
   },
   {
-    id: "indicium", name: "indicium", area: "structure", status: "Designed (Stage 0 complete)", date: "2026–",
+    id: "indicium", name: "indicium", area: "structure", status: "Results committed (Stage 1, inconclusive)", date: "2026–",
     summary:
-      "Graded evidence for precision medicine in one knowledge graph: pharmacogenomics checked against CPIC guidelines, a cancer-variant evidence agent evaluated against CIViC, and hypotheses over the combined graph evaluated with a temporal holdout — extending coverage to the transposable element insertions existing knowledge bases under-represent. A Stage 0 audit of data access, licences and prior work is complete: three arms proceed and one hypothesis, found largely published, is being reframed as a replication. No analysis has run.",
+      "Graded evidence for precision medicine in one knowledge graph: pharmacogenomics checked against CPIC guidelines, a cancer-variant evidence agent evaluated against CIViC, and hypotheses over the combined graph evaluated with a temporal holdout — extending coverage to the transposable element insertions existing knowledge bases under-represent. The replication arm ran first, pre-registered: a catalogue of 69 mobile-element insertions in or near the highest-evidence CPIC pharmacogenes, 61% confirmed by long-read assemblies. Its stability verdict was negative but uninformative — two perturbation axes did not vary in the public call set — and is reported as such pending a signed-off repair.",
   },
   {
     id: "glyma", name: "glyma", area: "structure", status: "Designed (Stage 0)", date: "2026–",
