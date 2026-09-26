@@ -236,8 +236,8 @@ Deciding when latent structure in high-dimensional biological data is real enoug
 on. topos is the protocol: eight gated stages that end in an explicit GO, KILL or HOLD.
 The case studies apply it to crop genomes and to human precision medicine. A thread
 through transposable elements runs across them, from repbox's element discovery to
-insertion polymorphisms in sorghum and the insertions indicium adds to precision-medicine
-evidence.
+insertion polymorphisms in sorghum, TE-derived structural variants in tomato (lyco), and
+the insertions indicium adds to precision-medicine evidence.
 
 **Flagship:** topos, the method, now a tested package for Stage 0. One stage has been
 executed, on strawberry (fragaria): an audit found the first run invalid, and two
@@ -345,7 +345,8 @@ out not to vary either, and only 16 sites could be checked against long reads, t
 them common HLA insertions that dominated the comparison. So this call set cannot answer
 the stability question; the catalogue stands as a plain intersection, and a real test
 needs a call set whose filters vary. The check that catches degenerate axes before a run
-now lives in topos. The other arms have not started.
+now lives in topos. indicium was archived on 2026-09-26 with its other arms unstarted;
+the transposable-element thread continues in lyco.
 
 ### glyma — soybean haplogroup discovery
 **Status:** Designed (Stage 0) · *Glycine max*, SoySNP50K
@@ -360,6 +361,21 @@ Ideation, proposal and stage protocols complete; analysis not yet run.
 Case study on reproducible TIP detection and staged escalation, testing whether insertion
 sites can be called reproducibly under perturbation of coverage, filtering and annotation
 scope before any large-scale interpretation is attempted.
+
+### lyco — transposable-element structural variants and tomato traits
+**Status:** Designed (Stage 0) · *Solanum lycopersicum*, public pangenome call sets
+
+Tomato pangenome studies have shown that transposable element insertions affect fruit
+traits while being poorly tagged by SNPs, and that structural variants carry heritability
+SNPs miss. Most tomato structural variants are TE-derived, but they have not been
+separated from other structural variants when partitioning heritability. lyco asks
+whether TE origin matters once allele frequency, length and linkage with SNPs are held
+fixed, across metabolome, flavour-chemistry and expression traits in 332 accessions,
+tested against a permutation null. A validation gate is scored first: do independent
+published call sets (short-read, long-read and graph-genotyped) agree on these variants?
+Everything runs from published call sets on a laptop; nothing is re-called from reads.
+Stage 0 is complete: the broad question is already published, the narrow one was not
+found, and genotypes and phenotypes line up for all 332 accessions. No analysis has run.
 
 ### repbox — transposable element discovery and annotation
 **Status:** Shipped · Python CLI, published · [BMC Bioinformatics (2023)](https://doi.org/10.1186/s12859-023-05419-5)

@@ -110,9 +110,9 @@ export const PROJECTS: Project[] = [
       "Nonlinear haplotype topology in octoploid strawberry: does manifold learning recover stable haplogroup structure beyond PCA? An audit found the first Stage 0 invalid; two pre-registered rebuilds followed. The second — 234 unrelated accessions by KING kinship, missingness tested within germplasm source — returns GO in every sensitivity run. PCA and UMAP find the same two groups wherever both cluster, so stable structure exists and nothing yet shows structure beyond PCA.",
   },
   {
-    id: "indicium", name: "indicium", area: "structure", status: "Results committed (Stage 1, inconclusive)", date: "2026–",
+    id: "indicium", name: "indicium", area: "structure", status: "Results committed (Stage 1, inconclusive)", date: "2026",
     summary:
-      "Graded evidence for precision medicine in one knowledge graph: pharmacogenomics checked against CPIC guidelines, a cancer-variant evidence agent evaluated against CIViC, and hypotheses over the combined graph evaluated with a temporal holdout — extending coverage to the transposable element insertions existing knowledge bases under-represent. The replication arm ran first, pre-registered: a catalogue of 69 mobile-element insertions in or near the highest-evidence CPIC pharmacogenes, 61% confirmed by long-read assemblies. Its stability verdict was negative but uninformative — two perturbation axes did not vary in the public call set — and is reported as such pending a signed-off repair.",
+      "Graded evidence for precision medicine in one knowledge graph: pharmacogenomics checked against CPIC guidelines, a cancer-variant evidence agent evaluated against CIViC, and hypotheses over the combined graph evaluated with a temporal holdout — extending coverage to the transposable element insertions existing knowledge bases under-represent. The replication arm ran first, pre-registered: a catalogue of 69 mobile-element insertions in or near the highest-evidence CPIC pharmacogenes, 61% confirmed by long-read assemblies. Its stability verdict was negative but uninformative — two perturbation axes did not vary in the public call set — and a post-hoc repair failed the same way, so the stability question cannot be answered with this call set. Archived in 2026 with its other arms unstarted.",
   },
   {
     id: "glyma", name: "glyma", area: "structure", status: "Designed (Stage 0)", date: "2026–",
@@ -123,6 +123,11 @@ export const PROJECTS: Project[] = [
     id: "sorghum", name: "sorghum", area: "structure", status: "Designed (Stage 0–1)", date: "2021–",
     summary:
       "Reproducible detection of transposable element insertion-site polymorphisms in Sorghum bicolor: can insertion sites be called reproducibly under perturbation of coverage, filtering and annotation scope before any interpretation is attempted? Go/kill criteria gate escalation; the pilot has not yet run.",
+  },
+  {
+    id: "lyco", name: "lyco", area: "structure", status: "Designed (Stage 0)", date: "2026–",
+    summary:
+      "Do transposable-element-derived structural variants carry more of tomato's trait heritability than other structural variants, once frequency, length and linkage with SNPs are held fixed? Metabolome, flavour-chemistry and expression traits in 332 accessions from published pangenome call sets, tested against a permutation null, with agreement across independent call sets scored first as a validation gate. Stage 0 complete; no analysis has run.",
   },
   {
     id: "repbox", name: "repbox", area: "structure", status: "Shipped", date: "2020–2023", featured: true,
