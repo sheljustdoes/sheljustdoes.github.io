@@ -111,6 +111,14 @@ export default function VeridianPage() {
         Explore&apos;s result is about the corpus rather than the method. Refit on resampled papers, no number of groups reproduces itself
         well enough to trust, and the groups barely separate at any number. The map in the demo says so beside it.
       </p>
+      <p>
+        That reading needed a test, because a method that cannot find structure would give the same answer. A pre-registered positive
+        control built two more frozen corpora with known answers, each the union of three PubMed searches. On three unrelated topics
+        (CRISPR base editing, malaria vaccines, the gut microbiome in depression), Explore chose three groups, stable under resampling,
+        and recovered the topics exactly (adjusted Rand index 1.000). On three related aging interventions (senolytics, rapamycin,
+        caloric restriction) it again chose three stable groups and recovered them closely (0.794), better than the protocol expected.
+        Explore finds structure when it is there, so the metformin corpus simply has no separable subfields.
+      </p>
       <Figure
         n={2}
         src="/projects/veridian/fig2_explore.png"

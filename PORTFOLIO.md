@@ -477,7 +477,11 @@ the papers nearest their centroid and the findings those papers state, and the c
 count is chosen by resampling stability using topos. On the frozen corpus no count is
 stable (the best, three clusters, reaches 0.63), and the legacy map's ten clusters score
 0.28, so that map was mostly arbitrary partitioning; the rebuilt map says so instead of
-drawing false confidence. The demo shows the map with that stability evidence beside it. The same engine also verifies lumen's
+drawing false confidence. The demo shows the map with that stability evidence beside it.
+A pre-registered positive control then showed the method works when structure exists: on a
+corpus of three unrelated topics it picks three stable groups and recovers them exactly
+(ARI 1.000), and on three related aging interventions nearly so (stable, ARI 0.794). So the
+metformin result describes the corpus, which has no separable subfields. The same engine also verifies lumen's
 curriculum, grounding each generated principle in its source before review.
 
 Retrieval itself is not the differentiator — general research agents and existing tools do
