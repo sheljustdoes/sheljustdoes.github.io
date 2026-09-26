@@ -381,11 +381,13 @@ variation the programs lack. The programs hold almost no private alleles.
 **Stage 2x part B, phenotype link.** A mixed-model association scan on 1,787 Florida breeding
 lines (the same study's 50K-array data) finds three fruit-size loci and no yield locus. 52
 lines genotyped on both platforms map every array chromosome to the whole-genome reference and
-tag each locus (|r| ≥ 0.83). At the strongest locus, wild *F. chiloensis* carries the
-size-increasing allele at 0.43 against 0.21 in the programs; at a second, eastern
-*F. virginiana* is the only wild source; the third's allele is absent from the wild. The three
-loci sit on the three group-1 homoeologs and may be one locus seen through cross-mapping
-probes, and wild effects are inferred through Florida-line tags, not measured.
+tag each locus (|r| ≥ 0.83). A follow-up test fixed in advance found the three loci are one
+signal: their markers sit on three independently segregating subgenomes yet are strongly
+associated (r² 0.40–0.68 against a background of 0.05), and conditioning on the strongest
+removes the others. The tags then disagree about wild frequencies, so the wild-donor reading
+is withdrawn until the causal site is known. What stands: the Florida program carries the
+size-increasing allele at two to six times UC Davis's frequency (intervals exclude zero), a
+crossing lead between programs.
 
 ### indicium — graded evidence for precision medicine
 **Status:** Results committed (Stage 1, inconclusive) · open human genomics, CIViC, CPIC
