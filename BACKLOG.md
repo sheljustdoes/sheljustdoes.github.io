@@ -9,11 +9,20 @@ Created 2026-09-22.
 
 ## P0 — Project coverage
 
-Three projects have long-form write-up pages (`iridis`, `topos`, `veridian`) while
-`PORTFOLIO.md` now describes twenty.
+Six projects have long-form write-up pages (`iridis`, `lambent`, `topos`, `veridian`,
+`recolo`, `menhir`) while `PORTFOLIO.md` describes twenty-five.
 
-- [ ] Add write-up pages for the projects with committed results worth showing —
-      `lambent`, `fragaria`, `repbox` are the strongest candidates.
+- [x] Restructure around three product lines with flagships. Done 2026-09-25:
+      `PORTFOLIO.md` and `lib/projects.ts` share six sections (three lines, three
+      supporting); `/projects/` is the products index; the build enforces one flagship
+      per line, listed first, with a write-up.
+- [ ] Write up `argus` — results committed, pre-registered negative result, no page yet.
+- [ ] Write up `fragaria` once its Stage 0 scorecard is audited (see fragaria BACKLOG):
+      the only executed proof behind the topos line. Link it from the topos write-up.
+- [ ] Later write-ups: `noul` after its labels are reviewed; `oncos` only if Shel opens
+      its methods; `indicium` once a count has run.
+- [ ] The iridis write-up has drifted from its entry: kicker says 2024– (entry 2023–2025)
+      and it omits the negative finding that masking did not close the gap.
 - [ ] Decide whether `PORTFOLIO.md` should render as a route on the site rather than
       existing only as a repository file.
 - [x] Keep the résumé route and `PORTFOLIO.md` consistent when either changes. Done

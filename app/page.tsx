@@ -236,6 +236,7 @@ export default function HomePage() {
           </p>
         </div>
         <nav className="hdr-nav">
+          <a href="/projects/">work</a>
           <a href="/resume/">résumé</a>
           <a href="https://github.com/sheljustdoes" target="_blank" rel="noopener">
             github

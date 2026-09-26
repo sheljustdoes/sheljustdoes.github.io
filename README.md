@@ -13,11 +13,16 @@ PhD in Data Science · Bioinformatics · Computer Vision · Foundation Models ·
 ## Projects
 
 Every project is described in one place, [`PORTFOLIO.md`](PORTFOLIO.md): what it does, the
-approach, the stack, an honest status, and its results. The site reads a structured mirror
+approach, the stack, an honest status, and its results. It is organized as three product
+lines — perceptual & imaging phenotyping, certified structure in biological data, research
+cognition — each led by a flagship (iridis, topos, veridian), with everything else as
+supporting evidence; [/projects/](https://sheljustdoes.github.io/projects/) shows that view.
+The site reads a structured mirror
 of it (`lib/projects.ts`) for the [résumé](https://sheljustdoes.github.io/resume/), the
 homepage graph and the résumé document's feed, and the build fails when the three drift
 apart. A featured or Shipped project with no graph node also fails the build, and so does
-a graph role node quoting a figure its résumé entry in `lib/resume.ts` does not contain.
+a graph role node quoting a figure its résumé entry in `lib/resume.ts` does not contain. Each product line must list its
+flagship first, name it on PORTFOLIO.md's `**Flagship:**` line, and give it a write-up.
 
 ---
 
