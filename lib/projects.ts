@@ -142,7 +142,7 @@ export const PROJECTS: Project[] = [
     id: "recolo", name: "recolo", area: "cognition", status: "Results committed", date: "2026–", featured: true,
     link: "/projects/recolo/", linkLabel: "Read the write-up →",
     summary:
-      "Bio-inspired memory for LLM agents: episodic and semantic stores over SQLite, exponential decay computed at retrieval, salience scored independently of age, and a consolidation loop that promotes cluster centroids and accelerates decay on what they already represent rather than deleting it. Evaluated on LongMemEval under a protocol committed before scoring: as shipped it scored 0.32 against 0.73 for plain retrieval over the same memories, and ablations trace the loss to decay on a fixed clock. Reported as-is.",
+      "Bio-inspired memory for LLM agents: episodic and semantic stores over SQLite, exponential decay computed at retrieval, salience scored independently of age, and a consolidation loop that promotes cluster centroids and accelerates decay on what they already represent rather than deleting it. Evaluated on LongMemEval under a protocol committed before scoring: as shipped it scored 0.32 against 0.73 for plain retrieval over the same memories, and ablations trace the loss to decay on a fixed clock. A second protocol tested decay that adapts to the history: none of three modes beat plain retrieval, even on knowledge-update questions. Reported as-is.",
   },
 
   // ---- Supporting — production systems ----
@@ -211,7 +211,7 @@ export const PROJECTS: Project[] = [
     id: "noul", name: "noul", area: "tooling", status: "Results committed (`find` only)", date: "2026–", featured: true,
     link: "/projects/noul/", linkLabel: "Read the write-up →",
     summary:
-      "Local, non-generative code search: BM25 and a small embedding model shortlist candidates and a cross-encoder reranks only those — typed scores in a single pass instead of an agent reading files, with nothing leaving the machine. On 35 labelled queries across two codebases (labels drafted by Claude, not yet reviewed), the right file is in the top three for 33 (BM25 alone: 28) at a tenth of brute-force cost on the larger codebase; at top-1 it does not yet beat keyword search.",
+      "Local, non-generative code search: BM25 and a small embedding model shortlist candidates and a cross-encoder reranks only those — typed scores in a single pass instead of an agent reading files, with nothing leaving the machine. On 35 labelled queries across two codebases, rerun after the flagged labels were reviewed, the right file is in the top three for 34 (BM25 alone: 29) at a tenth of brute-force cost on the larger codebase; at top-1 its lead over keyword search is three queries, too few to call.",
   },
   {
     id: "legere", name: "legere", area: "tooling", status: "Designed (scaffold)", date: "2026–",
