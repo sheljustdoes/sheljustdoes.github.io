@@ -1,3 +1,5 @@
+import Figure from "../Figure";
+
 export const metadata = { title: "noul. — shel." };
 
 export default function NoulPage() {
@@ -129,6 +131,19 @@ export default function NoulPage() {
         difference (16 of 17 complete either way). The default stays as it was. The one held-out miss was a source file pushed out of
         the top five by test files that mention the same functions, which is what gets measured next.
       </p>
+      <Figure
+        n={1}
+        src="/projects/noul/fig1_find.png"
+        alt="Three panels showing the share of queries with every correct file in the top five, split into single-file and multi-file answers. a: on 35 development queries, BM25 22 of 26 single and 5 of 9 multi; reranking every chunk 26 of 26 and 6 of 9; two-stage 26 of 26 and 4 of 9. b: shortlist variants on the same queries: top 20 chunks 4 of 9 multi-file, one or two chunks per file 6 of 9, top 50 chunks 6 of 9 at 5.2 seconds a query against 2.1. c: on 17 held-out queries, top 20 chunks and one chunk per file both 10 of 10 single and 6 of 7 multi."
+        lead="Single-file answers are solved; multi-file answers are where the shortlist loses files, and the fix did not replicate."
+      >
+        Share of queries whose every correct file is in the top five, by whether the answer spans one file (squares) or several
+        (circles). <b>a</b>, Three retrievers on the 35 development queries (two codebases). <b>b</b>, Shortlist variants for the
+        two-stage pipeline on the same queries, with seconds per query on the larger codebase. The spread-across-files variants were
+        designed after these queries exposed the problem, so their gain here is partly tuning. <b>c</b>, The pre-registered test on a
+        third codebase, scored once: no difference. Development labels are Claude-drafted and unverified; held-out labels each carry a
+        cited line checked by script.
+      </Figure>
       <p>
         <strong>It cannot say &ldquo;not here&rdquo;.</strong> On each codebase, two or three answerable queries score below the
         strongest query for a feature that does not exist, and the cut-off sits at a different score in each. Raw reranker scores are
