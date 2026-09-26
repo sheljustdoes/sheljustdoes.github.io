@@ -61,22 +61,22 @@
    "findings": [
     {
      "pmid": "42303126",
-     "text": "At baseline, participants were 81.5 years old on average.",
+     "text": "In adjusted model, higher percentages of level 1 time below range (TBR), level 2 TBR and glycemic variability assessed by the coefficient of variation (CV) were independently associated with an increased mortality risk (hazard ratio [95% CI] 1.51 [1.11; 2.06], 1.25 [1.02; 1.53], and 1.76 [1.21; 2.56] for an interquartile range (IQR)% increase of each parameter, respectively).",
      "section": "RESULTS"
     },
     {
      "pmid": "42303126",
-     "text": "After a median follow-up of 44 months, 58 of 141 patients had died.",
-     "section": "RESULTS"
-    },
-    {
-     "pmid": "42295772",
-     "text": "Of the 1173 participants (median age, 74 years [IQR, 70-80]; 795 [68%] were female), 997 (85%) experienced greater than or equal to 2 conditions (median, 5 [IQR, 3-7]) by the end of follow-up (316 of 385 [82%], 327 of 385 [85%], and 350 of 403 [87%], respectively, among lifestyle, metformin, and placebo groups).",
+     "text": "When recommended CGM targets were considered, only glycemic variability (CV \u2264 36%), remained significantly associated with a lower risk of mortality (hazard ratio 0.57 [0.32; 0.99]), whereas TIR > 50% and TBR \u2264 1% were not.",
      "section": "RESULTS"
     },
     {
      "pmid": "42295772",
      "text": "The risk of multimorbidity was lower among lifestyle compared with placebo participants (hazard ratio [HR], 0.79; 95% CI, 0.68-0.93) after adjustment for relevant covariates.",
+     "section": "RESULTS"
+    },
+    {
+     "pmid": "42295772",
+     "text": "There was no difference between participants in the metformin and placebo groups (HR, 0.91; 95% CI, 0.78-1.07).",
      "section": "RESULTS"
     }
    ]
