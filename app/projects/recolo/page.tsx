@@ -81,6 +81,20 @@ export default function RecoloPage() {
         retrieval on knowledge-update questions. Two protocols, one conclusion: decay, fixed or adaptive, does not help an agent answer
         from its own history. At best it does no harm.
       </p>
+      <p>
+        A third protocol turned decay off and gave the other two mechanisms the form the results pointed to. Salience came from
+        recurrence, a topic returning in a later session, and was allowed only to break near-ties. Consolidation stopped showing its
+        keyword labels and became an index: a query that matches a cluster pulls in the cluster&apos;s member episodes. The test ran at a
+        1,000-token budget, where ranking decides what the reader sees, on all 182 questions no earlier run had touched. On the tuning
+        questions, every setting strong enough to change the ranking lowered recall. On the held-out questions neither mechanism beat
+        plain retrieval: salience lost half a point of evidence recall, consolidation lost half a point on the multi-session questions it
+        was built for, and both intervals end at zero. A gate fixed in advance sends only an arm that beats plain retrieval to the paid
+        answer-accuracy step, so this protocol cost nothing.
+      </p>
+      <p>
+        Three protocols, one answer: none of recolo&apos;s bio-inspired mechanisms helps an agent choose what to read from its own
+        history. The store and retrieval loop are sound, and plain similarity retrieval over them is the configuration that works.
+      </p>
     </>
   );
 }
