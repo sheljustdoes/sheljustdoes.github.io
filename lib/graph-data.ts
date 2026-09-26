@@ -439,7 +439,7 @@ const AUTHORED: AuthoredNode[] = [
     points: [
       "Local, non-generative code search: typed scores in a single pass instead of an agent reading files, with nothing leaving the machine",
       "BM25 and a 33M-parameter embedding model shortlist 20 chunks; a 568M-parameter cross-encoder reranks only those",
-      "On 35 hand-labelled queries across two codebases, the right file is in the top three for 33 (BM25 alone: 28) at a tenth of brute-force cost",
+      "On 35 labelled queries across two codebases (labels Claude-drafted, not yet reviewed), the right file is in the top three for 33 (BM25 alone: 28) at a tenth of brute-force cost on the larger codebase",
       "At top-1 it does not yet beat keyword search — reported as-is",
       "Fronted by a Claude Code skill; calibration and the per-file yes/no mode are next",
     ],
