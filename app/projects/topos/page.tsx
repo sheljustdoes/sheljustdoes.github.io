@@ -26,7 +26,7 @@ export default function ToposPage() {
         conditional on a candidate structure surviving the earlier, cheaper stages first.
       </p>
 
-      <h2>Key results</h2>
+      <h2>Where the case studies stand</h2>
       <table>
         <thead>
           <tr>
@@ -37,33 +37,55 @@ export default function ToposPage() {
         </thead>
         <tbody>
           <tr>
-            <td>fragaria</td>
+            <td>
+              <a href="/projects/fragaria/">fragaria</a>
+            </td>
             <td>Octoploid strawberry</td>
-            <td>0 (complete)</td>
+            <td>0 run; GO, narrowly, PCA only</td>
           </tr>
           <tr>
             <td>glyma</td>
             <td>Soybean (SoySNP50K)</td>
-            <td>0 complete, 1 in progress</td>
+            <td>0 specified, not yet run</td>
           </tr>
           <tr>
             <td>sorghum</td>
             <td>Sorghum (TIP analysis)</td>
-            <td>0 complete, 1 in progress</td>
+            <td>0–1 specified, not yet run</td>
           </tr>
         </tbody>
       </table>
       <p>
-        None of the three has reached later stages yet, and that&apos;s intentional rather than a gap — the protocol is designed to keep
-        projects at the cheap, falsifiable, kill-or-continue stages until they&apos;ve earned the right to more expensive ones. The
-        generalizable result so far: the same eight-stage protocol applies unmodified to a polyploid crop genome, a diploid crop genome, and
-        a transposable-element analysis in a third species, without needing to be reinvented per organism.
+        Only fragaria has run anything, and only Stage 0. That is by design — projects stay at the cheap, falsifiable stages until they
+        have earned the expensive ones — but it also means topos has no biological finding of its own yet.
       </p>
+
+      <h2>What the first case study taught the protocol</h2>
+      <p>
+        fragaria&apos;s first Stage 0 returned GO, and an audit found it invalid. Its missing calls were never decoded, three rubric
+        criteria passed by construction, and the pipeline that won was chosen by the same metric that made it look perfect. The rebuilt,
+        pre-registered run returned GO narrowly, for linear structure only. Four rules came out of it, and they now belong to the
+        protocol rather than to one case study:
+      </p>
+      <ul>
+        <li>Missing-value codes are declared and decoded at load, and a declared-missing value surviving into the analysis is an error.</li>
+        <li>
+          Stability comes from resampling the data. Agreement across seeds says nothing about a deterministic pipeline, where it is
+          perfect by construction.
+        </li>
+        <li>
+          A confound with no variance is untestable and blocks a GO, and external coherence is never defined as the confound result.
+        </li>
+        <li>
+          Parameter grids are deduplicated before a rule counts settings, and missingness is tested within groups when it may be
+          biological, as array ascertainment made it in strawberry.
+        </li>
+      </ul>
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Framework active and stable.</strong> Case studies are early-stage by design; results above describe protocol validation,
-        not yet biological findings.
+        <strong>Designed (protocol).</strong> Eight stage specifications and one executed case-study stage. The next step is making the
+        protocol executable: stability, matched-model comparison and confound checks as a package that enforces the rules above.
       </p>
     </>
   );

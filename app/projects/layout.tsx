@@ -49,6 +49,16 @@ article li { margin-bottom: 6px; }
 article table { width: 100%; border-collapse: collapse; margin: 0 0 24px; font-size: 0.88rem; }
 article th, article td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--parchment); }
 article th { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--taupe); }
+/* Journal-style figures: wider than the text column, sans captions led by "Fig. n |". */
+article figure { margin: 36px 0; }
+article figure.wide { width: min(960px, calc(100vw - 32px)); position: relative; left: 50%; transform: translateX(-50%); }
+article figure a { display: block; }
+article figure img { display: block; width: 100%; height: auto; }
+article figcaption { max-width: 720px; margin: 12px auto 0; padding: 0 32px; font-family: var(--display); font-size: 0.82rem; line-height: 1.55; color: #4a4540; }
+article figure:not(.wide) figcaption { padding: 0; }
+article figcaption .fig-lead { font-weight: 600; color: var(--charcoal); }
+article figcaption b { font-weight: 600; color: var(--charcoal); }
+@media (max-width: 640px) { article figcaption { padding: 0; } }
 article .status-line {
   margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--charcoal); font-family: var(--mono); font-size: 0.7rem;
   letter-spacing: 0.05em; color: #4a4540;

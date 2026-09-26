@@ -105,6 +105,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "fragaria", name: "fragaria", area: "structure", status: "Results committed (Stage 0)", date: "2026–", featured: true,
+    link: "/projects/fragaria/", linkLabel: "Read the write-up →",
     summary:
       "Nonlinear haplotype topology in octoploid strawberry: does manifold learning recover stable haplogroup structure beyond PCA, despite dosage ambiguity and subgenome uncertainty? The only topos case study with executed analysis. After an audit found the first Stage 0 invalid, a pre-registered rebuild — missing calls decoded, families thinned, stability from resampling across 189 pipeline settings — returned GO narrowly: two PCA settings pass, finding structure that tracks germplasm source; no UMAP setting passes, so the nonlinear hypothesis is not yet supported.",
   },
