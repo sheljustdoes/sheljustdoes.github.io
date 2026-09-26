@@ -324,6 +324,7 @@ const AUTHORED: AuthoredNode[] = [
       "The embedding branch reached 0.71, a tie with a plain nuclei count, which is the baseline any detector has to beat",
       "A second pre-registered run on eight unscored experiments replicated all of it; nuclear-pixel scoring removed the inversion but left no signal",
       "A third run compared knockouts only with controls of the same cell count: the embeddings still separated them (0.69 against 0.52), so they see more than a count",
+      "A fourth run confirmed it within each experiment (0.61), but only in wells a knockout has already thinned; MTOR alone is not detected",
     ],
     keywords: ["Anomaly Detection", "Cell Painting", "Fluorescence Microscopy", "Convolutional Autoencoders", "Isolation Forest", "OpenPhenom", "RxRx3", "Negative Results", "PyTorch", "Pre-registered Protocols", "Biomedical Imaging"] },
 

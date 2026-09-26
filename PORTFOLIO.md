@@ -193,7 +193,7 @@ Results are generated into `docs/open_validation.md` from the run's JSON, so the
 documented numbers cannot drift from the run that produced them.
 
 ### argus — dual-branch fluorescence anomaly detection
-**Status:** Results committed · PyTorch, scikit-learn · RxRx3-core, three pre-registered runs, 29 held-out experiments
+**Status:** Results committed · PyTorch, scikit-learn · RxRx3-core, four pre-registered runs, 44 held-out experiments
 
 Anomaly detection over Cell Painting microscopy, splitting the six stains by excitation
 wavelength: a UV branch (Hoechst/DNA, ~350 nm) scored by a convolutional autoencoder's
@@ -236,6 +236,13 @@ binning within each experiment, a stricter match, keeps the overall result above
 embeddings' signal sits in the three lowest-count deciles (AUC 0.68–0.85) and is near chance
 above them. The dual-branch design
 stays a failure; the embedding branch alone carries real signal.
+
+**A fourth run (v4) made those checks the pre-registered test**, on 15 more unscored
+experiments (2,064 wells). Matched within each experiment, the embeddings still separate
+knockouts at 0.608 (CI 0.559–0.649), with the count at 0.490; MTOR alone is 0.545 (CI
+0.490–0.596, not detected); and in wells with more nuclei than the median control they are at
+chance (0.508). Every expectation in the protocol held. The embeddings see more than a count,
+but only in wells a knockout has already thinned.
 
 ### oncos — survival prediction from 3D CT
 **Status:** Implemented, in progress · public imaging data · PyTorch
