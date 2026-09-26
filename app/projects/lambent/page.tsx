@@ -1,3 +1,5 @@
+import Figure from "../Figure";
+
 export const metadata = { title: "lambent. — shel." };
 
 export default function LambentPage() {
@@ -63,6 +65,17 @@ export default function LambentPage() {
         two. The within-image findings are untouched, because there each image is its own control and illumination is fixed by
         construction.
       </p>
+      <Figure
+        n={1}
+        src="/projects/lambent/fig1_original.png"
+        alt="Three panels. a: histogram of per-image Spearman correlations between score and dose for added gloss and for plain brightening; both pile up at 1. b: mean score by Fitzpatrick type falling from 0.37 for type I to minus 0.34 for type VI. c: score shift under capture changes as a share of that type span: exposure minus half a stop 77%, minus a quarter 50%, plus a quarter 51%, plus half 90%, white balance warmer 41%, cooler 36%."
+        lead="The original score cannot tell gloss from brightness, and the camera moves it about as far as skin type does."
+      >
+        <b>a</b>, For 250 images, the Spearman correlation between the original score (v6) and six increasing doses of added specular
+        highlight or of plain gamma brightening. Both sit at 1 for almost every image. <b>b</b>, Mean score by Fitzpatrick type on the same
+        250 images; the arrow marks the type I–VI span. <b>c</b>, Mean absolute score change when each image is re-rendered under a capture
+        change that leaves the skin untouched, as a share of that span. White-balance changes are 10%.
+      </Figure>
       <p>
         The finding that matters most is that the obvious repair fails. Dropping the lightness term and keeping the specular one does not
         give a tone-neutral metric, because the specular detector counts pixels over an <em>absolute</em> brightness threshold and is
@@ -84,6 +97,17 @@ export default function LambentPage() {
         than bundled. Tone dependence ends at <strong>ρ² = 0.002</strong>, down from 0.310, and worst-case capture sensitivity at
         <strong>59.4%</strong>, down from 93.2% — while the response to real gloss improves.
       </p>
+      <Figure
+        n={2}
+        src="/projects/lambent/fig2_variants.png"
+        alt="Three panels, one row per variant from v6 to v11. a: correlation with added gloss and with brightening; v6 and v6 without lightness respond to both at 1, later variants respond positively to gloss (0.74 to 0.83) and negatively to brightening. b: tone dependence, 0.310 for v6 falling to 0.002 for v11, with v7 at 0.074 and v10 at 0.044 but v8 and v9 back near 0.28. c: worst capture shift, 93% for v6 and 59% for v11, 70 to 80% in between."
+        lead="Seven variants, each scored through the same experiments; the last is tone-neutral and the least sensitive to the camera."
+      >
+        <b>a</b>, Each variant&apos;s Spearman correlation with the dose of added gloss (circle) and of plain brightening (square). A
+        good score keeps the circle high and does not follow the square. <b>b</b>, Share of score variance explained by Fitzpatrick type
+        (ρ²). <b>c</b>, The worst mean score shift across the six capture changes, as a share of the score&apos;s spread across images — a
+        denominator that stays comparable when a variant removes the tone gradient. v11 (highlighted) is the recommended default.
+      </Figure>
       <p>
         Three of those variants are failures, and they are kept because the sequence is the argument. Deleting the lightness term does
         nothing, because the remaining terms are absolute too. Re-expressing everything as ratios fixes exposure and <em>breaks</em> white
