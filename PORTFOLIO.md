@@ -397,6 +397,11 @@ artefact of the programs' lost diversity. The effect is measured in Florida line
 Array-level fine-mapping leaves the lead marker alone in the credible set, and an independent
 public marker table puts its probe on 1B at 1.7 Mb while flagging the 1C signal's probe as
 ambiguous between homoeologs, confirming the placement.
+A replication fixed in advance failed: in 529 UC Davis individuals with fruit weight (Feldmann
+et al. 2024, CC0), where the allele segregates at 0.17–0.20, its effect is −0.18 g per copy
+(95% CI −1.00 to +0.64), excluding Florida's effect size. Wild *F. chiloensis* 'Del Norte' carries
+two copies, but its hybrids do not segregate, so the wild test could not run. The Florida → UC
+Davis crossing lead and the wild-donor reading are therefore not supported beyond Florida.
 
 ### indicium — graded evidence for precision medicine
 **Status:** Results committed (Stage 1, inconclusive) · open human genomics, CIViC, CPIC
