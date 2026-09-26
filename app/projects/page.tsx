@@ -121,7 +121,7 @@ article .line { margin-bottom: 8px; }
 article .section-head { margin: 64px 0 14px; padding-top: 18px; border-top: 3px solid var(--charcoal); }
 article .section-kicker { display: block; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--terracotta); margin-bottom: 6px; }
-article h2.section-title { display: block; margin: 0; font-family: var(--display); font-size: 1.9rem; font-weight: 600; letter-spacing: -0.015em;
+article h2.section-title { display: block; margin: 0; font-family: var(--serif); font-size: 1.9rem; font-weight: 500; letter-spacing: -0.01em;
   line-height: 1.15; text-transform: none; color: var(--charcoal); }
 article h2.section-title::after { content: none; }
 article .line-thesis { font-style: italic; color: #4a4540; }
@@ -134,6 +134,8 @@ article .line-meta { font-family: var(--mono); font-size: 0.62rem; letter-spacin
 article .line-rest { list-style: none; padding-left: 0; }
 article .line-rest li { padding: 4px 0; border-bottom: 1px solid var(--parchment); }
 article .entry-name { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; }
+/* Projects sit one step in under their supporting subheading. */
+article .support .line-rest { padding-left: 24px; }
 article .support-label { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6a655e; font-weight: 500; margin-top: 20px; }
 @media (max-width: 640px) {
   article .line-flagship { padding: 14px 16px; }
