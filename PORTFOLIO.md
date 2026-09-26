@@ -329,8 +329,12 @@ catalogues 69 polymorphic mobile-element insertions in or near the highest-evide
 pharmacogenes, 61% of checkable calls confirmed by long-read assemblies. Its stability
 verdict came back negative, but uninformatively: two of the four pre-registered
 perturbation axes turned out not to vary in the public call set, which capped every site
-below the stability threshold by construction. That is reported as it is, the repair
-waits on a signed-off change, and the check that would have caught it before the run
+below the stability threshold by construction. A repaired grid, approved afterwards and
+labelled post-hoc, gave the same verdict for the same kind of reason: a third axis turned
+out not to vary either, and only 16 sites could be checked against long reads, two of
+them common HLA insertions that dominated the comparison. So this call set cannot answer
+the stability question; the catalogue stands as a plain intersection, and a real test
+needs a call set whose filters vary. The check that catches degenerate axes before a run
 now lives in topos. The other arms have not started.
 
 ### glyma — soybean haplogroup discovery
