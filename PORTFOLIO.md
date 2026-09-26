@@ -402,6 +402,10 @@ et al. 2024, CC0), where the allele segregates at 0.17–0.20, its effect is −
 (95% CI −1.00 to +0.64), excluding Florida's effect size. Wild *F. chiloensis* 'Del Norte' carries
 two copies, but its hybrids do not segregate, so the wild test could not run. The Florida → UC
 Davis crossing lead and the wild-donor reading are therefore not supported beyond Florida.
+A final check found why: the array marker and the larger-fruit haplotype travel together in
+Florida lines (mean r² 0.85) but not at UC Davis (0.43), so the UC Davis null measured a marker
+that no longer tags the haplotype. The locus is untested outside Florida rather than refuted.
+Paused 2026-09-26.
 
 ### indicium — graded evidence for precision medicine
 **Status:** Results committed (Stage 1, inconclusive) · open human genomics, CIViC, CPIC
