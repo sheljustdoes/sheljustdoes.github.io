@@ -362,8 +362,9 @@ const AUTHORED: AuthoredNode[] = [
   { id: "fragaria", label: "fragaria", type: "project", color: "blush-deep", r: 18, x: 1006, y: 1062,
     points: [
       "Tests whether nonlinear manifold methods recover stable haplogroup structure beyond PCA in an octoploid system",
-      "Panels include the Hardigan 50K array, an 850K screening subset, and a WGS diversity panel",
-      "Stage 0 executed: consensus co-occurrence, stability dashboard, embedding analysis, decision-rubric scorecard",
+      "Run on the 50K array: 925 accessions after thinning full-sib families to three members",
+      "An audit found the first Stage 0 invalid (undecoded missing calls, a rubric passed by construction); the pre-registered rebuild returns GO narrowly, PCA only",
+      "Stability measured by resampling accessions and markers across 189 pipeline settings; no UMAP setting passes",
       "Contends with dosage ambiguity, subgenome assignment uncertainty, and homoeologous exchange",
       "The only topos case study with executed analysis",
     ],
