@@ -1,4 +1,4 @@
-import { AREAS, displayStatus, projectsInArea, type AreaId } from "@/lib/projects";
+import { LINES, SUPPORTING, displayStatus, projectsInArea, type Area, type AreaId } from "@/lib/projects";
 import { CERTIFICATIONS, EDUCATION, EXPERIENCE, SKILLS, SUMMARY, emphasisParts, siteDates } from "@/lib/resume";
 
 export const metadata = { title: "shel. — resume" };
@@ -91,32 +91,13 @@ export default function ResumePage() {
 
       <section>
         <div className="section-label">Projects</div>
-        {AREAS.map((area) => {
-          const projects = projectsInArea(area.id);
-          return (
-            <details key={area.id} className="area" open>
-              <summary className="area-summary">
-                <span className="area-dot" style={{ background: AREA_ACCENT[area.id] }} />
-                <span className="area-label">{area.label}</span>
-                <span className="area-count">{projects.length}</span>
-              </summary>
-              <div className="projects-grid">
-                {projects.map((p) => (
-                  <Project
-                    key={p.id}
-                    accent={AREA_ACCENT[area.id]}
-                    name={`${p.name}.`}
-                    tag={[p.date, p.status && displayStatus(p.status)].filter(Boolean).join(" · ")}
-                    href={p.link}
-                    linkLabel={p.linkLabel}
-                  >
-                    {p.summary}
-                  </Project>
-                ))}
-              </div>
-            </details>
-          );
-        })}
+        {LINES.map((area) => (
+          <AreaGroup key={area.id} area={area} open />
+        ))}
+        <div className="supporting-label">Supporting evidence — how the work gets built</div>
+        {SUPPORTING.map((area) => (
+          <AreaGroup key={area.id} area={area} />
+        ))}
       </section>
 
       <section>
@@ -135,12 +116,46 @@ export default function ResumePage() {
 
 // One accent per area, so a card's colour says which body of work it belongs to.
 const AREA_ACCENT: Record<AreaId, string> = {
-  vision: "var(--indigo)",
-  genomics: "var(--forest)",
-  ai: "var(--terracotta)",
-  education: "var(--amber)",
-  apps: "var(--dusty-blue)",
+  phenotyping: "var(--indigo)",
+  structure: "var(--forest)",
+  cognition: "var(--terracotta)",
+  production: "var(--dusty-blue)",
+  learning: "var(--amber)",
+  tooling: "var(--sage)",
 };
+
+/**
+ * One area of the Projects section. Product lines open with their thesis and
+ * lead with the flagship; supporting areas start folded, so the lines read first.
+ */
+function AreaGroup({ area, open = false }: { area: Area; open?: boolean }) {
+  const projects = projectsInArea(area.id);
+  return (
+    <details className={`area area-${area.kind}`} open={open}>
+      <summary className="area-summary">
+        <span className="area-dot" style={{ background: AREA_ACCENT[area.id] }} />
+        <span className="area-label">{area.label}</span>
+        <span className="area-count">{projects.length}</span>
+      </summary>
+      {area.thesis && <p className="area-thesis">{area.thesis}</p>}
+      <div className="projects-grid">
+        {projects.map((p) => (
+          <Project
+            key={p.id}
+            accent={AREA_ACCENT[area.id]}
+            name={`${p.name}.`}
+            tag={[p.id === area.flagship && "Flagship", p.date, p.status && displayStatus(p.status)].filter(Boolean).join(" · ")}
+            flagship={p.id === area.flagship}
+            href={p.link}
+            linkLabel={p.linkLabel}
+          >
+            {p.summary}
+          </Project>
+        ))}
+      </div>
+    </details>
+  );
+}
 
 /** Renders **emphasis** markers from lib/resume.ts as bold. */
 function Rich({ text }: { text: string }) {
@@ -188,18 +203,20 @@ function Project({
   tag,
   href,
   linkLabel,
+  flagship = false,
   children,
 }: {
   accent: string;
   name: string;
   tag: string;
+  flagship?: boolean;
   href?: string;
   linkLabel?: string;
   children: React.ReactNode;
 }) {
   const external = href?.startsWith("http");
   return (
-    <div className="project">
+    <div className={flagship ? "project project-flagship" : "project"}>
       <div className="project-accent" style={{ background: accent }} />
       <div className="project-name">{name}</div>
       <div className="project-tag">{tag}</div>
@@ -286,6 +303,13 @@ section { margin-bottom: 40px; }
 .area-summary:focus-visible { outline: 2px solid var(--indigo); outline-offset: 2px; }
 .area-dot { width: 6px; height: 6px; flex-shrink: 0; }
 .area-count { color: var(--warm-taupe); letter-spacing: 0.04em; }
+.area-thesis { font-family: var(--serif); font-style: italic; font-size: 0.84rem; color: #5a5550; margin: -4px 0 12px 16px; max-width: 62ch; }
+/* The flagship spans the row so each line visibly leads with it. */
+.project-flagship { grid-column: 1 / -1; border-color: var(--taupe); }
+.supporting-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm-taupe);
+  margin: 28px 0 10px; padding-top: 14px; border-top: 1px solid var(--parchment); }
+/* Supporting areas start folded on screen; print shows everything. */
+@media print { .area-supporting::details-content { content-visibility: visible; } }
 /* Credentials read as a list, marked with the same arrow the experience
    bullets use, rather than separated by rules. */
 .edu-list { list-style: none; padding: 0; margin: 0; }
