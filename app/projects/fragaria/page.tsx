@@ -8,8 +8,9 @@ export default function FragariaPage() {
       <span className="kicker">Project — 2026–</span>
       <h1>fragaria.</h1>
       <p className="tagline">
-        Is there stable haplogroup structure in cultivated strawberry, and is any of it nonlinear? The first answer came back GO, and an
-        audit found it invalid. Two pre-registered rebuilds later, the answer is yes to the first question, and not yet to the second.
+        Is there stable haplogroup structure in strawberry, and is any of it nonlinear? The first answer came back GO, and an audit found
+        it invalid. Across three panels and five pre-registered protocols, the answer is yes to the first question and no to the second,
+        and the structure turns out to be most useful as a map of what crossing would add.
       </p>
 
       <h2>Why this exists</h2>
@@ -224,6 +225,56 @@ export default function FragariaPage() {
         the hypothesis, and the rule needs a stricter linear comparison before any next stage.
       </p>
 
+      <h2>Stage 1c: wild octoploids, and a stricter rule</h2>
+      <p>
+        A stricter rule re-scored on the woodland strawberry would not have been a test, since the check above already showed the answer.
+        So the rule was fixed first and applied to a panel it had not seen: 102 wild octoploids, <em>F. chiloensis</em> and{" "}
+        <em>F. virginiana</em>, from a public whole-genome set (Fan and Whitaker 2023, CC-BY). The 33.6 GB variant file was streamed over
+        parallel connections and never stored; a hash of each site&apos;s position kept about 2%, 475,741 SNPs. Under the new rule a
+        nonlinear partition counts only if no linear setting that passes the same gates recovers it, under any clusterer and k-means at every
+        k from 2 to 10, either by agreeing with it or by splitting it more finely.
+      </p>
+      <Figure
+        n={7}
+        src="/projects/fragaria/fig7_stage1c.png"
+        alt="Two panels. a: 87 unrelated wild octoploids on the first two principal components; F. chiloensis forms one cluster on the right, eastern F. virginiana (mostly subspecies virginiana) a tight cluster at lower left, and western F. virginiana (subspecies platypetala and glauca) spreads upward on the left. b: for the four UMAP settings that pass the gates, agreement with the matched PCA partition: three at exactly 1.0, one at 0.63, all above the 0.5 needed to count as different."
+        lead="On wild octoploids, UMAP reproduces PCA's partitions accession for accession."
+      >
+        <b>a</b>, The 87 unrelated wild accessions on the first two principal components, by taxon. <b>b</b>, Agreement between each UMAP
+        setting that passes the gates and its matched PCA setting, on accessions both cluster. Structure counts as new only at 0.5 or below.
+      </Figure>
+      <p>
+        The panel has stable, confound-checked structure that follows taxonomy: <em>F. chiloensis</em>, eastern <em>F. virginiana</em>,
+        and the western subspecies. Every UMAP setting that finds it reproduces the matched PCA partition, three of them exactly, so none
+        even reached the stricter comparison. The verdict is KILL. Across a cultivated array panel, a wild diploid panel and a wild
+        octoploid panel, the answer is the same: stable structure is real, it is geographic or taxonomic, and a linear embedding finds it.
+      </p>
+
+      <h2>Stage 2x: what would crossing add?</h2>
+      <p>
+        The hypothesis was never the only reason to map this structure. The practical question is which populations carry variation that
+        cultivated strawberry lacks. A second protocol, written before Stage 1c finished, fixed the measures in advance: how differentiated
+        each group is, the alleles no other group carries, and the headline measure, the share of sites where a wild group carries an
+        allele at 20% or more that the UC Davis and Florida breeding programs hold at under 5%.
+      </p>
+      <Figure
+        n={8}
+        src="/projects/fragaria/fig8_stage2x.png"
+        alt="Three panels. a: share of sites where the wild group carries an allele at 20% or more that the breeding programs hold at under 5%: F. chiloensis 11.9%, western F. virginiana 7.5%, eastern F. virginiana 3.6%. b: private alleles per 100 sites, rarefied: F. chiloensis 11.4, western virginiana 7.3, eastern 6.7, named cultivars 2.8, Florida program 1.4, UC Davis program 0.7. c: pairwise F_ST, from 0.07 between Florida and named cultivars to 0.40 between F. chiloensis and UC Davis."
+        lead="Pacific F. chiloensis holds the most variation the breeding programs have lost."
+      >
+        <b>a</b>, Novel-allele supply for each wild group, with 95% intervals from resampling 1 Mb blocks. <b>b</b>, Alleles found in one
+        group only, rarefied to equal sample size. <b>c</b>, Hudson&apos;s F_ST between groups.
+      </Figure>
+      <p>
+        Every ranking is distinct. <em>F. chiloensis</em> supplies the most variation the programs lack, then the western{" "}
+        <em>F. virginiana</em> subspecies, then eastern <em>F. virginiana</em>, which sits closest to the historic cultivars. Between wild
+        groups the two measures disagree, which is the useful part: crossing eastern <em>virginiana</em> with <em>chiloensis</em> adds the
+        most heterozygosity, while western <em>virginiana</em> with <em>chiloensis</em> together carry the most of what the programs lack.
+        The programs themselves hold almost no private alleles. These are diversity measures: they count favourable, neutral and harmful
+        alleles alike. Linking them to fruit size and yield, through the same study&apos;s association data, is the next stage.
+      </p>
+
       <h2>Limits</h2>
       <p>
         One array, with pseudo-diploid calls on an octoploid, and no batch or plate records, so missingness is the only technical
@@ -234,13 +285,13 @@ export default function FragariaPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Results committed (Stage 1b).</strong> Four protocols, code, 22 unit tests, every setting&apos;s scores and these figures
-        are committed; each Stage 0 run takes about 21 minutes on a laptop, Stage 1b about 7. Each protocol was committed before its code,
-        and the code before the result.
+        <strong>Results committed (Stage 2x).</strong> Six protocols, code, 40 unit tests, every setting&apos;s scores and these figures
+        are committed; each Stage 0 run takes about 21 minutes on a laptop, Stages 1b and 1c about 7, Stage 2x under one. Each protocol was
+        committed before its code, and the code before the result.
       </p>
       <p>
-        Next is a decision: pre-register a stricter test, in which no passing linear setting under any clusterer may recover the
-        nonlinear partition, or close the question as linear on both panels. Stage 1 on the cultivated panel stays on hold. Every lesson here went
+        The nonlinear hypothesis is closed as not supported. Next is part B of Stage 2x: an association study on the Florida program&apos;s
+        fruit-size and yield data, then how often each wild group carries the favourable alleles. Every lesson here went
         upstream into <a href="/projects/topos/">topos</a>, which now enforces them in code.
       </p>
     </>
