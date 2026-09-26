@@ -86,6 +86,16 @@ colour in this data is a continuum, not a set of categories. On the same split, 
 predicts Fitzpatrick type at 34.6% (95% CI 32.6–36.5%) against 33.9% for always guessing the
 commonest type: no better than chance.
 
+**Scale or camera? (pre-registered, 2026-09-26).** The MSKCC Skin Tone Labeling Dataset (ISIC
+Archive, CC-BY) has colorimeter readings at 501 skin sites. Against that instrument,
+Fitzpatrick type tracks skin colour strongly (Spearman −0.80 with ITA; 66% of variance) and
+the Monk Skin Tone scale better still (−0.93; 88%; difference +0.125, CI +0.073 to +0.208).
+Colour measured from the dermoscopic images of the same sites does not reproduce the
+instrument, and 41% of its variance comes from imaging the same skin under different
+dermoscope modes, against 1.1% between repeat colorimeter readings. So the weak link on
+Fitzpatrick17k is mainly the camera, not the scale. A coding error in the first run (the
+wrong ITA formula) was caught by a pre-registered sanity check, corrected and logged.
+
 **Limit.** Every Fitzpatrick17k image in the benchmark comes from a single source atlas.
 The source is therefore constant rather than a confound, but the result is established on
 that atlas only; the dataset's other atlas has a very different skin-type mix and would
