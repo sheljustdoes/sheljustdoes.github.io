@@ -211,7 +211,7 @@ export const PROJECTS: Project[] = [
     id: "noul", name: "noul", area: "tooling", status: "Results committed (`find` only)", date: "2026–", featured: true,
     link: "/projects/noul/", linkLabel: "Read the write-up →",
     summary:
-      "Local, non-generative code search: BM25 and a small embedding model shortlist candidates and a cross-encoder reranks only those — typed scores in a single pass instead of an agent reading files, with nothing leaving the machine. On 35 labelled queries across two codebases, every single-file answer lands in the top five, at a tenth of brute-force cost on the larger codebase; but on a strict rule that requires every correct file, only 4 of 9 multi-file answers are complete — fewer than keyword search — which is the next thing to fix.",
+      "Local, non-generative code search: BM25 and a small embedding model shortlist candidates and a cross-encoder reranks only those — typed scores in a single pass instead of an agent reading files, with nothing leaving the machine. On 35 labelled queries across two codebases, every single-file answer lands in the top five, at a tenth of brute-force cost on the larger codebase; but on a strict rule that requires every correct file, only 4 of 9 multi-file answers are complete. A pre-registered fix helped on those queries but not on a fresh held-out codebase, so the default is unchanged.",
   },
   {
     id: "legere", name: "legere", area: "tooling", status: "Designed (scaffold)", date: "2026–",
