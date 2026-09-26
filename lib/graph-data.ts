@@ -336,7 +336,7 @@ const AUTHORED: AuthoredNode[] = [
       "Errors were diagnosed, not tuned away — the fixes were general, and the held-out set, frozen before them, scored the same as development",
       "Embeddings run in the reader's browser; Python runs the same quantized ONNX weights, and the two agree to cosine 1.000000",
       "A keyless browser demo, hosted on this site, searches the frozen corpus or any PubMed topic",
-      "Explore still runs only in the legacy app and is next in the rework",
+      "Explore was rebuilt with nothing generated; its map is in the demo, flagged as unstable because no cluster count survives resampling",
     ],
     keywords: ["Claim Grounding", "Retrieve-then-Entail", "LLM-as-Judge", "LLM Evaluation", "Embeddings", "ONNX Runtime", "transformers.js", "PubMed E-utilities", "MeSH", "UMAP", "Knowledge Graph", "Pre-registered Protocols", "Negative Results", "Claude API", "Local-First"] },
   { id: "recolo", label: "recolo", type: "project", color: "blush-deep", r: 22, x: 1560, y: 372,

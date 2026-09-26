@@ -434,7 +434,7 @@ the papers nearest their centroid and the findings those papers state, and the c
 count is chosen by resampling stability using topos. On the frozen corpus no count is
 stable (the best, three clusters, reaches 0.63), and the legacy map's ten clusters score
 0.28, so that map was mostly arbitrary partitioning; the rebuilt map says so instead of
-drawing false confidence. It is not yet shown in the demo. The same engine also verifies lumen's
+drawing false confidence. The demo shows the map with that stability evidence beside it. The same engine also verifies lumen's
 curriculum, grounding each generated principle in its source before review.
 
 Retrieval itself is not the differentiator — general research agents and existing tools do
