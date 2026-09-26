@@ -1,3 +1,5 @@
+import Figure from "../Figure";
+
 export const metadata = { title: "iridis. — shel." };
 
 export default function IridisPage() {
@@ -6,8 +8,8 @@ export default function IridisPage() {
       <span className="kicker">Project — 2023–2025</span>
       <h1>iridis.</h1>
       <p className="tagline">
-        Perceptual skin-tone phenotyping from open dermatology imaging data — testing whether data-driven color clusters carry more
-        structure than the clinical scales used to describe them.
+        Perceptual skin-tone phenotyping from open dermatology imaging data — testing how much of the colour measured in an image the
+        clinical Fitzpatrick scale actually captures.
       </p>
 
       <h2>Why this exists</h2>
@@ -31,17 +33,54 @@ export default function IridisPage() {
 
       <h2>Key results</h2>
       <p>
-        On Fitzpatrick17k (~12.6K images) and ISIC 2018 Task 1 (~5.2K lesion-masked images), using identical Lab/LCh features, the discovered
-        color clusters are <strong>2.5–2.8× more predictable</strong> than the clinical Fitzpatrick labels they&apos;re meant to
-        summarize — 95.8–96.3% classification accuracy for the discovered clusters versus 34.6–42.3% for the six-bucket clinical scale,
-        across both a classical (Random Forest) and an in-context (TabPFN) model, with and without masking. That gap is evidence the
-        clinical scale is collapsing real, learnable perceptual variation, not a modeling artifact. The lesion-exclusion U-Net reaches
-        held-out Dice 0.889 on ISIC 2018 Task 1.
+        The benchmark ran on Fitzpatrick17k: 12,631 clinical photographs, 12,222 of them with a valid Fitzpatrick label, with and without
+        masking, under a classical model (Random Forest) and an in-context one (TabPFN). The lesion-exclusion U-Net reaches held-out Dice
+        0.889 on ISIC 2018 Task 1.
       </p>
       <p>
-        The second finding is negative, and it is the more interesting one: <strong>masking does not close the gap, and does not even
-        help.</strong> Isolating skin from background and lesion was expected to make the clinical labels more predictable. It did not,
-        which points at the labels rather than at contamination in the images.
+        <strong>Measured skin colour barely tracks Fitzpatrick type.</strong> Median lightness falls steadily from type I to type VI, but
+        the spread inside each type is far wider than the steps between them. Type explains 7% of the variance in lightness and 12% in
+        yellowness. Predicting type from the five colour features reaches 35–42% accuracy, where always guessing the commonest type
+        scores 34%.
+      </p>
+      <Figure
+        n={1}
+        src="/projects/iridis/fig1_types.png"
+        alt="Three panels. a: box plots of lightness L* for Fitzpatrick types I to VI; medians fall from 63 to 43 but the boxes overlap widely. b: box plots of b* by type, rising from I to IV and falling for V and VI. c: horizontal bars of variance explained by type: L* 7%, a* 4%, b* 12%, chroma 9%, hue 1%."
+        lead="Fitzpatrick type explains little of the colour measured from the same images."
+      >
+        <b>a</b>, Lightness (CIE L*) of masked skin by Fitzpatrick type. Boxes span the middle half of each type, whiskers 5–95%, and each
+        box is filled with that type&apos;s median measured colour; image counts are printed along the bottom. <b>b</b>, The same for b*,
+        the yellow–blue axis. <b>c</b>, Share of each feature&apos;s variance explained by type (η²). All values are from uncalibrated
+        clinical photographs, one per image.
+      </Figure>
+      <p>
+        <strong>Masking does not help.</strong> Isolating skin from background and lesion was expected to make type more predictable,
+        because it removes an obvious source of contamination. Accuracy stayed flat or fell slightly. The weak link is not a masking
+        artefact.
+      </p>
+      <p>
+        <strong>A correction.</strong> Earlier versions of this page reported that the discovered colour clusters were 2.5–2.8× more
+        predictable than Fitzpatrick labels, 96% against 35–42%, and read that gap as evidence that the clinical scale discards real
+        structure. That reading does not hold. The clusters are defined from the same colour features the classifier is given, so
+        predicting them is largely true by construction. And the perceptual merge joins clusters transitively, so a chain of small steps
+        pulled 62 of the 120 initial clusters into one: that cluster holds 68% of the images and spans nearly the whole lightness range.
+        Against always guessing it, 96% is a smaller gain than it looks.
+      </p>
+      <Figure
+        n={2}
+        src="/projects/iridis/fig2_clusters.png"
+        alt="Three panels. a: bar chart of the 50 discovered clusters by share of images; the largest holds 68%, the rest at most 4% each. b: histogram of lightness for all images with the largest cluster overlaid, covering L* from about 36 to 90. c: accuracy dot plot; Fitzpatrick type 35 to 42% against a 34% commonest-class line; discovered cluster 96% against a 68% line."
+        lead="The cluster comparison measures the clustering, not the scale."
+      >
+        <b>a</b>, The 50 discovered clusters (masked features), largest first, each bar in its cluster&apos;s median colour. <b>b</b>,
+        Lightness of every image (light) and of the largest cluster&apos;s members (dark). <b>c</b>, Test accuracy of each model and feature
+        set against the accuracy of always predicting the commonest class (black line; for clusters, from the masked clustering).
+        Filled markers use masked features, open markers unmasked.
+      </Figure>
+      <p>
+        What stands is the weak link between colour and type. What it means is still open: in uncalibrated photographs, a coarse scale
+        and uncontrolled capture both weaken it, and this data cannot tell them apart.
       </p>
 
       <h2>Limits</h2>
@@ -54,8 +93,10 @@ export default function IridisPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Results committed.</strong> Core pipeline (masking, featurization, clustering, benchmarking) is implemented and reproducible.
-        Segmentation is being reworked with additional data before an interactive demo is built.
+        <strong>Results committed.</strong> Core pipeline (masking, featurization, clustering, benchmarking) is implemented and reproducible,
+        and the figures are drawn from its committed outputs by a script in the repository. Next: replace the transitive merge with one
+        that cannot chain, test the clusters against features they were not built from, and put intervals on every accuracy. Segmentation
+        is being reworked with additional data before an interactive demo is built.
       </p>
     </>
   );
