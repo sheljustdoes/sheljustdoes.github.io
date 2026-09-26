@@ -7,8 +7,8 @@ export default function NoulPage() {
       <h1>noul.</h1>
       <p className="tagline">
         Local, non-generative code search: typed scores in a single pass instead of an agent reading files, with nothing leaving the
-        machine. It puts a right file in the top three for 34 of 35 queries, against 29 for keyword search, in about two seconds. At top-1
-        its lead is three queries, too few to call.
+        machine. Every single-file answer lands in its top five, in about two seconds. Answers that span several files come back
+        complete less often than with plain keyword search, and that is the next thing to fix.
       </p>
 
       <h2>Why this exists</h2>
@@ -43,9 +43,9 @@ export default function NoulPage() {
       <p>
         <strong>Who wrote the labels matters.</strong> Claude drafted them against the source. Three were widened after the first run,
         when the scorers found defensible answers the labels had missed; one of those turned up a real duplication in iridis, two
-        separate implementations of the same skin-color extraction. Those three, and the two queries that accept several files, were
-        then reviewed by a person and accepted as they stand. The other 36 are still as drafted. The two-stage default was chosen on
-        these same queries, so its edge over its near neighbors is not a finding.
+        separate implementations of the same skin-color extraction. None of the 41 labels has been independently verified: they are
+        Claude&apos;s reading of the code. The two-stage default was chosen on these same queries, so its edge over its near neighbors is
+        not a finding.
       </p>
 
       <h2>What it found</h2>
@@ -80,7 +80,7 @@ export default function NoulPage() {
           </tr>
         </tbody>
       </table>
-      <p>Then, rerun on the reviewed labels, with the code and corpus unchanged:</p>
+      <p>Then, rerun on the current labels (with the three widenings), code and corpus unchanged:</p>
       <table>
         <thead>
           <tr>
@@ -107,17 +107,24 @@ export default function NoulPage() {
       </table>
       <p>
         <strong>At top-1, the lead is too small to call.</strong> Two-stage is ahead of keyword search by two queries on the original
-        labels and three on the reviewed ones, out of 35, which is noise at this sample size. An earlier lead for the big reranker on the
+        labels and three on the current ones, out of 35, which is noise at this sample size. An earlier lead for the big reranker on the
         web application did not replicate on iridis, where a 22M model did best.
       </p>
       <p>
         <strong>The replicated gain is the shortlist.</strong> On both codebases, the reranker puts a right file in the top three for 33
-        of 35 queries against 28 for BM25, and 34 against 29 on the reviewed labels. That points to its role: a reranker over a shortlist, not a top-1 oracle.
+        of 35 queries against 28 for BM25, and 34 against 29 on the current labels. That points to its role: a reranker over a shortlist, not a top-1 oracle.
       </p>
       <p>
         <strong>The two-stage pipeline keeps that gain at a fraction of the cost.</strong> Reranking every chunk costs about 0.1 s per
         chunk, 25.6 s a query on the larger codebase. Every shortlist tested kept recall at three unchanged, and the default brings a
         query to 2.3 s: a tenth of the brute-force time on the larger codebase, a third on the smaller.
+      </p>
+      <p>
+        <strong>On a strict rule, multi-file answers are the weakness.</strong> The measures above count a query as right if <em>any</em>
+        correct file appears. Counting it only when <em>every</em> correct file is in the top five, every single-file query passes (26 of
+        26), but only 4 of the 9 queries with several correct files do, fewer than keyword search (5) and brute force (6). The shortlist
+        keeps the best 20 chunks, which tend to come from one dominant file, so secondary files never reach the reranker. That is the
+        next thing to fix, judged on the strict rule first.
       </p>
       <p>
         <strong>It cannot say &ldquo;not here&rdquo;.</strong> On each codebase, two or three answerable queries score below the
@@ -128,8 +135,8 @@ export default function NoulPage() {
       <h2>Limits</h2>
       <p>
         Both codebases are small, 60 and 9 files. The shortlist of 20 chunks is 8% of one and 31% of the other, so it has not had to prove
-        itself on a repository where it discards almost everything. 35 queries is a small sample, and 36 of the 41 labels are still
-        unreviewed.
+        itself on a repository where it discards almost everything. 35 queries is a small sample, and the labels are not independently
+        verified.
       </p>
 
       <h2>Status</h2>
@@ -139,7 +146,8 @@ export default function NoulPage() {
         is meant to replace for all but ambiguous cases.
       </p>
       <p>
-        Next: the remaining labels reviewed, then a large open-source repository, calibration so
+        Next: a shortlist that keeps several files, so multi-file answers come back complete; label verification that does not depend on
+        reading the code; then a large open-source repository, calibration so
         &ldquo;not here&rdquo; becomes a probability, and the per-file yes/no <code>ask</code> mode. The agent it would replace will
         be scored on the same labels, so that comparison becomes a measurement rather than an anecdote.
       </p>
