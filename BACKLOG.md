@@ -18,8 +18,10 @@ Seven projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `top
       per line, listed first, with a write-up.
 - [x] Write up `argus`. Done 2026-09-25: `/projects/argus/`, linked from the résumé,
       graph panel and products index.
-- [ ] Write up `fragaria` once its Stage 0 scorecard is audited (see fragaria BACKLOG):
-      the only executed proof behind the topos line. Link it from the topos write-up.
+- [x] Audit fragaria's Stage 0 scorecard. Done 2026-09-25: reproducible but uninformative
+      (fragaria `docs/stage0_audit.md`); PORTFOLIO.md and the summary say so.
+- [ ] Write up `fragaria` after its Stage 0 is rerun under the rebuilt rubric (fragaria
+      BACKLOG P0a). Link it from the topos write-up.
 - [ ] Later write-ups: `noul` after its labels are reviewed; `oncos` only if Shel opens
       its methods; `indicium` once a count has run.
 - [x] Bring the iridis write-up in line with its entry. Done 2026-09-25: dates, the exact
