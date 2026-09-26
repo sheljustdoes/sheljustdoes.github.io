@@ -79,6 +79,14 @@ export default function IridisPage() {
         Filled markers use masked features, open markers unmasked.
       </Figure>
       <p>
+        <strong>Are there colour categories at all?</strong> A pre-registered retest replaced the chaining merge with one that cannot
+        chain: two groups join only if every colour across them is within the perceptual threshold. Colour then splits into 92 clusters,
+        the largest holding 3.7% of images. Refit on resampled images, they do not reproduce: the median agreement between refits is
+        0.31, against the 0.80 a stable partition needs. Skin colour in this data is a continuum, and any fixed set of colour categories
+        is a convenience rather than a finding. On the same test split, colour predicts Fitzpatrick type at 34.6% (95% interval
+        32.6–36.5%), against 33.9% for always guessing the commonest type.
+      </p>
+      <p>
         What stands is the weak link between colour and type. What it means is still open: in uncalibrated photographs, a coarse scale
         and uncontrolled capture both weaken it, and this data cannot tell them apart.
       </p>
