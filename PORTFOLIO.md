@@ -588,9 +588,12 @@ built, tuned on 61 new questions and tested on 119 more, none used before. On ev
 recall, which needs no model, none beats plain similarity: span-relative decay keeps 75%
 of evidence turns and session-counted decay 43%, against 96% for plain retrieval, and the
 tie-breaking mode is indistinguishable from it. Plain retrieval already finds every
-knowledge-update evidence turn. The answer-accuracy run that could still show decay
-helping, by keeping superseded facts out of the context, is planned and costed but not
-yet run.
+knowledge-update evidence turn. The answer-accuracy run then checked whether decay helps
+by keeping superseded facts out of the context: it does not. On 119 held-out questions,
+plain retrieval answered 0.76; the tie-breaking mode matched it (0.77, no detectable
+difference), span-relative decay fell to 0.55 and session-counted decay to 0.34, and none
+beat plain retrieval on knowledge-update questions. Across both protocols, decay — fixed
+or adaptive — does not help an agent answer from its own history; at best it does no harm.
 
 Direct successor to veridian: it takes that project's core insight — semantic clustering
 as a general-purpose meaning-compression mechanism — and redirects it from external
@@ -864,21 +867,22 @@ descriptions whose words never appear in the code. It runs in two stages. BM25 a
 markdown, without outputs.
 
 **Measured** on 35 answerable, labelled queries across a JavaScript web application
-and a Python/notebook research codebase (iridis), with three queries whose feature does
+and a Python/notebook research codebase (iridis), plus six queries whose feature does
 not exist:
 
 | | P@1 | R@3 | s / query |
 |---|---:|---:|---:|
-| BM25 alone | 0.63 | 0.80 | < 0.01 |
-| Reranker over every chunk | 0.66 | 0.94 | 6.7–25.6 |
-| **Two-stage** | **0.69** | **0.94** | **2.2–2.3** |
+| BM25 alone | 0.63 → 0.69 | 0.80 → 0.83 | < 0.01 |
+| Reranker over every chunk | 0.66 → 0.74 | 0.94 → 0.97 | 6.7–25.6 |
+| **Two-stage** | **0.69 → 0.77** | **0.94 → 0.97** | **2.1–2.3** |
 
-The honest reading: at top-1 no local model yet beats keyword search. The replicated
-gain is the shortlist, where a correct file is in the top three for 33 of 35 queries
-against 28 for BM25, now at a tenth of the brute-force cost on the larger codebase. Three labels were widened
-after the first run showed defensible answers they had missed. Both versions are
-reported, and the sample is small. The labels were drafted by Claude against the source and
-have not yet been reviewed by a person.
+(Original labels → reviewed labels.) The honest reading: at top-1 the two-stage lead over
+keyword search is two or three queries of 35, too few to call. The replicated gain is the
+shortlist, where a correct file is in the top three for 34 of 35 queries against 29 for
+BM25 on the reviewed labels, at a tenth of the brute-force cost on the larger codebase.
+Three labels were widened after the first run showed defensible answers they had missed;
+those three and the two multi-file answers were then reviewed by Shel and accepted as they
+stand. The other 36 labels are still as Claude drafted them, and the sample is small.
 
 **Not yet built:** calibration, which would turn scores into probabilities and let `find`
 answer "not here" (no single threshold separates absent features yet); the per-file
