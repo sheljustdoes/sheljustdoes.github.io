@@ -394,6 +394,9 @@ subgenomes (585,789 sites) and placed the signal on subgenome 1B, in a haplotype
 wild octoploids (*F. chiloensis* 0.86, *F. virginiana* 0.47–0.60) and rare at UC Davis (0.08);
 program-frequency-matched background alleles sit near 0.05 in the wild, so this is not an
 artefact of the programs' lost diversity. The effect is measured in Florida lines only.
+Array-level fine-mapping leaves the lead marker alone in the credible set, and an independent
+public marker table puts its probe on 1B at 1.7 Mb while flagging the 1C signal's probe as
+ambiguous between homoeologs, confirming the placement.
 
 ### indicium — graded evidence for precision medicine
 **Status:** Results committed (Stage 1, inconclusive) · open human genomics, CIViC, CPIC
