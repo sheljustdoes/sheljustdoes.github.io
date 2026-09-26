@@ -177,7 +177,7 @@ Results are generated into `docs/open_validation.md` from the run's JSON, so the
 documented numbers cannot drift from the run that produced them.
 
 ### argus — dual-branch fluorescence anomaly detection
-**Status:** Results committed · PyTorch, scikit-learn · RxRx3-core, two pre-registered runs, 14 held-out experiments
+**Status:** Results committed · PyTorch, scikit-learn · RxRx3-core, three pre-registered runs, 29 held-out experiments
 
 Anomaly detection over Cell Painting microscopy, splitting the six stains by excitation
 wavelength: a UV branch (Hoechst/DNA, ~350 nm) scored by a convolutional autoencoder's
@@ -206,8 +206,18 @@ no signal at all (0.48). Regressing cell count out of the embeddings looked like
 real MTOR signal (0.58, interval above 0.5), but a check made after scoring showed the
 residualized score still tracked cell count almost as strongly (Spearman −0.48 against
 −0.51): a linear regression cannot remove a nonlinear dependence, so the control did not do
-its job. Nothing yet sees more than a cell count; the next run compares wells within
-matched cell-count bins.
+its job.
+
+**A third run (v3) compared wells only with controls of the same cell count**, on 15 more
+experiments nobody had scored (2,108 wells, 135 plates). Controls were cut into deciles of
+nuclei fraction, and each knockout was compared only with controls in its own decile. The
+built-in check passed: inside a bin, the cell count alone scored 0.521. Matched on count, the
+embeddings still reached 0.690 (CI 0.651–0.724), 0.169 above the count, and MTOR alone
+stayed above chance (0.579, CI 0.540–0.615). **So the embeddings do see more than a cell
+count.** Unmatched, they tied it again. A check made after scoring (not pre-registered):
+binning within each experiment, a stricter match, keeps the overall result above chance
+(0.588) but pulls MTOR alone to 0.548, whose interval includes 0.5. The dual-branch design
+stays a failure; the embedding branch alone carries real signal.
 
 ### oncos — survival prediction from 3D CT
 **Status:** Implemented, in progress · public imaging data · PyTorch
