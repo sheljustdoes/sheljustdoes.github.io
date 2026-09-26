@@ -86,6 +86,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "argus", name: "argus", area: "phenotyping", status: "Results committed", date: "2026–",
+    link: "/projects/argus/", linkLabel: "Read the write-up →",
     summary:
       "Anomaly detection for Cell Painting on Recursion's public RxRx3-core: a UV-channel autoencoder and an Isolation Forest over OpenPhenom embeddings, fused by rank, tested under a protocol fixed in advance on PLK1 and MTOR knockouts held out by experiment. The dual-branch design failed its test: the autoencoder ranked knockouts as less anomalous than controls (AUC 0.32), fusion fell to 0.53, and the embedding branch (0.71) only tied a nuclei count.",
   },

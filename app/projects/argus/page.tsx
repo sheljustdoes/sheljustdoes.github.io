@@ -1,0 +1,143 @@
+export const metadata = { title: "argus. — shel." };
+
+export default function ArgusPage() {
+  return (
+    <>
+      <span className="kicker">Project — 2026–</span>
+      <h1>argus.</h1>
+      <p className="tagline">
+        Anomaly detection for Cell Painting microscopy, tested under a protocol fixed in advance against a baseline that only counts
+        cells. The design failed the test, and the page says so.
+      </p>
+
+      <h2>Why this exists</h2>
+      <p>
+        High-content screens image millions of wells, and most perturbations do nothing visible. An anomaly detector trained only on
+        normal wells could flag the few that matter without needing a label for every phenotype in advance. That promise is easy to
+        overstate. A knockout that stops cell division leaves fewer cells in the well, and almost any image score will notice that.
+        The question worth answering is whether a detector sees more than a cell count.
+      </p>
+
+      <h2>Approach</h2>
+      <p>
+        Cell Painting images six stains. Hoechst, the DNA stain, is excited in the UV at about 350 nm; the other five are excited in the
+        visible range. argus gives the nuclear channel its own detector, a convolutional autoencoder scored by reconstruction error, and
+        covers the rest with an Isolation Forest over pre-computed OpenPhenom embeddings. The two scores are fused by averaging their
+        ranks.
+      </p>
+      <p>
+        One caveat surfaced while the protocol was being written. OpenPhenom embeds all six channels, Hoechst included, so the embedding
+        branch was never UV-free. The fusion question therefore became narrower: does a Hoechst-only autoencoder add anything to a model
+        that has already seen Hoechst?
+      </p>
+
+      <h2>The test</h2>
+      <p>
+        The data is Recursion&apos;s public RxRx3-core: HUVEC cells, one imaging site per well, from the 16 CRISPR experiments that sit
+        entirely inside two dataset shards. Normal wells carry intron and exon control guides, which target no gene function. Anomalous
+        wells are the PLK1 and MTOR knockouts that every experiment includes as positive controls. PLK1 stops cell division. MTOR&apos;s
+        phenotype is subtler.
+      </p>
+      <p>
+        The protocol was committed before any detector was trained. It fixed the split by experiment (10 to fit, 6 held out), the
+        settings, the direction of every score, the three comparisons that matter, and a written expectation of the result. Detectors
+        were fitted on 359 normal wells and never saw a knockout. The held-out set — 848 wells on 54 plates — was scored once. Intervals
+        come from a bootstrap that resamples whole plates, because wells on a plate share a batch. The fixed baseline is the fraction of
+        Hoechst-bright pixels: a cell count, nothing more.
+      </p>
+
+      <h2>What the evaluation found</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Detector</th>
+            <th>ROC-AUC (95% CI)</th>
+            <th>PLK1</th>
+            <th>MTOR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nuclei count (baseline)</td>
+            <td>0.712 (0.686–0.740)</td>
+            <td>0.787</td>
+            <td>0.638</td>
+          </tr>
+          <tr>
+            <td>Embeddings, Isolation Forest</td>
+            <td>0.711 (0.676–0.745)</td>
+            <td>0.831</td>
+            <td>0.591</td>
+          </tr>
+          <tr>
+            <td>Embeddings, centroid distance</td>
+            <td>0.707 (0.672–0.741)</td>
+            <td>0.825</td>
+            <td>0.589</td>
+          </tr>
+          <tr>
+            <td>Fused</td>
+            <td>0.532 (0.498–0.568)</td>
+            <td>0.559</td>
+            <td>0.505</td>
+          </tr>
+          <tr>
+            <td>UV autoencoder</td>
+            <td>0.324 (0.297–0.348)</td>
+            <td>0.233</td>
+            <td>0.415</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>The autoencoder scored in the wrong direction.</strong> An AUC of 0.32 is well below chance: knockout wells reconstructed{" "}
+        <em>better</em> than controls. Fewer nuclei leave more empty background, which an autoencoder reproduces easily, so &ldquo;higher
+        error means more anomalous&rdquo; fails for exactly the phenotype it was meant to catch. The protocol fixed the direction before
+        scoring, so the score was not flipped afterwards. It carries signal, but it is not an anomaly detector as designed.
+      </p>
+      <p>
+        <strong>Fusion inherited that failure.</strong> Rank-averaging a reversed score with a good one landed near chance, 0.179 below
+        the embedding branch alone (95% CI 0.152–0.206). This was the comparison the whole design rested on.
+      </p>
+      <p>
+        <strong>The embeddings saw about as much as a cell count.</strong> Overall they tied the baseline, 0.711 against 0.712. They were
+        better on PLK1 and worse on MTOR. The score distributions show why: the embeddings catch a tail of strongly shifted knockout
+        wells, but most knockouts overlap the controls. The Isolation Forest added nothing over a plain distance to the normal centroid
+        (+0.004, CI −0.001 to +0.009).
+      </p>
+      <p>
+        The written expectation was partly wrong, and it stays in the protocol as written. It predicted near-perfect separation of PLK1
+        by the embeddings (they reached 0.83), weaker MTOR (true), an autoencoder that mostly tracks cell count (it tracks it inversely),
+        and no gain from fusion (true, and worse than expected).
+      </p>
+
+      <h2>Limits</h2>
+      <p>
+        One cell type, one imaging site per well, 16 of 176 CRISPR experiments, and two anomaly genes. The autoencoder runs at 128 × 128,
+        which may lose nuclear detail. The embeddings are OpenPhenom&apos;s alone; no image model was trained on the visible channels.
+        None of this rescues the design: the autoencoder&apos;s failure comes from what reconstruction error rewards, not from sample
+        size.
+      </p>
+
+      <h2>Status</h2>
+      <p className="status-line">
+        <strong>Results committed.</strong> The protocol, detectors, plate bootstrap and results are committed with 8 unit tests, and
+        the whole evaluation reruns in about a minute on a laptop. No images or trained models are committed, because the dataset
+        licence treats trained models as derivative technology. The one deviation was an Apple-silicon training crash fixed before any
+        score was produced; no setting changed.
+      </p>
+      <p>
+        Each next step is a new pre-registered run, not a re-scoring of this one. First, a UV score that does not reward empty background:
+        reconstruction error on nuclear pixels only, or a per-nucleus morphology score. Second, regressing the cell count out of the
+        embedding score to see whether anything is left for MTOR.
+      </p>
+      <p>
+        We used the RxRx3-core dataset, available from Recursion Pharmaceuticals at{" "}
+        <a href="https://www.rxrx.ai" target="_blank" rel="noopener">
+          rxrx.ai
+        </a>
+        , under Recursion&apos;s licensing terms. The dataset was not modified.
+      </p>
+    </>
+  );
+}
