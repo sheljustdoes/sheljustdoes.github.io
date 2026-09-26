@@ -22,12 +22,13 @@ export default function RecoloPage() {
         The architecture maps biological memory onto an agent explicitly. Working memory is the live context window. Episodic memory is a
         vector store of session records with metadata. Semantic memory is the set of cluster centroids produced by compressing those
         records. Hippocampal indexing becomes semantic clustering as a retrieval index, and slow-wave consolidation becomes a scheduled
-        loop that compresses redundant episodes into semantic structure and prunes what falls below threshold.
+        loop that compresses redundant episodes into semantic structure and speeds the decay of episodes it already represents, rather
+        than deleting them.
       </p>
       <p>
         Two mechanisms make forgetting programmable. Episodic weights decay exponentially, <code>w(t) = e^(-λt)</code>, with λ exposed as a
         parameter rather than buried as a constant. Salience scoring modulates what survives, using sentiment magnitude as a proxy for
-        emotional arousal — the amygdala&apos;s role in consolidating what mattered. Retrieval ranks on the product of similarity, decay,
+        emotional arousal — the amygdala&apos;s role in consolidating what mattered. As designed, retrieval ranks on the product of similarity, decay,
         and salience, and returns concise ranked results rather than raw embeddings.
       </p>
       <p>
@@ -63,15 +64,8 @@ export default function RecoloPage() {
         timescale of future questions is known in advance. Here it was not, and nothing in recolo adapts to it.
       </p>
 
-      <h2>Status</h2>
-      <p className="status-line">
-        <strong>Results committed.</strong> The core loop runs and is tested: both stores behind one interface over SQLite, decay computed
-        at retrieval so the rate stays tunable, and consolidation that merges repeated topics and logs what it discards. The evaluation
-        is committed with its protocol, dev and held-out splits, every answer and verdict, and a spot-check of the grader. It cost
-        $10.65 to run.
-      </p>
       <p>
-        The next protocol built decay that adapts to the history it runs on: relative to the history&apos;s span, counted in sessions
+        A second protocol built decay that adapts to the history it runs on: relative to the history&apos;s span, counted in sessions
         rather than hours, or used only to break near-ties. Parameters were chosen on 61 fresh questions and tested on 119 more. On
         evidence recall, which needs no model, none beats plain similarity: span-relative decay keeps 75% of the evidence turns and
         session-counted decay 43%, against 96% for plain retrieval, while the tie-breaking mode matches it exactly. Plain retrieval
@@ -93,8 +87,50 @@ export default function RecoloPage() {
       </p>
       <p>
         Three protocols, one answer: none of recolo&apos;s bio-inspired mechanisms helps an agent choose what to read from its own
-        history. The store and retrieval loop are sound, and plain similarity retrieval over them is the configuration that works, so it is
-        now the library&apos;s default; each mechanism is opt-in, and the designed configuration is kept for reproducing the results.
+        history.
+      </p>
+
+      <h2>What it taught</h2>
+      <p>
+        <strong>Decay lost even where it should have won.</strong> On questions where a newer fact replaces an older one, plain
+        retrieval found every evidence turn the benchmark marks on the second held-out set, each stamped with its session date. Across
+        both sets that paid for answers, the reader answered 76–79% of those questions correctly. No form of decay did better. The fixed-clock version scored 43%, because it threw the evidence away. Whether the
+        reader used the dates to pick the newer fact was not tested. Answering that would take one more run, with the dates removed.
+      </p>
+      <p>
+        <strong>Strong enough to matter meant strong enough to hurt.</strong> Every mechanism reshaped a ranking by relevance with a signal
+        that knows nothing about the question: age, recurrence, cluster membership. Across all three protocols, every setting strong enough
+        to change which memories were chosen lowered evidence recall. The settings too weak to hurt changed nothing.
+      </p>
+      <p>
+        <strong>Why the analogy failed is an open question.</strong> One explanation for human forgetting is that it answers limits:
+        finite storage, and interference between memories that resemble each other. A vector store with a date on every record has
+        neither, which may be why copying the mechanism bought nothing. Nothing here tests that explanation. The evaluation shows only
+        that the mechanisms did not help.
+      </p>
+      <p>
+        <strong>The cheap test was enough.</strong> Evidence recall needs no model and costs nothing. In both protocols that paid for
+        answers, the approaches that lost evidence recall were exactly the ones that lost accuracy. In the first, it already showed full recolo trailing
+        plain retrieval at every setting tried before a single answer was paid for. By the third protocol, that became a rule fixed in
+        advance: no approach reaches the paid step unless it wins the free one. The whole evaluation cost $12.66.
+      </p>
+
+      <h2>Limits</h2>
+      <p>
+        One benchmark, one reader, one embedder. The first held-out set was 99 questions, so its intervals run about nine points either
+        way. A Haiku-class reader loses accuracy over a 115,000-token context, which makes the full-history baseline look worse than a
+        stronger reader would; that affects comparisons with full history, not those between retrieval approaches. The grader agreed with
+        a manual review on 19 of 20 verdicts. Untested: memories without dates, a much weaker reader, and forgetting for storage or privacy
+        rather than for answering.
+      </p>
+
+      <h2>Status</h2>
+      <p className="status-line">
+        <strong>Results committed.</strong> The core loop runs and is tested: both stores behind one interface over SQLite, decay computed
+        at retrieval so the rate stays tunable, and consolidation that merges repeated topics and logs what it discards. Three protocols,
+        each committed before scoring, cover 400 held-out questions, with every answer and verdict kept. Plain similarity retrieval over
+        the store is now the library&apos;s default. Each mechanism is opt-in, and the designed configuration is kept for reproducing the
+        results.
       </p>
     </>
   );
