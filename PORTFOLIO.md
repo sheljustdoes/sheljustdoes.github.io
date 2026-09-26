@@ -376,8 +376,16 @@ cultivated germplasm: the share of sites where a wild group carries an allele at
 the UC Davis and Florida programs hold at < 5% is 11.9% for *F. chiloensis*, 7.5% for western
 *F. virginiana* and 3.6% for eastern, each distinct. Between wild groups, eastern *virginiana*
 × *chiloensis* adds the most heterozygosity and western *virginiana* × *chiloensis* the most
-variation the programs lack. The programs hold almost no private alleles. Diversity only;
-the next stage links it to fruit size and yield through the same study's association data.
+variation the programs lack. The programs hold almost no private alleles.
+
+**Stage 2x part B, phenotype link.** A mixed-model association scan on 1,787 Florida breeding
+lines (the same study's 50K-array data) finds three fruit-size loci and no yield locus. 52
+lines genotyped on both platforms map every array chromosome to the whole-genome reference and
+tag each locus (|r| ≥ 0.83). At the strongest locus, wild *F. chiloensis* carries the
+size-increasing allele at 0.43 against 0.21 in the programs; at a second, eastern
+*F. virginiana* is the only wild source; the third's allele is absent from the wild. The three
+loci sit on the three group-1 homoeologs and may be one locus seen through cross-mapping
+probes, and wild effects are inferred through Florida-line tags, not measured.
 
 ### indicium — graded evidence for precision medicine
 **Status:** Results committed (Stage 1, inconclusive) · open human genomics, CIViC, CPIC
