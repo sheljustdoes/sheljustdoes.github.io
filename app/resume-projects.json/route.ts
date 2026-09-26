@@ -15,6 +15,8 @@ export function GET() {
       id: a.id,
       label: a.label,
       portfolioSection: a.portfolioSection,
+      kind: a.kind,
+      flagship: a.flagship ?? null,
       projects: PROJECTS.filter((p) => p.area === a.id).map((p) => ({
         id: p.id,
         name: p.name,
@@ -23,6 +25,7 @@ export function GET() {
         date: p.date ?? null,
         summary: p.summary,
         featured: Boolean(p.featured),
+        link: p.link ?? null,
       })),
     })),
   });

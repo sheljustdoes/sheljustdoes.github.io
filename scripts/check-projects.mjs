@@ -15,6 +15,8 @@ const VOCAB = ["Shipped", "Results committed", "Implemented", "Designed"];
 
 // ---- Parse PORTFOLIO.md: `## ` sections, `### ` projects, `**Status:**` lines ----
 const canonical = new Map();
+/** Section → the id named on its `**Flagship:**` line. */
+const flagshipLines = new Map();
 let section = null;
 let current = null;
 for (const line of portfolio.split("\n")) {
@@ -22,6 +24,11 @@ for (const line of portfolio.split("\n")) {
   if (h2) {
     section = h2[1].trim();
     current = null;
+    continue;
+  }
+  const flag = line.match(/^\*\*Flagship:\*\* ([\w-]+)/);
+  if (flag && section && !current) {
+    flagshipLines.set(section, flag[1]);
     continue;
   }
   const h3 = line.match(/^### (.+)$/);
@@ -65,6 +72,28 @@ for (const area of feed.areas) {
 for (const c of canonical.values()) {
   if (!seen.has(c.id)) {
     errors.push(`${c.id}: in PORTFOLIO.md ("${c.section}") but missing from lib/projects.ts`);
+  }
+}
+
+// ---- Product lines: each leads with one flagship, first, with a write-up ----
+// The flagship is what a reader opens first, so it must have somewhere to go;
+// PORTFOLIO.md names the same flagship on the line's `**Flagship:**` line.
+for (const area of feed.areas) {
+  const named = flagshipLines.get(area.portfolioSection) ?? null;
+  if (area.kind === "line") {
+    const first = area.projects[0];
+    if (!area.flagship) {
+      errors.push(`${area.id}: product line with no flagship`);
+    } else if (first?.id !== area.flagship) {
+      errors.push(`${area.id}: flagship ${area.flagship} must be listed first (found ${first?.id ?? "nothing"})`);
+    } else if (!first.link?.startsWith("/projects/")) {
+      errors.push(`${area.flagship}: flagship of ${area.id} needs a write-up link under /projects/`);
+    }
+    if (named !== area.flagship) {
+      errors.push(`${area.id}: flagship ${area.flagship ?? "(none)"} here, but PORTFOLIO.md's **Flagship:** line names ${named ?? "nothing"}`);
+    }
+  } else if (area.flagship || named) {
+    errors.push(`${area.id}: supporting areas have no flagship`);
   }
 }
 

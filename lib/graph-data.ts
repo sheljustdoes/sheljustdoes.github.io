@@ -13,6 +13,9 @@
 //   role        archive palette    Lora italic    who it was for
 //   project     terracotta family  Outfit         what was built
 //   skill       sage family        DM Mono        what it required
+//
+// Among projects, full terracotta is reserved for the three product-line
+// flagships (iridis, topos, veridian — see AREAS in lib/projects.ts).
 
 import { PROJECT_BY_ID } from "@/lib/projects";
 import { EXPERIENCE, type Role } from "@/lib/resume";
@@ -382,7 +385,7 @@ const AUTHORED: AuthoredNode[] = [
     keywords: ["Sorghum bicolor", "TE Insertion Polymorphism", "WGS", "Short-Read Alignment", "Presence/Absence Variation", "Transposable Elements", "Perturbation Testing"] },
 
   // ---- Curriculum. ----
-  { id: "scintilla", label: "scintilla", type: "project", color: "terracotta", r: 23, x: 900, y: 70,
+  { id: "scintilla", label: "scintilla", type: "project", color: "blush-deep", r: 23, x: 900, y: 70,
     points: [
       "Free and local-first: no account, no key, and it keeps working with the backend down",
       "5–10 minute lessons with opening and closing bridges, a checkpoint every few paragraphs, and at least one hands-on item",
@@ -402,7 +405,7 @@ const AUTHORED: AuthoredNode[] = [
     keywords: ["Content Pipelines", "LLM Generation", "Verification", "Schema Validation", "Provenance", "Open Licensing", "GitHub Actions", "Technical Writing", "Human-in-the-Loop", "Claude API"] },
 
   // ---- Production systems. ----
-  { id: "menhir", label: "menhir", type: "project", color: "terracotta", r: 24, x: 1560, y: 900,
+  { id: "menhir", label: "menhir", type: "project", color: "blush-deep", r: 24, x: 1560, y: 900,
     points: [
       "Dual-role platform serving athletes and coaches, built and maintained solo",
       "Adaptive programming driven by multiple autoregulation signals — readiness, sleep, performance trend, calibrated RPE",
