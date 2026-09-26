@@ -314,13 +314,13 @@ auditing** (a cluster reducing to batch, missingness or preprocessing artifact f
 certification regardless of how clean it looks).
 
 ### fragaria — nonlinear haplotype topology in octoploid strawberry
-**Status:** Results committed (Stage 0) · Python, scikit-learn
+**Status:** Results committed (Stage 1b) · Python, scikit-learn
 
 A topos case study on *Fragaria × ananassa* testing whether nonlinear manifold methods
 recover stable haplogroup structure beyond linear PCA in an octoploid context, where
 dosage ambiguity, subgenome assignment uncertainty and homoeologous exchange all
-complicate interpretation. Stage 0 has been run three times; Stage 1 is drafted and
-awaiting review.
+complicate interpretation. Stage 0 has been run three times; Stage 1b tested the question on
+a wild panel.
 
 **The first Stage 0 was invalid.** Its GO reproduced exactly, but an audit found the
 file's missing calls (`-1`) were never decoded, so about 930K of them entered PCA as a
@@ -349,6 +349,18 @@ cultivars. UMAP only assigns the diverse accessions PCA leaves as noise. So stab
 confound-defensible structure exists, and nothing yet shows structure beyond PCA; that is
 Stage 1's test. The lessons go upstream into topos. The only topos case study with
 executed analysis.
+
+**Stage 1b, wild panel, pre-registered: GO by the rule, not supported in substance.**
+202 wild woodland strawberries (*F. vesca*, whole-genome, public CC0 panel), 176 unrelated
+after kinship pruning. Stage 0's checks pass on an east–west split. The Stage 1 rule
+returned GO (three nonlinear settings on the whole panel, four within the western group),
+against an expectation of HOLD or KILL. A labelled post hoc check found why: the rule
+compared each nonlinear setting only with the linear setting sharing its clusterer, and
+density clustering on PCA fails on this panel, while k-means on the same PCA coordinates
+passes every gate and recovers the same clusters (whole panel ARI 0.70–0.81; the western
+group's Iberian and central-southern clusters at Jaccard 0.98–1.0). The wild panel has
+stable, geographic structure beyond the east–west split, and it is linear. Next is a stricter
+pre-registered comparison, or closing the question.
 
 ### indicium — graded evidence for precision medicine
 **Status:** Results committed (Stage 1, inconclusive) · open human genomics, CIViC, CPIC
