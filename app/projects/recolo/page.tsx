@@ -76,7 +76,10 @@ export default function RecoloPage() {
         evidence recall, which needs no model, none beats plain similarity: span-relative decay keeps 75% of the evidence turns and
         session-counted decay 43%, against 96% for plain retrieval, while the tie-breaking mode matches it exactly. Plain retrieval
         already finds every knowledge-update evidence turn, so decay&apos;s only remaining chance is keeping superseded facts out of the
-        context. The answer-accuracy run that tests that is planned, at about $3, and not yet run.
+        context. The answer-accuracy run tested exactly that, once, for $2: on 119 held-out questions plain retrieval answered 76%,
+        the tie-breaking mode 77% (no detectable difference), span-relative decay 55% and session-counted decay 34%. None beat plain
+        retrieval on knowledge-update questions. Two protocols, one conclusion: decay, fixed or adaptive, does not help an agent answer
+        from its own history. At best it does no harm.
       </p>
     </>
   );

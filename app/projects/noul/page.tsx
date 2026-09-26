@@ -7,8 +7,8 @@ export default function NoulPage() {
       <h1>noul.</h1>
       <p className="tagline">
         Local, non-generative code search: typed scores in a single pass instead of an agent reading files, with nothing leaving the
-        machine. It puts a right file in the top three more often than keyword search (33 of 35 queries against 28), in about two seconds. At top-1 it
-        does not yet beat keyword search.
+        machine. It puts a right file in the top three for 34 of 35 queries, against 29 for keyword search, in about two seconds. At top-1
+        its lead is three queries, too few to call.
       </p>
 
       <h2>Why this exists</h2>
@@ -41,14 +41,15 @@ export default function NoulPage() {
         precision at 1 (the first file is right) and recall at 3 (a right file is in the top three).
       </p>
       <p>
-        <strong>The labels are provisional, and that matters.</strong> Claude drafted them against the source, and no person has reviewed
-        them yet. Three were widened after the first run, when the scorers found defensible answers the labels had missed. One of those
-        turned up a real duplication in iridis: two separate implementations of the same skin-color extraction. Every number below uses
-        the original labels; the revised ones raise each result by one to three queries. The two-stage default was also chosen on these
-        same queries, so its edge over its near neighbors is not a finding.
+        <strong>Who wrote the labels matters.</strong> Claude drafted them against the source. Three were widened after the first run,
+        when the scorers found defensible answers the labels had missed; one of those turned up a real duplication in iridis, two
+        separate implementations of the same skin-color extraction. Those three, and the two queries that accept several files, were
+        then reviewed by a person and accepted as they stand. The other 36 are still as drafted. The two-stage default was chosen on
+        these same queries, so its edge over its near neighbors is not a finding.
       </p>
 
       <h2>What it found</h2>
+      <p>First, on the labels as originally drafted:</p>
       <table>
         <thead>
           <tr>
@@ -79,14 +80,39 @@ export default function NoulPage() {
           </tr>
         </tbody>
       </table>
+      <p>Then, rerun on the reviewed labels, with the code and corpus unchanged:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Pipeline</th>
+            <th>P@1</th>
+            <th>R@3</th>
+            <th>Seconds per query</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>BM25 alone</td>
+            <td>0.69 (24/35)</td>
+            <td>0.83 (29/35)</td>
+            <td>&lt; 0.01</td>
+          </tr>
+          <tr>
+            <td>Two-stage</td>
+            <td>0.77 (27/35)</td>
+            <td>0.97 (34/35)</td>
+            <td>2.1</td>
+          </tr>
+        </tbody>
+      </table>
       <p>
-        <strong>At top-1, nothing local beats keyword search yet.</strong> The three pipelines are two queries apart out of 35, which is
-        noise at this sample size. An earlier lead for the big reranker on the web application did not replicate on iridis, where a 22M
-        model did best.
+        <strong>At top-1, the lead is too small to call.</strong> Two-stage is ahead of keyword search by two queries on the original
+        labels and three on the reviewed ones, out of 35, which is noise at this sample size. An earlier lead for the big reranker on the
+        web application did not replicate on iridis, where a 22M model did best.
       </p>
       <p>
         <strong>The replicated gain is the shortlist.</strong> On both codebases, the reranker puts a right file in the top three for 33
-        of 35 queries, against 28 for BM25. That points to its role: a reranker over a shortlist, not a top-1 oracle.
+        of 35 queries against 28 for BM25, and 34 against 29 on the reviewed labels. That points to its role: a reranker over a shortlist, not a top-1 oracle.
       </p>
       <p>
         <strong>The two-stage pipeline keeps that gain at a fraction of the cost.</strong> Reranking every chunk costs about 0.1 s per
@@ -102,7 +128,8 @@ export default function NoulPage() {
       <h2>Limits</h2>
       <p>
         Both codebases are small, 60 and 9 files. The shortlist of 20 chunks is 8% of one and 31% of the other, so it has not had to prove
-        itself on a repository where it discards almost everything. 35 queries is a small sample, and the labels are unreviewed.
+        itself on a repository where it discards almost everything. 35 queries is a small sample, and 36 of the 41 labels are still
+        unreviewed.
       </p>
 
       <h2>Status</h2>
@@ -112,7 +139,7 @@ export default function NoulPage() {
         is meant to replace for all but ambiguous cases.
       </p>
       <p>
-        Next: a person reviews the labels and both benchmarks are rerun on them, then a large open-source repository, calibration so
+        Next: the remaining labels reviewed, then a large open-source repository, calibration so
         &ldquo;not here&rdquo; becomes a probability, and the per-file yes/no <code>ask</code> mode. The agent it would replace will
         be scored on the same labels, so that comparison becomes a measurement rather than an anecdote.
       </p>
