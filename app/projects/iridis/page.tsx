@@ -86,9 +86,24 @@ export default function IridisPage() {
         is a convenience rather than a finding. On the same test split, colour predicts Fitzpatrick type at 34.6% (95% interval
         32.6–36.5%), against 33.9% for always guessing the commonest type.
       </p>
+      <h2>Scale or camera?</h2>
       <p>
-        What stands is the weak link between colour and type. What it means is still open: in uncalibrated photographs, a coarse scale
-        and uncontrolled capture both weaken it, and this data cannot tell them apart.
+        Fitzpatrick17k cannot say whether the weak link is the scale or the camera. A second dataset can: the MSKCC Skin Tone Labeling
+        Dataset, from Memorial Sloan Kettering on the ISIC Archive, measures 501 skin sites with a colorimeter, three readings each,
+        alongside each patient&apos;s Fitzpatrick type, two raters&apos; Monk Skin Tone scores and dermoscopic images taken in four modes.
+      </p>
+      <p>
+        <strong>Against the instrument, both scales track skin colour.</strong> Fitzpatrick type correlates with the colorimeter&apos;s
+        individual typology angle at −0.80 and explains 66% of its variance; Monk Skin Tone does better, −0.93 and 88% (difference
+        +0.125, 95% interval +0.073 to +0.208, resampling patients). <strong>The images do not.</strong> Colour measured from the
+        dermoscopic images of the same sites does not reproduce the instrument&apos;s angle, and 41% of its variance comes from imaging the
+        same skin under different dermoscope modes, against 1.1% between the colorimeter&apos;s own repeat readings. On lightness alone,
+        checked after scoring, image and instrument agree only partly (0.63).
+      </p>
+      <p>
+        So the weak link on Fitzpatrick17k is mainly the camera, not the scale. The measures differ between the two datasets, so the
+        contrast is indicative rather than exact, but its direction is clear. One error is on the record: the first run computed the
+        angle with the wrong formula, a pre-registered sanity check caught it, and the corrected run is the one reported.
       </p>
 
       <h2>Limits</h2>
