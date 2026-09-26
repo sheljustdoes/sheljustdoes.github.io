@@ -314,13 +314,13 @@ auditing** (a cluster reducing to batch, missingness or preprocessing artifact f
 certification regardless of how clean it looks).
 
 ### fragaria — nonlinear haplotype topology in octoploid strawberry
-**Status:** Results committed (Stage 1b) · Python, scikit-learn
+**Status:** Results committed (Stage 2x) · Python, scikit-learn
 
 A topos case study on *Fragaria × ananassa* testing whether nonlinear manifold methods
 recover stable haplogroup structure beyond linear PCA in an octoploid context, where
 dosage ambiguity, subgenome assignment uncertainty and homoeologous exchange all
-complicate interpretation. Stage 0 has been run three times; Stage 1b tested the question on
-a wild panel.
+complicate interpretation. Stage 0 has been run three times; Stages 1b and 1c tested the
+question on two wild panels, and Stage 2x asks what crossing the groups would add.
 
 **The first Stage 0 was invalid.** Its GO reproduced exactly, but an audit found the
 file's missing calls (`-1`) were never decoded, so about 930K of them entered PCA as a
@@ -359,8 +359,25 @@ compared each nonlinear setting only with the linear setting sharing its cluster
 density clustering on PCA fails on this panel, while k-means on the same PCA coordinates
 passes every gate and recovers the same clusters (whole panel ARI 0.70–0.81; the western
 group's Iberian and central-southern clusters at Jaccard 0.98–1.0). The wild panel has
-stable, geographic structure beyond the east–west split, and it is linear. Next is a stricter
-pre-registered comparison, or closing the question.
+stable, geographic structure beyond the east–west split, and it is linear.
+
+**Stage 1c, wild octoploids, stricter rule: H1 KILL.** The rule was tightened first — a
+nonlinear partition counts only if no passing linear setting, under any clusterer or k-means
+at any k from 2 to 10, recovers it — then applied to a panel it had not seen: 102 wild
+*F. chiloensis* and *F. virginiana* from a public whole-genome set (CC-BY), the 33.6 GB variant
+file streamed and hash-sampled to 475,741 SNPs without being stored. Stable, confound-checked
+structure follows taxonomy (*chiloensis*, eastern and western *virginiana*), and every UMAP
+setting that finds it reproduces the matched PCA partition, three exactly. Across three
+panels the answer is the same: the structure is real and linear. The hypothesis is closed as
+not supported.
+
+**Stage 2x part A, crossing value, pre-registered.** What crossing each group would add to
+cultivated germplasm: the share of sites where a wild group carries an allele at ≥ 20% that
+the UC Davis and Florida programs hold at < 5% is 11.9% for *F. chiloensis*, 7.5% for western
+*F. virginiana* and 3.6% for eastern, each distinct. Between wild groups, eastern *virginiana*
+× *chiloensis* adds the most heterozygosity and western *virginiana* × *chiloensis* the most
+variation the programs lack. The programs hold almost no private alleles. Diversity only;
+the next stage links it to fruit size and yield through the same study's association data.
 
 ### indicium — graded evidence for precision medicine
 **Status:** Results committed (Stage 1, inconclusive) · open human genomics, CIViC, CPIC
