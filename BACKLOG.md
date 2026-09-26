@@ -27,8 +27,9 @@ Nine projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `topo
       PORTFOLIO.md (glyma and sorghum had been shown as Stage 0 complete).
 - [x] Write up `noul`. Done 2026-09-25 at Shel's request, before the label review, with
       the labels disclosed as Claude-drafted and unreviewed. Update it when the review lands.
-- [ ] Later write-ups: `oncos` only if Shel opens its methods; `indicium` once a count
-      has run.
+- [x] No oncos write-up: decided by Shel 2026-09-26 — the work stays private, no methods or
+      numbers, until Shel understands it better. Do not re-ask.
+- [ ] Later write-up: `indicium` if a repaired call set ever answers H1′.
 - [x] Bring the iridis write-up in line with its entry. Done 2026-09-25: dates, the exact
       accuracy ranges, the masking negative finding, and the single-atlas limit.
 - [ ] Decide whether `PORTFOLIO.md` should render as a route on the site rather than
