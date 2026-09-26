@@ -70,6 +70,11 @@ The second finding is the more interesting one because it is negative: **masking
 close the gap and does not even help.** Isolating skin from background and lesion
 contamination was expected to improve clinical-label predictability. It did not.
 
+**Limit.** Every Fitzpatrick17k image in the benchmark comes from a single source atlas.
+The source is therefore constant rather than a confound, but the result is established on
+that atlas only; the dataset's other atlas has a very different skin-type mix and would
+need a source audit before it is added.
+
 ### lambent — computational quantification of skin radiance
 **Status:** Results committed · Python, scikit-image, OpenCV, scikit-learn · 1,816 images, 68 tests
 

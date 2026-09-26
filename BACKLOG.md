@@ -22,8 +22,8 @@ Seven projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `top
       the only executed proof behind the topos line. Link it from the topos write-up.
 - [ ] Later write-ups: `noul` after its labels are reviewed; `oncos` only if Shel opens
       its methods; `indicium` once a count has run.
-- [ ] The iridis write-up has drifted from its entry: kicker says 2024– (entry 2023–2025)
-      and it omits the negative finding that masking did not close the gap.
+- [x] Bring the iridis write-up in line with its entry. Done 2026-09-25: dates, the exact
+      accuracy ranges, the masking negative finding, and the single-atlas limit.
 - [ ] Decide whether `PORTFOLIO.md` should render as a route on the site rather than
       existing only as a repository file.
 - [x] Keep the résumé route and `PORTFOLIO.md` consistent when either changes. Done
