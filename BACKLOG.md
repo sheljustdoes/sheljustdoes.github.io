@@ -20,8 +20,9 @@ Eight projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `top
       graph panel and products index.
 - [x] Audit fragaria's Stage 0 scorecard. Done 2026-09-25: reproducible but uninformative
       (fragaria `docs/stage0_audit.md`); PORTFOLIO.md and the summary say so.
-- [ ] Write up `fragaria` after its Stage 0 is rerun under the rebuilt rubric (fragaria
-      BACKLOG P0a). Link it from the topos write-up.
+- [x] Rerun fragaria's Stage 0 under a rebuilt, pre-registered rubric. Done 2026-09-25:
+      GO narrowly, PCA only (fragaria `build/stage0_v2/RESULTS.md`).
+- [ ] Write up `fragaria` — now unblocked. Link it from the topos write-up.
 - [x] Write up `noul`. Done 2026-09-25 at Shel's request, before the label review, with
       the labels disclosed as Claude-drafted and unreviewed. Update it when the review lands.
 - [ ] Later write-ups: `oncos` only if Shel opens its methods; `indicium` once a count
