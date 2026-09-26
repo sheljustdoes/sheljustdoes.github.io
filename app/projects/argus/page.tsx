@@ -257,9 +257,48 @@ export default function ArgusPage() {
         finding survives only the one fixed in advance, and the next run should make the stricter match its primary test.
       </p>
 
+      <h2>A fourth run: the stricter match as the test</h2>
+      <p>
+        The fourth protocol took the two checks made after the third run and fixed them in advance, on fifteen more experiments nobody
+        had scored: 2,064 wells on 135 plates. Controls are binned by decile within each experiment, so a knockout is only ever compared
+        with controls from its own experiment and its own cell-count range. Inside those bins the nuclei count scored 0.490, so the match
+        held.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Comparison, embeddings</th>
+            <th>Matched AUC (95% CI)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>All knockouts, within experiment</td>
+            <td>0.608 (0.559–0.649)</td>
+          </tr>
+          <tr>
+            <td>MTOR alone</td>
+            <td>0.545 (0.490–0.596)</td>
+          </tr>
+          <tr>
+            <td>Wells with more nuclei than the median control</td>
+            <td>0.508 (0.428–0.588)</td>
+          </tr>
+          <tr>
+            <td>Global deciles, as in the third run</td>
+            <td>0.689 (0.656–0.719)</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>Every expectation written into the protocol held.</strong> Under the strictest match tried, the embeddings still see
+        something beyond cell count, but only among wells a knockout has already thinned: above the median count they are at chance.
+        The subtler MTOR phenotype is not detected. That is a narrower claim than the third run suggested, and a firmer one.
+      </p>
+
       <h2>Limits</h2>
       <p>
-        One cell type, one imaging site per well, 39 of 176 CRISPR experiments across three test sets, and two anomaly genes. The autoencoder runs at 128 × 128,
+        One cell type, one imaging site per well, 54 of 176 CRISPR experiments across four test sets, and two anomaly genes. The autoencoder runs at 128 × 128,
         which may lose nuclear detail. The embeddings are OpenPhenom&apos;s alone; no image model was trained on the visible channels.
         None of this rescues the design: the autoencoder&apos;s failure comes from what reconstruction error rewards, not from sample
         size.
@@ -267,15 +306,14 @@ export default function ArgusPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Results committed, three runs.</strong> All three protocols, the detectors, plate bootstrap and results are committed with 14 unit tests, and
+        <strong>Results committed, four runs.</strong> All four protocols, the detectors, plate bootstrap and results are committed with 14 unit tests, and
         the whole evaluation reruns in about a minute on a laptop. No images or trained models are committed, because the dataset
         licence treats trained models as derivative technology. The one deviation was an Apple-silicon training crash fixed before any
         score was produced; no setting changed.
       </p>
       <p>
-        Next, as another pre-registered run on unscored experiments: make the within-experiment match the primary test, with enough
-        experiments that every bin holds more than a handful of controls. A per-nucleus morphology score would test whether the
-        autoencoder&apos;s small matched signal comes from nuclear shape.
+        Next: name what the embeddings see in depleted wells, by comparing knockouts and controls within the lowest-count bins on
+        interpretable features such as nuclear size, shape and intensity.
       </p>
       <p>
         We used the RxRx3-core dataset, available from Recursion Pharmaceuticals at{" "}
