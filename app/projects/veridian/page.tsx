@@ -1,3 +1,5 @@
+import Figure from "../Figure";
+
 export const metadata = { title: "veridian. — shel." };
 
 export default function VeridianPage() {
@@ -84,6 +86,41 @@ export default function VeridianPage() {
         &ldquo;interleukin-6&rdquo; are one node; and publication types, so a verdict can distinguish a claim supported by a meta-analysis
         from one supported by a case report.
       </p>
+
+      <h2>What the evaluation found</h2>
+      <p>
+        Check was scored against hand-labelled claims about the frozen 150-paper corpus. On 51 development claims, the first run of the
+        rebuilt pipeline reached 55%. Its errors were diagnosed — a rule the judge was never given, and evidence that never reached it —
+        and fixed in general form, which lifted development to 86%. That number is not evidence, because the fixes were made while looking
+        at those claims. The evidence is the held-out set: 21 claims written before any fix and scored once, where the pipeline reached
+        86% again and the original rule 48%.
+      </p>
+      <Figure
+        n={1}
+        src="/projects/veridian/fig1_check.png"
+        alt="Three panels. a: accuracy with 95% intervals; development: old rule 18 of 51, first run 28 of 51, after fixes 44 of 51; held out: old rule 10 of 21, after fixes 18 of 21. b: confusion grid for the pipeline on held-out claims: supported 9 right and 1 called unsupported; contradicted 3 of 3 right; unsupported 6 right and 2 called contradicted. c: the old rule calls all 21 claims supported."
+        lead="Check reaches 86% on claims it had never seen; the old rule called everything supported."
+      >
+        <b>a</b>, Verdict accuracy with 95% Wilson intervals. The development score after fixes (44/51) was reached while fixing
+        errors found on those claims; the held-out score (18/21) was not. <b>b</b>, Held-out verdicts from the pipeline against the answer
+        key. Its three errors: one supported claim called unsupported, and two unsupported claims called contradicted. <b>c</b>, The
+        original rule, which answered &ldquo;supported&rdquo; to every claim, so its accuracy is just the share of supported claims. No
+        claim in either key is contested, so that column is omitted.
+      </Figure>
+      <p>
+        Explore&apos;s result is about the corpus rather than the method. Refit on resampled papers, no number of groups reproduces itself
+        well enough to trust, and the groups barely separate at any number. The map in the demo says so beside it.
+      </p>
+      <Figure
+        n={2}
+        src="/projects/veridian/fig2_explore.png"
+        alt="Two panels. a: bar chart of resampling stability by number of groups from 3 to 12; 3 groups reach 0.63, all others between 0.24 and 0.40, all below a 0.80 line; the legacy map's 10 groups reach 0.28. b: silhouette by number of groups, flat between 0.06 and 0.08."
+        lead="The metformin corpus has no grouping stable enough to map with confidence."
+      >
+        <b>a</b>, Resampling stability of k-means partitions of the 150 abstract embeddings: median adjusted Rand index between refits on
+        20 draws of 80% of the papers. The required 0.80 is never reached; three groups, the most stable, reach 0.63, and the ten groups of the
+        original map reach 0.28. <b>b</b>, Cosine silhouette at each k, which stays below 0.09: the groups barely separate.
+      </Figure>
 
       <h2>Try it</h2>
       <p>
