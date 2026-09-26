@@ -322,6 +322,12 @@ export default function FragariaPage() {
         pattern is that of an ancestral haplotype that breeding mostly lost and Florida partly kept. The effect is measured in Florida lines
         only; whether the wild haplotype raises fruit size in a wild background is untested.
       </p>
+      <p>
+        Two checks followed. Fine-mapping across all 1,787 array lines left the lead marker alone (posterior 0.99998): the array is too
+        sparse to narrow the haplotype further. And a public marker table from another group, independent of everything above, puts the
+        lead probe on subgenome 1B at 1.7 Mb, while flagging the 1C &quot;locus&quot; as a probe that cannot tell the homoeologs apart. That
+        confirms the placement and explains why one locus looked like three.
+      </p>
 
       <h2>Limits</h2>
       <p>
@@ -333,7 +339,7 @@ export default function FragariaPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Results committed (Stage 2x).</strong> Six protocols and four amendments, code, 50 unit tests, every setting&apos;s scores and these figures
+        <strong>Results committed (Stage 2x).</strong> Six protocols, five amendments and a check, code, 52 unit tests, every setting&apos;s scores and these figures
         are committed; each Stage 0 run takes about 21 minutes on a laptop, Stages 1b and 1c about 7, Stage 2x under one. Each protocol was
         committed before its code, and the code before the result.
       </p>
