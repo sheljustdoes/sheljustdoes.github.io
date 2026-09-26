@@ -388,6 +388,12 @@ removes the others. The tags then disagree about wild frequencies, so the wild-d
 is withdrawn until the causal site is known. What stands: the Florida program carries the
 size-increasing allele at two to six times UC Davis's frequency (intervals exclude zero), a
 crossing lead between programs.
+A targeted second pass read every variant in the first 6 Mb of the four group-1
+subgenomes (585,789 sites) and placed the signal on subgenome 1B, in a haplotype at
+2.2–5.3 Mb (narrow margin over 1C). There the allele that goes with larger fruit is common in
+wild octoploids (*F. chiloensis* 0.86, *F. virginiana* 0.47–0.60) and rare at UC Davis (0.08);
+program-frequency-matched background alleles sit near 0.05 in the wild, so this is not an
+artefact of the programs' lost diversity. The effect is measured in Florida lines only.
 
 ### indicium — graded evidence for precision medicine
 **Status:** Results committed (Stage 1, inconclusive) · open human genomics, CIViC, CPIC

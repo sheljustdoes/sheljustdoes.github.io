@@ -299,6 +299,29 @@ export default function FragariaPage() {
         six times UC Davis&apos;s frequency, with intervals that exclude no difference. That is a crossing lead between programs, with no
         wild material needed.
       </p>
+      <p>
+        To ask the wild question again, the locus had to be placed. A second, targeted pass read every variant in the first 6 Mb of all
+        four group-1 subgenomes, 585,789 sites, by locating their byte ranges in the file and fetching only those. In the 52 lines typed
+        on both platforms, one subgenome stands out.
+      </p>
+      <Figure
+        n={10}
+        src="/projects/fragaria/fig10_stage2x_d.png"
+        alt="Two panels. a: correlation with the lead array marker along the first 6 Mb of subgenomes 1A to 1D; only 1B has many sites above 0.9, clustered at 2.2 to 2.8 Mb with a few near 4 and 5 Mb; 1C has one; 1A and 1D none. b: frequency of the allele that goes with larger fruit, median over 38 sites with range: F. chiloensis 0.86, western F. virginiana 0.60, eastern F. virginiana 0.47, named cultivars 0.21, Florida program 0.33, UC Davis 0.08; black ticks mark the wild frequency of program-frequency-matched background alleles, near 0.05."
+        lead="The fruit-size signal sits on subgenome 1B, and its larger-fruit allele is common in the wild."
+      >
+        <b>a</b>, Correlation of every dense site with the lead array marker, by subgenome; orange, sites at 0.9 or above. <b>b</b>, The
+        larger-fruit allele&apos;s frequency by group, median over the 38 sites on 1B (line, range); black tick, background alleles matched
+        on program frequency (an analysis made after the result).
+      </Figure>
+      <p>
+        The signal sits on 1B, in a long haplotype at 2.2 to 5.3 Mb, though the margin over 1C is narrow. There the allele that goes with
+        larger fruit in Florida lines is common in wild octoploids: 0.86 in Pacific <em>F. chiloensis</em>, 0.60 and 0.47 in the two{" "}
+        <em>F. virginiana</em> groups, against 0.08 at UC Davis. A check made afterwards rules out the obvious artefact, that anything the
+        programs have lost looks common in the wild: background alleles at the same program frequency sit near 0.05 in the wild. The
+        pattern is that of an ancestral haplotype that breeding mostly lost and Florida partly kept. The effect is measured in Florida lines
+        only; whether the wild haplotype raises fruit size in a wild background is untested.
+      </p>
 
       <h2>Limits</h2>
       <p>
@@ -310,13 +333,13 @@ export default function FragariaPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Results committed (Stage 2x).</strong> Six protocols and three amendments, code, 46 unit tests, every setting&apos;s scores and these figures
+        <strong>Results committed (Stage 2x).</strong> Six protocols and four amendments, code, 50 unit tests, every setting&apos;s scores and these figures
         are committed; each Stage 0 run takes about 21 minutes on a laptop, Stages 1b and 1c about 7, Stage 2x under one. Each protocol was
         committed before its code, and the code before the result.
       </p>
       <p>
-        The nonlinear hypothesis is closed as not supported. Next: find which subgenome holds the fruit-size locus, then ask the
-        wild-donor question again. Every lesson here went
+        The nonlinear hypothesis is closed as not supported. Next: narrow the 1B haplotype, and test whether the wild haplotype raises fruit
+        size in a wild cross. Every lesson here went
         upstream into <a href="/projects/topos/">topos</a>, which now enforces them in code.
       </p>
     </>
