@@ -560,7 +560,7 @@ with no genuine contested claims in it. Total cost of every run: under $6.
 138 tests, running offline against committed fixtures.
 
 ### recolo — bio-inspired memory for LLM agents
-**Status:** Results committed · Python, SQLite, numpy · v0.1.0, 77 tests · LongMemEval, three protocols, 400 held-out questions
+**Status:** Results committed · Python, SQLite, numpy · v0.1.0, 79 tests · LongMemEval, three protocols, 400 held-out questions
 
 Context engineering addresses what enters the window now. Biological memory architecture
 addresses what accumulates and is selectively forgotten over time. recolo combines both,
@@ -636,7 +636,9 @@ multi-session questions (CI −0.017 to 0.000). A gate fixed in advance sends on
 beats plain retrieval to the paid answer-accuracy step, so this protocol spent nothing.
 Across three protocols, none of recolo's bio-inspired mechanisms helps an agent choose
 context from its own history; plain retrieval over its store is the configuration that
-works.
+works. The library now defaults to it: decay, salience scoring and scheduled consolidation
+are opt-in, and the designed configuration is one call away for anyone reproducing the
+evaluations.
 
 Direct successor to veridian: it takes that project's core insight — semantic clustering
 as a general-purpose meaning-compression mechanism — and redirects it from external
