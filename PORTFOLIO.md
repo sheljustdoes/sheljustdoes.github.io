@@ -876,13 +876,21 @@ not exist:
 | Reranker over every chunk | 0.66 → 0.74 | 0.94 → 0.97 | 6.7–25.6 |
 | **Two-stage** | **0.69 → 0.77** | **0.94 → 0.97** | **2.1–2.3** |
 
-(Original labels → reviewed labels.) The honest reading: at top-1 the two-stage lead over
+(Original labels → current labels, with the three widenings.) The honest reading: at top-1 the two-stage lead over
 keyword search is two or three queries of 35, too few to call. The replicated gain is the
 shortlist, where a correct file is in the top three for 34 of 35 queries against 29 for
-BM25 on the reviewed labels, at a tenth of the brute-force cost on the larger codebase.
-Three labels were widened after the first run showed defensible answers they had missed;
-those three and the two multi-file answers were then reviewed by Shel and accepted as they
-stand. The other 36 labels are still as Claude drafted them, and the sample is small.
+BM25 on the current labels, at a tenth of the brute-force cost on the larger codebase.
+Three labels were widened after the first run showed defensible answers they had missed.
+All 41 labels were drafted by Claude against the source and are not independently
+verified, and the sample is small.
+
+**On a strict rule — a query counts only when every correct file is found — the picture
+is less flattering.** Every single-file query has its file in the top five, but only 4 of
+9 multi-file queries have all their files there, fewer than keyword search (5). The
+20-chunk shortlist keeps the best chunks, which tend to come from one dominant file, so
+secondary files never reach the reranker. Overall, 30 of 35 queries are complete in the
+top five (keyword search 27). Complete retrieval of multi-file answers is the next thing
+to fix, judged on this strict rule first and partial credit second.
 
 **Not yet built:** calibration, which would turn scores into probabilities and let `find`
 answer "not here" (no single threshold separates absent features yet); the per-file
