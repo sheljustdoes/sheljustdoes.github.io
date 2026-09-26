@@ -124,13 +124,30 @@ export default function RecoloPage() {
         Three protocols, one answer: none of recolo&apos;s bio-inspired mechanisms helps an agent choose what to read from its own
         history.
       </p>
+      <p>
+        A fourth protocol asked why decay never helped where it should have: on questions where a newer fact replaces an older one. It
+        kept plain retrieval&apos;s context fixed and changed only how the retrieved turns were shown to the reader: with their dates, in
+        time order (as in every earlier run); without dates, in time order; and without dates, shuffled. It ran on all 72 such questions
+        and cost $0.69.
+      </p>
+      <Figure
+        n={4}
+        src="/projects/recolo/fig4_v4.png"
+        alt="Two panels. a: answer accuracy with 95% intervals on 72 knowledge-update questions: dated and in order 82%, undated and in order 78%, undated and shuffled 67%. b: accuracy differences with 95% intervals: all time cues removed, the primary comparison, plus 15 points with an interval from plus 3 to plus 28; date stamps alone plus 4, interval crossing zero; order alone plus 11, interval crossing zero."
+        lead="The reader already does recency itself, mostly from the order the memories are shown in."
+      >
+        <b>a</b>, Accuracy on the same retrieved turns, shown three ways. <b>b</b>, Paired differences with 95% intervals. Removing every
+        time cue costs 15 points (the pre-registered primary comparison). Neither cue alone is detectable at this size, but order carries
+        most of the effect.
+      </Figure>
 
       <h2>What it taught</h2>
       <p>
         <strong>Decay lost even where it should have won.</strong> On questions where a newer fact replaces an older one, plain
         retrieval found every evidence turn the benchmark marks on the second held-out set, each stamped with its session date. Across
-        both sets that paid for answers, the reader answered 76–79% of those questions correctly. No form of decay did better. The fixed-clock version scored 43%, because it threw the evidence away. Whether the
-        reader used the dates to pick the newer fact was not tested. Answering that would take one more run, with the dates removed.
+        both sets that paid for answers, the reader answered 76–79% of those questions correctly. No form of decay did better. The fixed-clock version scored 43%, because it threw the evidence away. The fourth
+        protocol showed why: shown in time order with their dates, the retrieved memories let the reader pick the newer fact itself.
+        Recency pays at presentation, not in scoring, and plain retrieval already gets it for free.
       </p>
       <p>
         <strong>Strong enough to matter meant strong enough to hurt.</strong> Every mechanism reshaped a ranking by relevance with a signal
@@ -147,7 +164,7 @@ export default function RecoloPage() {
         <strong>The cheap test was enough.</strong> Evidence recall needs no model and costs nothing. In both protocols that paid for
         answers, the approaches that lost evidence recall were exactly the ones that lost accuracy. In the first, it already showed full recolo trailing
         plain retrieval at every setting tried before a single answer was paid for. By the third protocol, that became a rule fixed in
-        advance: no approach reaches the paid step unless it wins the free one. The whole evaluation cost $12.66.
+        advance: no approach reaches the paid step unless it wins the free one. The whole evaluation cost $13.35.
       </p>
 
       <h2>Limits</h2>
@@ -162,8 +179,8 @@ export default function RecoloPage() {
       <h2>Status</h2>
       <p className="status-line">
         <strong>Results committed.</strong> The core loop runs and is tested: both stores behind one interface over SQLite, decay computed
-        at retrieval so the rate stays tunable, and consolidation that merges repeated topics and logs what it discards. Three protocols,
-        each committed before scoring, cover 400 held-out questions, with every answer and verdict kept. Plain similarity retrieval over
+        at retrieval so the rate stays tunable, and consolidation that merges repeated topics and logs what it discards. Four protocols,
+        each committed before scoring, cover 400 held-out questions and a presentation test, with every answer and verdict kept. Plain similarity retrieval over
         the store is now the library&apos;s default. Each mechanism is opt-in, and the designed configuration is kept for reproducing the
         results.
       </p>

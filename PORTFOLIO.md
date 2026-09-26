@@ -599,7 +599,7 @@ with no genuine contested claims in it. Total cost of every run: under $6.
 138 tests, running offline against committed fixtures.
 
 ### recolo — bio-inspired memory for LLM agents
-**Status:** Results committed · Python, SQLite, numpy · v0.1.0, 79 tests · LongMemEval, three protocols, 400 held-out questions
+**Status:** Results committed · Python, SQLite, numpy · v0.1.0, 79 tests · LongMemEval, four protocols, 400 held-out questions
 
 Context engineering addresses what enters the window now. Biological memory architecture
 addresses what accumulates and is selectively forgotten over time. recolo combines both,
@@ -678,6 +678,15 @@ context from its own history; plain retrieval over its store is the configuratio
 works. The library now defaults to it: decay, salience scoring and scheduled consolidation
 are opt-in, and the designed configuration is one call away for anyone reproducing the
 evaluations.
+
+**Why decay had nothing to add, fourth protocol (2026-09-26).** Plain retrieval answered
+76–79% of knowledge-update questions, where a newer fact replaces an older one, with every
+retrieved turn dated and shown in time order. Keeping the retrieved context fixed and
+changing only its presentation, on all 72 such questions: dated and in order 0.82, undated
+in order 0.78, undated and shuffled 0.67. Removing every time cue costs 15 points (95% CI +3
+to +28, the pre-registered primary comparison); order carries most of it. The reader does
+recency itself when memories are presented chronologically, so the job decay was built for
+is already done downstream. Recency belongs in presentation, not in scoring.
 
 Direct successor to veridian: it takes that project's core insight — semantic clustering
 as a general-purpose meaning-compression mechanism — and redirects it from external
