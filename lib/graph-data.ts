@@ -312,6 +312,7 @@ const AUTHORED: AuthoredNode[] = [
       "Measured colour barely tracks Fitzpatrick type: type explains 7% of lightness variance; predicting it reaches 35–42% against 34% for the commonest type",
       "An earlier 2.5–2.8× cluster-vs-Fitzpatrick gap was withdrawn: clusters come from the same features, and one holds 68% of images",
       "Pre-registered retest: no stable colour categories (resampling ARI 0.31); skin colour here is a continuum",
+      "Against a colorimeter (MSKCC), Fitzpatrick tracks skin colour at ρ −0.80 and Monk Skin Tone at −0.93; image colour does not, so capture is the limit",
       "Lesion U-Net reaches held-out Dice 0.889 / IoU 0.818",
       "Masking did not make type more predictable — the negative result",
     ],
