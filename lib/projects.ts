@@ -104,10 +104,10 @@ export const PROJECTS: Project[] = [
       "A stability-certification protocol for deciding when latent structure in high-dimensional biological data is real enough to act on: eight gating stages ending in an explicit GO/KILL/HOLD verdict. Stage 0 is a tested Python package whose every module enforces a rule learned on real data — declared missing-value codes, stability from resampling rather than seeds, untestable confounds blocking a GO, kinship-based relatedness control, deduplicated grids, and non-redundancy measured on rows both pipelines cluster. fragaria's scored Stage 0 runs on it and reproduces its results exactly.",
   },
   {
-    id: "fragaria", name: "fragaria", area: "structure", status: "Results committed (Stage 0)", date: "2026–", featured: true,
+    id: "fragaria", name: "fragaria", area: "structure", status: "Results committed (Stage 1b)", date: "2026–", featured: true,
     link: "/projects/fragaria/", linkLabel: "Read the write-up →",
     summary:
-      "Nonlinear haplotype topology in octoploid strawberry: does manifold learning recover stable haplogroup structure beyond PCA? An audit found the first Stage 0 invalid; two pre-registered rebuilds followed. The second — 234 unrelated accessions by KING kinship, missingness tested within germplasm source — returns GO in every sensitivity run. PCA and UMAP find the same two groups wherever both cluster, so stable structure exists and nothing yet shows structure beyond PCA.",
+      "Nonlinear haplotype topology in octoploid strawberry: does manifold learning recover stable haplogroup structure beyond PCA? An audit found the first Stage 0 invalid; two pre-registered rebuilds followed. The second — 234 unrelated accessions by KING kinship, missingness tested within germplasm source — returns GO in every sensitivity run. PCA and UMAP find the same two groups wherever both cluster, so stable structure exists and nothing yet shows structure beyond PCA. A pre-registered Stage 1b on 202 wild woodland strawberries (whole-genome) returned GO by its rule, but post hoc every qualifying partition is recovered by k-means on PCA: the wild panel's structure is stable, geographic and linear.",
   },
   {
     id: "indicium", name: "indicium", area: "structure", status: "Results committed (Stage 1, inconclusive)", date: "2026",
