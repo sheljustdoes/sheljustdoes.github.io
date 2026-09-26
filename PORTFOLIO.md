@@ -79,6 +79,13 @@ of the images and spans nearly the whole lightness range, so the 96% sits agains
 baseline. What stands is the weak link between colour and type, which in uncalibrated
 clinical photographs cannot yet separate the scale's coarseness from capture variation.
 
+**Are there colour categories at all? (pre-registered, 2026-09-26).** With a merge that cannot
+chain, colour splits into 92 clusters, the largest holding 3.7% of images, and refit on
+resampled images they do not reproduce (median ARI 0.31 against the 0.80 required). Skin
+colour in this data is a continuum, not a set of categories. On the same split, colour
+predicts Fitzpatrick type at 34.6% (95% CI 32.6–36.5%) against 33.9% for always guessing the
+commonest type: no better than chance.
+
 **Limit.** Every Fitzpatrick17k image in the benchmark comes from a single source atlas.
 The source is therefore constant rather than a confound, but the result is established on
 that atlas only; the dataset's other atlas has a very different skin-type mix and would
