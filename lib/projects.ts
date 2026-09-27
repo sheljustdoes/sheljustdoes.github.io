@@ -121,6 +121,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "lyco", name: "lyco", area: "structure", status: "Results committed (Stage 1b)", date: "2026–",
+    link: "/projects/lyco/", linkLabel: "Read the write-up →",
     summary:
       "What do transposable-element-derived structural variants record about tomato's history that other variants do not? Pre-registered and scored once on 706 accessions from published pangenome call sets. A trait-heritability version was killed by its own power check before any trait was scored (the two classes' relationship matrices correlate at 0.97). Graph genotypes of TE variants agree with long-read calls as well as other variants do (0.984 both); TE-derived variants record a measurably different population history (0.991 against a 0.998 null), with discovery bias not yet ruled out; frequency spectra show no difference; young insertions look lineage-specific mostly because they are rare.",
   },
