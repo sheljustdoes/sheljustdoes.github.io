@@ -15,17 +15,19 @@ export default function ArgusPage() {
 
       <h2>Why this exists</h2>
       <p>
-        High-content screens image millions of wells, and most perturbations do nothing visible. An anomaly detector trained only on
-        normal wells could flag the few that matter without needing a label for every phenotype in advance. That promise is easy to
-        overstate. A knockout that stops cell division leaves fewer cells in the well, and almost any image score will notice that.
+        High-content screens image millions of wells, and many perturbations do nothing visible [16, 17]. An anomaly detector trained only on
+        normal wells could flag the few that matter without needing a label for every phenotype in advance [11]. That promise is easy to
+        overstate. A knockout that stops cell division leaves fewer cells in the well, and almost any image score will notice that; cell
+        density shapes cellular phenotypes generally [10], and counting cells alone matches many image-based bioactivity benchmarks [9].
         The question worth answering is whether a detector sees more than a cell count.
       </p>
 
       <h2>Approach</h2>
       <p>
-        Cell Painting images six stains. Hoechst, the DNA stain, is excited in the UV at about 350 nm; the other five are excited in the
+        RxRx3 images six fluorescent channels, a variant of Cell Painting [1, 2]. Hoechst, the DNA stain, is excited in the UV at about 350 nm; the other five are excited in the
         visible range. argus gives the nuclear channel its own detector, a convolutional autoencoder scored by reconstruction error, and
-        covers the rest with an Isolation Forest over pre-computed OpenPhenom embeddings. The two scores are fused by averaging their
+        covers the rest with an Isolation Forest [5] over the pre-computed OpenPhenom embeddings released with the dataset [3], from a
+        masked-autoencoder model of the kind described in [4]. The two scores are fused by averaging their
         ranks.
       </p>
       <p>
@@ -36,16 +38,17 @@ export default function ArgusPage() {
 
       <h2>The test</h2>
       <p>
-        The data is Recursion&apos;s public RxRx3-core: HUVEC cells, one imaging site per well, from the 16 CRISPR experiments that sit
+        The data is Recursion&apos;s public RxRx3-core [3]: HUVEC cells, one imaging site per well, from the 16 CRISPR experiments that sit
         entirely inside two dataset shards. Normal wells carry intron and exon control guides, which target no gene function. Anomalous
-        wells are the PLK1 and MTOR knockouts that every experiment includes as positive controls. PLK1 stops cell division. MTOR&apos;s
-        phenotype is subtler.
+        wells are the PLK1 and MTOR knockouts that every experiment includes as positive controls. PLK1 stops cell division [19]. MTOR&apos;s
+        phenotype, a change in cell size [20], is subtler.
       </p>
       <p>
-        The protocol was committed before any detector was trained. It fixed the split by experiment (10 to fit, 6 held out), the
+        The protocol was committed before any detector was trained [15]. It fixed the split by experiment (10 to fit, 6 held out), the
         settings, the direction of every score, the three comparisons that matter, and a written expectation of the result. Detectors
         were fitted on 359 normal wells and never saw a knockout. The held-out set — 848 wells on 54 plates — was scored once. Intervals
-        come from a bootstrap that resamples whole plates, because wells on a plate share a batch. The fixed baseline is the fraction of
+        come from a bootstrap that resamples whole plates [14], because wells on a plate share a batch, and batch effects are a dominant
+        signal in these data [6–8]. The fixed baseline is the fraction of
         Hoechst-bright pixels: a cell count, nothing more.
       </p>
 
@@ -95,7 +98,9 @@ export default function ArgusPage() {
       <p>
         <strong>The autoencoder scored in the wrong direction.</strong> An AUC of 0.32 is well below chance: knockout wells reconstructed{" "}
         <em>better</em> than controls. Fewer nuclei leave more empty background, which an autoencoder reproduces easily, so &ldquo;higher
-        error means more anomalous&rdquo; fails for exactly the phenotype it was meant to catch. The protocol fixed the direction before
+        error means more anomalous&rdquo; fails for exactly the phenotype it was meant to catch. Deep generative models are known to
+        score simpler inputs as more normal [12]; control-trained anomaly methods that work on Cell Painting score features, not
+        pixels [11]. The protocol fixed the direction before
         scoring, so the score was not flipped afterwards. It carries signal, but it is not an anomaly detector as designed.
       </p>
       <p>
@@ -226,7 +231,8 @@ export default function ArgusPage() {
         <strong>The check passed, and the embeddings kept their signal.</strong> With count matched, the cell count fell to 0.521, as
         it should. The embeddings held at 0.690, 0.169 above it (95% CI 0.113–0.222), and the subtler MTOR knockouts stayed above chance
         at 0.579. This is the first argus result a cell count cannot explain. Unmatched, the embeddings tied the count for the third
-        time, which is exactly why the earlier runs could not see the difference.
+        time, which is exactly why the earlier runs could not see the difference: a global metric rewards whatever shortcut the data
+        offers [13].
       </p>
       <Figure
         n={2}
@@ -261,7 +267,8 @@ export default function ArgusPage() {
       <p>
         The fourth protocol took the two checks made after the third run and fixed them in advance, on fifteen more experiments nobody
         had scored: 2,064 wells on 135 plates. Controls are binned by decile within each experiment, so a knockout is only ever compared
-        with controls from its own experiment and its own cell-count range. Inside those bins the nuclei count scored 0.490, so the match
+        with controls from its own experiment and its own cell-count range, as profiling benchmarks compare perturbations with
+        same-plate controls [18]. Inside those bins the nuclei count scored 0.490, so the match
         held.
       </p>
       <table>
@@ -293,7 +300,22 @@ export default function ArgusPage() {
       <p>
         <strong>Every expectation written into the protocol held.</strong> Under the strictest match tried, the embeddings still see
         something beyond cell count, but only among wells a knockout has already thinned: above the median count they are at chance.
-        The subtler MTOR phenotype is not detected. That is a narrower claim than the third run suggested, and a firmer one.
+        The subtler MTOR phenotype is not detected, per well and from one imaging site; Recursion uses MTOR as a positive control, which
+        suggests it becomes visible when many wells and guides are aggregated. That is a narrower claim than the third run suggested, and a
+        firmer one.
+      </p>
+
+      <h2>Related work</h2>
+      <p>
+        Cell Painting [1] and its large public successors, including RxRx3 [2, 3] and the JUMP genetic map [16], have made image-based
+        detection of genetic perturbations routine, though only a subset of perturbations yields a detectable profile [16, 17]. Technical
+        variation across plates and experiments is a known dominant signal in these data [6–8], which is why evaluation frameworks compare
+        perturbations with same-plate controls [18]. Cell density shapes single-cell phenotypes [10], and Seal and colleagues recently
+        showed that counting cells matches many bioactivity benchmarks, recommending a cell-count baseline for any image-based model [9].
+        Control-trained anomaly representations have been proposed for Cell Painting [11]. None of these points is new here. What argus
+        adds is a measurement under pre-registered protocols [15] with plate-level intervals [14]: for this design and dataset, how much of
+        a global AUC is cell count and experiment, as the shortcut-learning literature would predict [13], and what is left once both are
+        matched.
       </p>
 
       <h2>Limits</h2>
@@ -322,6 +344,30 @@ export default function ArgusPage() {
         </a>
         , under Recursion&apos;s licensing terms. The dataset was not modified.
       </p>
+
+      <h2>References</h2>
+      <ol className="references">
+        <li>Bray MA, Singh S, Han H, et al. Cell Painting, a high-content image-based assay for morphological profiling using multiplexed fluorescent dyes. <em>Nature Protocols</em> 11, 1757–1774 (2016). <a href="https://doi.org/10.1038/nprot.2016.105">doi:10.1038/nprot.2016.105</a>.</li>
+        <li>Fay MM, Kraus O, Victors M, et al. RxRx3: Phenomics map of biology. <em>bioRxiv</em> (2023). <a href="https://doi.org/10.1101/2023.02.07.527350">doi:10.1101/2023.02.07.527350</a>.</li>
+        <li>Kraus O, Comitani F, Urbanik J, et al. RxRx3-core: Benchmarking drug-target interactions in high-content microscopy. arXiv 2503.20158 (2025). <a href="https://arxiv.org/abs/2503.20158">arXiv:2503.20158</a>. Data: <a href="https://huggingface.co/datasets/recursionpharma/rxrx3-core">recursionpharma/rxrx3-core</a>, Recursion licence.</li>
+        <li>Kraus O, Kenyon-Dean K, Saberian S, et al. Masked autoencoders for microscopy are scalable learners of cellular biology. <em>Proceedings of IEEE/CVF CVPR</em>, 11757–11768 (2024). <a href="https://doi.org/10.1109/CVPR52733.2024.01117">doi:10.1109/CVPR52733.2024.01117</a>.</li>
+        <li>Liu FT, Ting KM, Zhou ZH. Isolation Forest. <em>Proceedings of IEEE ICDM</em>, 413–422 (2008). <a href="https://doi.org/10.1109/ICDM.2008.17">doi:10.1109/ICDM.2008.17</a>.</li>
+        <li>Caicedo JC, Cooper S, Heigwer F, et al. Data-analysis strategies for image-based cell profiling. <em>Nature Methods</em> 14, 849–863 (2017). <a href="https://doi.org/10.1038/nmeth.4397">doi:10.1038/nmeth.4397</a>.</li>
+        <li>Arevalo J, Su E, Ewald JD, et al. Evaluating batch correction methods for image-based cell profiling. <em>Nature Communications</em> 15, 6516 (2024). <a href="https://doi.org/10.1038/s41467-024-50613-5">doi:10.1038/s41467-024-50613-5</a>.</li>
+        <li>Sypetkowski M, Rezanejad M, Saberian S, et al. RxRx1: A dataset for evaluating experimental batch correction methods. <em>Proceedings of IEEE/CVF CVPR Workshops</em>, 4285–4294 (2023). <a href="https://doi.org/10.1109/CVPRW59228.2023.00451">doi:10.1109/CVPRW59228.2023.00451</a>.</li>
+        <li>Seal S, Dee W, Shah A, et al. Counting cells can accurately predict small-molecule bioactivity benchmarks. <em>Nature Communications</em> 17, 2436 (2026). <a href="https://doi.org/10.1038/s41467-026-68725-5">doi:10.1038/s41467-026-68725-5</a>.</li>
+        <li>Snijder B, Sacher R, Rämö P, et al. Population context determines cell-to-cell variability in endocytosis and virus infection. <em>Nature</em> 461, 520–523 (2009). <a href="https://doi.org/10.1038/nature08282">doi:10.1038/nature08282</a>.</li>
+        <li>Shpigler A, Kolet N, Golan S, et al. Anomaly detection for high-content image-based phenotypic cell profiling. <em>Cell Systems</em> 16, 101429 (2025). <a href="https://doi.org/10.1016/j.cels.2025.101429">doi:10.1016/j.cels.2025.101429</a>.</li>
+        <li>Nalisnick E, Matsukawa A, Teh YW, et al. Do deep generative models know what they don&apos;t know? <em>ICLR</em> (2019). <a href="https://arxiv.org/abs/1810.09136">arXiv:1810.09136</a>.</li>
+        <li>Geirhos R, Jacobsen JH, Michaelis C, et al. Shortcut learning in deep neural networks. <em>Nature Machine Intelligence</em> 2, 665–673 (2020). <a href="https://doi.org/10.1038/s42256-020-00257-z">doi:10.1038/s42256-020-00257-z</a>.</li>
+        <li>Field CA, Welsh AH. Bootstrapping clustered data. <em>Journal of the Royal Statistical Society Series B</em> 69, 369–390 (2007). <a href="https://doi.org/10.1111/j.1467-9868.2007.00593.x">doi:10.1111/j.1467-9868.2007.00593.x</a>.</li>
+        <li>Nosek BA, Ebersole CR, DeHaven AC, et al. The preregistration revolution. <em>Proceedings of the National Academy of Sciences</em> 115, 2600–2606 (2018). <a href="https://doi.org/10.1073/pnas.1708274114">doi:10.1073/pnas.1708274114</a>.</li>
+        <li>Chandrasekaran SN, Alix E, Arevalo J, et al. Morphological map of under- and overexpression of genes in human cells. <em>Nature Methods</em> 22, 1742–1752 (2025). <a href="https://doi.org/10.1038/s41592-025-02753-9">doi:10.1038/s41592-025-02753-9</a>.</li>
+        <li>Rohban MH, Singh S, Wu X, et al. Systematic morphological profiling of human gene and allele function via Cell Painting. <em>eLife</em> 6, e24060 (2017). <a href="https://doi.org/10.7554/eLife.24060">doi:10.7554/eLife.24060</a>.</li>
+        <li>Kalinin AA, Arevalo J, Serrano E, et al. A versatile information retrieval framework for evaluating profile strength and similarity. <em>Nature Communications</em> 16, 5181 (2025). <a href="https://doi.org/10.1038/s41467-025-60306-2">doi:10.1038/s41467-025-60306-2</a>.</li>
+        <li>Sumara I, Giménez-Abián JF, Gerlich D, et al. Roles of polo-like kinase 1 in the assembly of functional mitotic spindles. <em>Current Biology</em> 14, 1712–1722 (2004). <a href="https://doi.org/10.1016/j.cub.2004.09.049">doi:10.1016/j.cub.2004.09.049</a>.</li>
+        <li>Fingar DC, Salama S, Tsou C, et al. Mammalian cell size is controlled by mTOR and its downstream targets S6K1 and 4EBP1/eIF4E. <em>Genes &amp; Development</em> 16, 1472–1487 (2002). <a href="https://doi.org/10.1101/gad.995802">doi:10.1101/gad.995802</a>.</li>
+      </ol>
     </>
   );
 }
