@@ -1,6 +1,7 @@
 import Figure from "../Figure";
 
-export const metadata = { title: "fragaria. — shel." };
+// Linked from the résumé but kept out of search results while the open work below is unfinished.
+export const metadata = { title: "fragaria. — shel.", robots: { index: false, follow: true } };
 
 export default function FragariaPage() {
   return (
@@ -115,7 +116,7 @@ export default function FragariaPage() {
           <tr><td>9</td><td>Which subgenome holds it? (D)</td><td>1B; its larger-fruit allele is common in the wild</td><td>Donor reading restored, on firmer ground</td></tr>
           <tr><td>10</td><td>Can the region be narrowed, and is 1B right? (E, F)</td><td>Not narrowed (the array is too sparse); 1B confirmed by an independent marker table</td><td>1B first in 99% of resamples; clears the formal margin in 67%</td></tr>
           <tr><td>11</td><td>Does the effect hold at UC Davis? (G)</td><td>No detectable effect, at about 50% power; the wild test could not run</td><td>Practical readings put on hold</td></tr>
-          <tr><td>12</td><td>Why not? (H)</td><td>Unresolved once allele frequency is accounted for (review check)</td><td>The replication is inconclusive; paused</td></tr>
+          <tr><td>12</td><td>Why not? (H)</td><td>Unresolved once allele frequency is accounted for (later check)</td><td>The replication is inconclusive; paused</td></tr>
         </tbody>
       </table>
       <p>
@@ -440,7 +441,7 @@ export default function FragariaPage() {
         margin over 1C clears the pre-registered bar in only two thirds of resamples. There the allele that goes with larger fruit in
         Florida lines is common in wild octoploids: 0.86 (95% interval 0.79–0.93) in Pacific <em>F. chiloensis</em>, 0.60 (0.52–0.66)
         and 0.47 (0.42–0.54) in the two <em>F. virginiana</em> groups, against 0.08 (0–0.15) at UC Davis. A check made afterwards rules out the obvious artifact, that anything the
-        programs have lost looks common in the wild: background alleles at the same program frequency sit near 0.05 in the wild. A second control, made in review, rules out the
+        programs have lost looks common in the wild: background alleles at the same program frequency sit near 0.05 in the wild. A later control rules out the
         region&apos;s ancestry: other alleles in the same stretch of 1B, matched on program frequency, sit at 0.02 to 0.08 in the wild.
         What the frequencies cannot show is that the wild alleles sit on the Florida haplotype. Which allele counts as larger-fruit comes
         from linkage in Florida lines, and linkage in wild species is untested. The
@@ -468,7 +469,7 @@ export default function FragariaPage() {
       </p>
       <p>
         One last check asked why. In Florida lines, the array marker&apos;s best genome tag and the 38 sites that define the larger-fruit haplotype
-        travel together (average r² 0.85). At UC Davis the figure is 0.43, which at first read as the haplotype broken apart. A review
+        travel together (average r² 0.85). At UC Davis the figure is 0.43, which at first read as the haplotype broken apart. A later
         check found the gap is mostly arithmetic. The tag&apos;s allele is rare at UC Davis, about 7 copies in 74 lines, and r² between
         sites of unequal frequency has a ceiling, which averages 0.61 there against 0.91 in Florida. Scored against that ceiling the
         programs sit at 0.94 and 0.79, a gap of 0.14 whose interval (−0.23 to 0.24) includes zero: unresolved by the check&apos;s own
@@ -476,24 +477,6 @@ export default function FragariaPage() {
         anything. The replication is inconclusive, and whether the array marker tags the haplotype at UC Davis is unknown. What would
         settle it is UC Davis lines genotyped across the haplotype itself, with fruit weight, in numbers near 2,300 for 80% power at
         0.5 g, which no open dataset found here provides. The thread pauses on that open question.
-      </p>
-
-      <h2>What a skeptical review found</h2>
-      <p>
-        A deliberately harsh review of this write-up, made after the last result, asked for the checks above and found limits that
-        still stand. Four checks were run: the frequency-normalized H, the power of G, the placement bootstrap, and intervals with a
-        same-region control for the wild frequencies. Their results are reported where they belong, and none was part of a protocol.
-        Five items were not run and are queued. A positive control for the nonlinear test. A stability comparison that does not
-        penalize UMAP for random-seed noise, since the resampling draw also sets UMAP&apos;s seed while PCA is deterministic. A
-        measure of geometry, not only partitions. A rerun of the diversity ranking on sites that map cleanly. And a sensitivity
-        analysis of every threshold.
-      </p>
-      <p>
-        The review also qualified what &quot;pre-registered&quot; means here. Protocols are commits in the project&apos;s own
-        repository, not entries in an independent registry. Stage 0 was rebuilt twice on the same panel, each time after seeing the
-        previous failure, so its final GO is a result on that panel after two revisions, not an independent confirmation. And
-        Amendments B to H were each written after reading the result before it, so each step was fixed in advance but the path through
-        them was not.
       </p>
 
       <h2>Limits</h2>
@@ -505,6 +488,35 @@ export default function FragariaPage() {
         allele, not whether it enlarges fruit in them. Its Florida effect is likely inflated by the scan that found it, and how many
         fruit-size loci the lines hold depends on the association model: the source study&apos;s finds 26 where this one finds one.
       </p>
+      <p>
+        &quot;Pre-registered&quot; here means committed to the project&apos;s own repository before the analysis, not filed with an
+        independent registry. Stage 0 was rebuilt twice on the same panel, each time after seeing the previous failure, so its final GO
+        is a result on that panel after two revisions, not an independent confirmation. And Amendments B to H were each written after
+        reading the result before them: every step was fixed in advance, but the path through them was not.
+      </p>
+
+      <h2>What still needs doing</h2>
+      <ul>
+        <li>
+          <strong>A positive control for the nonlinear test.</strong> Simulated panels with known nonlinear structure, run through the
+          same gates. Until the pipeline finds structure it should find, its KILL means not detected, not absent.
+        </li>
+        <li>
+          <strong>A fair stability comparison.</strong> Each resampling draw also sets UMAP&apos;s random seed, while PCA is
+          deterministic, so UMAP is penalized for seed noise.
+        </li>
+        <li>
+          <strong>A measure of shape, not only of clusters.</strong> Partition agreement cannot see clines or curved structure inside a
+          cluster.
+        </li>
+        <li>
+          <strong>A cleaner diversity ranking.</strong> Rerun on sites that map to one homoeolog only, so misplaced wild reads cannot
+          inflate novelty.
+        </li>
+        <li>
+          <strong>Threshold sensitivity.</strong> Every cut-off here was chosen once; none has been varied.
+        </li>
+      </ul>
 
       <h2>Status</h2>
       <p className="status-line">

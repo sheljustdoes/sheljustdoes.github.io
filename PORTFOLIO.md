@@ -414,9 +414,9 @@ itself likely inflated by the scan that found it, so the replication is inconclu
 two copies, but its hybrids do not segregate, so the wild test could not run. The Florida → UC
 Davis crossing lead and the wild-donor reading are therefore not supported beyond Florida.
 A final check compared the array marker's linkage with the haplotype: mean r² 0.85 in Florida
-lines against 0.43 at UC Davis. A post-hoc review check found the gap is mostly the tag's rarity at
+lines against 0.43 at UC Davis. A later check found the gap is mostly the tag's rarity at
 UC Davis (about 7 copies), which caps r²; normalized to that cap it is 0.14 (95% interval −0.23 to
-0.24), unresolved. The locus is untested outside Florida. The same review found the nonlinear
+0.24), unresolved. The locus is untested outside Florida. The nonlinear
 test compares partitions, not geometry, and has no positive control, so its KILL means "not
 detected"; the controls are queued. Paused 2026-09-26.
 
