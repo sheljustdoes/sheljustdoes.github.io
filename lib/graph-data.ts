@@ -392,6 +392,13 @@ const AUTHORED: AuthoredNode[] = [
       "Carries legacy exploratory outputs from the 2021 project as its only baseline",
     ],
     keywords: ["Sorghum bicolor", "TE Insertion Polymorphism", "WGS", "Short-Read Alignment", "Presence/Absence Variation", "Transposable Elements", "Perturbation Testing"] },
+  { id: "lyco", label: "lyco", type: "project", color: "blush", r: 17, x: 1300, y: 1078,
+    points: [
+      "Transposable-element-derived vs other structural variants across 706 tomato accessions, from published pangenome call sets",
+      "Heritability partition pre-registered, then killed by its own power check before any trait was scored: the two classes' relationship matrices correlate at 0.97",
+      "Reframed toward what TE insertions record about tomato's population history, gated by agreement between independent call sets",
+    ],
+    keywords: ["Solanum lycopersicum", "Structural Variants", "Transposable Elements", "Pangenome", "Heritability", "Population Genetics", "Pre-registration"] },
 
   // ---- Curriculum. ----
   { id: "scintilla", label: "scintilla", type: "project", color: "blush-deep", r: 23, x: 900, y: 70,
@@ -581,6 +588,10 @@ export const EDGES: GraphEdge[] = [
   ["fragaria", "bioinformatics"],
   ["glyma", "bioinformatics"],
   ["sorghum", "bioinformatics"],
+  ["topos", "lyco"],
+  ["sorghum", "lyco"],
+  ["lyco", "bioinformatics"],
+  ["stats-ml", "lyco"],
   ["scintilla", "teaching"],
   ["scintilla", "llm-agents"],
   ["lumen", "scintilla"],
