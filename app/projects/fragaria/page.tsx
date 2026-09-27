@@ -9,7 +9,7 @@ export default function FragariaPage() {
       <h1>fragaria.</h1>
       <p className="tagline">
         Is there stable haplogroup structure in strawberry, and is any of it nonlinear? The first answer came back GO, and an audit found
-        it invalid. Across three panels and a chain of pre-registered tests, the answer is yes to the first question and no to the second.
+        it invalid. Across three panels and a chain of pre-registered tests, the answer is yes to the first question, and the second found no support.
         The structure turned out to be most useful as a map of what crossing would add. It also led back to a fruit-size locus the
         source study had already reported, now placed on one subgenome: real in Florida breeding lines and still untested elsewhere.
       </p>
@@ -20,8 +20,8 @@ export default function FragariaPage() {
         founder base, and the genotyping arrays used on it reduce eight chromosome copies to three calls. In data like this, nonlinear
         embeddings such as UMAP can draw convincing clusters whether or not the structure behind them is real. This study asked whether
         stable population structure exists in strawberry, whether any of it is nonlinear, meaning missed by principal component analysis
-        (PCA), and what the structure implies for breeding. <strong>Methods.</strong> Six protocols were each committed before their code
-        and data. Structure was scored by stability under resampling (median adjusted Rand index over 20 draws of 80% of samples and
+        (PCA), and what the structure implies for breeding. <strong>Methods.</strong> Six protocols were each committed to the project repository
+        before their code and data. Structure was scored by stability under resampling (median adjusted Rand index over 20 draws of 80% of samples and
         markers) across up to 189 PCA and UMAP settings with k-means or HDBSCAN clustering, behind gates for missing-data confounding,
         relatedness (KING-robust kinship pruning) and agreement with labels the genotypes never saw. Three panels were tested: 1,520
         cultivated accessions on a 50K array, 202 wild diploid <em>F. vesca</em>, and 102 wild octoploid <em>F. chiloensis</em> and{" "}
@@ -29,14 +29,17 @@ export default function FragariaPage() {
         Florida breeding lines, and a replication in 529 UC Davis individuals followed. <strong>Results.</strong> The first run&apos;s GO
         verdict was invalid: missing calls were never decoded, and three criteria passed by construction. Rebuilt, every panel held
         stable, confound-checked structure: breeding program against diverse germplasm (234 unrelated cultivated accessions), geography
-        (176 <em>F. vesca</em>), and taxonomy (87 wild octoploids). In each panel a linear embedding recovered it, and UMAP added
-        coverage, not new groups, so the nonlinear hypothesis was closed. <em>F. chiloensis</em> carries alleles the breeding programs
+        (176 <em>F. vesca</em>), and taxonomy (87 wild octoploids). In each panel a linear embedding recovered it (for <em>F. vesca</em>, on a check made
+        afterwards), and UMAP added coverage, not new groups. The nonlinear hypothesis found no support, though the test compares
+        partitions rather than geometry and has no positive control yet. <em>F. chiloensis</em> carries alleles the breeding programs
         lack at 11.9% of sites, against 7.5% and 3.6% for western and eastern <em>F. virginiana</em>. The strongest fruit-size
         association, already reported by the source study, was placed on subgenome 1B. Its larger-fruit allele is common in wild
-        octoploids (0.47–0.86) and rare at UC Davis (0.08), but it did not replicate there (−0.18 g per allele, 95% interval −1.00 to
-        +0.64), where the array marker no longer tags the Florida haplotype (mean r² 0.43 against 0.85). <strong>Conclusions.</strong>{" "}
-        Stable structure in strawberry is real and linear. Its practical use is as a map of what crossing with wild relatives would
-        add. The 1B fruit-size locus holds in Florida lines and is untested elsewhere.
+        octoploids (0.47–0.86) and rare at UC Davis (0.08), A replication there found no effect (−0.18 g per allele, 95% interval −1.00 to
+        +0.64) but had only about 50% power at the likely effect size, and whether the array marker still tags the haplotype at UC Davis
+        is unresolved once allele frequency is accounted for. <strong>Conclusions.</strong>{" "}
+        Stable structure in strawberry is real, and linear methods recover it; nonlinear structure was not detected. Its practical
+        use is as a map of what crossing with wild relatives would add. The 1B fruit-size locus holds in Florida lines; the one
+        replication elsewhere was inconclusive.
       </p>
 
       <h2>Background</h2>
@@ -105,20 +108,22 @@ export default function FragariaPage() {
           <tr><td>2</td><td>Does it survive a proper rebuild? (Stage 0 v2)</td><td>GO, narrowly; PCA only; driven by relatives</td><td>Relatives removed by kinship</td></tr>
           <tr><td>3</td><td>With unrelated accessions only? (Stage 0 v3)</td><td>GO: two groups, breeding program vs the rest</td><td>Structure exists, but PCA and UMAP agree exactly</td></tr>
           <tr><td>4</td><td>Does UMAP find structure PCA misses in a wild panel? (Stage 1b)</td><td>GO by the rule; a later check found PCA with k-means recovers the same clusters</td><td>The rule was too lenient; tightened</td></tr>
-          <tr><td>5</td><td>Under the stricter rule, on wild octoploids? (Stage 1c)</td><td>KILL: UMAP reproduces PCA exactly</td><td>The nonlinear hypothesis is closed</td></tr>
+          <tr><td>5</td><td>Under the stricter rule, on wild octoploids? (Stage 1c)</td><td>KILL: UMAP reproduces PCA exactly</td><td>Not supported; the test has no positive control yet</td></tr>
           <tr><td>6</td><td>Which wild groups carry variation the breeding programs lack? (Stage 2x A)</td><td><em>F. chiloensis</em> most (12% of sites), then western, then eastern <em>F. virginiana</em></td><td>A diversity ranking for crossing; stands</td></tr>
           <tr><td>7</td><td>Which loci affect fruit size, and do wild groups carry the good allele? (2x B)</td><td>Three fruit-size loci; <em>F. chiloensis</em> looked like a donor. The strongest was already in the source study&apos;s results</td><td>Prompted a check on the three loci</td></tr>
-          <tr><td>8</td><td>Are the three loci really one? (C)</td><td>Yes, one signal; the donor reading was withdrawn</td><td>Florida carries the allele at 2–6× UC Davis</td></tr>
+          <tr><td>8</td><td>Are the three loci really one? (C)</td><td>Yes, one signal; the donor reading was withdrawn</td><td>Florida carries the allele at 2–6× UC Davis (15 and 20 unrelated lines)</td></tr>
           <tr><td>9</td><td>Which subgenome holds it? (D)</td><td>1B; its larger-fruit allele is common in the wild</td><td>Donor reading restored, on firmer ground</td></tr>
-          <tr><td>10</td><td>Can the region be narrowed, and is 1B right? (E, F)</td><td>Not narrowed (the array is too sparse); 1B confirmed by an independent marker table</td><td>Placement settled</td></tr>
-          <tr><td>11</td><td>Does the effect hold at UC Davis? (G)</td><td>No detectable effect; the wild test could not run</td><td>Practical readings put on hold</td></tr>
-          <tr><td>12</td><td>Why not? (H)</td><td>The marker does not track the Florida haplotype at UC Davis</td><td>The locus is untested there, not refuted; paused</td></tr>
+          <tr><td>10</td><td>Can the region be narrowed, and is 1B right? (E, F)</td><td>Not narrowed (the array is too sparse); 1B confirmed by an independent marker table</td><td>1B first in 99% of resamples; clears the formal margin in 67%</td></tr>
+          <tr><td>11</td><td>Does the effect hold at UC Davis? (G)</td><td>No detectable effect, at about 50% power; the wild test could not run</td><td>Practical readings put on hold</td></tr>
+          <tr><td>12</td><td>Why not? (H)</td><td>Unresolved once allele frequency is accounted for (review check)</td><td>The replication is inconclusive; paused</td></tr>
         </tbody>
       </table>
       <p>
-        <strong>What stands.</strong> Stable structure in strawberry is real and linear (1–5). Wild groups differ in what they could add to
+        <strong>What stands.</strong> Stable structure in strawberry is real, linear methods recover it, and nonlinear structure
+        was not detected (1–5). Wild groups differ in what they could add to
         breeding, with <em>F. chiloensis</em> first (6). A fruit-size association the source study had already reported sits on subgenome 1B in
-        Florida lines, with a larger-fruit allele that wild octoploids carry commonly (7–10). Whether it matters outside Florida is open (11–12).
+        Florida lines, and alleles linked to it there are common in wild octoploids (7–10). Whether it matters outside Florida is open: the one
+        replication was inconclusive (11–12).
       </p>
 
       <h2>The first Stage 0, and why it did not count</h2>
@@ -347,6 +352,12 @@ export default function FragariaPage() {
         even reached the stricter comparison. The verdict is KILL. Across a cultivated array panel, a wild diploid panel and a wild
         octoploid panel, the answer is the same: stable structure is real, it is geographic or taxonomic, and a linear embedding finds it.
       </p>
+      <p>
+        KILL here means not detected, and the test has three limits. It compares partitions, so it cannot see clines or curved
+        structure inside a cluster. The linear side gets far more chances to match, every setting and k-means at every k from 2 to 10,
+        while a nonlinear partition must beat all of them. And the pipeline has not yet been shown to return GO on data with known
+        nonlinear structure, the positive control that would show a KILL means absent rather than missed.
+      </p>
 
       <h2>Stage 2x: what would crossing add?</h2>
       <p>
@@ -362,7 +373,8 @@ export default function FragariaPage() {
         lead="Pacific F. chiloensis holds the most variation the breeding programs lack."
       >
         <b>a</b>, Novel-allele supply for each wild group, with 95% intervals from resampling 1 Mb blocks. <b>b</b>, Alleles found in one
-        group only, rarefied to equal sample size [28]. <b>c</b>, Hudson&apos;s F_ST between groups [29].
+        group only, rarefied to equal sample size [28]. <b>c</b>, Hudson&apos;s F_ST between groups [29]. Unrelated plants per group: <em>F. chiloensis</em> 31, western{" "}
+        <em>F. virginiana</em> 23, eastern 33, UC Davis 20, Florida 15, named cultivars 24.
       </Figure>
       <p>
         Every ranking is distinct. <em>F. chiloensis</em> supplies the most variation the programs lack, then the western{" "}
@@ -370,7 +382,9 @@ export default function FragariaPage() {
         groups the two measures disagree, which is the useful part: crossing eastern <em>virginiana</em> with <em>chiloensis</em> adds the
         most heterozygosity, while western <em>virginiana</em> with <em>chiloensis</em> together carry the most of what the programs lack.
         The programs themselves hold almost no private alleles. These are diversity measures: they count favorable, neutral and harmful
-        alleles alike.
+        alleles alike. Two caveats weigh on them. The programs contribute 15 and 20 unrelated lines, so &quot;held at under 5%&quot; means
+        at most one or two copies. And the ranking has not been checked against reads from divergent wild plants mapping to the wrong
+        homoeolog, which would inflate apparent novelty most in the most divergent group.
       </p>
       <p>
         The second part links them to traits. The same study released fruit-size and yield records for 1,787 Florida breeding lines typed
@@ -415,17 +429,21 @@ export default function FragariaPage() {
         n={10}
         src="/projects/fragaria/fig10_stage2x_d.png"
         alt="Two panels. a: correlation with the lead array marker along the first 6 Mb of subgenomes 1A to 1D; only 1B has many sites above 0.9, clustered at 2.2 to 2.8 Mb with a few near 4 and 5 Mb; 1C has one; 1A and 1D none. b: frequency of the allele that goes with larger fruit, median over 38 sites with range: F. chiloensis 0.86, western F. virginiana 0.60, eastern F. virginiana 0.47, named cultivars 0.21, Florida program 0.33, UC Davis 0.08; black ticks mark the wild frequency of program-frequency-matched background alleles, near 0.05."
-        lead="The fruit-size signal sits on subgenome 1B, and its larger-fruit allele is common in the wild."
+        lead="The fruit-size signal sits on subgenome 1B, and alleles linked to it in Florida lines are common in the wild."
       >
         <b>a</b>, Correlation of every dense site with the lead array marker, by subgenome; orange, sites at 0.9 or above. <b>b</b>, The
         larger-fruit allele&apos;s frequency by group, median over the 38 sites on 1B (line, range); black tick, background alleles matched
         on program frequency (an analysis made after the result).
       </Figure>
       <p>
-        The signal sits on 1B, in a long haplotype at 2.2 to 5.3 Mb, though the margin over 1C is narrow. There the allele that goes with
-        larger fruit in Florida lines is common in wild octoploids: 0.86 in Pacific <em>F. chiloensis</em>, 0.60 and 0.47 in the two{" "}
-        <em>F. virginiana</em> groups, against 0.08 at UC Davis. A check made afterwards rules out the obvious artifact, that anything the
-        programs have lost looks common in the wild: background alleles at the same program frequency sit near 0.05 in the wild. The
+        The signal sits on 1B, in a long haplotype at 2.2 to 5.3 Mb. Resampling the 52 lines puts 1B first 99.4% of the time, but its
+        margin over 1C clears the pre-registered bar in only two thirds of resamples. There the allele that goes with larger fruit in
+        Florida lines is common in wild octoploids: 0.86 (95% interval 0.79–0.93) in Pacific <em>F. chiloensis</em>, 0.60 (0.52–0.66)
+        and 0.47 (0.42–0.54) in the two <em>F. virginiana</em> groups, against 0.08 (0–0.15) at UC Davis. A check made afterwards rules out the obvious artifact, that anything the
+        programs have lost looks common in the wild: background alleles at the same program frequency sit near 0.05 in the wild. A second control, made in review, rules out the
+        region&apos;s ancestry: other alleles in the same stretch of 1B, matched on program frequency, sit at 0.02 to 0.08 in the wild.
+        What the frequencies cannot show is that the wild alleles sit on the Florida haplotype. Which allele counts as larger-fruit comes
+        from linkage in Florida lines, and linkage in wild species is untested. The
         pattern fits an ancestral haplotype that breeding mostly lost and Florida partly kept, though that history is inferred from
         frequencies, not observed, and each wild frequency rests on 23 to 33 plants. The effect is measured in Florida lines
         only; whether the wild haplotype raises fruit size in a wild background is untested.
@@ -435,26 +453,47 @@ export default function FragariaPage() {
         sparse to narrow the haplotype further. And a public marker table from a UC Davis study [30], independent of everything above, puts the
         lead probe on subgenome 1B at 1.7 Mb, while flagging the 1C &quot;locus&quot; as a probe that cannot tell the homoeologs apart. The
         probe sits just before the haplotype, and its strongest genome proxies 0.5 Mb downstream, so the core region is 1.7 to 2.8 Mb
-        either way. That confirms the placement and explains why one locus looked like three.
+        either way. That supports the placement and explains why one locus looked like three.
       </p>
       <p>
-        Then the test that mattered: does the allele do anything outside Florida? A public UC Davis set (Feldmann et al. 2024 [6]) has 529
+        Then a replication: does the allele do anything outside Florida? A public UC Davis set (Feldmann et al. 2024 [6]) has 529
         genotyped individuals with fruit weight, including hybrids with the wild <em>F. chiloensis</em> &apos;Del Norte&apos;. The test was
         fixed before the files were opened. There the allele varies well, yet its effect is −0.18 g per copy (95% interval −1.00 to +0.64 g). Florida&apos;s trait is grams
         per marketable fruit, so the scales match. Its effect there is +1.2 g per copy under the model used here and +0.7 g under the
         source study&apos;s, and the interval excludes both, the second only narrowly. Both Florida estimates come from the scan that
-        found the locus, which tends to inflate them [24], so the exclusion is weaker than it looks. &apos;Del Norte&apos; does carry two copies, but its elite mates carry almost none, so all its
-        hybrids have exactly one and the wild test could not run. On its face, that takes down both practical readings built on the locus:
-        the Florida-to-UC Davis crossing lead and the wild-donor reading.
+        found the locus, which tends to inflate them [24], so the exclusion is weaker than it looks. The test was also weak: one-sided power was 90% at the Florida estimate used here, 52%
+        at the source study&apos;s and 33% at 0.5 g, and growing environment and trait definition differ between the programs. &apos;Del Norte&apos; does carry two copies, but its elite mates carry almost none, so all its
+        hybrids have exactly one and the wild test could not run. On its face that undercuts both practical readings built on the locus, the
+        Florida-to-UC Davis crossing lead and the wild-donor reading, but a test this weak cannot take them down.
       </p>
       <p>
         One last check asked why. In Florida lines, the array marker&apos;s best genome tag and the 38 sites that define the larger-fruit haplotype
-        travel together (average r² 0.85). At UC Davis they do not (0.43). Part of that gap is arithmetic: the tag&apos;s allele is rarer
-        at UC Davis (0.05 against 0.20), which lowers r² by itself. The rest points to recombination or different founders
-        separating them [25]. The tag stands in for the array marker because the genome panel does not carry the array probe itself. So the UC Davis
-        test measured a marker that no longer stands for the haplotype, and its null does not show the locus is inactive there. What would
-        settle it is UC Davis lines genotyped across the haplotype itself, with fruit weight, which no open dataset found here provides. The
-        thread pauses on that open question, not on a refutation.
+        travel together (average r² 0.85). At UC Davis the figure is 0.43, which at first read as the haplotype broken apart. A review
+        check found the gap is mostly arithmetic. The tag&apos;s allele is rare at UC Davis, about 7 copies in 74 lines, and r² between
+        sites of unequal frequency has a ceiling, which averages 0.61 there against 0.91 in Florida. Scored against that ceiling the
+        programs sit at 0.94 and 0.79, a gap of 0.14 whose interval (−0.23 to 0.24) includes zero: unresolved by the check&apos;s own
+        rule. (The tag stands in for the array marker because the genome panel does not carry the probe.) So neither test settles
+        anything. The replication is inconclusive, and whether the array marker tags the haplotype at UC Davis is unknown. What would
+        settle it is UC Davis lines genotyped across the haplotype itself, with fruit weight, in numbers near 2,300 for 80% power at
+        0.5 g, which no open dataset found here provides. The thread pauses on that open question.
+      </p>
+
+      <h2>What a skeptical review found</h2>
+      <p>
+        A deliberately harsh review of this write-up, made after the last result, asked for the checks above and found limits that
+        still stand. Four checks were run: the frequency-normalized H, the power of G, the placement bootstrap, and intervals with a
+        same-region control for the wild frequencies. Their results are reported where they belong, and none was part of a protocol.
+        Five items were not run and are queued. A positive control for the nonlinear test. A stability comparison that does not
+        penalize UMAP for random-seed noise, since the resampling draw also sets UMAP&apos;s seed while PCA is deterministic. A
+        measure of geometry, not only partitions. A rerun of the diversity ranking on sites that map cleanly. And a sensitivity
+        analysis of every threshold.
+      </p>
+      <p>
+        The review also qualified what &quot;pre-registered&quot; means here. Protocols are commits in the project&apos;s own
+        repository, not entries in an independent registry. Stage 0 was rebuilt twice on the same panel, each time after seeing the
+        previous failure, so its final GO is a result on that panel after two revisions, not an independent confirmation. And
+        Amendments B to H were each written after reading the result before it, so each step was fixed in advance but the path through
+        them was not.
       </p>
 
       <h2>Limits</h2>
@@ -469,12 +508,14 @@ export default function FragariaPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Results committed (Stage 2x); paused.</strong> Six protocols, seven amendments and two checks, code, 53 unit tests, every
+        <strong>Results committed (Stage 2x); paused.</strong> Six protocols, seven amendments and three post-hoc checks, code, 56 unit tests, every
         setting&apos;s scores and these figures are committed; each Stage 0 run takes about 21 minutes on a laptop, Stages 1b and 1c about 7,
-        each Stage 2x step a minute or two. Each protocol was committed before its code, and the code before the result.
+        each Stage 2x step a minute or two. Each protocol was committed to the project repository before its code, and the code before the result; the repository is
+        the only registry.
       </p>
       <p>
-        The nonlinear hypothesis is closed as not supported. The fruit-size thread pauses until data exist that genotype the 1B haplotype in
+        The nonlinear hypothesis is not supported, and stays closed only once the test is shown to detect nonlinear structure where it
+        exists. The fruit-size thread pauses until data exist that genotype the 1B haplotype in
         lines outside Florida with fruit weight, or a cross in which the wild haplotype segregates. Every lesson here went upstream into{" "}
         <a href="/projects/topos/">topos</a>, which now enforces them in code.
       </p>
