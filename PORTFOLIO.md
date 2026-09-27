@@ -442,28 +442,34 @@ Case study on reproducible TIP detection and staged escalation, testing whether 
 sites can be called reproducibly under perturbation of coverage, filtering and annotation
 scope before any large-scale interpretation is attempted.
 
-### lyco — transposable-element structural variants and tomato traits
-**Status:** Designed (Stage 1) · *Solanum lycopersicum*, public pangenome call sets
+### lyco — what transposable-element insertions record about tomato's history
+**Status:** Results committed (Stage 1b) · *Solanum lycopersicum*, public pangenome call sets
 
-Tomato pangenome studies have shown that transposable element insertions affect fruit
-traits while being poorly tagged by SNPs, and that structural variants carry heritability
-SNPs miss. Most tomato structural variants are TE-derived, but they have not been
-separated from other structural variants when partitioning heritability. lyco asks
-whether TE origin matters once allele frequency, length and linkage with SNPs are held
-fixed, across metabolome, flavour-chemistry and expression traits in 332 accessions,
-tested against a permutation null. A validation gate is scored first: do independent
-published call sets (short-read, long-read and graph-genotyped) agree on these variants?
-Everything runs from published call sets on a laptop; nothing is re-called from reads.
-Stage 0 is complete: the broad question is already published, the narrow one was not
-found, and genotypes and phenotypes line up for all 332 accessions. The Stage 1
-pre-registration is signed off and its analysis grid frozen (2026-09-26), including a
-power check that must pass before any trait is scored. That check failed in every trait
-class (2026-09-27): after matching, the TE-derived and non-TE relationship matrices
-correlate at 0.97, because in a structured inbred panel of about 300 accessions both mostly
-encode population structure, so a genome-wide partition cannot separate them. The
-heritability question as registered is therefore not scored, a verdict reached before any
-trait was examined. The call-set agreement check can still run, and a per-variant
-comparison is under consideration as a new pre-registration.
+Most structural variants in tomato are derived from transposable elements. lyco asks what
+those TE-derived variants record that other structural variants do not, working entirely
+from published pangenome call sets on a laptop; nothing is re-called from reads. Every
+question is pre-registered with a frozen analysis grid before anything is scored.
+
+It began as a trait question: do TE-derived variants carry more of tomato's trait
+heritability? A power check written into the pre-registration killed that before any trait
+was scored. In a structured, inbred panel of about 300 accessions, relationship matrices
+built from TE-derived and non-TE variants correlate at 0.97, so heritability cannot be
+split between them; a per-variant redesign failed its own power check too. The project
+was reframed around population history, which is what that structure encodes, using all
+706 accessions and no traits.
+
+Results (2026-09-27), each scored once:
+- **Call-set agreement (the gate):** graph genotypes of TE-derived variants agree with
+  independent long-read calls as well as non-TE ones do (median concordance 0.984 for
+  both), so TE variants are not genotyped worse from short reads.
+- **Population history:** relationship matrices from matched TE-derived and non-TE
+  variants differ well beyond a random-split null (0.991 against 0.998 ± 0.0002),
+  concentrated in wild–cherry and within-cultivated relatedness. Discovery bias between
+  the two classes has not yet been ruled out, so this is a statistical result awaiting a
+  biological one.
+- **Frequency spectra through domestication:** no difference after correction.
+- **Young insertions as lineage markers:** more often private to one group as registered,
+  but mostly because young insertions are rarer.
 
 ### repbox — transposable element discovery and annotation
 **Status:** Shipped · Python CLI, published · [BMC Bioinformatics (2023)](https://doi.org/10.1186/s12859-023-05419-5)
