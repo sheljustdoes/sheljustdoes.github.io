@@ -16,25 +16,25 @@ export default function RecoloPage() {
         Context engineering answers a narrow question well: what should go into the window <em>now</em>. It says nothing about what should
         accumulate over weeks and what should be allowed to fade. Agents that run across many sessions therefore tend toward one of two
         failure modes — they remember everything, and drown in their own history, or they remember nothing, and start every session as a
-        stranger. Human memory does not face this tradeoff, because active forgetting is part of the design rather than a defect in it.
+        stranger. Human memory handles this tradeoff differently, because active forgetting is part of the design rather than a defect in it [16–18].
       </p>
 
       <h2>Approach</h2>
       <p>
         The architecture maps biological memory onto an agent explicitly. Working memory is the live context window. Episodic memory is a
         vector store of session records with metadata. Semantic memory is the set of cluster centroids produced by compressing those
-        records. Hippocampal indexing becomes semantic clustering as a retrieval index, and slow-wave consolidation becomes a scheduled
+        records. Hippocampal indexing [13] becomes semantic clustering as a retrieval index, and slow-wave consolidation [12] becomes a scheduled
         loop that compresses redundant episodes into semantic structure and speeds the decay of episodes it already represents, rather
         than deleting them.
       </p>
       <p>
-        Two mechanisms make forgetting programmable. Episodic weights decay exponentially, <code>w(t) = e^(-λt)</code>, with λ exposed as a
-        parameter rather than buried as a constant. Salience scoring modulates what survives, using sentiment magnitude as a proxy for
-        emotional arousal — the amygdala&apos;s role in consolidating what mattered. As designed, retrieval ranks on the product of similarity, decay,
-        and salience, and returns concise ranked results rather than raw embeddings.
+        Two mechanisms make forgetting programmable. Episodic weights decay exponentially, <code>w(t) = e^(-λt)</code>, the shape of the classic forgetting curve [15], with λ exposed as a
+        parameter rather than buried as a constant; MemoryBank already decays agent memories along such a curve [3]. Salience scoring modulates what survives, using sentiment magnitude as a proxy for
+        emotional arousal — the amygdala&apos;s role in consolidating what mattered [14]. As designed, retrieval ranks on the product of similarity, decay,
+        and salience, much as Generative Agents rank memories by relevance, recency and importance [2], and returns concise ranked results rather than raw embeddings.
       </p>
       <p>
-        The design is grounded in two places: Xie&apos;s 2025 taxonomy of forgetting in LLMs, whose four dimensions — temporal dynamics,
+        The design is grounded in two places: Xie&apos;s 2025 taxonomy of forgetting in LLMs [11], whose four dimensions — temporal dynamics,
         trigger mechanisms, controllability, functional impact — each become an explicit design choice here, and Anthropic&apos;s
         context-engineering framework, whose principle of finding the smallest set of high-signal tokens is applied across the whole memory
         lifecycle rather than to a single prompt.
@@ -47,10 +47,10 @@ export default function RecoloPage() {
 
       <h2>What the evaluation found</h2>
       <p>
-        The test was LongMemEval (Wu et al., 2024). Each question sits over a history of about 48 dated chat sessions, roughly 115,000
+        The test was LongMemEval [1]. Each question sits over a history of about 48 dated chat sessions, roughly 115,000
         tokens, and the benchmark marks which turns hold the answer. Every approach filled the same 6,000-token context from the same
         memories, one chat turn each. Claude Haiku 4.5 answered the question, and a separate Haiku call graded the answer with the
-        benchmark&apos;s own prompts. Settings were chosen on 39 questions. The protocol was then committed, and 99 different questions
+        benchmark&apos;s own prompts, an LLM-as-judge setup [9]. Settings were chosen on 39 questions. The protocol was then committed, and 99 different questions
         were scored once.
       </p>
       <p>
@@ -122,7 +122,9 @@ export default function RecoloPage() {
       </Figure>
       <p>
         Three protocols, one answer: none of recolo&apos;s bio-inspired mechanisms helps an agent choose what to read from its own
-        history.
+        history. That is not a new finding on its own. Two recent evaluations found that a biologically inspired memory with
+        consolidation, and a graph memory with decay-based pruning, matched or trailed flat vector retrieval on the same benchmark
+        [19, 20]. What recolo adds is pre-registered ablations that locate the loss, and the presentation test below.
       </p>
       <p>
         A fourth protocol asked why decay never helped where it should have: on questions where a newer fact replaces an older one. It
@@ -147,7 +149,8 @@ export default function RecoloPage() {
         retrieval found every evidence turn the benchmark marks on the second held-out set, each stamped with its session date. Across
         both sets that paid for answers, the reader answered 76–79% of those questions correctly. No form of decay did better. The fixed-clock version scored 43%, because it threw the evidence away. The fourth
         protocol showed why: shown in time order with their dates, the retrieved memories let the reader pick the newer fact itself.
-        Recency pays at presentation, not in scoring, and plain retrieval already gets it for free.
+        Recency pays at presentation, not in scoring, and plain retrieval already gets it for free. That fits evidence that position in the
+        context shapes what a model uses [10]; no earlier test we found separates order from date stamps.
       </p>
       <p>
         <strong>Strong enough to matter meant strong enough to hurt.</strong> Every mechanism reshaped a ranking by relevance with a signal
@@ -156,7 +159,7 @@ export default function RecoloPage() {
       </p>
       <p>
         <strong>Why the analogy failed is an open question.</strong> One explanation for human forgetting is that it answers limits:
-        finite storage, and interference between memories that resemble each other. A vector store with a date on every record has
+        finite storage, and interference between memories that resemble each other [17, 18]. A vector store with a date on every record has
         neither, which may be why copying the mechanism bought nothing. Nothing here tests that explanation. The evaluation shows only
         that the mechanisms did not help.
       </p>
@@ -167,13 +170,25 @@ export default function RecoloPage() {
         advance: no approach reaches the paid step unless it wins the free one. The whole evaluation cost $13.35.
       </p>
 
+      <h2>Related work</h2>
+      <p>
+        Most memory systems for LLM agents keep past interactions in an external store and retrieve by similarity [5–7]. Several add a
+        forgetting signal: Generative Agents rank memories by recency, importance and relevance [2], and MemoryBank and FadeMem decay them
+        along an Ebbinghaus-style curve [3, 4, 15]. recolo borrows its analogy from neuroscience: complementary learning systems and
+        hippocampal indexing for its stores [12, 13], amygdala-driven salience [14], and the view that forgetting is adaptive [16–18]. On
+        LongMemEval [1], recent evaluations of bio-inspired or decay-pruned memories also matched or trailed plain vector retrieval
+        [19, 20], and recolo&apos;s pre-registered results agree. Its presentation test adds that the reader resolves knowledge updates from
+        memories shown in time order, in line with evidence that position in the context shapes what a model uses [10].
+      </p>
+
       <h2>Limits</h2>
       <p>
         One benchmark, one reader, one embedder. The first held-out set was 99 questions, so its intervals run about nine points either
-        way. A Haiku-class reader loses accuracy over a 115,000-token context, which makes the full-history baseline look worse than a
+        way. A Haiku-class reader loses accuracy over a 115,000-token context [1, 10], which makes the full-history baseline look worse than a
         stronger reader would; that affects comparisons with full history, not those between retrieval approaches. The grader agreed with
         a manual review on 19 of 20 verdicts. Untested: memories without dates, a much weaker reader, and forgetting for storage or privacy
-        rather than for answering.
+        rather than for answering. Decay can help where the newest item is the target and is not the most similar one [21], and
+        one system reports gains from adaptive decay [4]; LongMemEval&apos;s knowledge updates were not that case here.
       </p>
 
       <h2>Status</h2>
@@ -184,6 +199,31 @@ export default function RecoloPage() {
         the store is now the library&apos;s default. Each mechanism is opt-in, and the designed configuration is kept for reproducing the
         results.
       </p>
+
+      <h2>References</h2>
+      <ol className="references">
+        <li>Wu D, Wang H, Yu W, et al. LongMemEval: Benchmarking chat assistants on long-term interactive memory. arXiv 2410.10813 (2024). <a href="https://arxiv.org/abs/2410.10813">arXiv:2410.10813</a>.</li>
+        <li>Park JS, O&apos;Brien J, Cai CJ, et al. Generative agents: Interactive simulacra of human behavior. <em>Proceedings of UIST</em>, 1–22 (2023). <a href="https://doi.org/10.1145/3586183.3606763">doi:10.1145/3586183.3606763</a>.</li>
+        <li>Zhong W, Guo L, Gao Q, et al. MemoryBank: Enhancing large language models with long-term memory. <em>Proceedings of the AAAI Conference on Artificial Intelligence</em> 38, 19724–19731 (2024). <a href="https://doi.org/10.1609/aaai.v38i17.29946">doi:10.1609/aaai.v38i17.29946</a>.</li>
+        <li>Wei L, Peng X, Dong X, et al. FadeMem: Biologically-inspired forgetting for efficient agent memory. arXiv 2601.18642 (2026, preprint). <a href="https://arxiv.org/abs/2601.18642">arXiv:2601.18642</a>.</li>
+        <li>Packer C, Wooders S, Lin K, et al. MemGPT: Towards LLMs as operating systems. arXiv 2310.08560 (2023). <a href="https://arxiv.org/abs/2310.08560">arXiv:2310.08560</a>.</li>
+        <li>Chhikara P, Khant D, Aryan S, et al. Mem0: Building production-ready AI agents with scalable long-term memory. arXiv 2504.19413 (2025). <a href="https://arxiv.org/abs/2504.19413">arXiv:2504.19413</a>.</li>
+        <li>Lewis P, Perez E, Piktus A, et al. Retrieval-augmented generation for knowledge-intensive NLP tasks. arXiv 2005.11401 (2020). <a href="https://arxiv.org/abs/2005.11401">arXiv:2005.11401</a>.</li>
+        <li>Xiao S, Liu Z, Zhang P, et al. C-Pack: Packed resources for general Chinese embeddings. arXiv 2309.07597 (2023). <a href="https://arxiv.org/abs/2309.07597">arXiv:2309.07597</a>.</li>
+        <li>Zheng L, Chiang W-L, Sheng Y, et al. Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. arXiv 2306.05685 (2023). <a href="https://arxiv.org/abs/2306.05685">arXiv:2306.05685</a>.</li>
+        <li>Liu NF, Lin K, Hewitt J, et al. Lost in the middle: How language models use long contexts. <em>Transactions of the Association for Computational Linguistics</em> 12, 157–173 (2024). <a href="https://doi.org/10.1162/tacl_a_00638">doi:10.1162/tacl_a_00638</a>.</li>
+        <li>Xie Y. Bio-inspired LLMs forgetting: Integrating neuroscience and computational mechanisms. <em>Proceedings of the 2025 International Conference on Artificial Intelligence, Virtual Reality and Interaction Design</em>, 153–161 (2025). <a href="https://doi.org/10.1145/3777730.3777756">doi:10.1145/3777730.3777756</a>.</li>
+        <li>McClelland JL, McNaughton BL, O&apos;Reilly RC. Why there are complementary learning systems in the hippocampus and neocortex. <em>Psychological Review</em> 102, 419–457 (1995). <a href="https://doi.org/10.1037/0033-295X.102.3.419">doi:10.1037/0033-295X.102.3.419</a>.</li>
+        <li>Teyler TJ, DiScenna P. The hippocampal memory indexing theory. <em>Behavioral Neuroscience</em> 100, 147–154 (1986). <a href="https://doi.org/10.1037/0735-7044.100.2.147">doi:10.1037/0735-7044.100.2.147</a>.</li>
+        <li>McGaugh JL. The amygdala modulates the consolidation of memories of emotionally arousing experiences. <em>Annual Review of Neuroscience</em> 27, 1–28 (2004). <a href="https://doi.org/10.1146/annurev.neuro.27.070203.144157">doi:10.1146/annurev.neuro.27.070203.144157</a>.</li>
+        <li>Murre JMJ, Dros J. Replication and analysis of Ebbinghaus&apos; forgetting curve. <em>PLOS ONE</em> 10, e0120644 (2015). <a href="https://doi.org/10.1371/journal.pone.0120644">doi:10.1371/journal.pone.0120644</a>.</li>
+        <li>Anderson JR, Schooler LJ. Reflections of the environment in memory. <em>Psychological Science</em> 2, 396–408 (1991). <a href="https://doi.org/10.1111/j.1467-9280.1991.tb00174.x">doi:10.1111/j.1467-9280.1991.tb00174.x</a>.</li>
+        <li>Richards BA, Frankland PW. The persistence and transience of memory. <em>Neuron</em> 94, 1071–1084 (2017). <a href="https://doi.org/10.1016/j.neuron.2017.04.037">doi:10.1016/j.neuron.2017.04.037</a>.</li>
+        <li>Wixted JT. The psychology and neuroscience of forgetting. <em>Annual Review of Psychology</em> 55, 235–269 (2004). <a href="https://doi.org/10.1146/annurev.psych.55.090902.141555">doi:10.1146/annurev.psych.55.090902.141555</a>.</li>
+        <li>Kerestecioglu D, Robsky A, Vasters C, et al. Human-inspired memory architecture for LLM agents. arXiv 2605.08538 (2026, preprint). <a href="https://arxiv.org/abs/2605.08538">arXiv:2605.08538</a>.</li>
+        <li>Rusu T, Khanzadeh S, Alalfi M. Selective forgetting: A graph-based memory framework for long-term LLM agents. arXiv 2608.28978 (2026, preprint). <a href="https://arxiv.org/abs/2608.28978">arXiv:2608.28978</a>.</li>
+        <li>Grofsky M. Freshness and the limits of heuristic trend detection in temporal RAG. arXiv 2509.19376 (2025, preprint). <a href="https://arxiv.org/abs/2509.19376">arXiv:2509.19376</a>.</li>
+      </ol>
     </>
   );
 }
