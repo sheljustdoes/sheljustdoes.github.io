@@ -84,15 +84,15 @@ export default function FragariaPage() {
         alone cannot say which one is at work.
       </p>
       <p>
-        This study therefore asked three questions in order, each under a protocol committed before its data: whether stable structure
-        exists in strawberry, whether any of it is nonlinear, and which wild groups carry variation the breeding programs lack,
-        including at a fruit-size locus.
+        This study asked three questions: whether stable structure exists in strawberry, whether any of it is nonlinear, and which
+        wild groups carry variation the breeding programs lack.
       </p>
 
       <h2>The questions, in order</h2>
       <p>
-        Each question below was written down, with the rule for answering it, before the data that answered it was looked at. Several
-        answers reversed an earlier one; the reversals are the point, so they are kept.
+        Answering those three took twelve narrower questions. Rows 1 to 5 take the first two; rows 6 to 12 take the third, down to a
+        single fruit-size locus. Each rule was written before the data that answered it were analyzed, and each question after the
+        answer before it. Several answers reversed an earlier one. They are kept.
       </p>
       <table>
         <thead>
