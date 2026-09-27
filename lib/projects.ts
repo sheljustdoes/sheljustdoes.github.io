@@ -120,9 +120,9 @@ export const PROJECTS: Project[] = [
       "Reproducible detection of transposable element insertion-site polymorphisms in Sorghum bicolor: can insertion sites be called reproducibly under perturbation of coverage, filtering and annotation scope before any interpretation is attempted? Go/kill criteria gate escalation; the pilot has not yet run.",
   },
   {
-    id: "lyco", name: "lyco", area: "structure", status: "Designed (Stage 0)", date: "2026–",
+    id: "lyco", name: "lyco", area: "structure", status: "Designed (Stage 1)", date: "2026–",
     summary:
-      "Do transposable-element-derived structural variants carry more of tomato's trait heritability than other structural variants, once frequency, length and linkage with SNPs are held fixed? Metabolome, flavour-chemistry and expression traits in 332 accessions from published pangenome call sets, tested against a permutation null, with agreement across independent call sets scored first as a validation gate. Stage 0 complete; no analysis has run.",
+      "Do transposable-element-derived structural variants carry more of tomato's trait heritability than other structural variants, once frequency, length and linkage with SNPs are held fixed? Metabolome, flavour-chemistry and expression traits in 332 accessions from published pangenome call sets, tested against a permutation null, with agreement across independent call sets scored first as a validation gate. Stage 1 pre-registration signed off and grid frozen; no trait has been analysed.",
   },
   {
     id: "repbox", name: "repbox", area: "structure", status: "Shipped", date: "2020–2023", featured: true,
