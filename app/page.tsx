@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ADJACENCY, BOUNDS, EDGES, KEYWORD_INDEX, NODES, NODE_BY_ID, TYPE_LABEL, type GraphNode } from "@/lib/graph-data";
+import { ADJACENCY, EDGES, KEYWORD_INDEX, NODES, NODE_BY_ID, TYPE_LABEL, boundsOf, randomLayout, type GraphNode, type Point } from "@/lib/graph-data";
 
 const FIT_PADDING = 64;
 const MIN_K = 0.35;
@@ -50,6 +50,15 @@ export default function HomePage() {
   const [hintGone, setHintGone] = useState(false);
   const [activeKw, setActiveKw] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
+  // Random layout per load, generated after hydration so server and client agree on
+  // the first render (authored positions, hidden until ready).
+  const [layout, setLayout] = useState<Record<string, Point> | null>(null);
+  useEffect(() => setLayout(randomLayout()), []);
+  const placed = useMemo(
+    () => Object.fromEntries(NODES.map((n) => [n.id, layout ? { ...n, ...layout[n.id] } : n])) as Record<string, GraphNode>,
+    [layout],
+  );
+  const bounds = useMemo(() => boundsOf((n) => placed[n.id]), [placed]);
 
   const activeId = selectedId ?? hoverId;
   const selected = selectedId ? NODE_BY_ID[selectedId] : null;
@@ -69,15 +78,15 @@ export default function HomePage() {
     if (!width || !height) return;
     const narrow = width < 760;
     const pad = narrow ? 16 : FIT_PADDING;
-    const fitK = Math.min((width - pad * 2) / BOUNDS.w, (height - pad * 2) / BOUNDS.h);
+    const fitK = Math.min((width - pad * 2) / bounds.w, (height - pad * 2) / bounds.h);
     const k = narrow ? Math.max(fitK, MOBILE_MIN_K) : fitK;
     setView({
       k,
-      x: (width - BOUNDS.w * k) / 2 - BOUNDS.x * k,
-      y: (height - BOUNDS.h * k) / 2 - BOUNDS.y * k,
+      x: (width - bounds.w * k) / 2 - bounds.x * k,
+      y: (height - bounds.h * k) / 2 - bounds.y * k,
     });
-    setReady(true);
-  }, []);
+    if (layout) setReady(true);
+  }, [bounds, layout]);
 
   useEffect(() => {
     fit();
@@ -198,7 +207,7 @@ export default function HomePage() {
   const keepClear = useCallback((id: string) => {
     const wrap = wrapRef.current;
     if (!wrap) return;
-    const n = NODE_BY_ID[id];
+    const n = placed[id];
     requestAnimationFrame(() => {
       const h = wrap.getBoundingClientRect().height;
       const panelH = panelRef.current?.getBoundingClientRect().height ?? 0;
@@ -208,7 +217,7 @@ export default function HomePage() {
         return screenY > limit ? { ...v, y: v.y - (screenY - limit) } : v;
       });
     });
-  }, []);
+  }, [placed]);
 
   const pick = (id: string) => {
     setHintGone(true);
@@ -264,8 +273,8 @@ export default function HomePage() {
           >
             <g className="g-edges">
               {EDGES.map(([s, t]) => {
-                const a = NODE_BY_ID[s];
-                const b = NODE_BY_ID[t];
+                const a = placed[s];
+                const b = placed[t];
                 const live = kwNodes ? kwNodes.has(s) && kwNodes.has(t) : activeId === s || activeId === t;
                 const other = activeId === s ? b : a;
                 return (
@@ -284,7 +293,7 @@ export default function HomePage() {
             </g>
 
             <g className="g-nodes">
-              {NODES.map((n) => {
+              {NODES.map(({ id }) => placed[id]).map((n) => {
                 const dim = !!neighbours && !neighbours.has(n.id);
                 const isSel = selectedId === n.id;
                 return (
