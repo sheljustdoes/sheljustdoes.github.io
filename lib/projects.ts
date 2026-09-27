@@ -120,9 +120,9 @@ export const PROJECTS: Project[] = [
       "Reproducible detection of transposable element insertion-site polymorphisms in Sorghum bicolor: can insertion sites be called reproducibly under perturbation of coverage, filtering and annotation scope before any interpretation is attempted? Go/kill criteria gate escalation; the pilot has not yet run.",
   },
   {
-    id: "lyco", name: "lyco", area: "structure", status: "Designed (Stage 1)", date: "2026–",
+    id: "lyco", name: "lyco", area: "structure", status: "Results committed (Stage 1b)", date: "2026–",
     summary:
-      "Do transposable-element-derived structural variants carry more of tomato's trait heritability than other structural variants, once frequency, length and linkage with SNPs are held fixed? Pre-registered on 332 accessions from published pangenome call sets, with a power check before any trait is scored. The check failed in every trait class: after matching, TE-derived and non-TE relationship matrices correlate at 0.97 in this structured inbred panel, so a genome-wide partition is not identifiable and the question as registered is not scored. A per-variant comparison is under consideration.",
+      "What do transposable-element-derived structural variants record about tomato's history that other variants do not? Pre-registered and scored once on 706 accessions from published pangenome call sets. A trait-heritability version was killed by its own power check before any trait was scored (the two classes' relationship matrices correlate at 0.97). Graph genotypes of TE variants agree with long-read calls as well as other variants do (0.984 both); TE-derived variants record a measurably different population history (0.991 against a 0.998 null), with discovery bias not yet ruled out; frequency spectra show no difference; young insertions look lineage-specific mostly because they are rare.",
   },
   {
     id: "repbox", name: "repbox", area: "structure", status: "Shipped", date: "2020–2023", featured: true,

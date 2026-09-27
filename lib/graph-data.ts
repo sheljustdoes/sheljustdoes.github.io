@@ -393,11 +393,12 @@ const AUTHORED: AuthoredNode[] = [
       "Carries legacy exploratory outputs from the 2021 project as its only baseline",
     ],
     keywords: ["Sorghum bicolor", "TE Insertion Polymorphism", "WGS", "Short-Read Alignment", "Presence/Absence Variation", "Transposable Elements", "Perturbation Testing"] },
-  { id: "lyco", label: "lyco", type: "project", color: "blush", r: 17, x: 1300, y: 1078,
+  { id: "lyco", label: "lyco", type: "project", color: "blush", r: 19, x: 1300, y: 1078,
     points: [
-      "Transposable-element-derived vs other structural variants across 706 tomato accessions, from published pangenome call sets",
-      "Heritability partition pre-registered, then killed by its own power check before any trait was scored: the two classes' relationship matrices correlate at 0.97",
-      "Reframed toward what TE insertions record about tomato's population history, gated by agreement between independent call sets",
+      "What TE-derived structural variants record about tomato's history, across 706 accessions from published pangenome call sets",
+      "A heritability version was killed by its own power check before any trait was scored: the classes' relationship matrices correlate at 0.97",
+      "Graph genotypes of TE variants agree with long-read calls as well as other variants do (0.984 both)",
+      "TE-derived variants record a measurably different population history; discovery bias not yet ruled out",
     ],
     keywords: ["Solanum lycopersicum", "Structural Variants", "Transposable Elements", "Pangenome", "Heritability", "Population Genetics", "Pre-registration"] },
 
