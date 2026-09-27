@@ -485,7 +485,9 @@ tested against a permutation null. A validation gate is scored first: do indepen
 published call sets (short-read, long-read and graph-genotyped) agree on these variants?
 Everything runs from published call sets on a laptop; nothing is re-called from reads.
 Stage 0 is complete: the broad question is already published, the narrow one was not
-found, and genotypes and phenotypes line up for all 332 accessions. No analysis has run.
+found, and genotypes and phenotypes line up for all 332 accessions. The Stage 1
+pre-registration is drafted, including a power check that must pass before any trait is
+scored. No trait has been analysed.
 
 ### repbox — transposable element discovery and annotation
 **Status:** Shipped · Python CLI, published · [BMC Bioinformatics (2023)](https://doi.org/10.1186/s12859-023-05419-5)
