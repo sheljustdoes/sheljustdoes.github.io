@@ -145,8 +145,10 @@ export default function LycoPage() {
       <p className="status-line">
         <strong>Results committed.</strong> Three pre-registrations: the trait question, stopped by its power check before scoring; the
         genotyping gate, passed; and the history questions, each scored once. Every protocol was committed before its result, including
-        the checks that stopped the first design, and a discovery-bias check specified before it ran. Next: which transposable-element
-        families drive the wild–cherry and cherry–big-fruited differences.
+        the checks that stopped the first design, and a discovery-bias check specified before it ran. An exploratory breakdown puts most
+        of the history difference on Gypsy LTR retrotransposons of intermediate age, with DNA transposons near their nulls. Gypsy
+        elements cluster in pericentromeric regions, where long haplotypes and wild introgressions persist, so whether the signal
+        belongs to the elements or to the regions they occupy is the next pre-registered test.
       </p>
 
       <h2>References</h2>
