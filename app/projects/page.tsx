@@ -59,7 +59,8 @@ export default function ProjectsIndex() {
         ))}
       </section>
 
-      <style>{INDEX_CSS}</style>
+      {/* suppressHydrationWarning: dark-mode browser extensions tag <style> elements before hydration */}
+      <style suppressHydrationWarning>{INDEX_CSS}</style>
     </>
   );
 }
