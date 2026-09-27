@@ -271,10 +271,9 @@ further along.
 
 Deciding when latent structure in high-dimensional biological data is real enough to act
 on. topos is the protocol: eight gated stages that end in an explicit GO, KILL or HOLD.
-The case studies apply it to crop genomes and to human precision medicine. A thread
+The case studies apply it to crop genomes. A thread
 through transposable elements runs across them, from repbox's element discovery to
-insertion polymorphisms in sorghum, TE-derived structural variants in tomato (lyco), and
-the insertions indicium adds to precision-medicine evidence.
+insertion polymorphisms in sorghum and TE-derived structural variants in tomato (lyco).
 
 **Flagship:** topos, the method, now a tested package for Stage 0. One stage has been
 executed, on strawberry (fragaria): an audit found the first run invalid, and two
@@ -422,41 +421,6 @@ UC Davis (about 7 copies), which caps r²; normalized to that cap it is 0.14 (95
 0.24), unresolved. The locus is untested outside Florida. The nonlinear
 test compares partitions, not geometry, and has no positive control, so its KILL means "not
 detected"; the controls are queued. Paused 2026-09-26.
-
-### indicium — graded evidence for precision medicine
-**Status:** Results committed (Stage 1, inconclusive) · open human genomics, CIViC, CPIC
-
-Precision-medicine knowledge bases mostly describe single-nucleotide variants and short
-indels. Transposable element insertions and larger structural variants are
-under-represented in them. indicium brings three kinds of evidence into one knowledge
-graph, where every edge records its source and evidence level:
-- pharmacogenomics, checked against CPIC guidelines as exact ground truth
-- a cancer-variant evidence agent, evaluated against CIViC's curated evidence
-- hypotheses generated over the combined graph, evaluated with a temporal holdout
-
-It is the first project built on this portfolio's own frameworks as a stack. topos gates
-every hypothesis, sorghum's insertion-polymorphism methods move from plants to humans,
-veridian checks whether evidence supports each claim, recolo provides agent memory, argus
-contributes Cell Painting phenomics, and catasta serves the demo. Each framework's gap
-that indicium closes is fixed in that framework's own repository. Hypotheses, evidence
-gates are written, and Stage 0 is complete: an audit of data access, licences and prior
-work. Three arms go ahead. One hypothesis turned out to be largely published already and
-is being reframed as a replication with a stability analysis. The somatic arm stays
-deferred, because its primary data is controlled-access.
-
-**The replication ran once (2026-09-26), pre-registered and signed off in advance.** It
-catalogues 69 polymorphic mobile-element insertions in or near the highest-evidence CPIC
-pharmacogenes, 61% of checkable calls confirmed by long-read assemblies. Its stability
-verdict came back negative, but uninformatively: two of the four pre-registered
-perturbation axes turned out not to vary in the public call set, which capped every site
-below the stability threshold by construction. A repaired grid, approved afterwards and
-labelled post-hoc, gave the same verdict for the same kind of reason: a third axis turned
-out not to vary either, and only 16 sites could be checked against long reads, two of
-them common HLA insertions that dominated the comparison. So this call set cannot answer
-the stability question; the catalogue stands as a plain intersection, and a real test
-needs a call set whose filters vary. The check that catches degenerate axes before a run
-now lives in topos. indicium was archived on 2026-09-26 with its other arms unstarted;
-the transposable-element thread continues in lyco.
 
 ### glyma — soybean haplogroup discovery
 **Status:** Designed (Stage 0) · *Glycine max*, SoySNP50K
