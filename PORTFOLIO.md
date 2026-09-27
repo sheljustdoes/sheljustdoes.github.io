@@ -767,7 +767,7 @@ adapter seam.
 **Status:** Shipped · FastAPI, SvelteKit, Python · 21K LOC, 37 test modules, versioned releases
 
 A personal audio curation and library-management platform, packaged and deployed as a Home
-Assistant add-on. FastAPI backend across 21 routers, SvelteKit web client, a native macOS
+Assistant add-on. FastAPI backend across 22 routers, SvelteKit web client, a native macOS
 launcher, and a background queue worker behind Caddy, with library synchronization,
 ReplayGain normalization, cover art handling, and metadata enrichment from MusicBrainz and
 Wikipedia.
