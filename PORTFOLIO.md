@@ -437,7 +437,7 @@ sites can be called reproducibly under perturbation of coverage, filtering and a
 scope before any large-scale interpretation is attempted.
 
 ### lyco — transposable-element structural variants and tomato traits
-**Status:** Designed (Stage 0) · *Solanum lycopersicum*, public pangenome call sets
+**Status:** Designed (Stage 1) · *Solanum lycopersicum*, public pangenome call sets
 
 Tomato pangenome studies have shown that transposable element insertions affect fruit
 traits while being poorly tagged by SNPs, and that structural variants carry heritability
@@ -450,8 +450,9 @@ published call sets (short-read, long-read and graph-genotyped) agree on these v
 Everything runs from published call sets on a laptop; nothing is re-called from reads.
 Stage 0 is complete: the broad question is already published, the narrow one was not
 found, and genotypes and phenotypes line up for all 332 accessions. The Stage 1
-pre-registration is drafted, including a power check that must pass before any trait is
-scored. No trait has been analysed.
+pre-registration is signed off and its analysis grid frozen (2026-09-26), including a
+power check that must pass before any trait is scored; the pre-scoring checks are under
+way. No trait has been analysed.
 
 ### repbox — transposable element discovery and annotation
 **Status:** Shipped · Python CLI, published · [BMC Bioinformatics (2023)](https://doi.org/10.1186/s12859-023-05419-5)
