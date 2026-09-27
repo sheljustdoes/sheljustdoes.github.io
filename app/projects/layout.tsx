@@ -1,3 +1,8 @@
+import type { Metadata } from "next";
+
+// Every project write-up (and the /projects index) stays out of search results; pages remain linkable.
+export const metadata: Metadata = { robots: { index: false, follow: true } };
+
 export default function ProjectsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="write-up">
