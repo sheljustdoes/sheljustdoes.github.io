@@ -403,16 +403,16 @@ public marker table puts its probe on 1B at 1.7 Mb while flagging the 1C signal'
 ambiguous between homoeologs, confirming the placement.
 A replication fixed in advance failed: in 529 UC Davis individuals with fruit weight (Feldmann
 et al. 2024, CC0), where the allele segregates at 0.17–0.20, its effect is −0.18 g per copy
-(95% CI −1.00 to +0.64). That excludes Florida's effect in grams per fruit (+1.2 under this
-model, +0.7 under the source study's), the second narrowly, and both Florida estimates are likely
-inflated by the scan that found them. Wild *F. chiloensis* 'Del Norte' carries
+(95% CI −1.00 to +0.64), but with only 52% power at the source study's Florida estimate (+0.7 g),
+itself likely inflated by the scan that found it, so the replication is inconclusive. Wild *F. chiloensis* 'Del Norte' carries
 two copies, but its hybrids do not segregate, so the wild test could not run. The Florida → UC
 Davis crossing lead and the wild-donor reading are therefore not supported beyond Florida.
-A final check found why: the array marker's genome tag and the larger-fruit haplotype travel
-together in Florida lines (mean r² 0.85) but not at UC Davis (0.43). Part of the gap is the tag
-allele's lower frequency there, the rest recombination or different founders, so the UC Davis
-null measured a marker that no longer tags the haplotype. The locus is untested outside Florida rather than refuted.
-Paused 2026-09-26.
+A final check compared the array marker's linkage with the haplotype: mean r² 0.85 in Florida
+lines against 0.43 at UC Davis. A post-hoc review check found the gap is mostly the tag's rarity at
+UC Davis (about 7 copies), which caps r²; normalized to that cap it is 0.14 (95% interval −0.23 to
+0.24), unresolved. The locus is untested outside Florida. The same review found the nonlinear
+test compares partitions, not geometry, and has no positive control, so its KILL means "not
+detected"; the controls are queued. Paused 2026-09-26.
 
 ### indicium — graded evidence for precision medicine
 **Status:** Results committed (Stage 1, inconclusive) · open human genomics, CIViC, CPIC
