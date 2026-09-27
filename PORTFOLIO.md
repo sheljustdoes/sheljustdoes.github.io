@@ -325,7 +325,7 @@ fixed before scoring, and a role as a guardrail for analysis written by LLM agen
 **Status:** Results committed (Stage 2x) · Python, scikit-learn
 
 A topos case study on *Fragaria × ananassa* testing whether nonlinear manifold methods
-recover stable haplogroup structure beyond linear PCA in an octoploid context, where
+recover stable population structure beyond linear PCA in an octoploid context, where
 dosage ambiguity, subgenome assignment uncertainty and homoeologous exchange all
 complicate interpretation. Stage 0 has been run three times; Stages 1b and 1c tested the
 question on two wild panels, and Stage 2x asks what crossing the groups would add.
@@ -353,7 +353,9 @@ kinship), a deduplicated grid, and a missingness gate tested within germplasm so
 GO in the primary run and both sensitivities, carried by UMAP pipelines as well as PCA.
 The structure is the same either way: on the accessions both methods cluster, the
 partitions are identical — breeding-program lines against USDA accessions and named
-cultivars. UMAP only assigns the diverse accessions PCA leaves as noise. So stable,
+cultivars. UMAP only assigns the diverse accessions PCA leaves as noise. (The pre-registered
+non-redundancy check read 0.68 because it scored HDBSCAN noise as a cluster label, a design
+flaw in the check.) So stable,
 confound-defensible structure exists, and nothing yet shows structure beyond PCA; that is
 Stage 1's test. The lessons go upstream into topos. The only topos case study with
 executed analysis.
@@ -375,7 +377,9 @@ at any k from 2 to 10, recovers it — then applied to a panel it had not seen: 
 *F. chiloensis* and *F. virginiana* from a public whole-genome set (CC-BY), the 33.6 GB variant
 file streamed and hash-sampled to 475,741 SNPs without being stored. Stable, confound-checked
 structure follows taxonomy (*chiloensis*, eastern and western *virginiana*), and every UMAP
-setting that finds it reproduces the matched PCA partition, three exactly. Across three
+setting that finds it reproduces the matched PCA partition, three exactly. Every UMAP
+setting in Stages 0–1c embedded principal components; a post hoc rerun with UMAP on the
+genotypes themselves is still KILL, its stable partitions matching PCA's or a coarser version. Across three
 panels the answer is the same: the structure is real and linear. The hypothesis is closed as
 not supported.
 
@@ -384,7 +388,9 @@ cultivated germplasm: the share of sites where a wild group carries an allele at
 the UC Davis and Florida programs hold at < 5% is 11.9% for *F. chiloensis*, 7.5% for western
 *F. virginiana* and 3.6% for eastern, each distinct. Between wild groups, eastern *virginiana*
 × *chiloensis* adds the most heterozygosity and western *virginiana* × *chiloensis* the most
-variation the programs lack. The programs hold almost no private alleles.
+variation the programs lack. The programs hold almost no private alleles. Groups are Stage 1c clusters named by majority
+taxon (2 wild hybrids in the *chiloensis* group, 1 *chiloensis* in eastern *virginiana*); a
+post hoc rerun on species-pure groups keeps every ranking.
 
 **Stage 2x part B, phenotype link.** A mixed-model association scan on 1,787 Florida breeding
 lines (the same study's 50K-array data) finds three fruit-size loci and no yield locus. The
@@ -398,7 +404,7 @@ signal: their markers sit on three independently segregating subgenomes yet are 
 associated (r² 0.40–0.68 against a background of 0.05), and conditioning on the strongest
 removes the others. The tags then disagree about wild frequencies, so the wild-donor reading
 is withdrawn until the causal site is known. What stands: the Florida program carries the
-size-increasing allele at two to six times UC Davis's frequency (intervals exclude zero), a
+size-increasing allele at two to six times UC Davis's frequency (intervals exclude a ratio of 1), a
 crossing lead between programs.
 A targeted second pass read every variant in the first 6 Mb of the four group-1
 subgenomes (585,789 sites) and placed the signal on subgenome 1B, in a haplotype at
