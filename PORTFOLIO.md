@@ -379,7 +379,11 @@ the UC Davis and Florida programs hold at < 5% is 11.9% for *F. chiloensis*, 7.5
 variation the programs lack. The programs hold almost no private alleles.
 
 **Stage 2x part B, phenotype link.** A mixed-model association scan on 1,787 Florida breeding
-lines (the same study's 50K-array data) finds three fruit-size loci and no yield locus. 52
+lines (the same study's 50K-array data) finds three fruit-size loci and no yield locus. The
+source study had already run its own scan (Fan & Whitaker 2024, *Plant Cell*, FarmCPU): the
+strongest locus here is among its 26 fruit-size signals, so what follows confirms and places a
+published association rather than finding a new one. Only 2 of its 26 fruit-size signals and
+none of its 11 yield signals pass the stricter single-marker Bonferroni scan used here. 52
 lines genotyped on both platforms map every array chromosome to the whole-genome reference and
 tag each locus (|r| ≥ 0.83). A follow-up test fixed in advance found the three loci are one
 signal: their markers sit on three independently segregating subgenomes yet are strongly
@@ -393,18 +397,21 @@ subgenomes (585,789 sites) and placed the signal on subgenome 1B, in a haplotype
 2.2–5.3 Mb (narrow margin over 1C). There the allele that goes with larger fruit is common in
 wild octoploids (*F. chiloensis* 0.86, *F. virginiana* 0.47–0.60) and rare at UC Davis (0.08);
 program-frequency-matched background alleles sit near 0.05 in the wild, so this is not an
-artefact of the programs' lost diversity. The effect is measured in Florida lines only.
+artifact of the programs' lost diversity. The effect is measured in Florida lines only.
 Array-level fine-mapping leaves the lead marker alone in the credible set, and an independent
 public marker table puts its probe on 1B at 1.7 Mb while flagging the 1C signal's probe as
 ambiguous between homoeologs, confirming the placement.
 A replication fixed in advance failed: in 529 UC Davis individuals with fruit weight (Feldmann
 et al. 2024, CC0), where the allele segregates at 0.17–0.20, its effect is −0.18 g per copy
-(95% CI −1.00 to +0.64), excluding Florida's effect size. Wild *F. chiloensis* 'Del Norte' carries
+(95% CI −1.00 to +0.64). That excludes Florida's effect in grams per fruit (+1.2 under this
+model, +0.7 under the source study's), the second narrowly, and both Florida estimates are likely
+inflated by the scan that found them. Wild *F. chiloensis* 'Del Norte' carries
 two copies, but its hybrids do not segregate, so the wild test could not run. The Florida → UC
 Davis crossing lead and the wild-donor reading are therefore not supported beyond Florida.
-A final check found why: the array marker and the larger-fruit haplotype travel together in
-Florida lines (mean r² 0.85) but not at UC Davis (0.43), so the UC Davis null measured a marker
-that no longer tags the haplotype. The locus is untested outside Florida rather than refuted.
+A final check found why: the array marker's genome tag and the larger-fruit haplotype travel
+together in Florida lines (mean r² 0.85) but not at UC Davis (0.43). Part of the gap is the tag
+allele's lower frequency there, the rest recombination or different founders, so the UC Davis
+null measured a marker that no longer tags the haplotype. The locus is untested outside Florida rather than refuted.
 Paused 2026-09-26.
 
 ### indicium — graded evidence for precision medicine
