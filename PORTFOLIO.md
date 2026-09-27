@@ -451,8 +451,13 @@ Everything runs from published call sets on a laptop; nothing is re-called from 
 Stage 0 is complete: the broad question is already published, the narrow one was not
 found, and genotypes and phenotypes line up for all 332 accessions. The Stage 1
 pre-registration is signed off and its analysis grid frozen (2026-09-26), including a
-power check that must pass before any trait is scored; the pre-scoring checks are under
-way. No trait has been analysed.
+power check that must pass before any trait is scored. That check failed in every trait
+class (2026-09-27): after matching, the TE-derived and non-TE relationship matrices
+correlate at 0.97, because in a structured inbred panel of about 300 accessions both mostly
+encode population structure, so a genome-wide partition cannot separate them. The
+heritability question as registered is therefore not scored, a verdict reached before any
+trait was examined. The call-set agreement check can still run, and a per-variant
+comparison is under consideration as a new pre-registration.
 
 ### repbox — transposable element discovery and annotation
 **Status:** Shipped · Python CLI, published · [BMC Bioinformatics (2023)](https://doi.org/10.1186/s12859-023-05419-5)

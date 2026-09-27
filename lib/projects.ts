@@ -122,7 +122,7 @@ export const PROJECTS: Project[] = [
   {
     id: "lyco", name: "lyco", area: "structure", status: "Designed (Stage 1)", date: "2026–",
     summary:
-      "Do transposable-element-derived structural variants carry more of tomato's trait heritability than other structural variants, once frequency, length and linkage with SNPs are held fixed? Metabolome, flavour-chemistry and expression traits in 332 accessions from published pangenome call sets, tested against a permutation null, with agreement across independent call sets scored first as a validation gate. Stage 1 pre-registration signed off and grid frozen; no trait has been analysed.",
+      "Do transposable-element-derived structural variants carry more of tomato's trait heritability than other structural variants, once frequency, length and linkage with SNPs are held fixed? Pre-registered on 332 accessions from published pangenome call sets, with a power check before any trait is scored. The check failed in every trait class: after matching, TE-derived and non-TE relationship matrices correlate at 0.97 in this structured inbred panel, so a genome-wide partition is not identifiable and the question as registered is not scored. A per-variant comparison is under consideration.",
   },
   {
     id: "repbox", name: "repbox", area: "structure", status: "Shipped", date: "2020–2023", featured: true,
