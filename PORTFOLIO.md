@@ -92,8 +92,10 @@ Fitzpatrick type tracks skin colour strongly (Spearman −0.80 with ITA; 66% of 
 the Monk Skin Tone scale better still (−0.93; 88%; difference +0.125, CI +0.073 to +0.208).
 Colour measured from the dermoscopic images of the same sites does not reproduce the
 instrument, and 41% of its variance comes from imaging the same skin under different
-dermoscope modes, against 1.1% between repeat colorimeter readings. So the weak link on
-Fitzpatrick17k is mainly the camera, not the scale. A coding error in the first run (the
+dermoscope modes, against 1.1% between repeat colorimeter readings. The first two findings
+replicate the dataset authors' own report (Weir et al. 2025, *npj Digital Medicine*); the
+capture-variance share and the ITA breakdown on 32% of images (b* ≤ 0) are what this adds.
+So the weak link on Fitzpatrick17k is mainly the camera, not the scale. A coding error in the first run (the
 wrong ITA formula) was caught by a pre-registered sanity check, corrected and logged.
 
 **Limit.** Every Fitzpatrick17k image in the benchmark comes from a single source atlas.

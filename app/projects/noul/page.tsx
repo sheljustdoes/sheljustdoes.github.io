@@ -15,8 +15,8 @@ export default function NoulPage() {
 
       <h2>Why this exists</h2>
       <p>
-        A coding agent answers &ldquo;where is the thing that does X&rdquo; by reading files into its context, and every file it reads is
-        re-sent with every later turn. TypeSafe&apos;s Jev points at an alternative: a model that returns typed, calibrated numbers
+        A coding agent answers &ldquo;where is the thing that does X&rdquo; by reading files into its context, turn by turn [5, 6, 8], and
+        every file it reads is re-sent with every later turn. TypeSafe&apos;s Jev points at an alternative: a model that returns typed, calibrated numbers
         instead of prose, in one forward pass. Jev is API-only and its architecture is unpublished. noul asks how much of that shape can
         be rebuilt from open models running locally, with no text generation and no code sent anywhere.
       </p>
@@ -24,14 +24,14 @@ export default function NoulPage() {
       <h2>Approach</h2>
       <p>
         <code>find</code> ranks files by how well they match a plain-language description, including descriptions whose words never
-        appear in the code. Files are cut into overlapping 40-line chunks; notebooks are read as code and markdown, without outputs. A
+        appear in the code, the task semantic code search benchmarks measure [1–3]. Files are cut into overlapping 40-line chunks; notebooks are read as code and markdown, without outputs. A
         file scores as its best chunk.
       </p>
       <p>
-        It runs in two stages. BM25 and a 33M-parameter embedding model (bge-small), fused by reciprocal rank, shortlist 20 chunks. A
-        568M-parameter cross-encoder (bge-reranker-v2-m3) then reads the query against only those 20. The reranker is the only model that
+        It runs in two stages. BM25 [9] and a 33M-parameter embedding model (bge-small [10]), fused by reciprocal rank [11], shortlist 20 chunks. A
+        568M-parameter cross-encoder (bge-reranker-v2-m3, built on the M3 backbone [12]) then reads the query against only those 20. The reranker is the only model that
         sees query and code together, which is what lets it match meaning rather than words, and it is also the only expensive step. The
-        shortlist exists to keep it off every chunk in the repository.
+        shortlist exists to keep it off every chunk in the repository: the standard retrieve-then-rerank design [13].
       </p>
 
       <h2>How it was measured</h2>
@@ -40,7 +40,7 @@ export default function NoulPage() {
         research codebase with scientific vocabulary. 41 queries in all. 35 are answerable, and 12 of those are &ldquo;gap&rdquo;
         queries whose key words do not appear in the code. The other six describe features that do not exist, to test whether a scorer
         can say &ldquo;not here&rdquo;. Each answerable query lists every file that would be a fair top answer. The measures are
-        precision at 1 (the first file is right) and recall at 3 (a right file is in the top three).
+        precision at 1 (the first file is right) and recall at 3 (a right file is in the top three), as in code retrieval benchmarks [1, 4].
       </p>
       <p>
         <strong>Who wrote the labels matters.</strong> Claude drafted them against the source. Three were widened after the first run,
@@ -126,7 +126,7 @@ export default function NoulPage() {
         correct file appears. Counting it only when <em>every</em> correct file is in the top five, every single-file query passes (26 of
         26), but only 4 of the 9 queries with several correct files do, fewer than keyword search (5) and brute force (6). The shortlist
         keeps the best 20 chunks, which tend to come from one dominant file, so secondary files never reach the reranker. A
-        pre-registered fix spread the shortlist across files: on these queries it lifted multi-file completeness from 4 to 6 of 9, but
+        pre-registered [15] fix spread the shortlist across files, in the spirit of diversity-based reranking [14]: on these queries it lifted multi-file completeness from 4 to 6 of 9, but
         on a fresh held-out codebase, labelled before noul ever ran on it with every label backed by a cited line, it made no
         difference (16 of 17 complete either way). The default stays as it was. The one held-out miss was a source file pushed out of
         the top five by test files that mention the same functions, which is what gets measured next.
@@ -147,7 +147,20 @@ export default function NoulPage() {
       <p>
         <strong>It cannot say &ldquo;not here&rdquo;.</strong> On each codebase, two or three answerable queries score below the
         strongest query for a feature that does not exist, and the cut-off sits at a different score in each. Raw reranker scores are
-        not probabilities. Turning them into probabilities is calibration, the Jev-like part still to build.
+        not probabilities. Turning them into probabilities is calibration [16], the Jev-like part still to build; for reranker scores there is no
+        established recipe to borrow.
+      </p>
+
+      <h2>Related work</h2>
+      <p>
+        Describing code in natural language and retrieving it is the semantic code search task, benchmarked by CodeSearchNet [1], CoSQA [2]
+        and CoIR [3], where learned code encoders such as UniXcoder [4] compete with lexical baselines. noul&apos;s first stage combines BM25 [9]
+        with a small BGE embedding model [10] by reciprocal rank fusion [11]; its second follows the retrieve-then-rerank design of
+        cross-encoder rerankers [13]. None of that architecture is new. Repository-level localization for SWE-bench [5] is usually done by LLM
+        agents that read files turn by turn, such as SWE-agent [6] and LocAgent [8], or by the simpler staged pipeline of Agentless [7],
+        which already argued that an agent is not required; LLMs can also serve as the reranker itself [17]. What noul asks is narrower:
+        how far a local, non-generative scorer gets on that task, measured by a strict every-correct-file rule and a pre-registered
+        held-out test.
       </p>
 
       <h2>Limits</h2>
@@ -165,10 +178,31 @@ export default function NoulPage() {
       </p>
       <p>
         Next: keep test files from crowding out source files; more held-out codebases with cited labels; then a large open-source
-        repository, calibration so
+        repository, the scale localization benchmarks use [5, 8], calibration so
         &ldquo;not here&rdquo; becomes a probability, and the per-file yes/no <code>ask</code> mode. The agent it would replace will
         be scored on the same labels, so that comparison becomes a measurement rather than an anecdote.
       </p>
+
+      <h2>References</h2>
+      <ol className="references">
+        <li>Husain H, Wu H-H, Gazit T, et al. CodeSearchNet Challenge: Evaluating the State of Semantic Code Search. arXiv 1909.09436 (2019). <a href="https://arxiv.org/abs/1909.09436">arXiv:1909.09436</a>.</li>
+        <li>Huang J, Tang D, Shou L, et al. CoSQA: 20,000+ Web Queries for Code Search and Question Answering. <em>Proceedings of ACL-IJCNLP</em>, 5690–5700 (2021). <a href="https://doi.org/10.18653/v1/2021.acl-long.442">doi:10.18653/v1/2021.acl-long.442</a>.</li>
+        <li>Li X, Dong K, Lee YQ, et al. CoIR: A Comprehensive Benchmark for Code Information Retrieval Models. <em>Proceedings of ACL</em>, 22074–22091 (2025). <a href="https://doi.org/10.18653/v1/2025.acl-long.1072">doi:10.18653/v1/2025.acl-long.1072</a>.</li>
+        <li>Guo D, Lu S, Duan N, et al. UniXcoder: Unified Cross-Modal Pre-training for Code Representation. <em>Proceedings of ACL</em>, 7212–7225 (2022). <a href="https://doi.org/10.18653/v1/2022.acl-long.499">doi:10.18653/v1/2022.acl-long.499</a>.</li>
+        <li>Jimenez CE, Yang J, Wettig A, et al. SWE-bench: Can Language Models Resolve Real-World GitHub Issues? <em>ICLR</em> (2024). <a href="https://arxiv.org/abs/2310.06770">arXiv:2310.06770</a>.</li>
+        <li>Yang J, Jimenez CE, Wettig A, et al. SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering. <em>NeurIPS</em> (2024). <a href="https://arxiv.org/abs/2405.15793">arXiv:2405.15793</a>.</li>
+        <li>Xia CS, Deng Y, Dunn S, Zhang L. Demystifying LLM-Based Software Engineering Agents (Agentless). <em>Proceedings of the ACM on Software Engineering</em> 2 (FSE), 801–824 (2025). <a href="https://doi.org/10.1145/3715754">doi:10.1145/3715754</a>.</li>
+        <li>Chen Z, Tang X, Deng G, et al. LocAgent: Graph-Guided LLM Agents for Code Localization. <em>Proceedings of ACL</em>, 8697–8727 (2025). <a href="https://doi.org/10.18653/v1/2025.acl-long.426">doi:10.18653/v1/2025.acl-long.426</a>.</li>
+        <li>Robertson S, Zaragoza H. The Probabilistic Relevance Framework: BM25 and Beyond. <em>Foundations and Trends in Information Retrieval</em> 3, 333–389 (2009). <a href="https://doi.org/10.1561/1500000019">doi:10.1561/1500000019</a>.</li>
+        <li>Xiao S, Liu Z, Zhang P, et al. C-Pack: Packed Resources For General Chinese Embeddings. <em>Proceedings of SIGIR</em>, 641–649 (2024). <a href="https://doi.org/10.1145/3626772.3657878">doi:10.1145/3626772.3657878</a>.</li>
+        <li>Cormack GV, Clarke CLA, Buettcher S. Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods. <em>Proceedings of SIGIR</em>, 758–759 (2009). <a href="https://doi.org/10.1145/1571941.1572114">doi:10.1145/1571941.1572114</a>.</li>
+        <li>Chen J, Xiao S, Zhang P, et al. M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation. <em>Findings of ACL</em>, 2318–2335 (2024). <a href="https://doi.org/10.18653/v1/2024.findings-acl.137">doi:10.18653/v1/2024.findings-acl.137</a>.</li>
+        <li>Nogueira R, Cho K. Passage Re-ranking with BERT. arXiv 1901.04085 (2019). <a href="https://arxiv.org/abs/1901.04085">arXiv:1901.04085</a>.</li>
+        <li>Carbonell J, Goldstein J. The Use of MMR, Diversity-Based Reranking for Reordering Documents and Producing Summaries. <em>Proceedings of SIGIR</em>, 335–336 (1998). <a href="https://doi.org/10.1145/290941.291025">doi:10.1145/290941.291025</a>.</li>
+        <li>Nosek BA, Ebersole CR, DeHaven AC, et al. The preregistration revolution. <em>Proceedings of the National Academy of Sciences</em> 115, 2600–2606 (2018). <a href="https://doi.org/10.1073/pnas.1708274114">doi:10.1073/pnas.1708274114</a>.</li>
+        <li>Guo C, Pleiss G, Sun Y, Weinberger KQ. On Calibration of Modern Neural Networks. <em>ICML</em> (2017). <a href="https://arxiv.org/abs/1706.04599">arXiv:1706.04599</a>.</li>
+        <li>Sun W, Yan L, Ma X, et al. Is ChatGPT Good at Search? Investigating Large Language Models as Re-Ranking Agents. <em>Proceedings of EMNLP</em>, 14918–14937 (2023). <a href="https://doi.org/10.18653/v1/2023.emnlp-main.923">doi:10.18653/v1/2023.emnlp-main.923</a>.</li>
+      </ol>
     </>
   );
 }

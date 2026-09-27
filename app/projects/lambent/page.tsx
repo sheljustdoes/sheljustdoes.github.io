@@ -8,23 +8,26 @@ export default function LambentPage() {
       <span className="kicker">Project — 2023–</span>
       <h1>lambent.</h1>
       <p className="tagline">
-        The first computational quantification of skin radiance — turning a word used by dermatologists and marketers into a number that
-        survives contact with expert judgment.
+        An interpretable, capture-audited measure of skin radiance — turning a word used by dermatologists and marketers into a number that
+        survives contact with expert judgment and with the camera.
       </p>
 
       <h2>Why this exists</h2>
       <p>
         Radiance, glow, luminosity: the vocabulary around skin appearance is rich and almost entirely qualitative. Graders can rank two
-        faces reliably and cannot say what they are ranking on. That is a measurement problem before it is a modeling problem — there was
-        no target variable to predict, because nobody had defined what was being measured. lambent exists to construct that definition from
-        physiological image features, and then to test whether it agrees with people who grade for a living.
+        faces reliably and cannot say what they are ranking on. That is a measurement problem before it is a modeling problem, a question of
+        construct validity [16]. Radiance has been quantified before, with optical devices, image models calibrated to expert and consumer
+        grading, and polarized imaging on controlled rigs [1–4]; there is still no shared definition that transfers to ordinary photographs.
+        lambent builds a transparent one from physiological image features, tests whether it agrees with people who grade for a living, and
+        audits how far the camera moves it.
       </p>
 
       <h2>Approach</h2>
       <p>
         Features are extracted per region — full face, center, forehead, both cheeks, chin — with optional face detection anchoring the
-        regions, then aggregated to subject level. The feature space is deliberately interpretable rather than learned: CIE Lab and ITA for
-        tone, hue statistics, texture descriptors, and explicit specular, red, and dark proxies. Composite scores are computed at image,
+        regions, then aggregated to subject level. The feature space is deliberately interpretable rather than learned: CIE Lab and ITA [7, 8] for
+        tone, hue statistics, texture descriptors, and explicit specular, red, and dark proxies; the specular proxy follows the dichromatic reflection model, in which highlights
+        carry the illuminant&apos;s colour [11]. Composite scores are computed at image,
         subject-region, and subject level, and the composition is transparent by design — a score you cannot decompose is a score nobody
         will trust or act on. Supervised modeling is optional and only engages when grading labels are present.
       </p>
@@ -50,15 +53,19 @@ export default function LambentPage() {
         is the control that carries the argument, because it raises lightness while adding no gloss whatsoever.
       </p>
       <p>
-        On 1,816 Fitzpatrick17k images stratified across all six skin types, the score tracks added gloss at median Spearman
+        On 1,816 Fitzpatrick17k images [5] stratified across all six skin types [6], the score tracks added gloss at median Spearman
         {" "}<strong>&rho; = 1.00</strong> — and tracks plain brightening at <strong>&rho; = 1.00</strong> as well. It does not separate
-        gloss from lightness. That follows from its own definition, in which mean <code>L*</code> carries a +0.25 weight. Skin tone
+        gloss from lightness. That follows from its own definition, in which mean <code>L*</code> carries a +0.25 weight. The weight is not
+        arbitrary: perceived radiance depends on both a surface (gloss) and a subsurface, lightness-like component [3], and perceived gloss
+        and lightness share the same luminance cues [12]. Whether lightness belongs in the construct is a choice, and the variants below make
+        it explicitly. Skin tone
         explains roughly <strong>28.5%</strong> of the score&apos;s variance, and mean glow declines monotonically from Fitzpatrick type 1
         to type 6.
       </p>
       <p>
         That gradient&apos;s <em>size</em>, though, is not established — and why not is the more interesting result.
-        Fitzpatrick17k is scraped clinical photography: no controlled illumination, no camera calibration, no colour reference in frame.
+        Fitzpatrick17k is scraped clinical photography: no controlled illumination, no camera calibration, no colour reference in frame, and
+        tone estimates from such images are known to track capture as well as skin [9, 10].
         Re-scoring each image under capture changes that cannot alter how glossy skin actually is shows a quarter-stop exposure difference
         moving the score by <strong>~51%</strong> of the entire type-1-to-type-6 span, half a stop by 90%, and a 10% white-balance drift by
         ~40%. The metric is about as sensitive to the camera as to several steps of skin type, so nothing in this dataset separates the
@@ -86,7 +93,7 @@ export default function LambentPage() {
       <p>
         None of this makes the measurement useless. It establishes that what the metric captures is surface reflectance
         <em> including</em> lightness, under whatever illumination the photograph was taken in — a defensible thing to call radiance on a
-        fixed capture rig, which is what the original engagement had and what public dermatology data does not. Exposure and white-balance
+        fixed capture rig, which is how earlier radiance studies worked [1, 3, 15], which is what the original engagement had and what public dermatology data does not. Exposure and white-balance
         sensitivity are now the acceptance criterion for a revised metric.
       </p>
 
@@ -111,7 +118,7 @@ export default function LambentPage() {
       <p>
         Three of those variants are failures, and they are kept because the sequence is the argument. Deleting the lightness term does
         nothing, because the remaining terms are absolute too. Re-expressing everything as ratios fixes exposure and <em>breaks</em> white
-        balance, since the specular test gates on saturation and warming an image raises saturation — repaired by von Kries normalisation,
+        balance, since the specular test gates on saturation and warming an image raises saturation — repaired by von Kries normalisation [13], a standard colour-constancy step in dermatology imaging [14],
         because an illuminant change is to first order a diagonal transform <code>R→aR, G→bG, B→cB</code>, so dividing each channel by a
         statistic of itself cancels it.
       </p>
@@ -135,6 +142,19 @@ export default function LambentPage() {
         And tone neutrality is established on a single source atlas.
       </p>
 
+      <h2>Related work</h2>
+      <p>
+        Skin radiance has been quantified before, with optical reflectance devices [1], digital image models calibrated to expert and
+        consumer grading [2], and fractal analysis of luminance and colour evenness [4]. Using polarized imaging [15], Matsubara and
+        colleagues showed that graded radiance depends on both a surface-reflection (gloss) component and a subsurface, lightness-like one
+        [3], consistent with evidence that perceived gloss and lightness share luminance-histogram cues [12], and with why lambent&apos;s
+        original score could not separate them. Those studies worked on controlled rigs. lambent instead audits a transparent metric on
+        uncontrolled public photographs [5], where tone estimates such as ITA [7, 8] track capture conditions as well as skin [9, 10], and
+        its capture repairs rest on the dichromatic reflection model [11], von Kries adaptation [13] and colour constancy practice in
+        dermatology imaging [14]. We found no earlier radiance or gloss metric audited by dose-response perturbation and capture
+        sensitivity, nor a measurement of how tone-dependent a fixed-threshold specular detector is, though the search was by keyword.
+      </p>
+
       <h2>Status</h2>
       <p className="status-line">
         <strong>Results committed.</strong> The open repository reproduces the method, carries its own reproducible validation and the
@@ -142,6 +162,26 @@ export default function LambentPage() {
         generated into the repo from the run&apos;s own output so the documented numbers cannot drift from the run that produced them.
         The client engagement&apos;s figures are described but not claimed here.
       </p>
+
+      <h2>References</h2>
+      <ol className="references">
+        <li>Petitjean A, Sainthillier JM, Mac-Mary S, et al. Skin radiance: how to quantify? Validation of an optical method. <em>Skin Research and Technology</em> 13, 2–8 (2007). <a href="https://doi.org/10.1111/j.1600-0846.2006.00174.x">doi:10.1111/j.1600-0846.2006.00174.x</a>.</li>
+        <li>Baret M, Bensimon N, Coronel S, et al. Characterization and quantification of the skin radiance through new digital image analysis. <em>Skin Research and Technology</em> 12, 254–260 (2006). <a href="https://doi.org/10.1111/j.0909-752X.2006.00158.x">doi:10.1111/j.0909-752X.2006.00158.x</a>.</li>
+        <li>Matsubara A, Liang Z, Sato Y, Uchikawa K. Analysis of human perception of facial skin radiance by means of image histogram parameters of surface and subsurface reflections from the skin. <em>Skin Research and Technology</em> 18, 265–271 (2012). <a href="https://doi.org/10.1111/j.1600-0846.2011.00570.x">doi:10.1111/j.1600-0846.2011.00570.x</a>.</li>
+        <li>Haeri M, Phamduy T, Cafone N, et al. Novel digital image analysis using fractal dimension for assessment of skin radiance. <em>Skin Research and Technology</em> 25, 564–571 (2019). <a href="https://doi.org/10.1111/srt.12687">doi:10.1111/srt.12687</a>.</li>
+        <li>Groh M, Harris C, Soenksen L, et al. Evaluating deep neural networks trained on clinical images in dermatology with the Fitzpatrick 17k dataset. <em>Proceedings of the IEEE/CVF CVPR Workshops</em>, 1820–1828 (2021). <a href="https://doi.org/10.1109/CVPRW53098.2021.00201">doi:10.1109/CVPRW53098.2021.00201</a>.</li>
+        <li>Fitzpatrick TB. The validity and practicality of sun-reactive skin types I through VI. <em>Archives of Dermatology</em> 124, 869–871 (1988). <a href="https://doi.org/10.1001/archderm.1988.01670060015008">doi:10.1001/archderm.1988.01670060015008</a>.</li>
+        <li>Chardon A, Cretois I, Hourseau C. Skin colour typology and suntanning pathways. <em>International Journal of Cosmetic Science</em> 13, 191–208 (1991). <a href="https://doi.org/10.1111/j.1467-2494.1991.tb00561.x">doi:10.1111/j.1467-2494.1991.tb00561.x</a>.</li>
+        <li>Del Bino S, Bernerd F. Variations in skin colour and the biological consequences of ultraviolet radiation exposure. <em>British Journal of Dermatology</em> 169, 33–40 (2013). <a href="https://doi.org/10.1111/bjd.12529">doi:10.1111/bjd.12529</a>.</li>
+        <li>Groh M, Harris C, Daneshjou R, et al. Towards transparency in dermatology image datasets with skin tone annotations by experts, crowds, and an algorithm. <em>Proceedings of the ACM on Human-Computer Interaction</em> 6, 1–26 (2022). <a href="https://doi.org/10.1145/3555634">doi:10.1145/3555634</a>.</li>
+        <li>Kinyanjui NM, Odonga T, Cintas C, et al. Fairness of classifiers across skin tones in dermatology. <em>MICCAI 2020</em>, Lecture Notes in Computer Science, 320–329 (2020). <a href="https://doi.org/10.1007/978-3-030-59725-2_31">doi:10.1007/978-3-030-59725-2_31</a>.</li>
+        <li>Shafer SA. Using color to separate reflection components. <em>Color Research &amp; Application</em> 10, 210–218 (1985). <a href="https://doi.org/10.1002/col.5080100409">doi:10.1002/col.5080100409</a>.</li>
+        <li>Motoyoshi I, Nishida S, Sharan L, Adelson EH. Image statistics and the perception of surface qualities. <em>Nature</em> 447, 206–209 (2007). <a href="https://doi.org/10.1038/nature05724">doi:10.1038/nature05724</a>.</li>
+        <li>West G, Brill MH. Necessary and sufficient conditions for von Kries chromatic adaptation to give color constancy. <em>Journal of Mathematical Biology</em> 15, 249–258 (1982). <a href="https://doi.org/10.1007/BF00275077">doi:10.1007/BF00275077</a>.</li>
+        <li>Barata C, Celebi ME, Marques JS. Improving dermoscopy image classification using color constancy. <em>IEEE Journal of Biomedical and Health Informatics</em> 19, 1146–1152 (2015). <a href="https://doi.org/10.1109/JBHI.2014.2336473">doi:10.1109/JBHI.2014.2336473</a>.</li>
+        <li>Anderson RR. Polarized light examination and photography of the skin. <em>Archives of Dermatology</em> 127, 1000–1005 (1991). <a href="https://doi.org/10.1001/archderm.1991.01680060074007">doi:10.1001/archderm.1991.01680060074007</a>.</li>
+        <li>Cronbach LJ, Meehl PE. Construct validity in psychological tests. <em>Psychological Bulletin</em> 52, 281–302 (1955). <a href="https://doi.org/10.1037/h0040957">doi:10.1037/h0040957</a>.</li>
+      </ol>
     </>
   );
 }
