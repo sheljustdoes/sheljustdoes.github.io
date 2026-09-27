@@ -1,9 +1,10 @@
 // Spatial knowledge graph for the homepage.
 //
-// Positions are authored, not simulated. The composition is the point: clusters
-// communicate meaning through proximity, so a settling simulation would undo the
-// argument the layout is making. Coordinates live in a fixed virtual canvas
-// (CANVAS below); the view is fitted and then pan/zoomed on top of that.
+// Positions are randomised on every page load (randomLayout below; Shel's call,
+// 2026-09-27). The authored coordinates are kept as the server-rendered fallback and
+// as a record of the clustered composition, but the live page does not use them.
+// Coordinates live in a fixed virtual canvas (CANVAS below); the view is fitted and
+// then pan/zoomed on top of that.
 //
 // Node type drives three cues simultaneously, per the brand guide's role
 // definitions — serif is voice, display is structure, mono is utility:
@@ -669,18 +670,66 @@ export const NODE_BY_ID: Record<string, GraphNode> = Object.fromEntries(NODES.ma
  * graph from floating in dead space when the authored coordinates do not happen
  * to reach the canvas edges.
  */
-export const BOUNDS = (() => {
-  const LABEL_BELOW = 46;
-  const LABEL_SIDE = 62;
+export type Point = { x: number; y: number };
+export type Bounds = { x: number; y: number; w: number; h: number };
+
+const LABEL_BELOW = 46;
+const LABEL_SIDE = 62;
+
+/** Bounding box of a layout, allowing for each node's radius and its label. */
+export function boundsOf(pos: (n: GraphNode) => Point): Bounds {
   let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
   for (const n of NODES) {
-    x0 = Math.min(x0, n.x - n.r - LABEL_SIDE);
-    x1 = Math.max(x1, n.x + n.r + LABEL_SIDE);
-    y0 = Math.min(y0, n.y - n.r);
-    y1 = Math.max(y1, n.y + n.r + LABEL_BELOW);
+    const { x, y } = pos(n);
+    x0 = Math.min(x0, x - n.r - LABEL_SIDE);
+    x1 = Math.max(x1, x + n.r + LABEL_SIDE);
+    y0 = Math.min(y0, y - n.r);
+    y1 = Math.max(y1, y + n.r + LABEL_BELOW);
   }
   return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
-})();
+}
+
+/**
+ * Tight bounding box of the authored composition. Fitting to this rather than to
+ * CANVAS keeps the graph from floating in dead space.
+ */
+export const BOUNDS = boundsOf((n) => n);
+
+/**
+ * A fresh random layout, generated in the browser on every page load (Shel's call,
+ * 2026-09-27). Nodes are placed largest first by rejection sampling on CANVAS; each
+ * node's disc-plus-label box must clear every box already placed. If no clear spot turns
+ * up after many tries, the padding shrinks rather than the layout failing. The authored x/y remain
+ * the server-rendered fallback, hidden until the client layout is ready.
+ */
+export function randomLayout(rand: () => number = Math.random): Record<string, Point> {
+  // Each node occupies its disc plus the label beneath it, sized from the label text
+  // (same sizes as the page renders: 12.5 px mono for skills, 14–16 px otherwise).
+  const box = (n: GraphNode, x: number, y: number, pad: number) => {
+    const lines = n.label.split("\n");
+    const size = n.type === "skill" ? 12.5 : n.r >= 25 ? 16 : 14;
+    const half = Math.max(n.r, (Math.max(...lines.map((l) => l.length)) * size * 0.6) / 2) + pad;
+    return { x0: x - half, x1: x + half, y0: y - n.r - pad, y1: y + n.r + 17 + lines.length * size * 1.18 + pad };
+  };
+  const order = [...NODES].sort((a, b) => b.r - a.r);
+  const taken: ReturnType<typeof box>[] = [];
+  const out: Record<string, Point> = {};
+  for (const n of order) {
+    let spot: Point | null = null;
+    for (let t = 0; t < 6000 && !spot; t++) {
+      const pad = t < 4000 ? 12 : 4;
+      const probe = box(n, 0, 0, pad);
+      const x = -probe.x0 + rand() * (CANVAS.w + probe.x0 * 2);
+      const y = -probe.y0 + rand() * (CANVAS.h - probe.y1 + probe.y0);
+      const b = box(n, x, y, pad);
+      if (taken.every((o) => b.x1 <= o.x0 || o.x1 <= b.x0 || b.y1 <= o.y0 || o.y1 <= b.y0)) spot = { x, y };
+    }
+    spot ??= { x: n.x, y: n.y };
+    taken.push(box(n, spot.x, spot.y, 0));
+    out[n.id] = spot;
+  }
+  return out;
+}
 
 /** Undirected adjacency, built once at module load. */
 export const ADJACENCY: Record<string, string[]> = (() => {
