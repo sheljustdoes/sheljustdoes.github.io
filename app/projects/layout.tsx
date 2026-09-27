@@ -64,4 +64,7 @@ article .status-line {
   letter-spacing: 0.05em; color: #4a4540;
 }
 article .status-line strong { color: var(--charcoal); }
+article .abstract { font-size: 0.94rem; padding-left: 18px; border-left: 2px solid var(--parchment); }
+article .references { font-size: 0.82rem; line-height: 1.55; color: #4a4540; padding-left: 24px; }
+article .references li { margin-bottom: 8px; overflow-wrap: anywhere; }
 `;
