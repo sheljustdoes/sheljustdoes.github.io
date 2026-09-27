@@ -315,9 +315,10 @@ certification regardless of how clean it looks).
 
 A related-work review (2026-09-26) places it honestly: most of its parts are established,
 and its closest precedent in principle is PCS / veridical data science (Yu & Kumbier 2020),
-applied here to claims of unsupervised structure. What it adds is the matched
-linear-vs-nonlinear comparison, checks in code that stop a gate from passing trivially,
-an explicit verdict, and a role as a guardrail for analysis written by LLM agents.
+applied here to claims of unsupervised structure, and recent work already makes validation
+gates mandatory before a clustering is reported. What it adds is the matched
+linear-vs-nonlinear comparison, genotype-specific confound checks, a verdict over a grid
+fixed before scoring, and a role as a guardrail for analysis written by LLM agents.
 
 ### fragaria — nonlinear haplotype topology in octoploid strawberry
 **Status:** Results committed (Stage 2x) · Python, scikit-learn
