@@ -398,7 +398,7 @@ const AUTHORED: AuthoredNode[] = [
       "What TE-derived structural variants record about tomato's history, across 706 accessions from published pangenome call sets",
       "A heritability version was killed by its own power check before any trait was scored: the classes' relationship matrices correlate at 0.97",
       "Graph genotypes of TE variants agree with long-read calls as well as other variants do (0.984 both)",
-      "TE-derived variants record a measurably different population history; discovery bias not yet ruled out",
+      "TE-derived variants record a measurably different population history, and it survives a discovery-bias check",
     ],
     keywords: ["Solanum lycopersicum", "Structural Variants", "Transposable Elements", "Pangenome", "Heritability", "Population Genetics", "Pre-registration"] },
 

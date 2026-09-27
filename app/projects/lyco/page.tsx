@@ -1,3 +1,5 @@
+import Figure from "../Figure";
+
 export const metadata = { title: "lyco. — shel." };
 
 export default function LycoPage() {
@@ -61,6 +63,16 @@ export default function LycoPage() {
         accessions, so agreement on absence carries much of the median; what matters for what follows is that the two classes do not
         differ.
       </p>
+      <Figure
+        n={1}
+        src="/projects/lyco/fig1_gate.png"
+        alt="Two overlapping curves showing the share of structural variants at or above each level of concordance with long-read calls, from 0.5 to 1. The curve for 19,102 TE-derived variants and the curve for 21,514 non-TE variants lie on top of each other; both have a median of 0.984."
+        lead="Transposable-element variants are genotyped as well as any other variant."
+      >
+        Per-variant agreement between graph genotypes and long-read calls on the 66 accessions both cover, for TE-derived (solid) and
+        non-TE (dashed) variants. Each curve shows the share of variants at or above a given concordance; the axis starts at 0.5, below
+        which 0.3% of each class falls. About 28% of each class agree perfectly.
+      </Figure>
 
       <h2>What the history questions found</h2>
       <p>
@@ -71,12 +83,32 @@ export default function LycoPage() {
         <strong>TE-derived variants record a measurably different population history.</strong> Relationship matrices from 3,695 matched
         variants in each class correlate at 0.991. Random re-splits of the same variants give 0.998 ± 0.0002, so the difference lies far
         outside chance, and it holds with 10 Mb region matching as well as 20 Mb. The difference concentrates in two places: TE insertions
-        relate wild and cherry accessions more closely than other variants do, and they relate cultivated accessions more closely to each
-        other. That pattern would fit insertions inherited along particular lineages. <em>It is not yet a biological finding.</em> The
-        null is tight enough that any systematic difference between the classes registers, and one has not been ruled out: if TE-derived
-        variants were discovered in a different set of assembled genomes from other variants, their relatedness would differ for that
-        reason alone. That check comes next.
+        relate wild and cherry accessions more closely than other variants do, and cherry and big-fruited accessions less closely. That
+        pattern would fit insertions inherited along particular lineages.
       </p>
+      <p>
+        The obvious non-biological explanation is discovery bias: if TE-derived variants had been found in a different set of assembled
+        genomes from other variants, their relatedness would differ for that reason alone. The public files do not record where each
+        variant was found, so this was checked indirectly, with a rule written down before running it. Among common variants, 97% of
+        TE-derived and 95% of non-TE variants are carried by one of the accessions assembled from high-fidelity long reads, and 84% and
+        82% match an independent long-read call, so the two classes could have been discovered almost equally. Restricted to variants
+        both routes could see, the difference reproduces (0.992 against a null of 0.998). A test within a single discovery route was
+        not possible, because almost no common variants were found by only one; by the rule as written, the verdict is therefore
+        &ldquo;partly explained&rdquo;. In substance, discovery bias is an unlikely explanation.
+      </p>
+      <Figure
+        n={2}
+        src="/projects/lyco/fig2_history.png"
+        alt="Two panels. a: a histogram of 1,000 random re-splits of the matched variants, tightly clustered around a correlation of 0.998, with the observed correlation between TE-derived and non-TE relationship matrices, 0.991, marked far to the left. b: residual TE-specific relatedness for six pairs of groups, each with a grey null band; wild–cherry lies above its band, cherry–big-fruited below, and cherry–cherry inside."
+        lead="TE-derived variants tell a different story about who is related to whom."
+      >
+        <b>a</b>, Correlation between relationship matrices built from matched TE-derived and non-TE variants (orange line), against
+        1,000 random re-splits of the same variants into two halves (20 Mb region matching; 547 accessions). <b>b</b>, Where the
+        difference sits: relatedness the TE-derived variants add beyond the non-TE ones, averaged within and between groups, with the
+        central 95% of the same quantity across the re-splits (grey). Filled points lie outside their band. Wild–cherry,
+        cherry–big-fruited and big-fruited–big-fruited lie outside it at both 10 and 20 Mb matching; wild–wild and wild–big-fruited at
+        one window only; cherry–cherry at neither. Among variants both discovery routes could see, the first two remain outside.
+      </Figure>
       <p>
         <strong>Their frequency spectra through domestication do not differ.</strong> Across wild, cherry and big-fruited groups, the
         share of rare variants is almost identical for the two classes (differences under half a percentage point). Two measures
@@ -103,7 +135,8 @@ export default function LycoPage() {
       <h2>Limits</h2>
       <p>
         Variant discovery was not uniform: the graph was built from 32 high-fidelity assemblies, 100 long-read genomes and short reads,
-        so rare variants in over-represented groups are likelier to have been found. The TE library comes from one reference genome, so
+        so rare variants in over-represented groups are likelier to have been found. The discovery check used 24 of the 32 assembled
+        accessions, the ones genotyped in this panel. The TE library comes from one reference genome, so
         families absent from it can be missed. Ages come from divergence to one reference copy per family, not from paired long terminal
         repeats. Inbred lines were treated as haploid, and heterozygous calls as missing.
       </p>
@@ -112,8 +145,8 @@ export default function LycoPage() {
       <p className="status-line">
         <strong>Results committed.</strong> Three pre-registrations: the trait question, stopped by its power check before scoring; the
         genotyping gate, passed; and the history questions, each scored once. Every protocol was committed before its result, including
-        the checks that stopped the first design. Next: test whether discovery bias explains the history difference, by rerunning it within
-        a single discovery source.
+        the checks that stopped the first design, and a discovery-bias check specified before it ran. Next: which transposable-element
+        families drive the wild–cherry and cherry–big-fruited differences.
       </p>
 
       <h2>References</h2>

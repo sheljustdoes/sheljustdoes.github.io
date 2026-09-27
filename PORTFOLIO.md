@@ -464,9 +464,9 @@ Results (2026-09-27), each scored once:
   both), so TE variants are not genotyped worse from short reads.
 - **Population history:** relationship matrices from matched TE-derived and non-TE
   variants differ well beyond a random-split null (0.991 against 0.998 ± 0.0002),
-  concentrated in wild–cherry and within-cultivated relatedness. Discovery bias between
-  the two classes has not yet been ruled out, so this is a statistical result awaiting a
-  biological one.
+  concentrated in wild–cherry and cherry–big-fruited relatedness. It reproduces among
+  variants that both discovery routes (high-fidelity assemblies and long reads) could have
+  found, so discovery bias is an unlikely explanation.
 - **Frequency spectra through domestication:** no difference after correction.
 - **Young insertions as lineage markers:** more often private to one group as registered,
   but mostly because young insertions are rarer.
