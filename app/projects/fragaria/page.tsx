@@ -14,6 +14,78 @@ export default function FragariaPage() {
         source study had already reported, now placed on one subgenome: real in Florida breeding lines and still untested elsewhere.
       </p>
 
+      <h2>Abstract</h2>
+      <p className="abstract">
+        <strong>Background.</strong> Cultivated strawberry (<em>Fragaria × ananassa</em>) is a young allo-octoploid bred from a narrow
+        founder base, and the genotyping arrays used on it reduce eight chromosome copies to three calls. In data like this, nonlinear
+        embeddings such as UMAP can draw convincing clusters whether or not the structure behind them is real. This study asked whether
+        stable population structure exists in strawberry, whether any of it is nonlinear, meaning missed by principal component analysis
+        (PCA), and what the structure implies for breeding. <strong>Methods.</strong> Six protocols were each committed before their code
+        and data. Structure was scored by stability under resampling (median adjusted Rand index over 20 draws of 80% of samples and
+        markers) across up to 189 PCA and UMAP settings with k-means or HDBSCAN clustering, behind gates for missing-data confounding,
+        relatedness (KING-robust kinship pruning) and agreement with labels the genotypes never saw. Three panels were tested: 1,520
+        cultivated accessions on a 50K array, 202 wild diploid <em>F. vesca</em>, and 102 wild octoploid <em>F. chiloensis</em> and{" "}
+        <em>F. virginiana</em>, the last two whole-genome. Diversity measures, a mixed-model association scan of fruit size in 1,787
+        Florida breeding lines, and a replication in 529 UC Davis individuals followed. <strong>Results.</strong> The first run&apos;s GO
+        verdict was invalid: missing calls were never decoded, and three criteria passed by construction. Rebuilt, every panel held
+        stable, confound-checked structure: breeding program against diverse germplasm (234 unrelated cultivated accessions), geography
+        (176 <em>F. vesca</em>), and taxonomy (87 wild octoploids). In each panel a linear embedding recovered it, and UMAP added
+        coverage, not new groups, so the nonlinear hypothesis was closed. <em>F. chiloensis</em> carries alleles the breeding programs
+        lack at 11.9% of sites, against 7.5% and 3.6% for western and eastern <em>F. virginiana</em>. The strongest fruit-size
+        association, already reported by the source study, was placed on subgenome 1B. Its larger-fruit allele is common in wild
+        octoploids (0.47–0.86) and rare at UC Davis (0.08), but it did not replicate there (−0.18 g per allele, 95% interval −1.00 to
+        +0.64), where the array marker no longer tags the Florida haplotype (mean r² 0.43 against 0.85). <strong>Conclusions.</strong>{" "}
+        Stable structure in strawberry is real and linear. Its practical use is as a map of what crossing with wild relatives would
+        add. The 1B fruit-size locus holds in Florida lines and is untested elsewhere.
+      </p>
+
+      <h2>Background</h2>
+      <p>
+        Cultivated strawberry arose in eighteenth-century Europe from chance hybrids between two wild octoploids, the Chilean{" "}
+        <em>F. chiloensis</em> and the North American <em>F. virginiana</em>. Its genome holds four subgenomes of distinct diploid
+        ancestry [1]. Resequencing traces a short breeding history with a sharp early fall in effective population size, and
+        a later divergence between the University of California and University of Florida programs as each selected for its own climate{" "}
+        [2, 3]. A crop this young, bred from so few founders, leaves much of its wild relatives&apos; variation unused.
+        Wild relatives are a recognized reservoir for crop improvement [4], and in strawberry, gene bank accessions carry disease resistance the
+        elite pool lacks [5], while heterosis that has disappeared within an elite population persists in wide hybrids{" "}
+        [6]. Knowing
+        which wild populations differ, and how, is the first step to using them.
+      </p>
+      <p>
+        The data make that harder than it looks. Most strawberry genotypes come from Axiom arrays, the IStraw90 and its 50K successor{" "}
+        [7, 8], which call each marker as one of three classes. The dosage of eight chromosome copies and the
+        subgenome a probe hits are both blurred, a general problem for polyploid genotyping [9]. Arrays are also designed on
+        a discovery panel, here mostly cultivated germplasm, so they sample divergent material unevenly and fail more calls on it{" "}
+        [10]. Missing data and ancestry become entangled, and relatives are common in breeding panels.
+      </p>
+      <p>
+        Methods for finding structure have their own hazards. PCA is the standard way to summarize genetic structure [11].
+        UMAP [12] has revealed fine-scale structure in large human cohorts that PCA plots obscure [13], which makes it
+        a natural candidate for complex crop panels. But nonlinear embeddings distort distances and can show clean clusters in data
+        with no discrete structure [14], and density clustering such as HDBSCAN [15] will partition whatever
+        embedding it is given. A cluster is credible only if it survives perturbation of the data [16], measured with a
+        chance-corrected agreement index [17]. It must also survive checks against relatedness [18] and
+        technical artifacts, and every choice has to be fixed before the result is seen, because a flexible analysis can find almost
+        anything [19]. fragaria is the first case study of <a href="/projects/topos/">topos</a>, a protocol that encodes those
+        requirements as gates. Its Stage 0, the data-landscape audit, asks three things before anything more expensive runs: is there
+        structure that survives perturbation, is it explained by a technical artifact, and does it agree with anything the genotypes
+        did not see?
+      </p>
+      <p>
+        Linking structure to traits brings a second set of problems. Mixed-model association scans control for relatedness with a
+        kinship matrix [20], and multi-locus methods such as FarmCPU trade some of that conservatism for power [21], so the
+        same data can yield different locus counts under different models. Association scans for fruit size and other quality traits
+        have been run in strawberry breeding lines and diversity panels [3, 22]. Effects estimated in the scan that finds a locus are biased
+        upward [23, 24]. A marker that tags a causal haplotype in one population may not in another, because linkage phase
+        does not always persist between populations [25]. Both effects predict failed replications, and a failed replication
+        alone cannot say which one is at work.
+      </p>
+      <p>
+        This study therefore asked three questions in order, each under a protocol committed before its data: whether stable structure
+        exists in strawberry, whether any of it is nonlinear, and which wild groups carry variation the breeding programs lack,
+        including at a fruit-size locus.
+      </p>
+
       <h2>The questions, in order</h2>
       <p>
         Each question below was written down, with the rule for answering it, before the data that answered it was looked at. Several
@@ -47,16 +119,6 @@ export default function FragariaPage() {
         <strong>What stands.</strong> Stable structure in strawberry is real and linear (1–5). Wild groups differ in what they could add to
         breeding, with <em>F. chiloensis</em> first (6). A fruit-size association the source study had already reported sits on subgenome 1B in
         Florida lines, with a larger-fruit allele that wild octoploids carry commonly (7–10). Whether it matters outside Florida is open (11–12).
-      </p>
-
-      <h2>Why this exists</h2>
-      <p>
-        Cultivated strawberry is octoploid. Array genotypes flatten eight copies of each chromosome into three calls, subgenomes blur
-        together, and breeding programs cross closely related parents. In data like this it is easy to embed, cluster, and find
-        something that looks like population structure. fragaria is the first case study of{" "}
-        <a href="/projects/topos/">topos</a>, a protocol for deciding when structure like that is real enough to act on. Stage 0, the
-        data-landscape audit, asks three things before anything more expensive runs: is there structure that survives perturbation, is
-        it explained by a technical artifact, and does it agree with anything the genotypes did not see?
       </p>
 
       <h2>The first Stage 0, and why it did not count</h2>
@@ -100,7 +162,7 @@ export default function FragariaPage() {
         </li>
         <li>
           <strong>Stability comes from perturbing the data.</strong> Each of 20 draws keeps 80% of accessions and 80% of markers and refits
-          everything. Stability is the median agreement (adjusted Rand index) across all 190 pairs of draws, on the accessions they share.
+          everything. Stability is the median agreement (adjusted Rand index [17]) across all 190 pairs of draws, on the accessions they share.
         </li>
         <li>
           <strong>Every pipeline is scored.</strong> The full grid is 189 settings: PCA or UMAP embeddings, KMeans or HDBSCAN clustering,
@@ -194,9 +256,9 @@ export default function FragariaPage() {
         The second run left three problems, and a third protocol, committed before its code, fixed them. <strong>Relatives.</strong> The
         family cap misses half-sibs: 22 accessions from eight related families still sat together. The third run removes relatives by
         measured kinship instead, pruning until no two accessions are second-degree relatives or closer, which leaves 234. The usual
-        genomic relationship matrix was tried first and rejected. It treats the breeding program&apos;s allele frequencies as the norm, so
+        genomic relationship matrix [26] was tried first and rejected. It treats the breeding program&apos;s allele frequencies as the norm, so
         diverse accessions looked related merely for sharing alleles that are rare in the program, and pruning with it would have kept 5
-        of 190 USDA accessions. KING-robust kinship does not have that bias. <strong>Missingness</strong> is now tested within each germplasm
+        of 190 USDA accessions. KING-robust kinship [18] does not have that bias. <strong>Missingness</strong> is now tested within each germplasm
         source, so the gate no longer penalizes clusters for following source. <strong>The grid</strong> no longer counts one setting twice.
       </p>
       <p>
@@ -231,7 +293,7 @@ export default function FragariaPage() {
       <p>
         Cultivated strawberry&apos;s structure is already explained by breeding, so the better test of the question is a population
         breeding never shaped. Stage 1b took a public whole-genome panel of 202 wild woodland strawberries (<em>F. vesca</em>, diploid,
-        sampled across Europe; Toivainen et al. 2026 [1], released CC0) and ran the Stage 0 checks and the Stage 1 test on it. The protocol
+        sampled across Europe; Toivainen et al. 2026 [27], released CC0) and ran the Stage 0 checks and the Stage 1 test on it. The protocol
         was committed before the data was downloaded, and an amendment, made after inspecting the file and before any embedding,
         handled what it did not anticipate: the genotypes are imputed, so no missingness confound can be tested, and sites are labelled
         only by country. Kinship pruning kept 176 unrelated plants.
@@ -265,7 +327,7 @@ export default function FragariaPage() {
       <p>
         A stricter rule re-scored on the woodland strawberry would not have been a test, since the check above already showed the answer.
         So the rule was fixed first and applied to a panel it had not seen: 102 wild octoploids, <em>F. chiloensis</em> and{" "}
-        <em>F. virginiana</em>, from a public whole-genome set (Fan and Whitaker 2024 [2], CC-BY). The 33.6 GB variant file was streamed over
+        <em>F. virginiana</em>, from a public whole-genome set (Fan and Whitaker 2024 [3], CC-BY). The 33.6 GB variant file was streamed over
         parallel connections and never stored; a hash of each site&apos;s position kept about 2%, 475,741 SNPs. Under the new rule a
         nonlinear partition counts only if no linear setting that passes the same gates recovers it, under any clusterer and k-means at every
         k from 2 to 10, either by agreeing with it or by splitting it more finely.
@@ -300,7 +362,7 @@ export default function FragariaPage() {
         lead="Pacific F. chiloensis holds the most variation the breeding programs lack."
       >
         <b>a</b>, Novel-allele supply for each wild group, with 95% intervals from resampling 1 Mb blocks. <b>b</b>, Alleles found in one
-        group only, rarefied to equal sample size. <b>c</b>, Hudson&apos;s F_ST between groups.
+        group only, rarefied to equal sample size [28]. <b>c</b>, Hudson&apos;s F_ST between groups [29].
       </Figure>
       <p>
         Every ranking is distinct. <em>F. chiloensis</em> supplies the most variation the programs lack, then the western{" "}
@@ -314,15 +376,15 @@ export default function FragariaPage() {
         The second part links them to traits. The same study released fruit-size and yield records for 1,787 Florida breeding lines typed
         on a 50K array. The array&apos;s coordinates do not match the whole-genome reference, but 52 lines were genotyped on both, which
         maps every array chromosome to its genome counterpart and tags each associated array marker with a genome site. A mixed-model
-        association scan then found three fruit-size loci and no yield locus.
+        association scan [20] then found three fruit-size loci and no yield locus.
       </p>
       <p>
         That scan was not the first on these lines. The source study ran its own, with a different method, and reported 26 fruit-size
-        signals and 11 yield signals [2]. A comparison made afterwards shows the strongest locus here is among its 26, so what follows
+        signals and 11 yield signals [3]. A comparison made afterwards shows the strongest locus here is among its 26, so what follows
         confirms and places a published association rather than finding a new one. Beyond that locus the two scans disagree: only 2 of
         the study&apos;s 26 fruit-size signals and none of its 11 yield signals pass the stricter threshold used here, including its
         strongest, on subgenome 6D. The method used here tests one marker at a time under a Bonferroni threshold. The study&apos;s
-        method fits its strongest markers as covariates and controls the false discovery rate instead, which finds more.
+        method [21] fits its strongest markers as covariates and controls the false discovery rate instead, which finds more.
       </p>
       <Figure
         n={9}
@@ -370,18 +432,18 @@ export default function FragariaPage() {
       </p>
       <p>
         Two checks followed. Fine-mapping across all 1,787 array lines left the lead marker alone (posterior 0.99998): the array is too
-        sparse to narrow the haplotype further. And a public marker table from a UC Davis study [3], independent of everything above, puts the
+        sparse to narrow the haplotype further. And a public marker table from a UC Davis study [30], independent of everything above, puts the
         lead probe on subgenome 1B at 1.7 Mb, while flagging the 1C &quot;locus&quot; as a probe that cannot tell the homoeologs apart. The
         probe sits just before the haplotype, and its strongest genome proxies 0.5 Mb downstream, so the core region is 1.7 to 2.8 Mb
         either way. That confirms the placement and explains why one locus looked like three.
       </p>
       <p>
-        Then the test that mattered: does the allele do anything outside Florida? A public UC Davis set (Feldmann et al. 2024 [4]) has 529
+        Then the test that mattered: does the allele do anything outside Florida? A public UC Davis set (Feldmann et al. 2024 [6]) has 529
         genotyped individuals with fruit weight, including hybrids with the wild <em>F. chiloensis</em> &apos;Del Norte&apos;. The test was
         fixed before the files were opened. There the allele varies well, yet its effect is −0.18 g per copy (95% interval −1.00 to +0.64 g). Florida&apos;s trait is grams
         per marketable fruit, so the scales match. Its effect there is +1.2 g per copy under the model used here and +0.7 g under the
         source study&apos;s, and the interval excludes both, the second only narrowly. Both Florida estimates come from the scan that
-        found the locus, which tends to inflate them [5], so the exclusion is weaker than it looks. &apos;Del Norte&apos; does carry two copies, but its elite mates carry almost none, so all its
+        found the locus, which tends to inflate them [24], so the exclusion is weaker than it looks. &apos;Del Norte&apos; does carry two copies, but its elite mates carry almost none, so all its
         hybrids have exactly one and the wild test could not run. On its face, that takes down both practical readings built on the locus:
         the Florida-to-UC Davis crossing lead and the wild-donor reading.
       </p>
@@ -389,7 +451,7 @@ export default function FragariaPage() {
         One last check asked why. In Florida lines, the array marker&apos;s best genome tag and the 38 sites that define the larger-fruit haplotype
         travel together (average r² 0.85). At UC Davis they do not (0.43). Part of that gap is arithmetic: the tag&apos;s allele is rarer
         at UC Davis (0.05 against 0.20), which lowers r² by itself. The rest points to recombination or different founders
-        separating them. The tag stands in for the array marker because the genome panel does not carry the array probe itself. So the UC Davis
+        separating them [25]. The tag stands in for the array marker because the genome panel does not carry the array probe itself. So the UC Davis
         test measured a marker that no longer stands for the haplotype, and its null does not show the locus is inactive there. What would
         settle it is UC Davis lines genotyped across the haplotype itself, with fruit weight, which no open dataset found here provides. The
         thread pauses on that open question, not on a refutation.
@@ -419,33 +481,36 @@ export default function FragariaPage() {
 
       <h2>References</h2>
       <ol className="references">
-        <li>
-          Toivainen T, et al. The Late Quaternary climate impact on the genome of the woodland strawberry (<em>Fragaria vesca</em>), a
-          perennial herb. <em>Communications Biology</em> 9, 263 (2026).{" "}
-          <a href="https://doi.org/10.1038/s42003-026-09539-5">doi:10.1038/s42003-026-09539-5</a>. Data:{" "}
-          <a href="https://doi.org/10.5061/dryad.8cz8w9h43">Dryad</a>, CC0.
-        </li>
-        <li>
-          Fan Z, Whitaker VM. Genomic signatures of strawberry domestication and diversification. <em>The Plant Cell</em> 36, 1622–1636
-          (2024). <a href="https://doi.org/10.1093/plcell/koad314">doi:10.1093/plcell/koad314</a>. Data:{" "}
-          <a href="https://doi.org/10.5281/zenodo.8067127">Zenodo 8067127</a>, CC-BY 4.0. Its per-marker association results are
-          Supplemental Data Sets S4 and S5, whose captions are swapped: the set captioned yield holds fruit size.
-        </li>
-        <li>
-          Feldmann MJ, Torgeman S. Genetic architecture of angular leaf spot resistance in cultivated strawberry shaped by epistasis and
-          genotype-by-environment interactions (2026). Marker table:{" "}
-          <a href="https://doi.org/10.5281/zenodo.17635125">Zenodo 17635125</a>, CC-BY 4.0.
-        </li>
-        <li>
-          Feldmann MJ, et al. A dominance hypothesis argument for historical genetic gains and the fixation of heterosis in octoploid
-          strawberry. <em>Genetics</em> iyae159 (2024).{" "}
-          <a href="https://doi.org/10.1093/genetics/iyae159">doi:10.1093/genetics/iyae159</a>. Data:{" "}
-          <a href="https://doi.org/10.5061/dryad.866t1g20j">Dryad</a>, CC0.
-        </li>
-        <li>
-          Xu S. Theoretical basis of the Beavis effect. <em>Genetics</em> 165, 2259–2268 (2003).{" "}
-          <a href="https://doi.org/10.1093/genetics/165.4.2259">doi:10.1093/genetics/165.4.2259</a>.
-        </li>
+        <li>Edger PP, Poorten TJ, VanBuren R, et al. Origin and evolution of the octoploid strawberry genome. <em>Nature Genetics</em> 51, 541–547 (2019). <a href="https://doi.org/10.1038/s41588-019-0356-4">doi:10.1038/s41588-019-0356-4</a>.</li>
+        <li>Hardigan MA, Lorant A, Pincot DDA, et al. Unraveling the Complex Hybrid Ancestry and Domestication History of Cultivated Strawberry. <em>Molecular Biology and Evolution</em> 38, 2285–2305 (2021). <a href="https://doi.org/10.1093/molbev/msab024">doi:10.1093/molbev/msab024</a>.</li>
+        <li>Fan Z, Whitaker VM. Genomic signatures of strawberry domestication and diversification. <em>The Plant Cell</em> 36, 1622–1636 (2024). <a href="https://doi.org/10.1093/plcell/koad314">doi:10.1093/plcell/koad314</a>. Data: <a href="https://doi.org/10.5281/zenodo.8067127">Zenodo 8067127</a>, CC-BY 4.0. Its per-marker association results are Supplemental Data Sets S4 and S5, whose captions are swapped: the set captioned yield holds fruit size.</li>
+        <li>Dempewolf H, Baute G, Anderson J, et al. Past and Future Use of Wild Relatives in Crop Breeding. <em>Crop Science</em> 57, 1070–1082 (2017). <a href="https://doi.org/10.2135/cropsci2016.10.0885">doi:10.2135/cropsci2016.10.0885</a>.</li>
+        <li>Jiménez NP, Feldmann MJ, Famula RA, et al. Harnessing underutilized gene bank diversity and genomic prediction of cross usefulness to enhance resistance to Phytophthora cactorum in strawberry. <em>The Plant Genome</em> 16, e20275 (2023). <a href="https://doi.org/10.1002/tpg2.20275">doi:10.1002/tpg2.20275</a>.</li>
+        <li>Feldmann MJ, Pincot DDA, Seymour DK, et al. A dominance hypothesis argument for historical genetic gains and the fixation of heterosis in octoploid strawberry. <em>Genetics</em>, iyae159 (2024). <a href="https://doi.org/10.1093/genetics/iyae159">doi:10.1093/genetics/iyae159</a>. Data: <a href="https://doi.org/10.5061/dryad.866t1g20j">Dryad</a>, CC0.</li>
+        <li>Bassil NV, Davis TM, Zhang H, et al. Development and preliminary evaluation of a 90 K Axiom® SNP array for the allo-octoploid cultivated strawberry Fragaria × ananassa. <em>BMC Genomics</em> 16, 155 (2015). <a href="https://doi.org/10.1186/s12864-015-1310-1">doi:10.1186/s12864-015-1310-1</a>.</li>
+        <li>Hardigan MA, Feldmann MJ, Lorant A, et al. Genome Synteny Has Been Conserved Among the Octoploid Progenitors of Cultivated Strawberry Over Millions of Years of Evolution. <em>Frontiers in Plant Science</em> 10, 1789 (2020). <a href="https://doi.org/10.3389/fpls.2019.01789">doi:10.3389/fpls.2019.01789</a>.</li>
+        <li>Gerard D, Ferrão LFV, Garcia AAF, et al. Genotyping Polyploids from Messy Sequencing Data. <em>Genetics</em> 210, 789–807 (2018). <a href="https://doi.org/10.1534/genetics.118.301468">doi:10.1534/genetics.118.301468</a>.</li>
+        <li>Lachance J, Tishkoff SA. SNP ascertainment bias in population genetic analyses: Why it is important, and how to correct it. <em>BioEssays</em> 35, 780–786 (2013). <a href="https://doi.org/10.1002/bies.201300014">doi:10.1002/bies.201300014</a>.</li>
+        <li>Patterson N, Price AL, Reich D. Population Structure and Eigenanalysis. <em>PLoS Genetics</em> 2, e190 (2006). <a href="https://doi.org/10.1371/journal.pgen.0020190">doi:10.1371/journal.pgen.0020190</a>.</li>
+        <li>McInnes L, Healy J, Melville J. UMAP: Uniform Manifold Approximation and Projection for dimension reduction. arXiv 1802.03426 (2018). <a href="https://arxiv.org/abs/1802.03426">arXiv:1802.03426</a>.</li>
+        <li>Diaz-Papkovich A, Anderson-Trocmé L, Ben-Eghan C, et al. UMAP reveals cryptic population structure and phenotype heterogeneity in large genomic cohorts. <em>PLOS Genetics</em> 15, e1008432 (2019). <a href="https://doi.org/10.1371/journal.pgen.1008432">doi:10.1371/journal.pgen.1008432</a>.</li>
+        <li>Chari T, Pachter L. The specious art of single-cell genomics. <em>PLOS Computational Biology</em> 19, e1011288 (2023). <a href="https://doi.org/10.1371/journal.pcbi.1011288">doi:10.1371/journal.pcbi.1011288</a>.</li>
+        <li>Campello RJGB, Moulavi D, Sander J. Density-Based Clustering Based on Hierarchical Density Estimates. <em>Advances in Knowledge Discovery and Data Mining (PAKDD)</em>, LNCS 7819, 160–172 (2013). <a href="https://doi.org/10.1007/978-3-642-37456-2_14">doi:10.1007/978-3-642-37456-2_14</a>.</li>
+        <li>Lange T, Roth V, Braun ML, et al. Stability-Based Validation of Clustering Solutions. <em>Neural Computation</em> 16, 1299–1323 (2004). <a href="https://doi.org/10.1162/089976604773717621">doi:10.1162/089976604773717621</a>.</li>
+        <li>Hubert L, Arabie P. Comparing partitions. <em>Journal of Classification</em> 2, 193–218 (1985). <a href="https://doi.org/10.1007/BF01908075">doi:10.1007/BF01908075</a>.</li>
+        <li>Manichaikul A, Mychaleckyj JC, Rich SS, et al. Robust relationship inference in genome-wide association studies. <em>Bioinformatics</em> 26, 2867–2873 (2010). <a href="https://doi.org/10.1093/bioinformatics/btq559">doi:10.1093/bioinformatics/btq559</a>.</li>
+        <li>Nosek BA, Ebersole CR, DeHaven AC, et al. The preregistration revolution. <em>Proceedings of the National Academy of Sciences</em> 115, 2600–2606 (2018). <a href="https://doi.org/10.1073/pnas.1708274114">doi:10.1073/pnas.1708274114</a>.</li>
+        <li>Kang HM, Sul JH, Service SK, et al. Variance component model to account for sample structure in genome-wide association studies. <em>Nature Genetics</em> 42, 348–354 (2010). <a href="https://doi.org/10.1038/ng.548">doi:10.1038/ng.548</a>.</li>
+        <li>Liu X, Huang M, Fan B, et al. Iterative Usage of Fixed and Random Effect Models for Powerful and Efficient Genome-Wide Association Studies. <em>PLOS Genetics</em> 12, e1005767 (2016). <a href="https://doi.org/10.1371/journal.pgen.1005767">doi:10.1371/journal.pgen.1005767</a>.</li>
+        <li>Prohaska A, Rey-Serra P, Petit J, et al. Exploration of a European-centered strawberry diversity panel provides markers and candidate genes for the control of fruit quality traits. <em>Horticulture Research</em>, uhae137 (2024). <a href="https://doi.org/10.1093/hr/uhae137">doi:10.1093/hr/uhae137</a>.</li>
+        <li>Göring HHH, Terwilliger JD, Blangero J. Large Upward Bias in Estimation of Locus-Specific Effects from Genomewide Scans. <em>The American Journal of Human Genetics</em> 69, 1357–1369 (2001). <a href="https://doi.org/10.1086/324471">doi:10.1086/324471</a>.</li>
+        <li>Xu S. Theoretical Basis of the Beavis Effect. <em>Genetics</em> 165, 2259–2268 (2003). <a href="https://doi.org/10.1093/genetics/165.4.2259">doi:10.1093/genetics/165.4.2259</a>.</li>
+        <li>de Roos APW, Hayes BJ, Spelman RJ, et al. Linkage Disequilibrium and Persistence of Phase in Holstein–Friesian, Jersey and Angus Cattle. <em>Genetics</em> 179, 1503–1512 (2008). <a href="https://doi.org/10.1534/genetics.107.084301">doi:10.1534/genetics.107.084301</a>.</li>
+        <li>VanRaden PM. Efficient Methods to Compute Genomic Predictions. <em>Journal of Dairy Science</em> 91, 4414–4423 (2008). <a href="https://doi.org/10.3168/jds.2007-0980">doi:10.3168/jds.2007-0980</a>.</li>
+        <li>Toivainen T, Salonen JS, Kirshner J, et al. The Late Quaternary climate impact on the genome of the woodland strawberry (Fragaria vesca), a perennial herb. <em>Communications Biology</em> 9, 263 (2026). <a href="https://doi.org/10.1038/s42003-026-09539-5">doi:10.1038/s42003-026-09539-5</a>. Data: <a href="https://doi.org/10.5061/dryad.8cz8w9h43">Dryad</a>, CC0.</li>
+        <li>Kalinowski ST. Counting Alleles with Rarefaction: Private Alleles and Hierarchical Sampling Designs. <em>Conservation Genetics</em> 5, 539–543 (2004). <a href="https://doi.org/10.1023/B:COGE.0000041021.91777.1a">doi:10.1023/B:COGE.0000041021.91777.1a</a>.</li>
+        <li>Bhatia G, Patterson N, Sankararaman S, et al. Estimating and interpreting F<sub>ST</sub>: the impact of rare variants. <em>Genome Research</em> 23, 1514–1521 (2013). <a href="https://doi.org/10.1101/gr.154831.113">doi:10.1101/gr.154831.113</a>.</li>
+        <li>Feldmann MJ, Torgeman S. Genetic architecture of angular leaf spot resistance in cultivated strawberry shaped by epistasis and genotype-by-environment interactions. Data and marker table (2026). <a href="https://doi.org/10.5281/zenodo.17635125">Zenodo 17635125</a>, CC-BY 4.0.</li>
       </ol>
     </>
   );
