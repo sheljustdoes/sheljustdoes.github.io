@@ -29,7 +29,6 @@ Nine projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `topo
       the labels disclosed as Claude-drafted and unreviewed. Update it when the review lands.
 - [x] No oncos write-up: decided by Shel 2026-09-26 — the work stays private, no methods or
       numbers, until Shel understands it better. Do not re-ask.
-- [ ] Later write-up: `indicium` if a repaired call set ever answers H1′.
 - [x] Bring the iridis write-up in line with its entry. Done 2026-09-25: dates, the exact
       accuracy ranges, the masking negative finding, and the single-atlas limit.
 - [ ] Decide whether `PORTFOLIO.md` should render as a route on the site rather than
@@ -37,7 +36,7 @@ Nine projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `topo
 - [x] Keep the résumé route and `PORTFOLIO.md` consistent when either changes. Done
       2026-09-24: `lib/projects.ts` feeds the résumé, the graph and the Doc feed, and the
       post-build check fails on drift.
-- [x] Place graph nodes for the projects that have none: oncos, indicium, noul, legere,
+- [x] Place graph nodes for the projects that have none: oncos, noul, legere,
       catasta, custos, bibliotheca, bibliotheca-archive, ponere, and this site. Done
       2026-09-25, with mara added too; the post-build check now fails when a featured or
       Shipped project has no node.
