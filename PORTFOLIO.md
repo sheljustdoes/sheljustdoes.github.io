@@ -428,6 +428,16 @@ UC Davis (about 7 copies), which caps r²; normalized to that cap it is 0.14 (95
 test compares partitions, not geometry, and has no positive control, so its KILL means "not
 detected"; the controls are queued. Paused 2026-09-26.
 
+**TE landscape (descriptive, not pre-registered, 2026-09-28).** From public repeat annotations
+(an octoploid FL16.33-8 phase, RepeatMasker; *F. vesca* v4, EDTA), one class per base: the
+octoploid is 39.5% repeats but mostly unclassified, *F. vesca* 33.2% TE. The *F. vesca*-derived
+dominant subgenome A carries 23% fewer repeats than B–D and half their Gypsy, in all seven
+homoeologous groups, as published for Camarosa. The gene-density pericentromere rule used for
+tomato does not transfer to strawberry, and Gypsy is only modestly enriched in gene-poor regions
+(1.0–3.3×). The 50K array is gene-centred: on FaRR1, 46% of probes are genic and 74% within 1 kb
+of a gene, against 36% and 55% of bases. No downloadable strawberry population SV or TE-insertion
+genotype set exists, so the SV side stops there.
+
 ### glyma — soybean haplogroup discovery
 **Status:** Designed (Stage 0) · *Glycine max*, SoySNP50K
 
