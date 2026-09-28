@@ -10,7 +10,7 @@ export default function LycoPage() {
       <h1>Transposable-element insertions record a distinct population history in tomato</h1>
       <p className="byline">
         Shel Burkes, PhD<span className="sep">·</span>Pre-registered 26 September 2026<span className="sep">·</span>Scored 27
-        September 2026<span className="sep">·</span>Stage 1d in progress
+        September 2026<span className="sep">·</span>Introgression test stopped at its gate 28 September 2026
       </p>
 
       <div className="abstract">
@@ -25,7 +25,7 @@ export default function LycoPage() {
         re-splits give 0.998 ± 0.0002. The difference concentrates in Gypsy retrotransposons of intermediate age and persists in the
         recombining chromosome arms (r 0.926 against a null of 0.972), so it follows the element, not the pericentromeric regions
         where Gypsy resides. Frequency spectra through domestication do not differ. Transposable-element origin marks lines of descent
-        that other variation does not; whether introgressed wild segments explain the Gypsy signal is under a pre-registered test now.
+        that other variation does not; whether introgressed wild segments explain the Gypsy signal remains open.
       </div>
 
       <p>
@@ -193,10 +193,15 @@ export default function LycoPage() {
       <p>
         Why Gypsy in particular records a different history is not settled. One candidate mechanism is that segments introgressed from
         wild relatives during resistance breeding<Ref n={4} /> carry Gypsy insertions that arose in the donor lineage, marking wild
-        origin more sharply than the older variants alongside them. A fourth pre-registration testing this — wild-segment calling from
-        SNPs alone, with Lin and colleagues&apos; five introgressed loci<Ref n={4} /> as positive controls — is at the sign-off stage
-        now; its design facts, including one pre-registered redesign trigger that fired and the threshold chosen in response, are in
-        the stage documents.
+        origin more sharply than the older variants alongside them. A pre-registered test of this stopped at its gate. Wild segments
+        were called from SNPs alone, as stretches carrying alleles typical of <em>S. pimpinellifolium</em>, and had to recover Lin and
+        colleagues&apos; five introgressed resistance and quality loci<Ref n={4} /> before the Gypsy comparison could run. They
+        recovered none of 31 known carrier–locus pairs, so the comparison was never made. A diagnostic run after the verdict shows why:
+        the carriers do differ from other accessions at every locus, but all five loci were bred in from more distant wild species
+        (<em>S. peruvianum</em>, <em>S. chilense</em>, <em>S. habrochaites</em>), whose alleles a <em>pimpinellifolium</em>-based
+        caller cannot recognise. The pre-registration had anticipated this for three of the five loci and missed it for two. The
+        question stays open; answering it needs a donor-agnostic caller, with positive controls checked against what that caller can
+        see before sign-off.
       </p>
 
       <h2>Methods</h2>
@@ -372,8 +377,9 @@ export default function LycoPage() {
         <h2>Pre-registration statement</h2>
         <p>
           Pre-registered means committed to the project&apos;s own repository before scoring, not lodged with an external registry.
-          Four pre-registrations to date: the trait question (stopped by its own power check before scoring), the genotyping gate, the
-          history questions, and the element-versus-region test; a fifth, on introgression, is at sign-off. Analysis grids were frozen
+          Five pre-registrations to date: the trait question (stopped by its own power check before scoring), the genotyping gate, the
+          history questions, the element-versus-region test, and the introgression test, stopped by its positive-control gate (0 of
+          31 known introgressions recovered) before its comparison ran. Analysis grids were frozen
           and hashed (SHA-256) before results; every question was scored once; the checks that stopped the first design, and a
           discovery-bias check specified before it ran, are reported above. Deviations are logged in the stage documents.
         </p>
