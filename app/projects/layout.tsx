@@ -64,6 +64,22 @@ article figure:not(.wide) figcaption { padding: 0; }
 article figcaption .fig-lead { font-weight: 600; color: var(--charcoal); }
 article figcaption b { font-weight: 600; color: var(--charcoal); }
 @media (max-width: 640px) { article figcaption { padding: 0; } }
+/* Interactive figures: the PNG shows until the chart is drawn, then gives way; print keeps the PNG. */
+.ifig .ifig-box { position: relative; }
+.ifig .ifig-plot { display: none; width: 100%; }
+.ifig[data-state="loading"] .ifig-static { opacity: 0.55; }
+.ifig[data-state="ready"] .ifig-static { display: none; }
+.ifig[data-state="ready"] .ifig-plot { display: block; }
+.ifig .ifig-hint { color: #8a8378; }
+.ifig-data { max-width: 720px; margin: 10px auto 0; padding: 0 32px; font-family: var(--display); font-size: 0.8rem; color: #4a4540; }
+.ifig-data summary { cursor: pointer; font-weight: 600; color: var(--charcoal); }
+.ifig-data .ifig-table { max-height: 360px; overflow: auto; margin: 8px 0; border: 1px solid #e3dccf; }
+.ifig-data table { border-collapse: collapse; width: 100%; font-family: var(--mono); font-size: 0.72rem; }
+.ifig-data caption { text-align: left; padding: 6px 8px; font-family: var(--display); color: #4a4540; }
+.ifig-data th, .ifig-data td { text-align: left; padding: 4px 8px; border-top: 1px solid #e3dccf; white-space: nowrap; }
+.ifig-data th { position: sticky; top: 0; background: var(--cream); font-weight: 500; }
+@media (max-width: 640px) { .ifig-data { padding: 0; } }
+@media print { .ifig .ifig-plot { display: none !important; } .ifig .ifig-static { display: block !important; opacity: 1 !important; } .ifig-data { display: none; } }
 article .status-line {
   margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--charcoal); font-family: var(--mono); font-size: 0.7rem;
   letter-spacing: 0.05em; color: #4a4540;
