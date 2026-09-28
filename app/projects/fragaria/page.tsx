@@ -497,6 +497,61 @@ export default function FragariaPage() {
         found here provides that, so the thread pauses.
       </p>
 
+      <h2>A TE landscape (descriptive)</h2>
+      <p>
+        This section is not a pre-registered test. It describes transposable element (TE) content, and where the array&apos;s markers
+        sit, repeating a descriptive analysis first made for tomato. No openly downloadable per-base TE annotation exists for FaRR1,
+        so the octoploid numbers come from one phase of the Florida selection FL16.33-8 [31], annotated with RepeatMasker, and the
+        diploid ones from the EDTA annotation of <em>F. vesca</em> v4 [34]. Every file was streamed and reduced in memory. Where
+        repeat hits overlap, each base takes the class of the higher-scoring hit.
+      </p>
+      <p>
+        The octoploid is 39.5% repeats, but most of that is unclassified: only 13.5% of the genome carries a TE class.{" "}
+        <em>F. vesca</em> v4 is 33.2% TE. The same annotation is reported at about 37% and about 30% in two versions of its
+        preprint [34], and published totals for these genomes run from about 30% to 53% depending on the pipeline [1, 31, 32], so
+        totals compare only loosely. The clearer result is between subgenomes. Subgenome A, the <em>F. vesca</em>-derived dominant
+        one [2], carries 32% repeats against 41–42% for B, C and D, and half their Gypsy, in all seven homoeologous groups
+        (Fig. 11b). Two annotations of Camarosa report the same pattern, 19.5% fewer TEs on the dominant subgenome [1] and 50%
+        against 57–58% [32]; here it holds on a different cultivar and a different annotation.
+      </p>
+      <Figure
+        n={11}
+        src="/projects/fragaria/fig11_te_composition.png"
+        alt="Two panels. a: share of the genome by TE class for the octoploid and for F. vesca v4; Gypsy 6.8% and 10.6%, Copia 3.3% and 3.9%, DNA/TIR 2.2% and 16.1%, and 24.6% unclassified in the octoploid. b: stacked shares by octoploid subgenome; totals A 32.1%, B 41.9%, C 41.4%, D 42.3%, with Gypsy about half as high in A."
+        lead="Subgenome A, derived from F. vesca, carries the fewest repeats."
+      >
+        <b>a</b>, Share of the genome by TE class, one class per base: an octoploid FL16.33-8 phase (RepeatMasker) and{" "}
+        <em>F. vesca</em> v4 (EDTA). The pipelines differ; &quot;Unknown&quot; is repeat sequence without a class. <b>b</b>, The same
+        by octoploid subgenome, under FaRR1&apos;s names A to D, mapped from the assembly&apos;s Camarosa names through the UC Davis
+        marker table [30].
+      </Figure>
+      <p>
+        Along chromosomes, TE density rises where genes thin (Fig. 12a). The gene-density rule that marks pericentromeres in tomato
+        does not transfer: on 23 of 28 chromosomes its gene-poor block runs to a chromosome end, so it finds the gene-poor end of a
+        gradient, and it is called a gene-poor region here. Gypsy is only modestly enriched there, 1.0 to 3.3 times its density in
+        the rest of the chromosome. Strawberry centromeres have been placed by satellite repeats instead [33, 35].
+      </p>
+      <p>
+        The finding with most bearing on the results above is where the 50K array sits (Fig. 12b). Placed on FaRR1, 45.5% of its
+        probes fall in genes and 73.8% within 1 kb of one, against 36% and 55% of the genome&apos;s bases; its designers report 53%
+        and 79% on Camarosa [8]. The cultivated structure in Stage 0 was measured on markers next to genes, and TE-rich sequence,
+        where much structural variation lies, is thinly sampled. The structural-variant side of the tomato analysis could not
+        follow: no strawberry population call set of structural variants or TE insertions, with genotypes for each accession, is
+        openly downloadable, and calling one from reads is outside this project&apos;s scope.
+      </p>
+      <Figure
+        n={12}
+        src="/projects/fragaria/fig12_te_distribution.png"
+        alt="Two panels. a: 28 small line plots, one per octoploid chromosome in rows by homoeologous group and columns by subgenome, showing gene, Gypsy, Copia and unclassified repeat density along each chromosome, with a shaded gene-poor region that usually reaches one chromosome end. b: stacked bars of genic, promoter, near and distal shares for array probes and genome bases; overall 46% of probes are genic against 36% of bases, and 3% of probes are distal against 6% of bases."
+        lead="TEs rise where genes thin, and the array sits close to genes."
+      >
+        <b>a</b>, Density of genes, Gypsy, Copia and unclassified repeats along each of the 28 chromosomes, per 1 Mb, smoothed over
+        three windows and scaled to each chromosome&apos;s maximum; rows are homoeologous groups, columns subgenomes; grey, the
+        gene-poor region. <b>b</b>, Where the 50K array&apos;s 38,881 probes placed on FaRR1 sit relative to its genes (genic; up to 2
+        kb upstream; within 10 kb; farther), beside the genome&apos;s own share of bases, overall and inside and outside the gene-poor
+        regions.
+      </Figure>
+
       <h2>Limits</h2>
       <p>
         The cultivated panel is one 50K array, with pseudo-diploid calls on an octoploid and no batch records. The wild octoploid panel is
@@ -541,6 +596,10 @@ export default function FragariaPage() {
         <li>
           <strong>A cleaner diversity ranking.</strong> Rerun on sites that map to one homoeolog only, so misplaced wild reads cannot
           inflate novelty.
+        </li>
+        <li>
+          <strong>A TE annotation on FaRR1 itself,</strong> and centromeres placed by their satellite repeats, to redo the TE
+          landscape on the reference the panels use.
         </li>
         <li>
           <strong>Threshold sensitivity.</strong> Every cut-off here was chosen once; none has been varied.
@@ -594,6 +653,11 @@ export default function FragariaPage() {
         <li>Kalinowski ST. Counting Alleles with Rarefaction: Private Alleles and Hierarchical Sampling Designs. <em>Conservation Genetics</em> 5, 539–543 (2004). <a href="https://doi.org/10.1023/B:COGE.0000041021.91777.1a">doi:10.1023/B:COGE.0000041021.91777.1a</a>.</li>
         <li>Bhatia G, Patterson N, Sankararaman S, et al. Estimating and interpreting F<sub>ST</sub>: the impact of rare variants. <em>Genome Research</em> 23, 1514–1521 (2013). <a href="https://doi.org/10.1101/gr.154831.113">doi:10.1101/gr.154831.113</a>.</li>
         <li>Feldmann MJ, Torgeman S. Genetic architecture of angular leaf spot resistance in cultivated strawberry shaped by epistasis and genotype-by-environment interactions. Data and marker table (2026). <a href="https://doi.org/10.5281/zenodo.17635125">Zenodo 17635125</a>, CC-BY 4.0.</li>
+        <li>Han H, Oh Y, Jang YJ, et al. Genomic architecture of the <em>resistance to Phytophthora cactorum 2</em> (<em>RPc2</em>) locus in strawberry (<em>Fragaria</em> × <em>ananassa</em>). <em>The Plant Genome</em> 19, e70168 (2026). <a href="https://doi.org/10.1002/tpg2.70168">doi:10.1002/tpg2.70168</a>. Repeat annotation: GDR, FL16.33-8 v1.0.</li>
+        <li>Lyu K, Xiao J, Lyu S, Liu R. Comparative Analysis of Transposable Elements in Strawberry Genomes of Different Ploidy Levels. <em>International Journal of Molecular Sciences</em> 24, 16935 (2023). <a href="https://doi.org/10.3390/ijms242316935">doi:10.3390/ijms242316935</a>.</li>
+        <li>Jin X, Du H, Chen M, et al. A fully phased octoploid strawberry genome reveals the evolutionary dynamism of centromeric satellites. <em>Genome Biology</em> 26, 17 (2025). <a href="https://doi.org/10.1186/s13059-025-03482-0">doi:10.1186/s13059-025-03482-0</a>.</li>
+        <li>Priego-Cubero S, Tolley R, Llinares-Gómez J, et al. Naturally occurring variation in gene-associated transposable elements impacts gene expression and phenotypic diversity in woodland strawberry. bioRxiv (2025). <a href="https://doi.org/10.1101/2025.03.20.644342">doi:10.1101/2025.03.20.644342</a>. Preprint, not peer reviewed; the EDTA annotation is in the authors&apos; GitHub repository.</li>
+        <li>Zhou Y, Xiong J, Shu Z, et al. The telomere-to-telomere genome of <em>Fragaria vesca</em> reveals the genomic evolution of <em>Fragaria</em> and the origin of cultivated octoploid strawberry. <em>Horticulture Research</em> 10, uhad027 (2023). <a href="https://doi.org/10.1093/hr/uhad027">doi:10.1093/hr/uhad027</a>.</li>
       </ol>
     </>
   );
