@@ -1117,7 +1117,10 @@ for exact values, zoom, legend toggles, and a data table under each figure, with
 static image kept for narrow screens, print and no-JS readers. recolo and noul each
 add a view that exists only
 interactively — a per-question correctness grid, and a per-query retrieval explorer that
-shows what was asked for and what came back.
+shows what was asked for and what came back. Since 28 Sep 2026 the write-ups follow a
+journal-article format — abstract, results with finding-stating headings, discussion,
+methods, data/code availability and an honest pre-registration statement — under the
+conventions in `custos/skills/journal-writeup`.
 
 It also hosts this file, which is the canonical description of everything above. Every
 project surface on the site — the résumé page, grouped by area, the graph's project

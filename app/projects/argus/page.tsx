@@ -1,58 +1,93 @@
 import InteractiveFigure from "../InteractiveFigure";
+import Ref from "../Ref";
 
 export const metadata = { title: "argus. — shel." };
 
 export default function ArgusPage() {
   return (
     <>
-      <span className="kicker">Project — 2026–</span>
-      <h1>argus.</h1>
-      <p className="tagline">
-        Anomaly detection for Cell Painting microscopy, tested under a protocol fixed in advance against a baseline that only counts
-        cells. The dual-branch design failed the test, and the page says so. A third run, which compares wells only with controls of the
-        same cell count, shows that the embedding branch does see more than a count.
+      <span className="kicker">Project — argus · 2026–</span>
+      <h1>Image embeddings outperform a cell count only in wells a knockout has already thinned</h1>
+      <p className="byline">
+        Shel Burkes, PhD<span className="sep">·</span>Pre-registered 25–26 September 2026<span className="sep">·</span>Fourth run
+        scored 26 September 2026
       </p>
 
-      <h2>Why this exists</h2>
+      <div className="abstract">
+        <span className="abstract-label">Abstract</span>
+        High-content screens image millions of wells, and an anomaly detector trained only on normal wells could flag the few
+        perturbations that matter without a label for every phenotype in advance. That promise is easy to overstate: a knockout that
+        stops cell division leaves fewer cells, and counting cells alone matches many image-based bioactivity benchmarks, so a global
+        score may be measuring little more than a count. Whether an image-based detector sees more than a cell count had, for this
+        design and dataset, no measured answer. Here we show, across four pre-registered protocols on Recursion&apos;s public
+        RxRx3-core, that a dual-branch detector failed as designed — the reconstruction-error branch scored below chance (ROC-AUC
+        0.324) and fusion inherited the failure (0.532) — and that embedding-based detection tied a nuclei count on every global
+        comparison (0.711 against 0.712) yet, compared only against controls of matching cell count, kept signal the count cannot
+        explain (0.690 against 0.521, a difference of 0.169, 95% CI 0.113–0.222). Under the strictest match, drawn within each
+        experiment, the effect narrows to 0.608 and disappears in wells with more nuclei than the median control (0.508). What the
+        embeddings see beyond a count is real, and confined to wells the knockouts have already thinned.
+      </div>
+
       <p>
-        High-content screens image millions of wells, and many perturbations do nothing visible [16, 17]. An anomaly detector trained only on
-        normal wells could flag the few that matter without needing a label for every phenotype in advance [11]. That promise is easy to
-        overstate. A knockout that stops cell division leaves fewer cells in the well, and almost any image score will notice that; cell
-        density shapes cellular phenotypes generally [10], and counting cells alone matches many image-based bioactivity benchmarks [9].
-        The question worth answering is whether a detector sees more than a cell count.
+        Cell Painting<Ref n={1} /> and its large public successors, including RxRx3<Ref n={[2, 3]} /> and the JUMP genetic map
+        <Ref n={16} />, have made image-based detection of genetic perturbations routine, though only a subset of perturbations yields
+        a detectable profile<Ref n={[16, 17]} />. An anomaly detector trained only on normal wells could flag the few that matter
+        without needing a label for every phenotype in advance<Ref n={11} />. The promise is easy to overstate. A knockout that stops
+        cell division leaves fewer cells in the well, and almost any image score will notice that; cell density shapes cellular
+        phenotypes generally<Ref n={10} />, and Seal and colleagues recently showed that counting cells alone matches many image-based
+        bioactivity benchmarks, recommending a cell-count baseline for any image-based model<Ref n={9} />. Technical variation across
+        plates and experiments is a known dominant signal in these data<Ref n={[6, 7, 8]} />, which is why evaluation frameworks
+        compare perturbations with same-plate controls<Ref n={18} />. None of these points is new here. What we add is a measurement
+        under pre-registered protocols<Ref n={15} /> with plate-level intervals<Ref n={14} />: for this design and dataset, how much
+        of a global AUC is cell count and experiment, as the shortcut-learning literature would predict<Ref n={13} />, and what is
+        left once both are matched.
+      </p>
+      <p>
+        RxRx3 images six fluorescent channels, a variant of Cell Painting<Ref n={[1, 2]} />. Hoechst, the DNA stain, is excited in the
+        UV at about 350 nm; the other five are excited in the visible range. We gave the nuclear channel its own detector, a
+        convolutional autoencoder scored by reconstruction error, and covered the rest with an Isolation Forest<Ref n={5} /> over the
+        pre-computed OpenPhenom embeddings released with the dataset<Ref n={3} />, from a masked-autoencoder model of the kind
+        described by Kraus and colleagues<Ref n={4} />, fusing the two scores by averaging their ranks. One caveat surfaced while the
+        first protocol was being written: OpenPhenom embeds all six channels, Hoechst included, so the embedding branch was never
+        UV-free, and the fusion question became narrower — does a Hoechst-only autoencoder add anything to a model that has already
+        seen Hoechst? Four protocols were fixed in advance and each test set was scored once (Box 1, Methods).
       </p>
 
-      <h2>Approach</h2>
-      <p>
-        RxRx3 images six fluorescent channels, a variant of Cell Painting [1, 2]. Hoechst, the DNA stain, is excited in the UV at about 350 nm; the other five are excited in the
-        visible range. argus gives the nuclear channel its own detector, a convolutional autoencoder scored by reconstruction error, and
-        covers the rest with an Isolation Forest [5] over the pre-computed OpenPhenom embeddings released with the dataset [3], from a
-        masked-autoencoder model of the kind described in [4]. The two scores are fused by averaging their
-        ranks.
-      </p>
-      <p>
-        One caveat surfaced while the protocol was being written. OpenPhenom embeds all six channels, Hoechst included, so the embedding
-        branch was never UV-free. The fusion question therefore became narrower: does a Hoechst-only autoencoder add anything to a model
-        that has already seen Hoechst?
-      </p>
+      <aside className="box">
+        <span className="box-lead">Box 1 | How to read the verdicts</span>
+        <p>
+          <strong>Pre-registered</strong> means each protocol was committed before its detectors were trained or its test wells
+          loaded: the split, the settings, the direction of every score, the comparisons that matter, and a written expectation of the
+          result. Each <strong>held-out</strong> test set consists of experiments no earlier run had touched, and was{" "}
+          <strong>scored once</strong>; wrong expectations stay in the protocol as written, and any analysis made after seeing a score
+          is labelled <strong>after scoring</strong>. Intervals come from a <strong>plate bootstrap</strong>, which resamples whole
+          plates because wells on a plate share a batch. A <strong>matched</strong> comparison scores each knockout well only against
+          control wells with a similar cell count, so a score that only counts cells has almost nothing to work with.
+        </p>
+      </aside>
 
-      <h2>The test</h2>
+      <h2>Reconstruction error scores depleted wells as more normal, not less</h2>
       <p>
-        The data is Recursion&apos;s public RxRx3-core [3]: HUVEC cells, one imaging site per well, from the 16 CRISPR experiments that sit
-        entirely inside two dataset shards. Normal wells carry intron and exon control guides, which target no gene function. Anomalous
-        wells are the PLK1 and MTOR knockouts that every experiment includes as positive controls. PLK1 stops cell division [19]. MTOR&apos;s
-        phenotype, a change in cell size [20], is subtler.
+        On the first held-out set — 848 wells on 54 plates from six experiments, scored once (Methods) — the autoencoder reached an
+        AUC of 0.324 (Table 1, Fig. 1a), well below chance: knockout wells reconstructed <em>better</em> than controls. Fewer nuclei
+        leave more empty background, which an autoencoder reproduces easily, so &ldquo;higher error means more anomalous&rdquo; fails
+        for exactly the phenotype it was meant to catch. Deep generative models are known to score simpler inputs as more normal
+        <Ref n={12} />; control-trained anomaly methods that work on Cell Painting score features, not pixels<Ref n={11} />. The
+        protocol fixed the direction before scoring, so the score was not flipped afterwards. It carries signal, but it is not an
+        anomaly detector as designed.
       </p>
       <p>
-        The protocol was committed before any detector was trained [15]. It fixed the split by experiment (10 to fit, 6 held out), the
-        settings, the direction of every score, the three comparisons that matter, and a written expectation of the result. Detectors
-        were fitted on 359 normal wells and never saw a knockout. The held-out set — 848 wells on 54 plates — was scored once. Intervals
-        come from a bootstrap that resamples whole plates [14], because wells on a plate share a batch, and batch effects are a dominant
-        signal in these data [6–8]. The fixed baseline is the fraction of
-        Hoechst-bright pixels: a cell count, nothing more.
+        Fusion inherited that failure. Rank-averaging a reversed score with a good one landed near chance at 0.532, 0.179 below the
+        embedding branch alone (95% CI 0.152–0.206) — and this was the comparison the whole design rested on. The embeddings
+        themselves saw about as much as a cell count: overall they tied the baseline, 0.711 against 0.712, better on PLK1 and worse on
+        MTOR. The score distributions show why: the embeddings catch a tail of strongly shifted knockout wells, but most knockouts
+        overlap the controls. The Isolation Forest added nothing over a plain distance to the normal centroid (+0.004, CI −0.001 to
+        +0.009).
       </p>
-
-      <h2>What the evaluation found</h2>
+      <p>
+        <strong>Table 1 | First run.</strong> ROC-AUC for flagging PLK1 and MTOR knockouts against control wells on six held-out
+        experiments, with 95% intervals from a bootstrap over plates.
+      </p>
       <table>
         <thead>
           <tr>
@@ -96,34 +131,23 @@ export default function ArgusPage() {
         </tbody>
       </table>
       <p>
-        <strong>The autoencoder scored in the wrong direction.</strong> An AUC of 0.32 is well below chance: knockout wells reconstructed{" "}
-        <em>better</em> than controls. Fewer nuclei leave more empty background, which an autoencoder reproduces easily, so &ldquo;higher
-        error means more anomalous&rdquo; fails for exactly the phenotype it was meant to catch. Deep generative models are known to
-        score simpler inputs as more normal [12]; control-trained anomaly methods that work on Cell Painting score features, not
-        pixels [11]. The protocol fixed the direction before
-        scoring, so the score was not flipped afterwards. It carries signal, but it is not an anomaly detector as designed.
-      </p>
-      <p>
-        <strong>Fusion inherited that failure.</strong> Rank-averaging a reversed score with a good one landed near chance, 0.179 below
-        the embedding branch alone (95% CI 0.152–0.206). This was the comparison the whole design rested on.
-      </p>
-      <p>
-        <strong>The embeddings saw about as much as a cell count.</strong> Overall they tied the baseline, 0.711 against 0.712. They were
-        better on PLK1 and worse on MTOR. The score distributions show why: the embeddings catch a tail of strongly shifted knockout
-        wells, but most knockouts overlap the controls. The Isolation Forest added nothing over a plain distance to the normal centroid
-        (+0.004, CI −0.001 to +0.009).
-      </p>
-      <p>
-        The written expectation was partly wrong, and it stays in the protocol as written. It predicted near-perfect separation of PLK1
-        by the embeddings (they reached 0.83), weaker MTOR (true), an autoencoder that mostly tracks cell count (it tracks it inversely),
-        and no gain from fusion (true, and worse than expected).
+        The written expectation was partly wrong, and it stays in the protocol as written. It predicted near-perfect separation of
+        PLK1 by the embeddings (they reached 0.83), weaker MTOR (true), an autoencoder that mostly tracks cell count (it tracks it
+        inversely), and no gain from fusion (true, and worse than expected).
       </p>
 
-      <h2>A second run: can anything see past the cell count?</h2>
+      <h2>The failure replicated, and linear regression could not remove the cell count</h2>
       <p>
         Two repairs followed from the first result, and both were designed after seeing it. Scoring them on the same held-out
         experiments would reuse a test set that had already shaped them, so the second protocol scored them once on eight experiments
-        nobody had touched: 1,150 wells, 862 knockouts, 72 plates.
+        nobody had touched: 1,150 wells, 862 knockouts, 72 plates. The first result replicated: on new experiments the whole-image
+        autoencoder scored in the wrong direction again, and the embeddings tied the cell count again (Table 2, Fig. 1b). Scoring
+        nuclear pixels removed the inversion and left nothing — once empty background could no longer lower the error, the autoencoder
+        sat at chance, 0.22 below the cell count.
+      </p>
+      <p>
+        <strong>Table 2 | Second run.</strong> ROC-AUC on eight experiments no earlier run had scored, with 95% intervals from the
+        plate bootstrap.
       </p>
       <table>
         <thead>
@@ -162,19 +186,11 @@ export default function ArgusPage() {
         </tbody>
       </table>
       <p>
-        <strong>The first result replicated.</strong> On new experiments the whole-image autoencoder scored in the wrong direction again,
-        and the embeddings tied the cell count again.
-      </p>
-      <p>
-        <strong>Scoring nuclear pixels removed the inversion and left nothing.</strong> Once empty background could no longer lower the
-        error, the autoencoder sat at chance, 0.22 below the cell count.
-      </p>
-      <p>
-        <strong>Removing cell count did not remove it.</strong> The pre-registered check passed: with cell count regressed out of the
-        embeddings, MTOR knockouts still scored above chance (0.58). But a check made after scoring showed the residualized score
-        still tracked cell count almost as strongly as before (Spearman −0.48, against −0.51), and ranked wells almost exactly as the
-        original did. A linear regression per embedding dimension cannot remove a nonlinear dependence, so that 0.58 cannot be called
-        signal beyond cell count. The control did not do its job, and the page says so rather than reporting the pass.
+        Removing cell count did not remove it. The pre-registered check passed: with cell count regressed out of the embeddings, MTOR
+        knockouts still scored above chance (0.58). But a check made after scoring showed the residualized score still tracked cell
+        count almost as strongly as before (Spearman −0.48, against −0.51), and ranked wells almost exactly as the original did. A
+        linear regression per embedding dimension cannot remove a nonlinear dependence, so that 0.58 cannot be called signal beyond
+        cell count. The control did not do its job, and we report that rather than the pass.
       </p>
 
       <InteractiveFigure
@@ -191,13 +207,24 @@ export default function ArgusPage() {
         test set was scored once.
       </InteractiveFigure>
 
-      <h2>A third run: compare like with like</h2>
+      <h2>Compared only with controls of matching cell count, the embeddings keep their signal</h2>
       <p>
-        Regression tried to take cell count out of the score. The third protocol takes it out of the comparison instead. Control wells
+        Regression tried to take cell count out of the score. The third protocol takes it out of the comparison instead: control wells
         are cut into ten bins by nuclei fraction, and each knockout is compared only with controls in its own bin. Inside a bin, a
-        score that only counts nuclei has almost nothing to work with, so the protocol builds in a check: the cell count itself must
+        score that only counts nuclei has almost nothing to work with, so the protocol builds in a check — the cell count itself must
         score between 0.45 and 0.55, or the bins did not do their job. It was scored once on fifteen more experiments nobody had
-        touched: 2,108 wells on 135 plates. 1,533 of 1,578 knockouts had a control with a matching count.
+        touched: 2,108 wells on 135 plates, with 1,533 of 1,578 knockouts having a control with a matching count.
+      </p>
+      <p>
+        The check passed, and the embeddings kept their signal (Table 3). With count matched, the cell count fell to 0.521, as it
+        should. The embeddings held at 0.690, 0.169 above it (95% CI 0.113–0.222), and the subtler MTOR knockouts stayed above chance
+        at 0.579. This is the first argus result a cell count cannot explain. Unmatched, the embeddings tied the count for the third
+        time (Fig. 1c), which is exactly why the earlier runs could not see the difference: a global metric rewards whatever shortcut
+        the data offers<Ref n={13} />.
+      </p>
+      <p>
+        <strong>Table 3 | Third run.</strong> AUC with each knockout compared only against controls in its own nuclei-fraction decile,
+        on fifteen experiments no earlier run had scored, with 95% intervals from the plate bootstrap.
       </p>
       <table>
         <thead>
@@ -229,13 +256,6 @@ export default function ArgusPage() {
           </tr>
         </tbody>
       </table>
-      <p>
-        <strong>The check passed, and the embeddings kept their signal.</strong> With count matched, the cell count fell to 0.521, as
-        it should. The embeddings held at 0.690, 0.169 above it (95% CI 0.113–0.222), and the subtler MTOR knockouts stayed above chance
-        at 0.579. This is the first argus result a cell count cannot explain. Unmatched, the embeddings tied the count for the third
-        time, which is exactly why the earlier runs could not see the difference: a global metric rewards whatever shortcut the data
-        offers [13].
-      </p>
       <InteractiveFigure
         n={2}
         src="/projects/argus/fig2_matched.png"
@@ -256,24 +276,25 @@ export default function ArgusPage() {
         count is mostly in wells the knockouts have already thinned, not across the whole range.
       </p>
       <p>
-        <strong>Two expectations were wrong.</strong> The protocol predicted that most PLK1 wells would have fewer nuclei than any control
-        and drop out of the comparison; only 30 of 791 did. PLK1 thins wells without emptying them. It also predicted the nuclear-pixel
-        autoencoder would stay at chance; matched on count, it came out slightly above (0.555).
-      </p>
-      <p>
-        <strong>A check made after scoring, labelled as such.</strong> Twenty bins instead of ten change nothing. Bins drawn within each
-        experiment, a stricter match with only about 35 controls per experiment, shrink the effect: 0.588 overall, still above chance,
-        but MTOR alone falls to 0.548, with an interval that includes 0.5. The overall finding survives every binning tried; the MTOR
-        finding survives only the one fixed in advance, and the next run should make the stricter match its primary test.
+        Two expectations were wrong. The protocol predicted that most PLK1 wells would have fewer nuclei than any control and drop out
+        of the comparison; only 30 of 791 did. PLK1 thins wells without emptying them. It also predicted the nuclear-pixel autoencoder
+        would stay at chance; matched on count, it came out slightly above (0.555). A further check made after scoring, labelled as
+        such: twenty bins instead of ten change nothing, but bins drawn within each experiment — a stricter match with only about 35
+        controls per experiment — shrink the effect to 0.588 overall, still above chance, while MTOR alone falls to 0.548, with an
+        interval that includes 0.5. The overall finding survives every binning tried; the MTOR finding survives only the one fixed in
+        advance, which is why the next run made the stricter match its primary test.
       </p>
 
-      <h2>A fourth run: the stricter match as the test</h2>
+      <h2>Under the strictest match, the signal remains, and only in depleted wells</h2>
       <p>
         The fourth protocol took the two checks made after the third run and fixed them in advance, on fifteen more experiments nobody
         had scored: 2,064 wells on 135 plates. Controls are binned by decile within each experiment, so a knockout is only ever compared
         with controls from its own experiment and its own cell-count range, as profiling benchmarks compare perturbations with
-        same-plate controls [18]. Inside those bins the nuclei count scored 0.490, so the match
-        held.
+        same-plate controls<Ref n={18} />. Inside those bins the nuclei count scored 0.490, so the match held.
+      </p>
+      <p>
+        <strong>Table 4 | Fourth run.</strong> Matched AUC for the embedding branch on fifteen further experiments, with controls
+        binned by decile within each experiment; 95% intervals from the plate bootstrap.
       </p>
       <table>
         <thead>
@@ -302,54 +323,109 @@ export default function ArgusPage() {
         </tbody>
       </table>
       <p>
-        <strong>Every expectation written into the protocol held.</strong> Under the strictest match tried, the embeddings still see
+        Every expectation written into the protocol held (Table 4). Under the strictest match tried, the embeddings still see
         something beyond cell count, but only among wells a knockout has already thinned: above the median count they are at chance.
-        The subtler MTOR phenotype is not detected, per well and from one imaging site; Recursion uses MTOR as a positive control, which
-        suggests it becomes visible when many wells and guides are aggregated. That is a narrower claim than the third run suggested, and a
-        firmer one.
+        The subtler MTOR phenotype is not detected, per well and from one imaging site; Recursion uses MTOR as a positive control,
+        which suggests it becomes visible when many wells and guides are aggregated. That is a narrower claim than the third run
+        suggested, and a firmer one.
       </p>
 
-      <h2>Related work</h2>
+      <h2>Discussion</h2>
       <p>
-        Cell Painting [1] and its large public successors, including RxRx3 [2, 3] and the JUMP genetic map [16], have made image-based
-        detection of genetic perturbations routine, though only a subset of perturbations yields a detectable profile [16, 17]. Technical
-        variation across plates and experiments is a known dominant signal in these data [6–8], which is why evaluation frameworks compare
-        perturbations with same-plate controls [18]. Cell density shapes single-cell phenotypes [10], and Seal and colleagues recently
-        showed that counting cells matches many bioactivity benchmarks, recommending a cell-count baseline for any image-based model [9].
-        Control-trained anomaly representations have been proposed for Cell Painting [11]. None of these points is new here. What argus
-        adds is a measurement under pre-registered protocols [15] with plate-level intervals [14]: for this design and dataset, how much of
-        a global AUC is cell count and experiment, as the shortcut-learning literature would predict [13], and what is left once both are
-        matched.
+        Across four pre-registered protocols on RxRx3-core, the dual-branch design failed its own test — reconstruction error scored
+        depleted wells as more normal, and fusion with the reversed score fell to near chance — while the embedding branch tied a
+        nuclei count on every global comparison and beat it only once the comparison was restricted to controls of the same cell
+        count. What the embeddings see beyond a count is real, replicated under two matching schemes, and confined to wells the
+        knockouts have already thinned; above the median cell count they are at chance, and the subtler MTOR phenotype is not detected
+        per well from one imaging site.
+      </p>
+      <p>
+        Several limits bound the claim. One cell type, one imaging site per well, 54 of 176 CRISPR experiments across four test sets,
+        and two anomaly genes. The autoencoder runs at 128 × 128, which may lose nuclear detail. The embeddings are OpenPhenom&apos;s
+        alone; no image model was trained on the visible channels. None of this rescues the design: the autoencoder&apos;s failure
+        comes from what reconstruction error rewards, not from sample size.
+      </p>
+      <p>
+        The open question is what the embeddings see in depleted wells. The next step is to name it, by comparing knockouts and
+        controls within the lowest-count bins on interpretable features such as nuclear size, shape and intensity.
       </p>
 
-      <h2>Limits</h2>
-      <p>
-        One cell type, one imaging site per well, 54 of 176 CRISPR experiments across four test sets, and two anomaly genes. The autoencoder runs at 128 × 128,
-        which may lose nuclear detail. The embeddings are OpenPhenom&apos;s alone; no image model was trained on the visible channels.
-        None of this rescues the design: the autoencoder&apos;s failure comes from what reconstruction error rewards, not from sample
-        size.
-      </p>
+      <h2>Methods</h2>
+      <div className="endmatter">
+        <p>
+          <strong>Data.</strong> Recursion&apos;s public RxRx3-core<Ref n={3} />: HUVEC cells imaged in six fluorescent channels, a
+          variant of Cell Painting<Ref n={[1, 2]} />, at one imaging site per well, from the 16 CRISPR experiments that sit entirely
+          inside two dataset shards. Normal wells carry intron and exon control guides, which target no gene function. Anomalous wells
+          are the PLK1 and MTOR knockouts that every experiment includes as positive controls: PLK1 stops cell division<Ref n={19} />;
+          MTOR&apos;s phenotype, a change in cell size<Ref n={20} />, is subtler.
+        </p>
+        <p>
+          <strong>Detectors.</strong> A convolutional autoencoder on the Hoechst (nuclear) channel at 128 × 128, scored by
+          reconstruction error; an Isolation Forest<Ref n={5} /> over the pre-computed OpenPhenom embeddings released with the
+          dataset<Ref n={3} />, with a plain distance to the normal centroid as a comparator; and a fused score averaging the two
+          branches&apos; ranks. The fixed baseline is the fraction of Hoechst-bright pixels: a cell count, nothing more.
+        </p>
+        <p>
+          <strong>First protocol.</strong> Committed before any detector was trained<Ref n={15} />. It fixed the split by experiment
+          (10 to fit, 6 held out), the settings, the direction of every score, the three comparisons that matter, and a written
+          expectation of the result. Detectors were fitted on 359 normal wells and never saw a knockout. The held-out set — 848 wells
+          on 54 plates — was scored once.
+        </p>
+        <p>
+          <strong>Uncertainty.</strong> Intervals come from a bootstrap that resamples whole plates<Ref n={14} />, because wells on a
+          plate share a batch, and batch effects are a dominant signal in these data<Ref n={[6, 7, 8]} />.
+        </p>
+        <p>
+          <strong>Second protocol.</strong> Two repairs designed after the first result — scoring the autoencoder on nuclear pixels
+          only, and regressing cell count out of each embedding dimension — scored once on eight experiments no earlier run had
+          touched: 1,150 wells, 862 knockouts, 72 plates.
+        </p>
+        <p>
+          <strong>Third protocol.</strong> Control wells cut into ten bins by nuclei fraction; each knockout compared only with
+          controls in its own bin, with the built-in check that the cell count itself score between 0.45 and 0.55. Scored once on
+          fifteen further experiments: 2,108 wells on 135 plates; 1,533 of 1,578 knockouts had a control with a matching count.
+        </p>
+        <p>
+          <strong>Fourth protocol.</strong> The two checks made after the third run, fixed in advance: deciles drawn within each
+          experiment, so a knockout is compared only with controls from its own experiment and cell-count range<Ref n={18} />, and
+          the above-median comparison. Scored once on fifteen more experiments: 2,064 wells on 135 plates; the within-bin nuclei count
+          scored 0.490.
+        </p>
+        <p>
+          <strong>Verification.</strong> All four protocols, the detectors, the plate bootstrap and the results are committed with 14
+          unit tests, and the whole evaluation reruns in about a minute on a laptop.
+        </p>
+      </div>
 
-      <h2>Status</h2>
-      <p className="status-line">
-        <strong>Results committed, four runs.</strong> All four protocols, the detectors, plate bootstrap and results are committed with 14 unit tests, and
-        the whole evaluation reruns in about a minute on a laptop. No images or trained models are committed, because the dataset
-        licence treats trained models as derivative technology. The one deviation was an Apple-silicon training crash fixed before any
-        score was produced; no setting changed.
-      </p>
-      <p>
-        Next: name what the embeddings see in depleted wells, by comparing knockouts and controls within the lowest-count bins on
-        interpretable features such as nuclear size, shape and intensity.
-      </p>
-      <p>
-        We used the RxRx3-core dataset, available from Recursion Pharmaceuticals at{" "}
-        <a href="https://www.rxrx.ai" target="_blank" rel="noopener">
-          rxrx.ai
-        </a>
-        , under Recursion&apos;s licensing terms. The dataset was not modified.
-      </p>
+      <div className="endmatter">
+        <h2>Data availability</h2>
+        <p>
+          We used the RxRx3-core dataset, available from Recursion Pharmaceuticals at{" "}
+          <a href="https://www.rxrx.ai" target="_blank" rel="noopener">
+            rxrx.ai
+          </a>
+          , under Recursion&apos;s licensing terms. The dataset was not modified. No images or trained models are committed with the
+          project, because the dataset licence treats trained models as derivative technology.
+        </p>
+        <h2>Code availability</h2>
+        <p>
+          The analysis repository is private. The four protocols — settings, score directions, comparisons and written expectations —
+          are summarized here and recorded in full in the project&apos;s protocol documents, alongside the committed results and unit
+          tests.
+        </p>
+        <h2>Pre-registration statement</h2>
+        <p>
+          Pre-registered means committed to the project&apos;s own repository before the corresponding detectors were trained or test
+          wells loaded, not lodged with an external registry. Four protocols to date, each scored once on experiments no earlier run
+          had touched; wrong written expectations stay in the protocols as written, and every analysis made after seeing a score is
+          labelled as such above. The one deviation was an Apple-silicon training crash fixed before any score was produced; no
+          setting changed.
+        </p>
+        <h2>Competing interests</h2>
+        <p>None.</p>
+      </div>
 
-      <h2>References</h2>
+      <h2 id="references">References</h2>
       <ol className="references">
         <li>Bray MA, Singh S, Han H, et al. Cell Painting, a high-content image-based assay for morphological profiling using multiplexed fluorescent dyes. <em>Nature Protocols</em> 11, 1757–1774 (2016). <a href="https://doi.org/10.1038/nprot.2016.105">doi:10.1038/nprot.2016.105</a>.</li>
         <li>Fay MM, Kraus O, Victors M, et al. RxRx3: Phenomics map of biology. <em>bioRxiv</em> (2023). <a href="https://doi.org/10.1101/2023.02.07.527350">doi:10.1101/2023.02.07.527350</a>.</li>
