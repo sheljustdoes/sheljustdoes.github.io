@@ -1,4 +1,4 @@
-import Figure from "../Figure";
+import InteractiveFigure from "../InteractiveFigure";
 
 export const metadata = { title: "iridis. — shel." };
 
@@ -44,9 +44,11 @@ export default function IridisPage() {
         yellowness. Predicting type from the five colour features reaches 35–42% accuracy, where always guessing the commonest type
         scores 34%. Earlier work found the same: skin tone estimated from images agrees poorly with Fitzpatrick labels [9, 11, 12].
       </p>
-      <Figure
+      <InteractiveFigure
         n={1}
         src="/projects/iridis/fig1_types.png"
+        spec="/projects/iridis/interactive/fig1.json"
+        slug="iridis"
         alt="Three panels. a: box plots of lightness L* for Fitzpatrick types I to VI; medians fall from 63 to 43 but the boxes overlap widely. b: box plots of b* by type, rising from I to IV and falling for V and VI. c: horizontal bars of variance explained by type: L* 7%, a* 4%, b* 12%, chroma 9%, hue 1%."
         lead="Fitzpatrick type explains little of the colour measured from the same images."
       >
@@ -54,7 +56,7 @@ export default function IridisPage() {
         box is filled with that type&apos;s median measured colour; image counts are printed along the bottom. <b>b</b>, The same for b*,
         the yellow–blue axis. <b>c</b>, Share of each feature&apos;s variance explained by type (η²). All values are from uncalibrated
         clinical photographs, one per image.
-      </Figure>
+      </InteractiveFigure>
       <p>
         <strong>Masking does not help.</strong> Isolating skin from background and lesion was expected to make type more predictable,
         because it removes an obvious source of contamination. Accuracy stayed flat or fell slightly. The weak link is not a masking
@@ -68,9 +70,11 @@ export default function IridisPage() {
         pulled 62 of the 120 initial clusters into one: that cluster holds 68% of the images and spans nearly the whole lightness range.
         Against always guessing it, 96% is a smaller gain than it looks.
       </p>
-      <Figure
+      <InteractiveFigure
         n={2}
         src="/projects/iridis/fig2_clusters.png"
+        spec="/projects/iridis/interactive/fig2.json"
+        slug="iridis"
         alt="Three panels. a: bar chart of the 50 discovered clusters by share of images; the largest holds 68%, the rest at most 4% each. b: histogram of lightness for all images with the largest cluster overlaid, covering L* from about 36 to 90. c: accuracy dot plot; Fitzpatrick type 35 to 42% against a 34% commonest-class line; discovered cluster 96% against a 68% line."
         lead="The cluster comparison measures the clustering, not the scale."
       >
@@ -78,7 +82,7 @@ export default function IridisPage() {
         Lightness of every image (light) and of the largest cluster&apos;s members (dark). <b>c</b>, Test accuracy of each model and feature
         set against the accuracy of always predicting the commonest class (black line; for clusters, from the masked clustering).
         Filled markers use masked features, open markers unmasked.
-      </Figure>
+      </InteractiveFigure>
       <p>
         <strong>Are there colour categories at all?</strong> A pre-registered retest replaced the chaining merge with one that cannot
         chain: two groups join only if every colour across them is within the perceptual threshold. Colour then splits into 92 clusters,
