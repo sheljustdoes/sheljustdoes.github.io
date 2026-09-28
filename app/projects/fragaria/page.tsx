@@ -1,4 +1,5 @@
 import Figure from "../Figure";
+import InteractiveFigure from "../InteractiveFigure";
 
 // Linked from the résumé but kept out of search results while the open work below is unfinished.
 export const metadata = { title: "fragaria. — shel.", robots: { index: false, follow: true } };
@@ -212,8 +213,9 @@ export default function FragariaPage() {
         written expectation said missingness would pass. It mostly did not.
       </p>
 
-      <Figure
+      <InteractiveFigure
         n={2}
+        spec="/projects/fragaria/interactive/fig2.json"
         src="/projects/fragaria/fig2_gates.png"
         alt="Two panels. a: strip plot of stability for each of four pipeline families; PCA settings cluster above 0.8, UMAP to HDBSCAN settings mostly between 0.2 and 0.6. b: scatter of missingness effect size against stability; most stable settings sit above the 0.2 missingness bar, and only two settings fall in the passing region."
         lead="Stability and the gates across all 189 settings."
@@ -222,7 +224,7 @@ export default function FragariaPage() {
         line, the pre-registered bar of 0.80. <b>b</b>, Missingness effect size (η² of per-accession missingness across clusters) against
         stability. Shaded, the region that passes both. Grey, fails stability or validity; blue, stable and valid but fails another gate;
         red, passes every gate. Only two settings, both PCA on 10 components followed by HDBSCAN, reach the shaded region.
-      </Figure>
+      </InteractiveFigure>
 
       <p>
         The structure that passes follows germplasm source (Fig. 3a, b). The largest cluster, 567 samples, is 96% breeding-program
@@ -430,8 +432,9 @@ export default function FragariaPage() {
         among them. The study&apos;s method [21] fits its strongest markers as covariates and controls the false discovery rate
         instead, which finds more.
       </p>
-      <Figure
+      <InteractiveFigure
         n={9}
+        spec="/projects/fragaria/interactive/fig9.json"
         src="/projects/fragaria/fig9_stage2x_b.png"
         alt="Two panels. a: association scans across the genome for fruit size, with three markers above the significance line, all on homoeologous group 1, and for yield, with none. b: for each fruit-size locus, the frequency of the size-increasing allele by group. At 1B, 4.1 Mb: F. chiloensis 0.43, eastern virginiana 0.23, western 0.09, Florida program 0.40, UC Davis 0.07, programs pooled 0.21. At 1A, 4.8 Mb: all wild groups 0.03 or less, programs pooled 0.10. At 1C, 1.2 Mb: eastern virginiana 0.27, chiloensis and western virginiana near 0, programs pooled 0.16."
         lead="Three fruit-size signals on group 1, which a follow-up test showed to be one locus."
@@ -439,7 +442,7 @@ export default function FragariaPage() {
         <b>a</b>, Mixed-model association scans; dashed line, the Bonferroni threshold. <b>b</b>, Frequency of the allele that increases
         fruit size, by group, at each locus; vertical bar, the two programs pooled. Positions are each marker&apos;s best genome tag at
         this sparse first pass; the dense pass (Fig. 10) placed the signal.
-      </Figure>
+      </InteractiveFigure>
       <p>
         The three signals are one. They sit on three subgenomes, which segregate independently, yet their markers are strongly
         associated (r² 0.40–0.68, against a background of 0.05), and conditioning on the strongest removes the other two. Read naively,
@@ -539,8 +542,9 @@ export default function FragariaPage() {
         follow: no strawberry population call set of structural variants or TE insertions, with genotypes for each accession, is
         openly downloadable, and calling one from reads is outside this project&apos;s scope.
       </p>
-      <Figure
+      <InteractiveFigure
         n={12}
+        spec="/projects/fragaria/interactive/fig12.json"
         src="/projects/fragaria/fig12_te_distribution.png"
         alt="Two panels. a: 28 small line plots, one per octoploid chromosome in rows by homoeologous group and columns by subgenome, showing gene, Gypsy, Copia and unclassified repeat density along each chromosome, with a shaded gene-poor region that usually reaches one chromosome end. b: stacked bars of genic, promoter, near and distal shares for array probes and genome bases; overall 46% of probes are genic against 36% of bases, and 3% of probes are distal against 6% of bases."
         lead="TEs rise where genes thin, and the array sits close to genes."
@@ -550,7 +554,7 @@ export default function FragariaPage() {
         gene-poor region. <b>b</b>, Where the 50K array&apos;s 38,881 probes placed on FaRR1 sit relative to its genes (genic; up to 2
         kb upstream; within 10 kb; farther), beside the genome&apos;s own share of bases, overall and inside and outside the gene-poor
         regions.
-      </Figure>
+      </InteractiveFigure>
 
       <h2>Limits</h2>
       <p>
