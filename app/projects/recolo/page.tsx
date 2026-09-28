@@ -1,4 +1,4 @@
-import Figure from "../Figure";
+import InteractiveFigure from "../InteractiveFigure";
 
 export const metadata = { title: "recolo. — shel." };
 
@@ -65,9 +65,11 @@ export default function RecoloPage() {
         memories. The loss comes from the design choices themselves. The main one is that forgetting on a fixed clock assumes the
         timescale of future questions is known in advance. Here it was not, and nothing in recolo adapts to it.
       </p>
-      <Figure
+      <InteractiveFigure
         n={1}
         src="/projects/recolo/fig1_v1.png"
+        spec="/projects/recolo/interactive/fig1.json"
+        slug="recolo"
         alt="Two panels. a: answer accuracy with 95% intervals on 99 held-out questions: plain retrieval 73%, recolo with decay off 71%, full history 43%, recolo with consolidation off 34%, with salience off 33%, as shipped 32%, most recent turns 9%. b: accuracy by question type for plain retrieval, recolo with decay off, and recolo as shipped; the shipped version is lowest on every type, 4% on multi-session questions."
         lead="As shipped, recolo lost to plain retrieval, and switching decay off recovered the whole gap."
       >
@@ -75,7 +77,7 @@ export default function RecoloPage() {
         same memories; 95% intervals from a bootstrap over questions. Switching off salience or consolidation changes nothing; switching
         off decay recovers 38 points. <b>b</b>, The same three approaches by question type (number of questions in brackets). Abstention
         and preference questions (six each) are omitted.
-      </Figure>
+      </InteractiveFigure>
 
       <p>
         A second protocol built decay that adapts to the history it runs on: relative to the history&apos;s span, counted in sessions
@@ -88,16 +90,18 @@ export default function RecoloPage() {
         retrieval on knowledge-update questions. Two protocols, one conclusion: decay, fixed or adaptive, does not help an agent answer
         from its own history. At best it does no harm.
       </p>
-      <Figure
+      <InteractiveFigure
         n={2}
         src="/projects/recolo/fig2_v2.png"
+        spec="/projects/recolo/interactive/fig2.json"
+        slug="recolo"
         alt="Two panels. a: evidence-turn recall on the tuning set for each decay mode across its grid, from strongest to weakest decay; span-relative rises from 34% to 71%, session-counted from 15% to 44%, tie-break stays at 96 to 97%, level with plain retrieval at 97%. b: answer accuracy on 119 held-out questions: plain retrieval 76%, tie-break 77%, span-relative 55%, session-counted 34%, most recent turns 12%."
         lead="Adaptive decay only stopped hurting when it stopped decaying."
       >
         <b>a</b>, Evidence-turn recall on the 61 tuning questions for every setting of each decay mode, strongest decay on the left. Recall
         rises as decay weakens, and only the tie-break mode, which can barely move anything, matches plain retrieval (dashed line).
         <b>b</b>, Answer accuracy on 119 held-out questions for the chosen setting of each mode, with 95% intervals.
-      </Figure>
+      </InteractiveFigure>
       <p>
         A third protocol turned decay off and gave the other two mechanisms the form the results pointed to. Salience came from
         recurrence, a topic returning in a later session, and was allowed only to break near-ties. Consolidation stopped showing its
@@ -108,9 +112,11 @@ export default function RecoloPage() {
         was built for, and both intervals end at zero. A gate fixed in advance sends only an arm that beats plain retrieval to the paid
         answer-accuracy step, so this protocol cost nothing.
       </p>
-      <Figure
+      <InteractiveFigure
         n={3}
         src="/projects/recolo/fig3_v3.png"
+        spec="/projects/recolo/interactive/fig3.json"
+        slug="recolo"
         alt="Three panels. a: plain retrieval's evidence recall on the tuning set by context budget, from 72% at 500 tokens to 97% at 6,000, with multi-session questions lower, 69% at 1,000 tokens; a line marks the 1,000-token v3 budget. b: recall difference from plain retrieval for each tuning setting; the chosen weakest settings are at zero and every stronger setting is below, down to minus 19 points. c: held-out differences with 95% intervals: salience minus 0.5 points, the index minus 0.6 points on multi-session questions, both intervals ending at zero; the index overall plus 0.4, a secondary comparison."
         lead="With decay off, neither salience nor consolidation retrieves evidence better than plain similarity."
       >
@@ -119,7 +125,7 @@ export default function RecoloPage() {
         against plain retrieval. Settings strong enough to change the ranking all lower recall, so the fixed rule chose the weakest.
         <b>c</b>, The pre-registered held-out comparisons on 171 answerable questions, with 95% intervals. Neither primary comparison
         beats plain retrieval, so the gate kept the paid answer-accuracy run from spending anything.
-      </Figure>
+      </InteractiveFigure>
       <p>
         Three protocols, one answer: none of recolo&apos;s bio-inspired mechanisms helps an agent choose what to read from its own
         history. That is not a new finding on its own. Two recent evaluations found that a biologically inspired memory with
@@ -132,16 +138,32 @@ export default function RecoloPage() {
         time order (as in every earlier run); without dates, in time order; and without dates, shuffled. It ran on all 72 such questions
         and cost $0.69.
       </p>
-      <Figure
+      <InteractiveFigure
         n={4}
         src="/projects/recolo/fig4_v4.png"
+        spec="/projects/recolo/interactive/fig4.json"
+        slug="recolo"
         alt="Two panels. a: answer accuracy with 95% intervals on 72 knowledge-update questions: dated and in order 82%, undated and in order 78%, undated and shuffled 67%. b: accuracy differences with 95% intervals: all time cues removed, the primary comparison, plus 15 points with an interval from plus 3 to plus 28; date stamps alone plus 4, interval crossing zero; order alone plus 11, interval crossing zero."
         lead="The reader already does recency itself, mostly from the order the memories are shown in."
       >
         <b>a</b>, Accuracy on the same retrieved turns, shown three ways. <b>b</b>, Paired differences with 95% intervals. Removing every
         time cue costs 15 points (the pre-registered primary comparison). Neither cue alone is detectable at this size, but order carries
         most of the effect.
-      </Figure>
+      </InteractiveFigure>
+
+      <InteractiveFigure
+        n={5}
+        src="/projects/recolo/fig5_questions.png"
+        spec="/projects/recolo/interactive/fig5.json"
+        slug="recolo"
+        alt="A grid of 99 rows, one per held-out question, by seven approaches; green cells mark answers the judge accepted. Plain retrieval and decay-off columns are mostly green; the shipped recolo column is mostly grey, and the multi-session block is almost entirely grey outside the first two columns."
+        lead="The questions themselves, one row each: where each approach earned and lost its accuracy."
+      >
+        Every held-out question from the first evaluation, grouped by type, against the seven approaches of Fig. 1; green means the
+        judge accepted the answer. Hovering a cell shows the question, its expected answer, and that approach&apos;s verdict. The
+        multi-session block is where the shipped configuration collapses, and the pattern is question-by-question, not an artifact of a
+        few outliers.
+      </InteractiveFigure>
 
       <h2>What it taught</h2>
       <p>

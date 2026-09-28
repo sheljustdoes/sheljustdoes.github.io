@@ -1,4 +1,4 @@
-import Figure from "../Figure";
+import InteractiveFigure from "../InteractiveFigure";
 
 export const metadata = { title: "noul. — shel." };
 
@@ -131,9 +131,11 @@ export default function NoulPage() {
         difference (16 of 17 complete either way). The default stays as it was. The one held-out miss was a source file pushed out of
         the top five by test files that mention the same functions, which is what gets measured next.
       </p>
-      <Figure
+      <InteractiveFigure
         n={1}
         src="/projects/noul/fig1_find.png"
+        spec="/projects/noul/interactive/fig1.json"
+        slug="noul"
         alt="Three panels showing the share of queries with every correct file in the top five, split into single-file and multi-file answers. a: on 35 development queries, BM25 22 of 26 single and 5 of 9 multi; reranking every chunk 26 of 26 and 6 of 9; two-stage 26 of 26 and 4 of 9. b: shortlist variants on the same queries: top 20 chunks 4 of 9 multi-file, one or two chunks per file 6 of 9, top 50 chunks 6 of 9 at 5.2 seconds a query against 2.1. c: on 17 held-out queries, top 20 chunks and one chunk per file both 10 of 10 single and 6 of 7 multi."
         lead="Single-file answers are solved; multi-file answers are where the shortlist loses files, and the fix did not replicate."
       >
@@ -143,7 +145,21 @@ export default function NoulPage() {
         designed after these queries exposed the problem, so their gain here is partly tuning. <b>c</b>, The pre-registered test on a
         third codebase, scored once: no difference. Development labels are Claude-drafted and unverified; held-out labels each carry a
         cited line checked by script.
-      </Figure>
+      </InteractiveFigure>
+
+      <InteractiveFigure
+        n={2}
+        src="/projects/noul/fig2_queries.png"
+        spec="/projects/noul/interactive/fig2.json"
+        slug="noul"
+        alt="A dot per benchmark query, 52 answerable queries across three repos, showing the share of that query's correct files in the top five. Almost every dot sits at 100%; a handful of multi-file queries sit at 50% or below. Buttons switch between four shortlist variants."
+        lead="Every benchmark query, one row each: which files were asked for, and what came back."
+      >
+        The 52 answerable queries across the three benchmark repos, under each shortlist variant (buttons). Squares are single-file
+        answers, circles multi-file; the position is the share of that query&apos;s correct files in the top five. Hovering a dot shows
+        the query, its gold files, and the five files actually retrieved with their scores — the fastest way to see <i>which</i> file a
+        multi-file answer loses.
+      </InteractiveFigure>
       <p>
         <strong>It cannot say &ldquo;not here&rdquo;.</strong> On each codebase, two or three answerable queries score below the
         strongest query for a feature that does not exist, and the cut-off sits at a different score in each. Raw reranker scores are

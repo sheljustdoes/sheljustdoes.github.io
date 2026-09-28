@@ -1,4 +1,4 @@
-import Figure from "../Figure";
+import InteractiveFigure from "../InteractiveFigure";
 
 export const metadata = { title: "argus. — shel." };
 
@@ -177,9 +177,11 @@ export default function ArgusPage() {
         signal beyond cell count. The control did not do its job, and the page says so rather than reporting the pass.
       </p>
 
-      <Figure
+      <InteractiveFigure
         n={1}
         src="/projects/argus/fig1_runs.png"
+        spec="/projects/argus/interactive/fig1.json"
+        slug="argus"
         alt="Three panels, one per test set, each showing ROC-AUC with 95% intervals. In all three the nuclei count and the embeddings sit at about 0.70 inside the same band; the whole-image autoencoder sits at 0.32 in v1 and v2; the nuclear-pixel autoencoder at about 0.48 to 0.50; fusion at 0.53 in v1."
         lead="Across three sets of experiments, nothing beats counting nuclei when wells are compared overall."
       >
@@ -187,7 +189,7 @@ export default function ArgusPage() {
         band is the nuclei count&apos;s interval; the dotted line is chance. <b>a</b>, v1, six held-out experiments. <b>b</b>, v2, eight
         experiments nobody had scored. <b>c</b>, v3, fifteen more, compared without matching (the matched comparison is Fig. 2). Each
         test set was scored once.
-      </Figure>
+      </InteractiveFigure>
 
       <h2>A third run: compare like with like</h2>
       <p>
@@ -234,9 +236,11 @@ export default function ArgusPage() {
         time, which is exactly why the earlier runs could not see the difference: a global metric rewards whatever shortcut the data
         offers [13].
       </p>
-      <Figure
+      <InteractiveFigure
         n={2}
         src="/projects/argus/fig2_matched.png"
+        spec="/projects/argus/interactive/fig2.json"
+        slug="argus"
         alt="Three panels. a: stacked bars of wells per nuclei-fraction decile; about 53 controls in each, and the first decile holding 412 PLK1 and 184 MTOR wells. b: AUC within each decile; the nuclei count stays between 0.44 and 0.59; the embeddings reach 0.85, 0.74 and 0.68 in deciles 1 to 3 and 0.39 to 0.63 in the rest. c: unmatched versus matched AUC; the nuclei count falls from 0.69 to 0.52, the embeddings stay at 0.69, MTOR at 0.58; post hoc within-experiment matching gives 0.59 and 0.55."
         lead="Matched on cell count, the embeddings still separate knockouts, mostly among the most depleted wells."
       >
@@ -245,7 +249,7 @@ export default function ArgusPage() {
         embeddings are strongest in the three lowest-count deciles and near chance above them. This per-decile view was drawn after
         scoring. <b>c</b>, Each detector unmatched (open) and matched (filled, 95% interval). Light markers: deciles drawn within each
         experiment, a stricter match checked after scoring.
-      </Figure>
+      </InteractiveFigure>
       <p>
         Figure 2b, drawn after scoring, adds a qualification. The embeddings&apos; matched signal is concentrated among the wells with the
         fewest nuclei: 0.85, 0.74 and 0.68 in the three lowest deciles, between 0.39 and 0.63 in the other seven. What they see beyond a

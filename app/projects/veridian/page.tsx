@@ -1,4 +1,4 @@
-import Figure from "../Figure";
+import InteractiveFigure from "../InteractiveFigure";
 
 export const metadata = { title: "veridian. — shel." };
 
@@ -99,9 +99,11 @@ export default function VeridianPage() {
         at those claims. The evidence is the held-out set: 21 claims written before any fix and scored once, where the pipeline reached
         86% again and the original rule 48%.
       </p>
-      <Figure
+      <InteractiveFigure
         n={1}
         src="/projects/veridian/fig1_check.png"
+        spec="/projects/veridian/interactive/fig1.json"
+        slug="veridian"
         alt="Three panels. a: accuracy with 95% intervals; development: old rule 18 of 51, first run 28 of 51, after fixes 44 of 51; held out: old rule 10 of 21, after fixes 18 of 21. b: confusion grid for the pipeline on held-out claims: supported 9 right and 1 called unsupported; contradicted 3 of 3 right; unsupported 6 right and 2 called contradicted. c: the old rule calls all 21 claims supported."
         lead="Check reaches 86% on claims it had never seen; the old rule called everything supported."
       >
@@ -110,7 +112,7 @@ export default function VeridianPage() {
         key. Its three errors: one supported claim called unsupported, and two unsupported claims called contradicted. <b>c</b>, The
         original rule, which answered &ldquo;supported&rdquo; to every claim, so its accuracy is just the share of supported claims. No
         claim in either key is contested, so that column is omitted.
-      </Figure>
+      </InteractiveFigure>
       <p>
         Explore&apos;s result is about the corpus rather than the method. Refit on resampled papers [13, 14], no number of groups reproduces itself
         well enough to trust, and the groups barely separate at any number. The map in the demo says so beside it.
@@ -125,16 +127,18 @@ export default function VeridianPage() {
         stability alone can mislead: a partition can be stable and still wrong [16], and stability tends to favour the fewest groups, which
         is where both control corpora and the metformin map landed.
       </p>
-      <Figure
+      <InteractiveFigure
         n={2}
         src="/projects/veridian/fig2_explore.png"
+        spec="/projects/veridian/interactive/fig2.json"
+        slug="veridian"
         alt="Two panels. a: bar chart of resampling stability by number of groups from 3 to 12; 3 groups reach 0.63, all others between 0.24 and 0.40, all below a 0.80 line; the legacy map's 10 groups reach 0.28. b: silhouette by number of groups, flat between 0.06 and 0.08."
         lead="The metformin corpus has no grouping stable enough to map with confidence."
       >
         <b>a</b>, Resampling stability of k-means partitions of the 150 abstract embeddings: median adjusted Rand index between refits on
         20 draws of 80% of the papers. The required 0.80 is never reached; three groups, the most stable, reach 0.63, and the ten groups of the
         original map reach 0.28. <b>b</b>, Cosine silhouette [17] at each k, which stays below 0.09: the groups barely separate.
-      </Figure>
+      </InteractiveFigure>
 
       <h2>Related work</h2>
       <p>

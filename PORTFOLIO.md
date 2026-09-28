@@ -1109,9 +1109,15 @@ isolates a node's connections; selecting one opens a detail panel whose connecti
 navigate the graph without returning to the canvas. Pannable and zoomable, with
 hand-rolled pointer handling and no visualization dependency.
 
-Six projects carry long-form write-ups — iridis, topos, veridian, menhir, lambent and
-recolo — reachable from their node in the graph. menhir's is the only public account of a
-private codebase; recolo's reports a result that went against the design, as measured.
+Ten projects carry long-form write-ups — iridis, topos, veridian, menhir, lambent,
+recolo, argus, fragaria, noul and lyco — reachable from their node in the graph. menhir's
+is the only public account of a private codebase; recolo's reports a result that went
+against the design, as measured. The write-ups' figures are interactive (Plotly): hover
+for exact values, zoom, legend toggles, and a data table under each figure, with the
+static image kept for narrow screens, print and no-JS readers (fragaria's remaining
+figures are mid-conversion). recolo and noul each add a view that exists only
+interactively — a per-question correctness grid, and a per-query retrieval explorer that
+shows what was asked for and what came back.
 
 It also hosts this file, which is the canonical description of everything above. Every
 project surface on the site — the résumé page, grouped by area, the graph's project

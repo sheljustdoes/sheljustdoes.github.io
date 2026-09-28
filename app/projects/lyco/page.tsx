@@ -67,6 +67,7 @@ export default function LycoPage() {
         n={1}
         src="/projects/lyco/fig1_gate.png"
         spec="/projects/lyco/interactive/fig1.json"
+        slug="lyco"
         alt="Two overlapping curves showing the share of structural variants at or above each level of concordance with long-read calls, from 0.5 to 1. The curve for 19,102 TE-derived variants and the curve for 21,514 non-TE variants lie on top of each other; both have a median of 0.984."
         lead="Transposable-element variants are genotyped as well as any other variant."
       >
@@ -101,6 +102,7 @@ export default function LycoPage() {
         n={2}
         src="/projects/lyco/fig2_history.png"
         spec="/projects/lyco/interactive/fig2.json"
+        slug="lyco"
         alt="Two panels. a: a histogram of 1,000 random re-splits of the matched variants, tightly clustered around a correlation of 0.998, with the observed correlation between TE-derived and non-TE relationship matrices, 0.991, marked far to the left. b: residual TE-specific relatedness for six pairs of groups, each with a grey null band; wild–cherry lies above its band, cherry–big-fruited below, and cherry–cherry inside."
         lead="TE-derived variants tell a different story about who is related to whom."
       >
@@ -151,6 +153,7 @@ export default function LycoPage() {
         n={3}
         src="/projects/lyco/fig3_element.png"
         spec="/projects/lyco/interactive/fig3.json"
+        slug="lyco"
         alt="Two panels. a: for Gypsy and for other transposable-element variants, distance from a random-split null in standard deviations, in pericentromeres and arms under four definitions or matching schemes; every Gypsy point lies between 8 and 42 standard deviations out, every other-TE point between 4 and 10, all right of a threshold near 3. b: Gypsy-specific relatedness by group pair in arms and pericentromeres; wild–cherry and big-fruited–big-fruited lie above their null bands and cherry–big-fruited below, in both regions."
         lead="Gypsy's different history holds outside the pericentromeres."
       >
@@ -188,6 +191,7 @@ export default function LycoPage() {
         n={4}
         src="/projects/lyco/fig4_proportions.png"
         spec="/projects/lyco/interactive/fig4.json"
+        slug="lyco"
         alt="Three panels. a: share of the genome in each transposable-element class, this annotation against a published summary; Gypsy and DNA transposons lead in both. b: stacked bars of TE-derived, ambiguous and non-TE structural variants for deletions and insertions in three size classes; the ambiguous share grows with size to about two thirds above 1 kb. c: for each family, its share of the genome's element sequence against its share of variable insertions by count and by bases; Copia is 11% of the genome but 32% of variable-insertion bases."
         lead="Transposable elements make up most of the genome and most large variants, but not every family in proportion."
       >
@@ -208,6 +212,7 @@ export default function LycoPage() {
         n={5}
         src="/projects/lyco/fig5_distribution.png"
         spec="/projects/lyco/interactive/fig5.json"
+        slug="lyco"
         alt="Two panels. a: twelve small plots, one per chromosome, of gene density and variant density along the chromosome, with pericentromeres shaded; Gypsy variants peak inside the shaded pericentromeres, genes and non-TE variants toward the chromosome ends. b: stacked bars of variants inside genes, in promoters, within 10 kb or farther, for Gypsy, other TE and non-TE variants in arms and in pericentromeres; Gypsy is least often genic in both."
         lead="Gypsy variants crowd the pericentromeres and keep away from genes."
       >
@@ -225,6 +230,7 @@ export default function LycoPage() {
         n={7}
         src="/projects/lyco/fig7_chromosomes.png"
         spec="/projects/lyco/interactive/fig7.json"
+        slug="lyco"
         alt="Two panels. a: for each of the 12 chromosomes, a bar for the share of all repeats (61 to 74%) with markers for Gypsy, DNA transposons and Copia; Gypsy and DNA transposons each sit near 20%, Copia near 7%, with chromosome 6 lowest in Gypsy and highest in DNA transposons. b: for each chromosome, Gypsy's share of sequence in the arms (4 to 11%) joined to its share in the pericentromere (23 to 32%)."
         lead="Every chromosome has the same composition, and the same Gypsy-rich middle."
       >
@@ -245,6 +251,7 @@ export default function LycoPage() {
         n={6}
         src="/projects/lyco/fig6_trait_genes.png"
         spec="/projects/lyco/interactive/fig6.json"
+        slug="lyco"
         alt="Horizontal stacked bars for 29 tomato trait genes showing how many Gypsy, other TE, ambiguous and non-TE variants lie within 5 kb, with green triangles marking Copia variants of at least 4 kb. TomLoxC has the most variants, about 44; complete-length Copia variants appear near SUN, ALMT9, TomLoxC, AAT1, PPEAT, SP, J2, JOINTLESS and I-3."
         lead="Complete-length Copia insertions turn up near many well-studied trait genes."
       >
