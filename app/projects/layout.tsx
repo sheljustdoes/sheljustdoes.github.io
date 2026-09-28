@@ -41,6 +41,37 @@ article .kicker {
   margin-bottom: 16px; display: block;
 }
 article .tagline { font-style: italic; color: #4a4540; font-size: 1.1rem; margin-bottom: 32px; padding-bottom: 28px; border-bottom: 1px solid var(--parchment); }
+article .byline {
+  font-family: var(--mono); font-size: 0.72rem; color: #4a4540; margin: 0 0 24px;
+}
+article .byline .sep { color: var(--taupe); margin: 0 8px; }
+article .abstract {
+  font-size: 0.95rem; line-height: 1.65; color: #333130; margin: 0 0 36px; padding: 20px 24px;
+  background: rgba(227, 220, 207, 0.28); border-top: 1px solid var(--parchment); border-bottom: 1px solid var(--parchment);
+}
+article .abstract .abstract-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--taupe); display: block; margin-bottom: 8px; }
+article sup.ref { font-size: 0.68em; line-height: 0; }
+article sup.ref a { color: var(--terracotta); text-decoration: none; }
+article sup.ref a:hover { text-decoration: underline; }
+article .box {
+  margin: 24px 0 28px; padding: 18px 22px; border: 1px solid var(--parchment); background: rgba(227, 220, 207, 0.18);
+  font-size: 0.9rem;
+}
+article .box .box-lead { font-weight: 600; color: var(--charcoal); display: block; margin-bottom: 10px; }
+article .box p { margin: 0 0 10px; }
+article .box p:last-child { margin-bottom: 0; }
+article .box dt { font-weight: 600; color: var(--charcoal); float: left; clear: left; margin-right: 8px; }
+article .box dd { margin: 0 0 8px; }
+article .article-table { margin: 28px 0 32px; font-size: 0.85rem; }
+article .article-table figcaption { text-align: left; font-size: 0.85rem; color: #4a4540; margin-bottom: 10px; }
+article .article-table .fig-lead { font-weight: 600; color: var(--charcoal); }
+article .article-table table, article > table { border-collapse: collapse; width: 100%; font-size: 0.82rem; margin: 0 0 24px; }
+article .article-table th, article .article-table td, article > table th, article > table td { text-align: left; padding: 6px 10px; border-top: 1px solid var(--parchment); vertical-align: top; }
+article .article-table thead th, article > table thead th { border-top: none; border-bottom: 1.5px solid var(--taupe); font-weight: 600; color: var(--charcoal); }
+article .article-table tbody tr:last-child td, article > table tbody tr:last-child td { border-bottom: 1.5px solid var(--taupe); }
+article .article-table .footnote { font-size: 0.75rem; color: #4a4540; margin-top: 6px; }
+article .endmatter { font-size: 0.85rem; color: #4a4540; }
+article .endmatter p { color: #4a4540; margin-bottom: 12px; }
 article h2 {
   font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--taupe);
   margin: 40px 0 14px; display: flex; align-items: center; gap: 12px;

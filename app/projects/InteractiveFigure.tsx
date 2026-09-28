@@ -41,9 +41,9 @@ function loadPlotly(): Promise<PlotlyLike> {
  * loads. The static PNG shows first and stays as the fallback: without JavaScript, on narrow
  * screens, in print, or if the chart fails to load. The spec's table is offered as a data view.
  */
-export default function InteractiveFigure({ n, spec, src, alt, lead, children, slug = "figure", minWidth = MIN_WIDTH }: {
+export default function InteractiveFigure({ n, spec, src, alt, lead, children, slug = "figure", minWidth = MIN_WIDTH, label = "Fig." }: {
   n: number; spec: string; src: string; alt: string; lead: string; children: React.ReactNode;
-  slug?: string; minWidth?: number;
+  slug?: string; minWidth?: number; label?: string;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const plot = useRef<HTMLDivElement>(null);
@@ -108,7 +108,7 @@ export default function InteractiveFigure({ n, spec, src, alt, lead, children, s
       </div>
       <figcaption>
         <span className="fig-lead">
-          Fig. {n} | {lead}
+          {label} {n} | {lead}
         </span>{" "}
         {children}
         {state === "ready" && <span className="ifig-hint"> Hover for values; drag to zoom, double-click to reset; click a legend entry to hide it.</span>}
