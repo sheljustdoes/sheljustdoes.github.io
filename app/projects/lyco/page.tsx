@@ -211,6 +211,21 @@ export default function LycoPage() {
         nearest gene: inside it, within 2 kb upstream, within 10 kb, or farther.
       </Figure>
       <p>
+        <strong>Chromosome by chromosome.</strong> The same picture holds on every chromosome. Repeats make up 61–74% of each, and
+        Gypsy is three to seven times denser in each pericentromere than in its arms. Chromosome 6 stands apart, with the least Gypsy
+        and the most DNA transposon sequence; chromosome 2 has the fewest repeats, partly because its ribosomal-DNA arm is poorly
+        assembled. Tomato is diploid, so there are no subgenomes to compare.
+      </p>
+      <Figure
+        n={7}
+        src="/projects/lyco/fig7_chromosomes.png"
+        alt="Two panels. a: for each of the 12 chromosomes, a bar for the share of all repeats (61 to 74%) with markers for Gypsy, DNA transposons and Copia; Gypsy and DNA transposons each sit near 20%, Copia near 7%, with chromosome 6 lowest in Gypsy and highest in DNA transposons. b: for each chromosome, Gypsy's share of sequence in the arms (4 to 11%) joined to its share in the pericentromere (23 to 32%)."
+        lead="Every chromosome has the same composition, and the same Gypsy-rich middle."
+      >
+        <b>a</b>, Share of each chromosome in repeats overall (bars) and in three element classes (markers), one class per base.
+        <b>b</b>, Gypsy&apos;s share of sequence in each chromosome&apos;s arms (open) and pericentromere (filled).
+      </Figure>
+      <p>
         <strong>Near known genes.</strong> For 29 well-studied genes with verified identifiers, from fruit colour and size to ripening,
         flavour, plant architecture and disease resistance, every variant within 5 kb was counted. Complete-length Copia insertions sit
         near nine of them, including SUN, J2, PPEAT and I-3. Some match transposable-element alleles described before: Copia insertions
