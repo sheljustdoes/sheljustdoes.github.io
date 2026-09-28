@@ -453,7 +453,7 @@ sites can be called reproducibly under perturbation of coverage, filtering and a
 scope before any large-scale interpretation is attempted.
 
 ### lyco — what transposable-element insertions record about tomato's history
-**Status:** Results committed (Stage 1c) · *Solanum lycopersicum*, public pangenome call sets
+**Status:** Results committed (Stage 1d) · *Solanum lycopersicum*, public pangenome call sets
 
 Most structural variants in tomato are derived from transposable elements. lyco asks what
 those TE-derived variants record that other structural variants do not, working entirely
@@ -484,6 +484,11 @@ Results (2026-09-27), each scored once:
 - **Frequency spectra through domestication:** no difference after correction.
 - **Young insertions as lineage markers:** more often private to one group as registered,
   but mostly because young insertions are rarer.
+- **Introgression (2026-09-28), stopped at its gate:** a test of whether wild segments bred
+  into cultivated tomato explain the Gypsy signal required SNP-called
+  *S. pimpinellifolium*-type segments to recover five known introgressed loci first. They
+  recovered 0 of 31 carrier–locus pairs, so the test was not run; all five loci came from
+  more distant wild species that such a caller cannot see. The question stays open.
 
 ### repbox — transposable element discovery and annotation
 **Status:** Shipped · Python CLI, published · [BMC Bioinformatics (2023)](https://doi.org/10.1186/s12859-023-05419-5)
