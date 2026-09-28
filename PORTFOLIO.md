@@ -443,7 +443,7 @@ sites can be called reproducibly under perturbation of coverage, filtering and a
 scope before any large-scale interpretation is attempted.
 
 ### lyco — what transposable-element insertions record about tomato's history
-**Status:** Results committed (Stage 1b) · *Solanum lycopersicum*, public pangenome call sets
+**Status:** Results committed (Stage 1c) · *Solanum lycopersicum*, public pangenome call sets
 
 Most structural variants in tomato are derived from transposable elements. lyco asks what
 those TE-derived variants record that other structural variants do not, working entirely
@@ -467,6 +467,10 @@ Results (2026-09-27), each scored once:
   concentrated in wild–cherry and cherry–big-fruited relatedness. It reproduces among
   variants that both discovery routes (high-fidelity assemblies and long reads) could have
   found, so discovery bias is an unlikely explanation.
+- **Element or region?** The difference is carried mainly by Gypsy LTR retrotransposons.
+  A further pre-registered test compared Gypsy with non-TE variants inside the gene-poor
+  pericentromeres and inside the chromosome arms separately: Gypsy differs in both, more
+  strongly in the arms, so the signal belongs to the insertions, not to where they sit.
 - **Frequency spectra through domestication:** no difference after correction.
 - **Young insertions as lineage markers:** more often private to one group as registered,
   but mostly because young insertions are rarer.
