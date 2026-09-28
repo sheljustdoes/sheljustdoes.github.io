@@ -120,10 +120,10 @@ export const PROJECTS: Project[] = [
       "Reproducible detection of transposable element insertion-site polymorphisms in Sorghum bicolor: can insertion sites be called reproducibly under perturbation of coverage, filtering and annotation scope before any interpretation is attempted? Go/kill criteria gate escalation; the pilot has not yet run.",
   },
   {
-    id: "lyco", name: "lyco", area: "structure", status: "Results committed (Stage 1c)", date: "2026–",
+    id: "lyco", name: "lyco", area: "structure", status: "Results committed (Stage 1d)", date: "2026–",
     link: "/projects/lyco/", linkLabel: "Read the write-up →",
     summary:
-      "What do transposable-element-derived structural variants record about tomato's history that other variants do not? Pre-registered and scored once on 706 accessions from published pangenome call sets. A trait-heritability version was killed by its own power check before any trait was scored (the two classes' relationship matrices correlate at 0.97). Graph genotypes of TE variants agree with long-read calls as well as other variants do (0.984 both); TE-derived variants record a measurably different population history (0.991 against a 0.998 null), which survives a discovery-bias check and is carried by Gypsy LTR retrotransposons in the chromosome arms as well as the pericentromeres; frequency spectra show no difference; young insertions look lineage-specific mostly because they are rare.",
+      "What do transposable-element-derived structural variants record about tomato's history that other variants do not? Pre-registered and scored once on 706 accessions from published pangenome call sets. A trait-heritability version was killed by its own power check before any trait was scored (the two classes' relationship matrices correlate at 0.97). Graph genotypes of TE variants agree with long-read calls as well as other variants do (0.984 both); TE-derived variants record a measurably different population history (0.991 against a 0.998 null), which survives a discovery-bias check and is carried by Gypsy LTR retrotransposons in the chromosome arms as well as the pericentromeres; frequency spectra show no difference; young insertions look lineage-specific mostly because they are rare. A test of whether bred-in wild segments explain the Gypsy signal stopped at its positive-control gate (0 of 31 known introgressions recovered), so that question stays open.",
   },
   {
     id: "repbox", name: "repbox", area: "structure", status: "Shipped", date: "2020–2023", featured: true,
