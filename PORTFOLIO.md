@@ -1114,8 +1114,8 @@ recolo, argus, fragaria, noul and lyco — reachable from their node in the grap
 is the only public account of a private codebase; recolo's reports a result that went
 against the design, as measured. The write-ups' figures are interactive (Plotly): hover
 for exact values, zoom, legend toggles, and a data table under each figure, with the
-static image kept for narrow screens, print and no-JS readers (fragaria's remaining
-figures are mid-conversion). recolo and noul each add a view that exists only
+static image kept for narrow screens, print and no-JS readers. recolo and noul each
+add a view that exists only
 interactively — a per-question correctness grid, and a per-query retrieval explorer that
 shows what was asked for and what came back.
 

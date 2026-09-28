@@ -1,4 +1,3 @@
-import Figure from "../Figure";
 import InteractiveFigure from "../InteractiveFigure";
 
 // Linked from the résumé but kept out of search results while the open work below is unfinished.
@@ -158,8 +157,9 @@ export default function FragariaPage() {
         because as far as the notebook knew there was none (Fig. 1).
       </p>
 
-      <Figure
+      <InteractiveFigure slug="fragaria"
         n={1}
+        spec="/projects/fragaria/interactive/fig1.json"
         src="/projects/fragaria/fig1_decoding.png"
         alt="Two panels. a: bar chart of genotype codes, 0 at 28.5%, 1 at 31.0%, 2 at 39.1%, and -1 (missing) at 1.5%. b: histogram of missing calls per accession after decoding, ranging from 0.2% to 9.1%, with a red line at 0% marking what the first run saw."
         lead="The first run never decoded missing calls."
@@ -167,7 +167,7 @@ export default function FragariaPage() {
         <b>a</b>, Share of all 64 million calls by code. The file marks missing calls as −1 (1.5%, about 930,000 calls); the first run
         analyzed them as a genotype value. <b>b</b>, Per-accession missingness once −1 is decoded (1,520 accessions). The first run saw
         0% for every accession (red line), so its missingness confound had nothing to test.
-      </Figure>
+      </InteractiveFigure>
 
       <h2>The rebuilt test</h2>
       <p>
@@ -213,7 +213,7 @@ export default function FragariaPage() {
         written expectation said missingness would pass. It mostly did not.
       </p>
 
-      <InteractiveFigure
+      <InteractiveFigure slug="fragaria"
         n={2}
         spec="/projects/fragaria/interactive/fig2.json"
         src="/projects/fragaria/fig2_gates.png"
@@ -239,8 +239,9 @@ export default function FragariaPage() {
         That reading came after the result and does not change the verdict, but it changes what the next test must do.
       </p>
 
-      <Figure
+      <InteractiveFigure slug="fragaria"
         n={3}
+        spec="/projects/fragaria/interactive/fig3.json"
         src="/projects/fragaria/fig3_structure.png"
         alt="Three panels. a: first two principal components of 932 samples colored by germplasm source, with breeding-program lines along the right arm and USDA accessions at the left. b: the same projection colored by HDBSCAN clusters, with a large cluster on the program arm, a small USDA cluster, and grey noise. c: missing calls per accession by source, with means of 1.0% for the program, 1.6% for named cultivars and 2.8% for USDA accessions."
         lead="The structure that passes, and why missingness tracks it."
@@ -249,7 +250,7 @@ export default function FragariaPage() {
         source; shape repeats color. <b>b</b>, The same projection colored by the clusters of the passing setting (PCA on 10
         components, HDBSCAN with minimum cluster size 25 and minimum samples 10). Grey, noise. <b>c</b>, Missing calls per accession by
         source; bars mark means. Panel c is an analysis made after the result, not part of the pre-registered protocol.
-      </Figure>
+      </InteractiveFigure>
 
       <p>
         <strong>No UMAP setting passes.</strong> UMAP pipelines were less stable under resampling, as expected, and the few that were
@@ -264,8 +265,9 @@ export default function FragariaPage() {
         cluster is more than 18% one family.
       </p>
 
-      <Figure
+      <InteractiveFigure slug="fragaria"
         n={4}
+        spec="/projects/fragaria/interactive/fig4.json"
         src="/projects/fragaria/fig4_pedigree.png"
         alt="Two panels. a: first two principal components of all 1,520 accessions, with one 187-member full-sib family forming a tight isolated group. b: for 18 distinct PCA settings, the largest share of any cluster drawn from one family, between 1% and 18% after thinning and 72% to 100% on the full panel."
         lead="Without the family cap, clusters are families."
@@ -273,7 +275,7 @@ export default function FragariaPage() {
         <b>a</b>, First two principal components of the full panel (1,520 accessions) before thinning; red, the 187 members of one
         full-sib family. <b>b</b>, For each distinct PCA setting (18; three duplicate HDBSCAN settings removed), the largest share of any
         cluster drawn from a single full-sib family, after thinning to three per family (blue) and on the full panel (red).
-      </Figure>
+      </InteractiveFigure>
 
       <h2>The third run: fixing what the second one found</h2>
       <p>
@@ -301,8 +303,9 @@ export default function FragariaPage() {
         group. Stage 1c&apos;s rule compares only the samples both pipelines assign.
       </p>
 
-      <Figure
+      <InteractiveFigure slug="fragaria"
         n={5}
+        spec="/projects/fragaria/interactive/fig5.json"
         src="/projects/fragaria/fig5_v3.png"
         alt="Two panels. a: stability by pipeline family in the second and third runs; UMAP to HDBSCAN rises from a median of 0.35 to 0.76, other families change little. b: the first two principal components of 237 samples, with a program cluster on the right and a diverse cluster on the left; hollow markers show 79 samples PCA left as noise that UMAP assigned."
         lead="What removing relatives changed, and what it did not."
@@ -313,7 +316,7 @@ export default function FragariaPage() {
         accessions and 3 technical replicates). Filled markers, samples both
         pipelines cluster, where the partitions are identical; hollow markers, samples PCA→HDBSCAN leaves as noise and UMAP assigns.
         Panel b is an analysis made after the result.
-      </Figure>
+      </InteractiveFigure>
 
       <h2>Stage 1b: a wild panel</h2>
       <p>
@@ -330,8 +333,9 @@ export default function FragariaPage() {
         analysis would predict. The Stage 1 rule then returned GO: three nonlinear settings on the whole panel, and four inside the
         western group, found stable clusters their matched linear settings did not. The expectation had been HOLD or KILL.
       </p>
-      <Figure
+      <InteractiveFigure slug="fragaria"
         n={6}
+        spec="/projects/fragaria/interactive/fig6.json"
         src="/projects/fragaria/fig6_stage1b.png"
         alt="Two panels of country-by-cluster count grids, countries ordered from Portugal to Russia. a: whole panel; UMAP with HDBSCAN finds three clusters, south and central Europe, the North Atlantic (Norway 44, Iceland 13, UK 7), and the east (Finland 22, Lithuania 7, Russia 7, Norway 5); PCA with k-means at k 3 finds almost the same three. b: western group; UMAP with k-means at k 3 separates Iberia (Spain 16), central and southern Europe, and the North Atlantic; PCA with k-means at k 5 recovers Iberia and central-southern Europe and splits the North Atlantic into Iceland and two Norwegian groups."
         lead="What the qualifying nonlinear partitions are, beside a linear one that passes the same gates."
@@ -340,7 +344,7 @@ export default function FragariaPage() {
         at k 3 find the same three groups; the eastern cluster is identical. <b>b</b>, Western group: the qualifying UMAP partition
         (all four qualifying settings give this one) and PCA→k-means at k 5, which splits the North Atlantic further. Both panels are
         an analysis made after the result.
-      </Figure>
+      </InteractiveFigure>
       <p>
         <strong>The GO does not mean what it says.</strong> The rule compared each nonlinear setting only with the linear one sharing its
         clusterer. On this panel, density clustering on PCA coordinates fails outright, so any working nonlinear setting beat it. But
@@ -360,15 +364,16 @@ export default function FragariaPage() {
         nonlinear partition counts only if no linear setting that passes the same gates recovers it, under any clusterer and k-means at every
         k from 2 to 10, either by agreeing with it or by splitting it more finely.
       </p>
-      <Figure
+      <InteractiveFigure slug="fragaria"
         n={7}
+        spec="/projects/fragaria/interactive/fig7.json"
         src="/projects/fragaria/fig7_stage1c.png"
         alt="Two panels. a: 87 unrelated wild octoploids on the first two principal components; F. chiloensis forms one cluster on the right, eastern F. virginiana (mostly subspecies virginiana) a tight cluster at lower left, and western F. virginiana (subspecies platypetala and glauca) spreads upward on the left. b: for the four UMAP settings that pass the gates, agreement with the matched PCA partition: three at exactly 1.0, one at 0.63, all above the 0.5 needed to count as different."
         lead="On wild octoploids, UMAP reproduces PCA's partitions accession for accession."
       >
         <b>a</b>, The 87 unrelated wild accessions on the first two principal components, by taxon. <b>b</b>, Agreement between each UMAP
         setting that passes the gates and its matched PCA setting, on accessions both cluster. Structure counts as new only at 0.5 or below.
-      </Figure>
+      </InteractiveFigure>
       <p>
         The panel has stable, confound-checked structure that follows taxonomy: <em>F. chiloensis</em>, eastern <em>F. virginiana</em>,
         and the western subspecies. Every UMAP setting that finds it reproduces the matched PCA partition, three of them exactly, so none
@@ -401,8 +406,9 @@ export default function FragariaPage() {
         <em>F. chiloensis</em>&apos;s private alleles slightly, from 11.4 to 11.6 per 100 sites, so they had diluted the count rather than
         inflated it.
       </p>
-      <Figure
+      <InteractiveFigure slug="fragaria"
         n={8}
+        spec="/projects/fragaria/interactive/fig8.json"
         src="/projects/fragaria/fig8_stage2x.png"
         alt="Three panels. a: share of sites where the wild group carries an allele at 20% or more that the breeding programs hold at under 5%: F. chiloensis 11.9%, western F. virginiana 7.5%, eastern F. virginiana 3.6%. b: private alleles per 100 sites, rarefied: F. chiloensis 11.4, western virginiana 7.3, eastern 6.7, named cultivars 2.8, Florida program 1.4, UC Davis program 0.7. c: pairwise F_ST, from 0.07 between Florida and named cultivars to 0.40 between F. chiloensis and UC Davis."
         lead="F. chiloensis holds the most variation the breeding programs lack."
@@ -410,7 +416,7 @@ export default function FragariaPage() {
         <b>a</b>, Novel-allele supply for each wild group, with 95% intervals from resampling 1 Mb blocks. <b>b</b>, Alleles found in one
         group only, rarefied to equal sample size [28]. <b>c</b>, Hudson&apos;s F_ST between groups [29]. Unrelated plants per group: <em>F. chiloensis</em> 31, western{" "}
         <em>F. virginiana</em> 23, eastern 33, UC Davis 20, Florida 15, named cultivars 24.
-      </Figure>
+      </InteractiveFigure>
       <p>
         Every ranking is distinct. <em>F. chiloensis</em> supplies the most variation the programs lack, then the western{" "}
         <em>F. virginiana</em> subspecies, then eastern <em>F. virginiana</em>, which sits closest to the historic cultivars. Between wild
@@ -432,7 +438,7 @@ export default function FragariaPage() {
         among them. The study&apos;s method [21] fits its strongest markers as covariates and controls the false discovery rate
         instead, which finds more.
       </p>
-      <InteractiveFigure
+      <InteractiveFigure slug="fragaria"
         n={9}
         spec="/projects/fragaria/interactive/fig9.json"
         src="/projects/fragaria/fig9_stage2x_b.png"
@@ -461,8 +467,9 @@ export default function FragariaPage() {
         With the probe at 1.7 Mb and the dense cluster ending at 2.8 Mb, the core region is 1.7 to 2.8 Mb. Fine-mapping in all 1,787
         lines could not narrow it: the array is too sparse.
       </p>
-      <Figure
+      <InteractiveFigure slug="fragaria"
         n={10}
+        spec="/projects/fragaria/interactive/fig10.json"
         src="/projects/fragaria/fig10_stage2x_d.png"
         alt="Two panels. a: correlation with the lead array marker along the first 6 Mb of subgenomes 1A to 1D; only 1B has many sites above 0.9, clustered at 2.2 to 2.8 Mb with a few near 4 and 5 Mb; 1C has one; 1A and 1D none. b: frequency of the allele that goes with larger fruit, median over 38 sites with range: F. chiloensis 0.86, western F. virginiana 0.60, eastern F. virginiana 0.47, named cultivars 0.21, Florida program 0.33, UC Davis 0.08; black ticks mark the wild frequency of program-frequency-matched background alleles, near 0.05."
         lead="The fruit-size signal sits on subgenome 1B, and alleles linked to it in Florida lines are common in the wild."
@@ -470,7 +477,7 @@ export default function FragariaPage() {
         <b>a</b>, Correlation of every dense site with the lead array marker, by subgenome; orange, sites at 0.9 or above. <b>b</b>, The
         larger-fruit allele&apos;s frequency by group: point, median over the 38 sites on 1B; line, range across those sites; black
         tick, background alleles matched on program frequency (an analysis made after the result).
-      </Figure>
+      </InteractiveFigure>
       <p>
         The allele that goes with larger fruit in Florida lines is common in wild octoploids (Fig. 10b): a median over the 38 sites of
         0.86 in <em>F. chiloensis</em>, and 0.60 and 0.47 in western and eastern <em>F. virginiana</em>, against 0.08 at UC Davis. Those
@@ -517,8 +524,9 @@ export default function FragariaPage() {
         (Fig. 11b). Two annotations of Camarosa report the same pattern, 19.5% fewer TEs on the dominant subgenome [1] and 50%
         against 57–58% [32]; here it holds on a different cultivar and a different annotation.
       </p>
-      <Figure
+      <InteractiveFigure slug="fragaria"
         n={11}
+        spec="/projects/fragaria/interactive/fig11.json"
         src="/projects/fragaria/fig11_te_composition.png"
         alt="Two panels. a: share of the genome by TE class for the octoploid and for F. vesca v4; Gypsy 6.8% and 10.6%, Copia 3.3% and 3.9%, DNA/TIR 2.2% and 16.1%, and 24.6% unclassified in the octoploid. b: stacked shares by octoploid subgenome; totals A 32.1%, B 41.9%, C 41.4%, D 42.3%, with Gypsy about half as high in A."
         lead="Subgenome A, derived from F. vesca, carries the fewest repeats."
@@ -527,7 +535,7 @@ export default function FragariaPage() {
         <em>F. vesca</em> v4 (EDTA). The pipelines differ; &quot;Unknown&quot; is repeat sequence without a class. <b>b</b>, The same
         by octoploid subgenome, under FaRR1&apos;s names A to D, mapped from the assembly&apos;s Camarosa names through the UC Davis
         marker table [30].
-      </Figure>
+      </InteractiveFigure>
       <p>
         Along chromosomes, TE density rises where genes thin (Fig. 12a). The gene-density rule that marks pericentromeres in tomato
         does not transfer: on 23 of 28 chromosomes its gene-poor block runs to a chromosome end, so it finds the gene-poor end of a
@@ -542,7 +550,7 @@ export default function FragariaPage() {
         follow: no strawberry population call set of structural variants or TE insertions, with genotypes for each accession, is
         openly downloadable, and calling one from reads is outside this project&apos;s scope.
       </p>
-      <InteractiveFigure
+      <InteractiveFigure slug="fragaria"
         n={12}
         spec="/projects/fragaria/interactive/fig12.json"
         src="/projects/fragaria/fig12_te_distribution.png"
