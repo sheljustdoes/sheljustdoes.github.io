@@ -177,8 +177,9 @@ export default function LycoPage() {
         <strong>Which families are moving.</strong> Families are not represented among variable sites in proportion to their share of
         the genome. Copia makes up 11% of the genome&apos;s transposable-element sequence but 32% of the sequence in variable
         transposable-element insertions: many are about 4.5–5 kb, the size of a complete element, which fits the recent activity of the
-        Copia-family Rider element in tomato [12]. Gypsy is the reverse: a third of the genome&apos;s element sequence, but its variable
-        copies are mostly short fragments.
+        Copia-family Rider element in tomato [12]. Short-read insertion calls agree: Copia makes up 36% of polymorphic insertions there,
+        Rider the commonest single family, though Gypsy still leads by count [1]. Gypsy is the reverse: a third of the genome&apos;s
+        element sequence, but its variable copies are mostly short fragments.
       </p>
       <Figure
         n={4}
@@ -194,8 +195,10 @@ export default function LycoPage() {
       <p>
         <strong>Where they sit.</strong> The gene-poor pericentromeres cover about two thirds of the genome and hold 30% of genes, but
         79% of Gypsy variants, against 43% of non-TE variants. Gypsy variants also avoid genes within the gene-rich arms: 10% fall inside
-        genes, against 30% of non-TE variants. That fits Gypsy&apos;s known preference for heterochromatin and selection against insertions
-        into genes; this description cannot tell the two apart.
+        genes, against 30% of non-TE variants. Both patterns match earlier work: tomato&apos;s pericentromeric heterochromatin is heavily
+        populated by Gypsy-like elements [14], and in short-read insertion calls on these same kinds of accessions about 6% of Gypsy
+        insertions fall in genes, against about 20% of Copia ones [1]. The avoidance is specific to Gypsy, not to transposable elements
+        in general; in tomato it has been attributed to where the elements prefer to insert rather than to selection against them [1].
       </p>
       <Figure
         n={5}
@@ -213,8 +216,9 @@ export default function LycoPage() {
         near nine of them, including SUN, J2, PPEAT and I-3. Some match transposable-element alleles described before: Copia insertions
         at PPEAT [1] and J2, and common Copia variants near Ph-3. At SUN, a 4.9 kb Copia element present in the reference is missing from
         78% of accessions; the well-known SUN elongation allele is a separate event, a Rider-driven copy of the gene on another
-        chromosome [13], which this count does not test. No transposable-element variant was found near PSY1. These are nearby
-        candidates, not causes.
+        chromosome [13], which this count does not test. No transposable-element variant was found near PSY1; the reported insertion
+        there is carried by only 8 of 548 accessions [1], rare enough to be missing from the graph&apos;s assembled genomes. These are
+        nearby candidates, not causes.
       </p>
       <Figure
         n={6}
@@ -268,6 +272,7 @@ export default function LycoPage() {
               <li>Tomato Genome Consortium. The tomato genome sequence provides insights into fleshy fruit evolution. <em>Nature</em> 485, 635–641 (2012). <a href="https://doi.org/10.1038/nature11119">doi:10.1038/nature11119</a>.</li>
         <li>Benoit M, Drost H-G, Catoni M, et al. Environmental and epigenetic regulation of Rider retrotransposons in tomato. <em>PLOS Genetics</em> 15, e1008370 (2019). <a href="https://doi.org/10.1371/journal.pgen.1008370">doi:10.1371/journal.pgen.1008370</a>.</li>
         <li>Xiao H, Jiang N, Schaffner E, Stockinger EJ, van der Knaap E. A retrotransposon-mediated gene duplication underlies morphological variation of tomato fruit. <em>Science</em> 319, 1527–1530 (2008). <a href="https://doi.org/10.1126/science.1153040">doi:10.1126/science.1153040</a>.</li>
+        <li>Wang Y, Tang X, Cheng Z, Mueller L, Giovannoni J, Tanksley SD. Euchromatin and pericentromeric heterochromatin: comparative composition in the tomato genome. <em>Genetics</em> 172, 2529–2540 (2006). <a href="https://doi.org/10.1534/genetics.106.055772">doi:10.1534/genetics.106.055772</a>.</li>
 </ol>
     </>
   );
