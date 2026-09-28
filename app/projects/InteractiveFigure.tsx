@@ -69,12 +69,7 @@ export default function InteractiveFigure({ n, spec, src, alt, lead, children }:
           modeBarButtonsToRemove: ["select2d", "lasso2d", "autoScale2d", "toggleSpikelines", "hoverClosestCartesian", "hoverCompareCartesian"],
           toImageButtonOptions: { format: "png", filename: `fragaria-fig${n}`, scale: 2 },
         });
-        if (!cancelled) {
-          setState("ready");
-          // The plot is drawn while hidden (display: none until ready), so Plotly falls back to its
-          // default 700 px width; resize once the container is visible so it fills the figure.
-          requestAnimationFrame(() => plot.current && P.Plots.resize(plot.current));
-        }
+        if (!cancelled) setState("ready");
       } catch (e) {
         console.warn(`Fig. ${n}: interactive chart unavailable, showing the static image`, e);
         if (!cancelled) setState("static");
@@ -94,6 +89,13 @@ export default function InteractiveFigure({ n, spec, src, alt, lead, children }:
       if (plot.current && w.Plotly) w.Plotly.purge(plot.current);
     };
   }, [spec, n]);
+
+  // The plot is drawn while hidden (display: none until ready), so Plotly falls back to its default
+  // 700 px width. Once React has shown it, resize so the chart fills the figure.
+  useEffect(() => {
+    const w = window as unknown as { Plotly?: PlotlyLike };
+    if (state === "ready" && plot.current && w.Plotly) w.Plotly.Plots.resize(plot.current);
+  }, [state]);
 
   return (
     <figure className="wide ifig" data-state={state}>
