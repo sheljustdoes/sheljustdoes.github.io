@@ -41,8 +41,9 @@ function loadPlotly(): Promise<PlotlyLike> {
  * loads. The static PNG shows first and stays as the fallback: without JavaScript, on narrow
  * screens, in print, or if the chart fails to load. The spec's table is offered as a data view.
  */
-export default function InteractiveFigure({ n, spec, src, alt, lead, children }: {
+export default function InteractiveFigure({ n, spec, src, alt, lead, children, slug = "figure", minWidth = MIN_WIDTH }: {
   n: number; spec: string; src: string; alt: string; lead: string; children: React.ReactNode;
+  slug?: string; minWidth?: number;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const plot = useRef<HTMLDivElement>(null);
@@ -54,7 +55,7 @@ export default function InteractiveFigure({ n, spec, src, alt, lead, children }:
     if (!el) return;
     let cancelled = false;
     const start = async () => {
-      if (el.clientWidth < MIN_WIDTH) {
+      if (el.clientWidth < minWidth) {
         fetch(spec).then((r) => r.json()).then((s: Spec) => !cancelled && setTable(s.table ?? null)).catch(() => {});
         return;
       }
@@ -67,7 +68,7 @@ export default function InteractiveFigure({ n, spec, src, alt, lead, children }:
           responsive: true,
           displaylogo: false,
           modeBarButtonsToRemove: ["select2d", "lasso2d", "autoScale2d", "toggleSpikelines", "hoverClosestCartesian", "hoverCompareCartesian"],
-          toImageButtonOptions: { format: "png", filename: `fragaria-fig${n}`, scale: 2 },
+          toImageButtonOptions: { format: "png", filename: `${slug}-fig${n}`, scale: 2 },
         });
         if (!cancelled) setState("ready");
       } catch (e) {
