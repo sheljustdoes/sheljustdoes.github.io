@@ -145,6 +145,20 @@ export default function LycoPage() {
         introgressed from wild relatives carry Gypsy insertions that arose in the donor lineage, which mark origin more sharply than
         older variants alongside them. That is the next question, not a finding.
       </p>
+      <Figure
+        n={3}
+        src="/projects/lyco/fig3_element.png"
+        alt="Two panels. a: for Gypsy and for other transposable-element variants, distance from a random-split null in standard deviations, in pericentromeres and arms under four definitions or matching schemes; every Gypsy point lies between 8 and 42 standard deviations out, every other-TE point between 4 and 10, all right of a threshold near 3. b: Gypsy-specific relatedness by group pair in arms and pericentromeres; wild–cherry and big-fruited–big-fruited lie above their null bands and cherry–big-fruited below, in both regions."
+        lead="Gypsy's different history holds outside the pericentromeres."
+      >
+        <b>a</b>, How far each comparison lies from its own null of 1,000 random re-splits, in null standard deviations, for Gypsy
+        (circles) and other transposable-element variants (squares) against matched non-TE variants; the dotted line is the
+        pre-registered threshold. Rows cover both regions under the gene-density definition, the 2012 borders (nine chromosomes),
+        matching within chromosome arms, and 20 Mb windows. Gypsy&apos;s difference is larger in the arms (a correlation drop of 0.046,
+        against 0.020 in pericentromeres) but sits fewer standard deviations out, because the arms hold fewer matched variants and
+        their null is noisier. <b>b</b>, Gypsy-specific relatedness by group pair, in arms (circles) and pericentromeres (diamonds),
+        with the null&apos;s central 95% in grey; filled points lie outside it.
+      </Figure>
 
       <h2>Related work</h2>
       <p>
