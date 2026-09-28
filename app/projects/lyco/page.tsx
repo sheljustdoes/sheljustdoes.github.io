@@ -123,6 +123,29 @@ export default function LycoPage() {
         includes zero. The pre-registered test passed; the lineage-marker reading is weak.
       </p>
 
+      <h2>The element, or where it sits?</h2>
+      <p>
+        An exploratory breakdown put most of the history difference on Gypsy LTR retrotransposons of intermediate age, with DNA
+        transposons near their nulls. That raised an obvious objection. Gypsy elements crowd into the gene-poor pericentromeres, where
+        recombination is rare and long blocks of DNA, including segments bred in from wild relatives, travel intact. Anything sitting
+        there might record a distinct history, whatever it was made of.
+      </p>
+      <p>
+        A third pre-registration tested this by comparing Gypsy with matched non-TE variants inside each kind of region separately.
+        Pericentromeres were defined from gene density on the current reference (58–71% of each chromosome), with the 2012 genome
+        consortium&apos;s heterochromatin borders [11], lifted from an older assembly, as a check. The rule was fixed in advance: a
+        difference in the chromosome arms, where recombination is normal, would mean the element carries the signal.
+      </p>
+      <p>
+        <strong>It does.</strong> In the arms, relationship matrices from 430 matched Gypsy and non-TE variants correlate at 0.926
+        against a null of 0.972; in the pericentromeres, 0.975 against 0.996. The same group pattern appears in both: Gypsy relates wild
+        and cherry accessions more closely, and cherry and big-fruited accessions less closely, than other variants do. Other
+        transposable-element variants differ from non-TE ones by about a tenth as much. The verdict holds with the older borders and
+        with stricter matching. Why Gypsy in particular records a different history is not settled; one candidate is that segments
+        introgressed from wild relatives carry Gypsy insertions that arose in the donor lineage, which mark origin more sharply than
+        older variants alongside them. That is the next question, not a finding.
+      </p>
+
       <h2>Related work</h2>
       <p>
         Transposable element insertions were first tested against tomato traits genome-wide by Domínguez and colleagues [1], and SVs
@@ -143,12 +166,10 @@ export default function LycoPage() {
 
       <h2>Status</h2>
       <p className="status-line">
-        <strong>Results committed.</strong> Three pre-registrations: the trait question, stopped by its power check before scoring; the
-        genotyping gate, passed; and the history questions, each scored once. Every protocol was committed before its result, including
-        the checks that stopped the first design, and a discovery-bias check specified before it ran. An exploratory breakdown puts most
-        of the history difference on Gypsy LTR retrotransposons of intermediate age, with DNA transposons near their nulls. Gypsy
-        elements cluster in pericentromeric regions, where long haplotypes and wild introgressions persist, so whether the signal
-        belongs to the elements or to the regions they occupy is the next pre-registered test.
+        <strong>Results committed.</strong> Four pre-registrations: the trait question, stopped by its power check before scoring; the
+        genotyping gate, passed; and the history questions and the element-or-region test, each scored once. Every protocol was committed before its result, including
+        the checks that stopped the first design, and a discovery-bias check specified before it ran. A third pre-registration then showed the Gypsy signal holds
+        outside the pericentromeres too. Next: whether introgressed wild segments explain why.
       </p>
 
       <h2>References</h2>
@@ -163,7 +184,8 @@ export default function LycoPage() {
         <li>Hudson RR, Slatkin M, Maddison WP. Estimation of levels of gene flow from DNA sequence data. <em>Genetics</em> 132, 583–589 (1992). <a href="https://doi.org/10.1093/genetics/132.2.583">doi:10.1093/genetics/132.2.583</a>.</li>
         <li>Yildiz G, Zanini SF, Weber S, et al. Graphical pangenomics-enabled characterization of structural variant impact on gene expression in <em>Brassica napus</em>. <em>Theoretical and Applied Genetics</em> 138, 91 (2025). <a href="https://doi.org/10.1007/s00122-025-04867-2">doi:10.1007/s00122-025-04867-2</a>.</li>
         <li>Scott AJ, Chiang C, Hall IM. Structural variants are a major source of gene expression differences in humans and often affect multiple nearby genes. <em>Genome Research</em> 31, 2249–2257 (2021). <a href="https://doi.org/10.1101/gr.275488.121">doi:10.1101/gr.275488.121</a>.</li>
-      </ol>
+              <li>Tomato Genome Consortium. The tomato genome sequence provides insights into fleshy fruit evolution. <em>Nature</em> 485, 635–641 (2012). <a href="https://doi.org/10.1038/nature11119">doi:10.1038/nature11119</a>.</li>
+</ol>
     </>
   );
 }
