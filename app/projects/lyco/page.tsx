@@ -160,6 +160,73 @@ export default function LycoPage() {
         with the null&apos;s central 95% in grey; filled points lie outside it.
       </Figure>
 
+      <h2>The TE landscape</h2>
+      <p>
+        The tests above compare classes of variants; this section describes them, so the reader can see what those classes are and
+        where they sit. None of it is a pre-registered test.
+      </p>
+      <p>
+        <strong>How much is transposable element.</strong> By the reference&apos;s own repeat annotation, 69% of the tomato genome is
+        repeats, led by Gypsy (22%) and DNA transposons (21%). A published summary of the same reference gives 61% with the same
+        ranking [2]; the file used here keeps fragmentary hits that summary drops, which accounts for most of the gap. Among structural
+        variants over 100 bp, 77% of deletions and 72% of insertions contain repeat sequence, close to the 84% and 76% reported from
+        long-read genomes [3]; a library built from one reference finds a little less. Variants over 1 kb are around 90% repeat, mostly
+        several element families nested together.
+      </p>
+      <p>
+        <strong>Which families are moving.</strong> Families are not represented among variable sites in proportion to their share of
+        the genome. Copia makes up 11% of the genome&apos;s transposable-element sequence but 32% of the sequence in variable
+        transposable-element insertions: many are about 4.5–5 kb, the size of a complete element, which fits the recent activity of the
+        Copia-family Rider element in tomato [12]. Gypsy is the reverse: a third of the genome&apos;s element sequence, but its variable
+        copies are mostly short fragments.
+      </p>
+      <Figure
+        n={4}
+        src="/projects/lyco/fig4_proportions.png"
+        alt="Three panels. a: share of the genome in each transposable-element class, this annotation against a published summary; Gypsy and DNA transposons lead in both. b: stacked bars of TE-derived, ambiguous and non-TE structural variants for deletions and insertions in three size classes; the ambiguous share grows with size to about two thirds above 1 kb. c: for each family, its share of the genome's element sequence against its share of variable insertions by count and by bases; Copia is 11% of the genome but 32% of variable-insertion bases."
+        lead="Transposable elements make up most of the genome and most large variants, but not every family in proportion."
+      >
+        <b>a</b>, Share of the reference genome in each class, one class per base, this annotation (orange) against Zhou and colleagues&apos;
+        summary [2] (grey). <b>b</b>, Structural variants by type and size: TE-derived (at least 80% one family), ambiguous and non-TE.
+        <b>c</b>, Each family&apos;s share of the genome&apos;s element sequence (grey tick) against its share of TE-derived variants, by
+        count (circles) and by bases (squares).
+      </Figure>
+      <p>
+        <strong>Where they sit.</strong> The gene-poor pericentromeres cover about two thirds of the genome and hold 30% of genes, but
+        79% of Gypsy variants, against 43% of non-TE variants. Gypsy variants also avoid genes within the gene-rich arms: 10% fall inside
+        genes, against 30% of non-TE variants. That fits Gypsy&apos;s known preference for heterochromatin and selection against insertions
+        into genes; this description cannot tell the two apart.
+      </p>
+      <Figure
+        n={5}
+        src="/projects/lyco/fig5_distribution.png"
+        alt="Two panels. a: twelve small plots, one per chromosome, of gene density and variant density along the chromosome, with pericentromeres shaded; Gypsy variants peak inside the shaded pericentromeres, genes and non-TE variants toward the chromosome ends. b: stacked bars of variants inside genes, in promoters, within 10 kb or farther, for Gypsy, other TE and non-TE variants in arms and in pericentromeres; Gypsy is least often genic in both."
+        lead="Gypsy variants crowd the pericentromeres and keep away from genes."
+      >
+        <b>a</b>, Density of genes and of Gypsy, other TE-derived and non-TE variants along each chromosome (1 Mb bins, smoothed over
+        3 Mb, each line scaled to its own maximum); grey shading marks the pericentromere. <b>b</b>, Variants by position relative to the
+        nearest gene: inside it, within 2 kb upstream, within 10 kb, or farther.
+      </Figure>
+      <p>
+        <strong>Near known genes.</strong> For 29 well-studied genes with verified identifiers, from fruit colour and size to ripening,
+        flavour, plant architecture and disease resistance, every variant within 5 kb was counted. Complete-length Copia insertions sit
+        near nine of them, including SUN, J2, PPEAT and I-3. Some match transposable-element alleles described before: Copia insertions
+        at PPEAT [1] and J2, and common Copia variants near Ph-3. At SUN, a 4.9 kb Copia element present in the reference is missing from
+        78% of accessions; the well-known SUN elongation allele is a separate event, a Rider-driven copy of the gene on another
+        chromosome [13], which this count does not test. No transposable-element variant was found near PSY1. These are nearby
+        candidates, not causes.
+      </p>
+      <Figure
+        n={6}
+        src="/projects/lyco/fig6_trait_genes.png"
+        alt="Horizontal stacked bars for 29 tomato trait genes showing how many Gypsy, other TE, ambiguous and non-TE variants lie within 5 kb, with green triangles marking Copia variants of at least 4 kb. TomLoxC has the most variants, about 44; complete-length Copia variants appear near SUN, ALMT9, TomLoxC, AAT1, PPEAT, SP, J2, JOINTLESS and I-3."
+        lead="Complete-length Copia insertions turn up near many well-studied trait genes."
+      >
+        Variants within 5 kb of each gene across all 706 accessions, by class. Triangles mark Copia variants of at least 4 kb, the size
+        of a complete element; a dagger marks genes with a transposable-element allele reported in the literature. Resistance genes whose
+        identifiers could not be verified, or that are absent from the reference, are left out.
+      </Figure>
+
       <h2>Related work</h2>
       <p>
         Transposable element insertions were first tested against tomato traits genome-wide by Domínguez and colleagues [1], and SVs
@@ -199,6 +266,8 @@ export default function LycoPage() {
         <li>Yildiz G, Zanini SF, Weber S, et al. Graphical pangenomics-enabled characterization of structural variant impact on gene expression in <em>Brassica napus</em>. <em>Theoretical and Applied Genetics</em> 138, 91 (2025). <a href="https://doi.org/10.1007/s00122-025-04867-2">doi:10.1007/s00122-025-04867-2</a>.</li>
         <li>Scott AJ, Chiang C, Hall IM. Structural variants are a major source of gene expression differences in humans and often affect multiple nearby genes. <em>Genome Research</em> 31, 2249–2257 (2021). <a href="https://doi.org/10.1101/gr.275488.121">doi:10.1101/gr.275488.121</a>.</li>
               <li>Tomato Genome Consortium. The tomato genome sequence provides insights into fleshy fruit evolution. <em>Nature</em> 485, 635–641 (2012). <a href="https://doi.org/10.1038/nature11119">doi:10.1038/nature11119</a>.</li>
+        <li>Benoit M, Drost H-G, Catoni M, et al. Environmental and epigenetic regulation of Rider retrotransposons in tomato. <em>PLOS Genetics</em> 15, e1008370 (2019). <a href="https://doi.org/10.1371/journal.pgen.1008370">doi:10.1371/journal.pgen.1008370</a>.</li>
+        <li>Xiao H, Jiang N, Schaffner E, Stockinger EJ, van der Knaap E. A retrotransposon-mediated gene duplication underlies morphological variation of tomato fruit. <em>Science</em> 319, 1527–1530 (2008). <a href="https://doi.org/10.1126/science.1153040">doi:10.1126/science.1153040</a>.</li>
 </ol>
     </>
   );
