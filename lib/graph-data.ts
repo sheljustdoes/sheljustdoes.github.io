@@ -399,6 +399,7 @@ const AUTHORED: AuthoredNode[] = [
       "A heritability version was killed by its own power check before any trait was scored: the classes' relationship matrices correlate at 0.97",
       "Graph genotypes of TE variants agree with long-read calls as well as other variants do (0.984 both)",
       "TE-derived variants record a measurably different population history, and it survives a discovery-bias check",
+      "Pre-registered: the signal is carried by Gypsy insertions themselves, in chromosome arms as well as pericentromeres",
     ],
     keywords: ["Solanum lycopersicum", "Structural Variants", "Transposable Elements", "Pangenome", "Heritability", "Population Genetics", "Pre-registration"] },
 
