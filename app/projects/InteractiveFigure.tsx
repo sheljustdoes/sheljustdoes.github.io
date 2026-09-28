@@ -13,6 +13,7 @@ type Spec = { data: unknown[]; layout: Record<string, unknown>; table?: Table };
 type PlotlyLike = {
   newPlot: (el: HTMLElement, data: unknown[], layout: unknown, config: unknown) => Promise<unknown>;
   purge: (el: HTMLElement) => void;
+  Plots: { resize: (el: HTMLElement) => void };
 };
 
 let plotly: Promise<PlotlyLike> | null = null;
@@ -68,7 +69,12 @@ export default function InteractiveFigure({ n, spec, src, alt, lead, children }:
           modeBarButtonsToRemove: ["select2d", "lasso2d", "autoScale2d", "toggleSpikelines", "hoverClosestCartesian", "hoverCompareCartesian"],
           toImageButtonOptions: { format: "png", filename: `fragaria-fig${n}`, scale: 2 },
         });
-        if (!cancelled) setState("ready");
+        if (!cancelled) {
+          setState("ready");
+          // The plot is drawn while hidden (display: none until ready), so Plotly falls back to its
+          // default 700 px width; resize once the container is visible so it fills the figure.
+          requestAnimationFrame(() => plot.current && P.Plots.resize(plot.current));
+        }
       } catch (e) {
         console.warn(`Fig. ${n}: interactive chart unavailable, showing the static image`, e);
         if (!cancelled) setState("static");
