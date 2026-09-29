@@ -12,11 +12,10 @@ export default function ProjectsIndex() {
   return (
     <>
       <span className="kicker">Work</span>
-      <h1>Frameworks, and the research built on them.</h1>
+      <h1>Selected work.</h1>
       <p className="tagline">
-        The frameworks come first: the research builds on them. Each research area is led by a flagship. Throughout, results are compared
-        against a plain baseline and a negative result is reported as it came out. Everything else is supporting evidence of how
-        the work gets built and shipped.
+        Frameworks for testing whether a result holds up, the research that uses them, and the systems built along the way. Each
+        entry gives its status and links to a write-up where one exists.
       </p>
 
       <SectionNav
