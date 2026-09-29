@@ -126,7 +126,7 @@ const AREA_ACCENT: Record<AreaId, string> = {
 };
 
 /**
- * One area of the Projects section. Frameworks and product lines open with their
+ * One area of the Projects section. Frameworks and research areas open with their
  * thesis, lines leading with the flagship; supporting areas start folded, so
  * the frameworks and lines read first.
  */
@@ -306,7 +306,7 @@ section { margin-bottom: 40px; }
 .area-dot { width: 6px; height: 6px; flex-shrink: 0; }
 .area-count { color: var(--warm-taupe); letter-spacing: 0.04em; }
 .area-thesis { font-family: var(--serif); font-style: italic; font-size: 0.84rem; color: #5a5550; margin: -4px 0 12px 16px; max-width: 62ch; }
-/* The flagship spans the row so each line visibly leads with it. */
+/* The flagship spans the row so each research area visibly leads with it. */
 .project-flagship { grid-column: 1 / -1; border-color: var(--taupe); }
 .supporting-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm-taupe);
   margin: 28px 0 10px; padding-top: 14px; border-top: 1px solid var(--parchment); }

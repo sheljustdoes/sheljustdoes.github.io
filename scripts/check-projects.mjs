@@ -35,7 +35,7 @@ for (const line of portfolio.split("\n")) {
   if (h3) {
     const title = h3[1].trim();
     const id = title.split(" — ")[0].trim();
-    current = { id: id === "Additional services" ? "additional" : id, section, status: null };
+    current = { id, section, status: null };
     canonical.set(current.id, current);
     continue;
   }
@@ -83,7 +83,7 @@ for (const area of feed.areas) {
   if (area.kind === "line") {
     const first = area.projects[0];
     if (!area.flagship) {
-      errors.push(`${area.id}: product line with no flagship`);
+      errors.push(`${area.id}: research area with no flagship`);
     } else if (first?.id !== area.flagship) {
       errors.push(`${area.id}: flagship ${area.flagship} must be listed first (found ${first?.id ?? "nothing"})`);
     } else if (!first.link?.startsWith("/projects/")) {
@@ -93,7 +93,7 @@ for (const area of feed.areas) {
       errors.push(`${area.id}: flagship ${area.flagship ?? "(none)"} here, but PORTFOLIO.md's **Flagship:** line names ${named ?? "nothing"}`);
     }
   } else if (area.flagship || named) {
-    errors.push(`${area.id}: only product lines have a flagship`);
+    errors.push(`${area.id}: only research areas have a flagship`);
   }
 }
 
