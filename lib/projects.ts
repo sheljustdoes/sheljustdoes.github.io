@@ -204,11 +204,6 @@ export const PROJECTS: Project[] = [
       "Cross-portfolio tooling. Its rotation report ranks every project by its last commit that touched more than markdown, so documentation activity cannot disguise a stalled project, and pairs each with its next backlog item. The same script runs locally and as a weekly Action over treeless clones.",
   },
   {
-    id: "catasta", name: "catasta", area: "tooling", status: "Designed (reference pattern)", date: "2026–",
-    summary:
-      "A documented pattern for turning a research pipeline into an interactive demo without shipping the science to the browser: a Python backend where the pipeline stays server-side, a TypeScript frontend, and one preprocess → predict → postprocess contract shared by embedded and standalone deployments.",
-  },
-  {
     id: "noul", name: "noul", area: "tooling", status: "Results committed (`find` only)", date: "2026–", featured: true,
     link: "/projects/noul/", linkLabel: "Read the write-up →",
     summary:
