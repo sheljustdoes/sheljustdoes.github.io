@@ -1015,14 +1015,11 @@ It also renders every repository's README banner in the site's brand, from one
 configuration file seeded from this index: each project's section sets its theme, and its
 status line sets the label, so the banner and this index start from the same source.
 
-### catasta — research-pipeline demo pattern
-**Status:** Designed (reference pattern) · FastAPI, Next.js, TypeScript
-
-A documented pattern for turning a research pipeline into a polished interactive demo
-without shipping the pipeline itself to the browser: a Python backend where the science
-lives and stays server-side, paired with a TypeScript frontend where people experience it.
-Two deployment topologies — embedded (one shared backend, demos as routes) and standalone
-(forked per project) — sharing an identical `preprocess → predict → postprocess` contract.
+It also holds a designed, not-yet-built pattern for turning a research pipeline into an
+interactive demo without shipping the pipeline to the browser: a Python backend where the
+science stays server-side, a TypeScript frontend, and one `preprocess → predict →
+postprocess` contract. Its default variant is one shared backend with a router per
+project, which makes it cross-portfolio by construction.
 
 ### noul — non-generative answers about code
 **Status:** Results committed (`find` only) · Python, PyTorch, Hugging Face Transformers · 41 labelled queries, 2 codebases
