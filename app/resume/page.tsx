@@ -1,4 +1,4 @@
-import { LINES, SUPPORTING, displayStatus, projectsInArea, type Area, type AreaId } from "@/lib/projects";
+import { FRAMEWORKS, LINES, SUPPORTING, displayStatus, projectsInArea, type Area, type AreaId } from "@/lib/projects";
 import { CERTIFICATIONS, EDUCATION, EXPERIENCE, SKILLS, SUMMARY, emphasisParts, siteDates } from "@/lib/resume";
 
 export const metadata = { title: "shel. — resume" };
@@ -91,7 +91,7 @@ export default function ResumePage() {
 
       <section>
         <div className="section-label">Projects</div>
-        {LINES.map((area) => (
+        {[...FRAMEWORKS, ...LINES].map((area) => (
           <AreaGroup key={area.id} area={area} open />
         ))}
         <div className="supporting-label">Supporting evidence — how the work gets built</div>
@@ -115,18 +115,20 @@ export default function ResumePage() {
 }
 
 // One accent per area, so a card's colour says which body of work it belongs to.
+// Frameworks take the deep blue of the blueprint grid their banners sit on.
 const AREA_ACCENT: Record<AreaId, string> = {
-  phenotyping: "var(--indigo)",
+  frameworks: "var(--indigo-deep)",
+  phenotyping: "var(--terracotta)",
   structure: "var(--forest)",
-  cognition: "var(--terracotta)",
   production: "var(--dusty-blue)",
   learning: "var(--amber)",
   tooling: "var(--sage)",
 };
 
 /**
- * One area of the Projects section. Product lines open with their thesis and
- * lead with the flagship; supporting areas start folded, so the lines read first.
+ * One area of the Projects section. Frameworks and product lines open with their
+ * thesis, lines leading with the flagship; supporting areas start folded, so
+ * the frameworks and lines read first.
  */
 function AreaGroup({ area, open = false }: { area: Area; open?: boolean }) {
   const projects = projectsInArea(area.id);
@@ -237,7 +239,7 @@ const RESUME_CSS = `
   --cream:#F5F1EB; --parchment:#EAE4D9; --taupe:#C8BFB0; --warm-taupe:#C8BFB0;
   --charcoal:#1E1C1A; --ink:#141210; --near-black:#141210;
   --terracotta:#D4603A; --amber:#E8A830; --blush:#E8B4A2; --blush-deep:#D4896E;
-  --indigo:#3A4D8F; --indigo-pale:#B8C0DC; --forest:#2E5A45; --forest-pale:#A8C4B4;
+  --indigo:#3A4D8F; --indigo-pale:#B8C0DC; --indigo-deep:#2F3E7A; --forest:#2E5A45; --forest-pale:#A8C4B4;
   --dusty-blue:#7A8FB5; --sage:#7A8C6E; --sage-pale:#C4D0B8; --rose-dust:#C4887A;
   --display:'Outfit', sans-serif; --serif:'Lora', Georgia, serif; --mono:'DM Mono', monospace;
 }

@@ -22,7 +22,7 @@ const WRITEUP_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Mono:wght@300;400;500&display=swap');
 :root {
   --cream:#F5F1EB; --parchment:#EAE4D9; --taupe:#C8BFB0; --charcoal:#1E1C1A;
-  --terracotta:#D4603A; --amber:#E8A830; --indigo:#3A4D8F; --forest:#2E5A45; --dusty-blue:#7A8FB5;
+  --terracotta:#D4603A; --amber:#E8A830; --indigo:#3A4D8F; --indigo-deep:#2F3E7A; --forest:#2E5A45; --dusty-blue:#7A8FB5;
   --display:'Outfit', sans-serif; --serif:'Lora', Georgia, serif; --mono:'DM Mono', monospace;
 }
 .write-up { background: var(--cream); min-height: 100vh; color: var(--charcoal); font-family: var(--serif); }
