@@ -6,13 +6,14 @@ what each one does, how it works, what it has actually produced, and where it st
 Maintained as the canonical reference for these projects. When a project changes
 materially, this file changes with it.
 
-**Last updated:** 2026-09-26
+**Last updated:** 2026-09-29
 
 **How this index is organized**
 
-Three product lines, each led by a flagship: perceptual & imaging phenotyping, certified
-structure in biological data, and research cognition. The same way of working runs
-through all three: results are compared against a plain baseline, protocols are
+The index opens with the frameworks the research builds on (topos, veridian, recolo,
+noul), then two product lines, each led by a flagship: perceptual & imaging phenotyping,
+and certified structure in biological data. The same way of working runs through all of
+it: results are compared against a plain baseline, protocols are
 committed before scoring where the work allows it (argus, recolo, oncos), and a negative
 result is reported as it came out — iridis, argus and recolo each include one. The
 supporting sections that follow show how the work gets built and shipped: production
@@ -29,257 +30,14 @@ applications, learning tools, and portfolio tooling.
 
 ---
 
-## Perceptual & imaging phenotyping
+## Frameworks
 
-Measurement science for visible traits that have no ground truth: skin tone, skin
-radiance, cell morphology and tumor appearance on CT. Each is measured against a fixed
-baseline — clinical labels, a nuclei count, classical survival models — rather than on
-its own terms. Capture comes first, because lambent showed that the camera can move a
-score further than the skin does.
-
-**Flagship:** iridis. **Also here:** lambent (optics), argus (Cell Painting), oncos (3D CT).
-
-### iridis — perceptual skin-tone phenotyping
-**Status:** Results committed · Python, PyTorch, scikit-learn, TabPFN, rembg
-
-Tests empirically whether data-driven perceptual color clusters carry more structure than
-the clinical scales used to describe skin tone. Fitzpatrick skin type — six ordinal
-buckets originally designed for burn-risk classification — is the de facto standard in
-dermatology datasets and therefore in the models trained on them.
-
-**Approach.** A layered masking pipeline isolates skin before any color is measured:
-class-agnostic foreground segmentation removes background; a ResNet18-U-Net trained on
-ISIC 2018 lesion masks removes the lesion itself so featurization reflects surrounding
-skin rather than pathology; a center-crop fallback keeps the pipeline running where
-segmentation degenerates. Images are downsampled, pixel-sampled and converted to CIE Lab,
-with per-image color taken as the *median* over sampled pixels — far less sensitive to
-specular highlights and residual segmentation error than a mean. MiniBatchKMeans produces
-a fine-grained partition (k=120), then neighboring clusters are merged by CIEDE2000
-perceptual distance so final categories reflect distinctions a human eye would actually
-make. The same Lab/LCh features then predict two different targets — Fitzpatrick type and
-discovered cluster ID — under matched classifiers so the comparison isn't confounded by
-model choice.
-
-**Results.** Benchmarked on Fitzpatrick17k (12,631 images; 12,222 with valid labels), with
-and without masking, under both Random Forest and TabPFN. **Measured skin colour barely
-tracks Fitzpatrick type.** Type explains 7% of the variance in lightness (L*) and 12% in
-yellowness (b*); the middle half of type I (L* 53–71) overlaps the middle half of type IV
-(47–61); and predicting type from colour reaches 34.6–42.3% accuracy against 33.8% for
-always guessing the commonest type. **Masking does not help:** isolating skin from
-background and lesion was expected to make type more predictable, and accuracy stayed flat
-or fell slightly. The lesion-exclusion U-Net reaches held-out Dice 0.889 / IoU 0.818 on
-ISIC 2018 Task 1 (2,594 dermoscopy images).
-
-**Correction (2026-09-26).** Earlier versions reported the discovered clusters as 2.5–2.8×
-more predictable than Fitzpatrick labels (95.8–96.3% against 34.6–42.3%) and read that as
-evidence the scale discards real structure. It is not evidence. The clusters are defined
-from the same colour features the classifier uses, so predicting them is largely true by
-construction. And the perceptual merge chains transitively: one cluster ends up with 68%
-of the images and spans nearly the whole lightness range, so the 96% sits against a 68%
-baseline. What stands is the weak link between colour and type, which in uncalibrated
-clinical photographs cannot yet separate the scale's coarseness from capture variation.
-
-**Are there colour categories at all? (pre-registered, 2026-09-26).** With a merge that cannot
-chain, colour splits into 92 clusters, the largest holding 3.7% of images, and refit on
-resampled images they do not reproduce (median ARI 0.31 against the 0.80 required). Skin
-colour in this data is a continuum, not a set of categories. On the same split, colour
-predicts Fitzpatrick type at 34.6% (95% CI 32.6–36.5%) against 33.9% for always guessing the
-commonest type: no better than chance.
-
-**Scale or camera? (pre-registered, 2026-09-26).** The MSKCC Skin Tone Labeling Dataset (ISIC
-Archive, CC-BY) has colorimeter readings at 501 skin sites. Against that instrument,
-Fitzpatrick type tracks skin colour strongly (Spearman −0.80 with ITA; 66% of variance) and
-the Monk Skin Tone scale better still (−0.93; 88%; difference +0.125, CI +0.073 to +0.208).
-Colour measured from the dermoscopic images of the same sites does not reproduce the
-instrument, and 41% of its variance comes from imaging the same skin under different
-dermoscope modes, against 1.1% between repeat colorimeter readings. The first two findings
-replicate the dataset authors' own report (Weir et al. 2025, *npj Digital Medicine*); the
-capture-variance share and the ITA breakdown on 32% of images (b* ≤ 0) are what this adds.
-So the weak link on Fitzpatrick17k is mainly the camera, not the scale. A coding error in the first run (the
-wrong ITA formula) was caught by a pre-registered sanity check, corrected and logged.
-
-**Limit.** Every Fitzpatrick17k image in the benchmark comes from a single source atlas.
-The source is therefore constant rather than a confound, but the result is established on
-that atlas only; the dataset's other atlas has a very different skin-type mix and would
-need a source audit before it is added.
-
-### lambent — computational quantification of skin radiance
-**Status:** Results committed · Python, scikit-image, OpenCV, scikit-learn · 1,816 images, 68 tests
-
-Developed independently on public data, from 2023; a consulting client later applied the
-method to its own data. An open-image pipeline estimating interpretable "glow" proxy
-features from images, aggregating them by subject, and optionally fitting supervised models where labels exist.
-The underlying research question was whether radiance — an attribute that existed only as
-a qualitative descriptor — could be quantified from multi-modal physiological image
-features at all.
-
-Multi-region extraction (full, center, forehead, left/right cheek, chin) with optional
-face detection for region anchoring. Features span Lab, ITA, hue, texture, and
-specular/red/dark proxies, aggregated to subject-level tables, with transparent composite
-scoring at image, subject-region, and subject level. Packaged as an installable CLI
-(`python -m lambent`) with two ingestion modes, folder and manifest.
-
-`docs/methodology.md` carries the consolidated v1–v6 methodology — the metric's evolution
-across six iterations.
-
-**Validating a metric with no ground truth.** Public dermatology datasets label skin
-*type*, not radiance, so there is nothing to correlate a glow score against. The
-validation asks instead what can be answered without labels, by perturbation with a known
-dose: add a controlled specular highlight to a real image, or brighten it globally with a
-gamma curve, or add fine noise, and measure how the score tracks the dose. Gamma is the
-control that carries the argument, because it raises lightness while adding no gloss at
-all.
-
-**Results** (1,816 Fitzpatrick17k images, stratified across all six types). The score
-tracks added gloss at median Spearman ρ = 1.00 — and tracks plain brightening at ρ = 1.00
-as well. **It does not separate gloss from lightness**, which follows from its own
-definition, where mean `L*` carries a +0.25 weight. A tone gradient is also present
-(ρ = −0.53 against Fitzpatrick type), with mean glow declining monotonically from type 1
-to type 6.
-
-**The tone gradient's size is not established, and the reason is the more interesting
-result.** Fitzpatrick17k is scraped clinical photography: no controlled illumination, no
-camera calibration, no colour reference in frame. Re-scoring each image under capture
-changes that cannot alter how glossy skin actually is shows a quarter-stop exposure
-difference moving the score by ~51% of the entire type-1-to-type-6 span, half a stop by
-90%, and a 10% white-balance drift by ~40%. The metric is about as sensitive to the
-camera as to several steps of skin type, so **nothing in this dataset separates the two**
-and the tone figure is an upper bound on a confounded quantity. The within-image findings
-are untouched by this, because there each image is its own control.
-
-The finding that matters most is that the obvious repair does not work. Dropping the
-lightness term and keeping the specular one fails, because the specular detector counts
-pixels over an *absolute* brightness threshold and is itself 5.3× higher on the lightest
-skin than the darkest. A tone-independent radiance metric needs highlight contrast
-measured against each image's own baseline rather than a fixed cut. That is a concrete,
-reproducible specification for the next version, arrived at by measurement.
-
-None of it makes the measurement useless — it establishes that what the metric captures
-is surface reflectance *including* lightness, under whatever illumination the photograph
-was taken in. That is a defensible thing to call radiance on a fixed capture rig, which
-is what the original engagement had and what public dermatology data does not.
-
-**The measurement then specified its own replacement**, and the route there is the part
-worth reading. Exposure and white-balance sensitivity became the acceptance criterion, and
-seven variants were scored through identical experiments so each change was attributable
-rather than bundled.
-
-| Variant | Gloss ρ | Brightness ρ | Tone ρ² | exp ±0.25 | Worst capture |
-|---|---|---|---|---|---|
-| `v6` original | 1.000 | **1.000** | 0.310 | 54.6% | 93.2% |
-| `v6` minus lightness | 1.000 | **1.000** | 0.250 | 48.5% | 72.2% |
-| `v7` relative features | 0.743 | −0.857 | 0.074 | 31.9% | 74.4% |
-| `v8` von Kries | 0.771 | −1.000 | 0.284 | 31.2% | 70.4% |
-| `v9` noise-corrected | 0.771 | −1.000 | 0.287 | 31.6% | 71.5% |
-| `v10` linear von Kries | 0.771 | −1.000 | 0.044 | 35.8% | 79.7% |
-| **`v11` specular-linear** | **0.829** | −0.857 | **0.002** | **26.8%** | **59.4%** |
-
-Tone dependence falls from ρ² 0.310 to **0.002** and worst-case capture sensitivity from
-93.2% to 59.4%, while the response to real gloss *improves*.
-
-Three of those rows are failures, and they are kept because the sequence is the argument.
-**Deleting the lightness term does nothing** — the other terms are absolute too.
-**Relative features fix exposure and break white balance**, because the specular test
-gates on saturation and warming an image raises saturation; von Kries repairs that, since
-an illuminant change is to first order a diagonal transform `R→aR, G→bG, B→cB` and
-dividing each channel by a statistic of itself cancels it. **The noise-floor correction
-was a dead end**: the hypothesis that von Kries amplifies sensor noise on darker skin was
-implemented in full and changed nothing, because the measured noise floor is ~2% of the
-skin median against relative spreads of 20–37%.
-
-Ruling that out is what identified the real cause. Von Kries is a *linear* model, and sRGB
-values are not radiance — under a ~1/2.2 transfer curve a fixed linear ratio maps to
-different encoded ratios depending on level, which on skin means depending on skin tone.
-Undoing the curve first takes the specular term's own tone correlation from +0.47 to
-−0.08, and weighting the metric onto that now-neutral term is `v11`. It requires excluding
-clipped pixels from the measurement region: a saturated pixel is maximally bright and
-minimally saturated, precisely the specular signature, so without the exclusion raising
-exposure manufactures gloss that was never in the scene.
-
-What remains unfixed is stated with it. Every variant still responds to a tone curve,
-because gamma is not a diagonal transform and no per-channel gain cancels one. Residual
-exposure sensitivity is bounded by clipping already present in the source rather than by
-the correction. And tone neutrality is established on a single source atlas.
-
-Results are generated into `docs/open_validation.md` from the run's JSON, so the
-documented numbers cannot drift from the run that produced them.
-
-### argus — dual-branch fluorescence anomaly detection
-**Status:** Results committed · PyTorch, scikit-learn · RxRx3-core, four pre-registered runs, 44 held-out experiments
-
-Anomaly detection over Cell Painting microscopy, splitting the six stains by excitation
-wavelength: a UV branch (Hoechst/DNA, ~350 nm) scored by a convolutional autoencoder's
-reconstruction error, and an Isolation Forest over pre-computed OpenPhenom embeddings,
-fused by rank. Built on Recursion's public RxRx3-core.
-
-**The test.** A protocol committed before scoring asks whether detectors trained only on
-control wells can flag the PLK1 and MTOR knockouts that every experiment carries as
-positive controls. Six held-out experiments are scored once, with a bootstrap over plates.
-The fixed baseline is a plain nuclei count, because PLK1 knockout leaves fewer cells.
-
-**Result: the dual-branch design failed its test.** The autoencoder ranked knockouts as
-*less* anomalous than controls (ROC-AUC 0.324). Fewer nuclei leave more empty background,
-which reconstructs easily. The score direction was fixed in advance, so it was not flipped
-afterwards. Fusion therefore fell to 0.532, below the embedding branch alone (−0.179,
-CI −0.206 to −0.152). The embedding branch reached 0.711, a tie with the nuclei count
-(0.712): better on PLK1 (0.83 against 0.79), worse on MTOR (0.59 against 0.64). One
-more caveat surfaced in the design: OpenPhenom embeds all six channels, so the embedding
-branch was never UV-free.
-
-**A second pre-registered run (v2)** tested two repairs on eight experiments nobody had
-scored (1,150 wells, 72 plates), because the repairs were designed after seeing v1. v1
-replicated: the autoencoder inverted again (0.32) and the embeddings tied the cell count
-again. Scoring reconstruction error on nuclear pixels only removed the inversion and left
-no signal at all (0.48). Regressing cell count out of the embeddings looked like it left a
-real MTOR signal (0.58, interval above 0.5), but a check made after scoring showed the
-residualized score still tracked cell count almost as strongly (Spearman −0.48 against
-−0.51): a linear regression cannot remove a nonlinear dependence, so the control did not do
-its job.
-
-**A third run (v3) compared wells only with controls of the same cell count**, on 15 more
-experiments nobody had scored (2,108 wells, 135 plates). Controls were cut into deciles of
-nuclei fraction, and each knockout was compared only with controls in its own decile. The
-built-in check passed: inside a bin, the cell count alone scored 0.521. Matched on count, the
-embeddings still reached 0.690 (CI 0.651–0.724), 0.169 above the count, and MTOR alone
-stayed above chance (0.579, CI 0.540–0.615). **So the embeddings do see more than a cell
-count.** Unmatched, they tied it again. A check made after scoring (not pre-registered):
-binning within each experiment, a stricter match, keeps the overall result above chance
-(0.588) but pulls MTOR alone to 0.548, whose interval includes 0.5; and bin by bin, the
-embeddings' signal sits in the three lowest-count deciles (AUC 0.68–0.85) and is near chance
-above them. The dual-branch design
-stays a failure; the embedding branch alone carries real signal.
-
-**A fourth run (v4) made those checks the pre-registered test**, on 15 more unscored
-experiments (2,064 wells). Matched within each experiment, the embeddings still separate
-knockouts at 0.608 (CI 0.559–0.649), with the count at 0.490; MTOR alone is 0.545 (CI
-0.490–0.596, not detected); and in wells with more nuclei than the median control they are at
-chance (0.508). Every expectation in the protocol held. The embeddings see more than a count,
-but only in wells a knockout has already thinned.
-
-### oncos — survival prediction from 3D CT
-**Status:** Implemented, in progress · public imaging data · PyTorch
-
-Work in progress. It predicts overall survival in non-small cell lung cancer from
-pre-treatment 3D CT, on public data. 3D deep learning is compared against classical
-survival baselines, with censoring handled explicitly, under an evaluation protocol fixed
-before any model was scored. Results and methods will be written up here once the work is
-further along.
-
----
-
-## Certified structure in biological data
-
-Deciding when latent structure in high-dimensional biological data is real enough to act
-on. topos is the protocol: eight gated stages that end in an explicit GO, KILL or HOLD.
-The case studies apply it to crop genomes. A thread
-through transposable elements runs across them, from repbox's element discovery to
-insertion polymorphisms in sorghum and TE-derived structural variants in tomato (lyco).
-
-**Flagship:** topos, the method, now a tested package for Stage 0. One stage has been
-executed, on strawberry (fragaria): an audit found the first run invalid, and two
-pre-registered rebuilds end in a GO that holds across sensitivities, for structure PCA
-and UMAP agree on. Every lesson became a rule in the package. The other case studies are
-specified and not yet run.
+The frameworks the research builds on, each proven in real use rather than on a toy
+example. topos certifies whether structure in biological data is real enough to act on;
+veridian grounds claims in the literature; recolo tested whether a biologically inspired
+memory helps an LLM agent; noul answers questions about code without generating text. Each
+is measured against a plain baseline, negative results stay in (none of recolo's
+mechanisms helped), and fixes found by the studies that use a framework go back into it.
 
 ### topos — stability certification for latent structure
 **Status:** Implemented (Stage 0 checks) · Python package, 8 stage specifications, 27 tests
@@ -320,195 +78,6 @@ applied here to claims of unsupervised structure, and recent work already makes 
 gates mandatory before a clustering is reported. What it adds is the matched
 linear-vs-nonlinear comparison, genotype-specific confound checks, a verdict over a grid
 fixed before scoring, and a role as a guardrail for analysis written by LLM agents.
-
-### fragaria — nonlinear haplotype topology in octoploid strawberry
-**Status:** Results committed (Stage 2x) · Python, scikit-learn
-
-A topos case study on *Fragaria × ananassa* testing whether nonlinear manifold methods
-recover stable population structure beyond linear PCA in an octoploid context, where
-dosage ambiguity, subgenome assignment uncertainty and homoeologous exchange all
-complicate interpretation. Stage 0 has been run three times; Stages 1b and 1c tested the
-question on two wild panels, and Stage 2x asks what crossing the groups would add.
-
-**The first Stage 0 was invalid.** Its GO reproduced exactly, but an audit found the
-file's missing calls (`-1`) were never decoded, so about 930K of them entered PCA as a
-genotype value, and three of five rubric criteria passed by construction: seed-only
-stability on a deterministic pipeline, and a missingness check that saw no missing data.
-
-**Stage 0 v2, pre-registered: GO, narrowly, for linear structure only.** Rebuilt with
-missing calls decoded, full-sib families thinned to three members (one family has 187),
-and stability measured by resampling 80% of accessions and markers 20 times, across 189
-pipeline settings on 925 individuals. Two PCA→HDBSCAN settings pass every gate —
-the minimum the rule allows — with stability 0.82–0.84 and two or three clusters that
-track germplasm source (USDA accessions, named cultivars, the breeding program). No UMAP
-setting passes, so nothing yet supports the nonlinear hypothesis. The gate that bites is
-missingness: it fails 22 of the 24 stable, valid settings, and appears entangled with
-source through array ascertainment. Without the family cap, clusters were 72–100% a
-single family.
-
-**Stage 0 v3, pre-registered: GO, and it holds.** Three fixes v2 called for: relatedness
-capped with KING-robust kinship rather than family labels (234 unrelated accessions; the
-standard relationship matrix was rejected because it read population structure as
-kinship), a deduplicated grid, and a missingness gate tested within germplasm source.
-GO in the primary run and both sensitivities, carried by UMAP pipelines as well as PCA.
-The structure is the same either way: on the accessions both methods cluster, the
-partitions are identical — breeding-program lines against USDA accessions and named
-cultivars. UMAP only assigns the diverse accessions PCA leaves as noise. (The pre-registered
-non-redundancy check read 0.68 because it scored HDBSCAN noise as a cluster label, a design
-flaw in the check.) So stable,
-confound-defensible structure exists, and nothing yet shows structure beyond PCA; that is
-Stage 1's test. The lessons go upstream into topos. The only topos case study with
-executed analysis.
-
-**Stage 1b, wild panel, pre-registered: GO by the rule, not supported in substance.**
-202 wild woodland strawberries (*F. vesca*, whole-genome, public CC0 panel), 176 unrelated
-after kinship pruning. Stage 0's checks pass on an east–west split. The Stage 1 rule
-returned GO (three nonlinear settings on the whole panel, four within the western group),
-against an expectation of HOLD or KILL. A labelled post hoc check found why: the rule
-compared each nonlinear setting only with the linear setting sharing its clusterer, and
-density clustering on PCA fails on this panel, while k-means on the same PCA coordinates
-passes every gate and recovers the same clusters (whole panel ARI 0.70–0.81; the western
-group's Iberian and central-southern clusters at Jaccard 0.98–1.0). The wild panel has
-stable, geographic structure beyond the east–west split, and it is linear.
-
-**Stage 1c, wild octoploids, stricter rule: H1 KILL.** The rule was tightened first — a
-nonlinear partition counts only if no passing linear setting, under any clusterer or k-means
-at any k from 2 to 10, recovers it — then applied to a panel it had not seen: 102 wild
-*F. chiloensis* and *F. virginiana* from a public whole-genome set (CC-BY), the 33.6 GB variant
-file streamed and hash-sampled to 475,741 SNPs without being stored. Stable, confound-checked
-structure follows taxonomy (*chiloensis*, eastern and western *virginiana*), and every UMAP
-setting that finds it reproduces the matched PCA partition, three exactly. Every UMAP
-setting in Stages 0–1c embedded principal components; a post hoc rerun with UMAP on the
-genotypes themselves is still KILL, its stable partitions matching PCA's or a coarser version. Across three
-panels the answer is the same: the structure is real and linear. The hypothesis is closed as
-not supported.
-
-**Stage 2x part A, crossing value, pre-registered.** What crossing each group would add to
-cultivated germplasm: the share of sites where a wild group carries an allele at ≥ 20% that
-the UC Davis and Florida programs hold at < 5% is 11.9% for *F. chiloensis*, 7.5% for western
-*F. virginiana* and 3.6% for eastern, each distinct. Between wild groups, eastern *virginiana*
-× *chiloensis* adds the most heterozygosity and western *virginiana* × *chiloensis* the most
-variation the programs lack. The programs hold almost no private alleles. Groups are Stage 1c clusters named by majority
-taxon (2 wild hybrids in the *chiloensis* group, 1 *chiloensis* in eastern *virginiana*); a
-post hoc rerun on species-pure groups keeps every ranking.
-
-**Stage 2x part B, phenotype link.** A mixed-model association scan on 1,787 Florida breeding
-lines (the same study's 50K-array data) finds three fruit-size loci and no yield locus. The
-source study had already run its own scan (Fan & Whitaker 2024, *Plant Cell*, FarmCPU): the
-strongest locus here is among its 26 fruit-size signals, so what follows confirms and places a
-published association rather than finding a new one. Only 2 of its 26 fruit-size signals and
-none of its 11 yield signals pass the stricter single-marker Bonferroni scan used here. 52
-lines genotyped on both platforms map every array chromosome to the whole-genome reference and
-tag each locus (|r| ≥ 0.83). A follow-up test fixed in advance found the three loci are one
-signal: their markers sit on three independently segregating subgenomes yet are strongly
-associated (r² 0.40–0.68 against a background of 0.05), and conditioning on the strongest
-removes the others. The tags then disagree about wild frequencies, so the wild-donor reading
-is withdrawn until the causal site is known. What stands: the Florida program carries the
-size-increasing allele at two to six times UC Davis's frequency (intervals exclude a ratio of 1), a
-crossing lead between programs.
-A targeted second pass read every variant in the first 6 Mb of the four group-1
-subgenomes (585,789 sites) and placed the signal on subgenome 1B, in a haplotype at
-2.2–5.3 Mb (narrow margin over 1C). There the allele that goes with larger fruit is common in
-wild octoploids (*F. chiloensis* 0.86, *F. virginiana* 0.47–0.60) and rare at UC Davis (0.08);
-program-frequency-matched background alleles sit near 0.05 in the wild, so this is not an
-artifact of the programs' lost diversity. The effect is measured in Florida lines only.
-Array-level fine-mapping leaves the lead marker alone in the credible set, and an independent
-public marker table puts its probe on 1B at 1.7 Mb while flagging the 1C signal's probe as
-ambiguous between homoeologs, confirming the placement.
-A replication fixed in advance failed: in 529 UC Davis individuals with fruit weight (Feldmann
-et al. 2024, CC0), where the allele segregates at 0.17–0.20, its effect is −0.18 g per copy
-(95% CI −1.00 to +0.64), but with only 52% power at the source study's Florida estimate (+0.7 g),
-itself likely inflated by the scan that found it, so the replication is inconclusive. Wild *F. chiloensis* 'Del Norte' carries
-two copies, but its hybrids do not segregate, so the wild test could not run. The Florida → UC
-Davis crossing lead and the wild-donor reading are therefore not supported beyond Florida.
-A final check compared the array marker's linkage with the haplotype: mean r² 0.85 in Florida
-lines against 0.43 at UC Davis. A later check found the gap is mostly the tag's rarity at
-UC Davis (about 7 copies), which caps r²; normalized to that cap it is 0.14 (95% interval −0.23 to
-0.24), unresolved. The locus is untested outside Florida. The nonlinear
-test compares partitions, not geometry, and has no positive control, so its KILL means "not
-detected"; the controls are queued. Paused 2026-09-26.
-
-**TE landscape (descriptive, not pre-registered, 2026-09-28).** From public repeat annotations
-(an octoploid FL16.33-8 phase, RepeatMasker; *F. vesca* v4, EDTA), one class per base: the
-octoploid is 39.5% repeats but mostly unclassified, *F. vesca* 33.2% TE. The *F. vesca*-derived
-dominant subgenome A carries 23% fewer repeats than B–D and half their Gypsy, in all seven
-homoeologous groups, as published for Camarosa. The gene-density pericentromere rule used for
-tomato does not transfer to strawberry, and Gypsy is only modestly enriched in gene-poor regions
-(1.0–3.3×). The 50K array is gene-centred: on FaRR1, 46% of probes are genic and 74% within 1 kb
-of a gene, against 36% and 55% of bases. No downloadable strawberry population SV or TE-insertion
-genotype set exists, so the SV side stops there.
-
-### glyma — soybean haplogroup discovery
-**Status:** Designed (Stage 0) · *Glycine max*, SoySNP50K
-
-Parallel case study testing the same nonlinearity hypothesis against SoySNP50K, with
-conditional escalation into phenotype, transcriptomic and geo-climatic validation.
-Ideation, proposal and stage protocols complete; analysis not yet run.
-
-### sorghum — transposable element insertion-site polymorphism
-**Status:** Designed (Stage 0–1) · *Sorghum bicolor*, WGS
-
-Case study on reproducible TIP detection and staged escalation, testing whether insertion
-sites can be called reproducibly under perturbation of coverage, filtering and annotation
-scope before any large-scale interpretation is attempted.
-
-### lyco — what transposable-element insertions record about tomato's history
-**Status:** Results committed (Stage 1d) · *Solanum lycopersicum*, public pangenome call sets
-
-Most structural variants in tomato are derived from transposable elements. lyco asks what
-those TE-derived variants record that other structural variants do not, working entirely
-from published pangenome call sets on a laptop; nothing is re-called from reads. Every
-question is pre-registered with a frozen analysis grid before anything is scored.
-
-It began as a trait question: do TE-derived variants carry more of tomato's trait
-heritability? A power check written into the pre-registration killed that before any trait
-was scored. In a structured, inbred panel of about 300 accessions, relationship matrices
-built from TE-derived and non-TE variants correlate at 0.97, so heritability cannot be
-split between them; a per-variant redesign failed its own power check too. The project
-was reframed around population history, which is what that structure encodes, using all
-706 accessions and no traits.
-
-Results (2026-09-27), each scored once:
-- **Call-set agreement (the gate):** graph genotypes of TE-derived variants agree with
-  independent long-read calls as well as non-TE ones do (median concordance 0.984 for
-  both), so TE variants are not genotyped worse from short reads.
-- **Population history:** relationship matrices from matched TE-derived and non-TE
-  variants differ well beyond a random-split null (0.991 against 0.998 ± 0.0002),
-  concentrated in wild–cherry and cherry–big-fruited relatedness. It reproduces among
-  variants that both discovery routes (high-fidelity assemblies and long reads) could have
-  found, so discovery bias is an unlikely explanation.
-- **Element or region?** The difference is carried mainly by Gypsy LTR retrotransposons.
-  A further pre-registered test compared Gypsy with non-TE variants inside the gene-poor
-  pericentromeres and inside the chromosome arms separately: Gypsy differs in both, more
-  strongly in the arms, so the signal belongs to the insertions, not to where they sit.
-- **Frequency spectra through domestication:** no difference after correction.
-- **Young insertions as lineage markers:** more often private to one group as registered,
-  but mostly because young insertions are rarer.
-- **Introgression (2026-09-28), stopped at its gate:** a test of whether wild segments bred
-  into cultivated tomato explain the Gypsy signal required SNP-called
-  *S. pimpinellifolium*-type segments to recover five known introgressed loci first. They
-  recovered 0 of 31 carrier–locus pairs, so the test was not run; all five loci came from
-  more distant wild species that such a caller cannot see. The question stays open.
-
-### repbox — transposable element discovery and annotation
-**Status:** Shipped · Python CLI, published · [BMC Bioinformatics (2023)](https://doi.org/10.1186/s12859-023-05419-5)
-
-A Python-first CLI platform for identification and classification of novel repetitive
-genomic elements, evolved from thesis-era workflow into an adapter-based v2.0.0 with
-semantic versioning, a release process, and smoke-test diagnostics
-(`run` / `check` / `smoke` / `smoke-report`). Demonstrated 7% growth in detected elements
-across the *A. sativa* genome. Public.
-
----
-
-## Research cognition
-
-Tools that help a researcher check what they read and keep what they learn. Each is
-measured against a plain baseline on held-out data. veridian grounds claims in the
-literature. recolo tested whether a biologically inspired memory helps an LLM agent, and
-it did not.
-
-**Flagship:** veridian.
 
 ### veridian — literature review: map the disagreement, check the claim
 **Status:** Results committed (Check) · Explore rebuilt · Python, ONNX Runtime, transformers.js, PubMed E-utilities, Anthropic API
@@ -768,6 +337,486 @@ Direct successor to veridian: it takes that project's core insight — semantic 
 as a general-purpose meaning-compression mechanism — and redirects it from external
 literature to an agent's own persistent memory.
 
+### noul — non-generative answers about code
+**Status:** Results committed (`find` only) · Python, PyTorch, Hugging Face Transformers · 41 labelled queries, 2 codebases
+
+Coding agents answer "where is X" by reading files into their context, where every file
+is re-sent with every later turn. TypeSafe's Jev points at an alternative: a model that
+returns typed, calibrated numbers instead of prose, in a single pass. Jev is API-only and
+its architecture unpublished, so noul asks how much of that shape can be rebuilt from open
+models running locally, with no text generation and nothing leaving the machine.
+
+`find` ranks files by how well they match a plain-language description, including
+descriptions whose words never appear in the code. It runs in two stages. BM25 and a
+33M-parameter embedding model, fused by reciprocal rank, shortlist 20 chunks, and a
+568M-parameter cross-encoder reranks only those. Notebooks are read as code and
+markdown, without outputs.
+
+**Measured** on 35 answerable, labelled queries across a JavaScript web application
+and a Python/notebook research codebase (iridis), plus six queries whose feature does
+not exist:
+
+| | P@1 | R@3 | s / query |
+|---|---:|---:|---:|
+| BM25 alone | 0.63 → 0.69 | 0.80 → 0.83 | < 0.01 |
+| Reranker over every chunk | 0.66 → 0.74 | 0.94 → 0.97 | 6.7–25.6 |
+| **Two-stage** | **0.69 → 0.77** | **0.94 → 0.97** | **2.1–2.3** |
+
+(Original labels → current labels, with the three widenings.) The honest reading: at top-1 the two-stage lead over
+keyword search is two or three queries of 35, too few to call. The replicated gain is the
+shortlist, where a correct file is in the top three for 34 of 35 queries against 29 for
+BM25 on the current labels, at a tenth of the brute-force cost on the larger codebase.
+Three labels were widened after the first run showed defensible answers they had missed.
+All 41 labels were drafted by Claude against the source and are not independently
+verified, and the sample is small.
+
+**On a strict rule — a query counts only when every correct file is found — the picture
+is less flattering.** Every single-file query has its file in the top five, but only 4 of
+9 multi-file queries have all their files there, fewer than keyword search (5). The
+20-chunk shortlist keeps the best chunks, which tend to come from one dominant file, so
+secondary files never reach the reranker. Overall, 30 of 35 queries are complete in the
+top five (keyword search 27). A pre-registered fix — a shortlist spread across files —
+lifted multi-file completeness from 4 to 6 of 9 on these queries but made no difference on
+a fresh held-out codebase (16 of 17 either way), so the default is unchanged. The held-out
+miss points somewhere else: test files crowding a source file out of the top five.
+
+**Not yet built:** calibration, which would turn scores into probabilities and let `find`
+answer "not here" (no single threshold separates absent features yet); the per-file
+yes/no `ask` mode; and a test on a large codebase, where the shortlist actually has to
+prove itself. A Claude Code skill already fronts it with a small-model agent, which the
+local scorer is meant to replace for all but ambiguous cases.
+
+---
+
+## Perceptual & imaging phenotyping
+
+Measurement science for visible traits that have no ground truth: skin tone, skin
+radiance, cell morphology and tumor appearance on CT. Each is measured against a fixed
+baseline — clinical labels, a nuclei count, classical survival models — rather than on
+its own terms. Capture comes first, because lambent showed that the camera can move a
+score further than the skin does.
+
+**Flagship:** iridis. **Also here:** lambent (optics), argus (Cell Painting), oncos (3D CT).
+
+### iridis — perceptual skin-tone phenotyping
+**Status:** Results committed · Python, PyTorch, scikit-learn, TabPFN, rembg
+
+Tests empirically whether data-driven perceptual color clusters carry more structure than
+the clinical scales used to describe skin tone. Fitzpatrick skin type — six ordinal
+buckets originally designed for burn-risk classification — is the de facto standard in
+dermatology datasets and therefore in the models trained on them.
+
+**Approach.** A layered masking pipeline isolates skin before any color is measured:
+class-agnostic foreground segmentation removes background; a ResNet18-U-Net trained on
+ISIC 2018 lesion masks removes the lesion itself so featurization reflects surrounding
+skin rather than pathology; a center-crop fallback keeps the pipeline running where
+segmentation degenerates. Images are downsampled, pixel-sampled and converted to CIE Lab,
+with per-image color taken as the *median* over sampled pixels — far less sensitive to
+specular highlights and residual segmentation error than a mean. MiniBatchKMeans produces
+a fine-grained partition (k=120), then neighboring clusters are merged by CIEDE2000
+perceptual distance so final categories reflect distinctions a human eye would actually
+make. The same Lab/LCh features then predict two different targets — Fitzpatrick type and
+discovered cluster ID — under matched classifiers so the comparison isn't confounded by
+model choice.
+
+**Results.** Benchmarked on Fitzpatrick17k (12,631 images; 12,222 with valid labels), with
+and without masking, under both Random Forest and TabPFN. **Measured skin colour barely
+tracks Fitzpatrick type.** Type explains 7% of the variance in lightness (L*) and 12% in
+yellowness (b*); the middle half of type I (L* 53–71) overlaps the middle half of type IV
+(47–61); and predicting type from colour reaches 34.6–42.3% accuracy against 33.8% for
+always guessing the commonest type. **Masking does not help:** isolating skin from
+background and lesion was expected to make type more predictable, and accuracy stayed flat
+or fell slightly. The lesion-exclusion U-Net reaches held-out Dice 0.889 / IoU 0.818 on
+ISIC 2018 Task 1 (2,594 dermoscopy images).
+
+**Correction (2026-09-26).** Earlier versions reported the discovered clusters as 2.5–2.8×
+more predictable than Fitzpatrick labels (95.8–96.3% against 34.6–42.3%) and read that as
+evidence the scale discards real structure. It is not evidence. The clusters are defined
+from the same colour features the classifier uses, so predicting them is largely true by
+construction. And the perceptual merge chains transitively: one cluster ends up with 68%
+of the images and spans nearly the whole lightness range, so the 96% sits against a 68%
+baseline. What stands is the weak link between colour and type, which in uncalibrated
+clinical photographs cannot yet separate the scale's coarseness from capture variation.
+
+**Are there colour categories at all? (pre-registered, 2026-09-26).** With a merge that cannot
+chain, colour splits into 92 clusters, the largest holding 3.7% of images, and refit on
+resampled images they do not reproduce (median ARI 0.31 against the 0.80 required). Skin
+colour in this data is a continuum, not a set of categories. On the same split, colour
+predicts Fitzpatrick type at 34.6% (95% CI 32.6–36.5%) against 33.9% for always guessing the
+commonest type: no better than chance.
+
+**Scale or camera? (pre-registered, 2026-09-26).** The MSKCC Skin Tone Labeling Dataset (ISIC
+Archive, CC-BY) has colorimeter readings at 501 skin sites. Against that instrument,
+Fitzpatrick type tracks skin colour strongly (Spearman −0.80 with ITA; 66% of variance) and
+the Monk Skin Tone scale better still (−0.93; 88%; difference +0.125, CI +0.073 to +0.208).
+Colour measured from the dermoscopic images of the same sites does not reproduce the
+instrument, and 41% of its variance comes from imaging the same skin under different
+dermoscope modes, against 1.1% between repeat colorimeter readings. The first two findings
+replicate the dataset authors' own report (Weir et al. 2025, *npj Digital Medicine*); the
+capture-variance share and the ITA breakdown on 32% of images (b* ≤ 0) are what this adds.
+So the weak link on Fitzpatrick17k is mainly the camera, not the scale. A coding error in the first run (the
+wrong ITA formula) was caught by a pre-registered sanity check, corrected and logged.
+
+**Limit.** Every Fitzpatrick17k image in the benchmark comes from a single source atlas.
+The source is therefore constant rather than a confound, but the result is established on
+that atlas only; the dataset's other atlas has a very different skin-type mix and would
+need a source audit before it is added.
+
+### lambent — computational quantification of skin radiance
+**Status:** Results committed · Python, scikit-image, OpenCV, scikit-learn · 1,816 images, 68 tests
+
+Developed independently on public data, from 2023; a consulting client later applied the
+method to its own data. An open-image pipeline estimating interpretable "glow" proxy
+features from images, aggregating them by subject, and optionally fitting supervised models where labels exist.
+The underlying research question was whether radiance — an attribute that existed only as
+a qualitative descriptor — could be quantified from multi-modal physiological image
+features at all.
+
+Multi-region extraction (full, center, forehead, left/right cheek, chin) with optional
+face detection for region anchoring. Features span Lab, ITA, hue, texture, and
+specular/red/dark proxies, aggregated to subject-level tables, with transparent composite
+scoring at image, subject-region, and subject level. Packaged as an installable CLI
+(`python -m lambent`) with two ingestion modes, folder and manifest.
+
+`docs/methodology.md` carries the consolidated v1–v6 methodology — the metric's evolution
+across six iterations.
+
+**Validating a metric with no ground truth.** Public dermatology datasets label skin
+*type*, not radiance, so there is nothing to correlate a glow score against. The
+validation asks instead what can be answered without labels, by perturbation with a known
+dose: add a controlled specular highlight to a real image, or brighten it globally with a
+gamma curve, or add fine noise, and measure how the score tracks the dose. Gamma is the
+control that carries the argument, because it raises lightness while adding no gloss at
+all.
+
+**Results** (1,816 Fitzpatrick17k images, stratified across all six types). The score
+tracks added gloss at median Spearman ρ = 1.00 — and tracks plain brightening at ρ = 1.00
+as well. **It does not separate gloss from lightness**, which follows from its own
+definition, where mean `L*` carries a +0.25 weight. A tone gradient is also present
+(ρ = −0.53 against Fitzpatrick type), with mean glow declining monotonically from type 1
+to type 6.
+
+**The tone gradient's size is not established, and the reason is the more interesting
+result.** Fitzpatrick17k is scraped clinical photography: no controlled illumination, no
+camera calibration, no colour reference in frame. Re-scoring each image under capture
+changes that cannot alter how glossy skin actually is shows a quarter-stop exposure
+difference moving the score by ~51% of the entire type-1-to-type-6 span, half a stop by
+90%, and a 10% white-balance drift by ~40%. The metric is about as sensitive to the
+camera as to several steps of skin type, so **nothing in this dataset separates the two**
+and the tone figure is an upper bound on a confounded quantity. The within-image findings
+are untouched by this, because there each image is its own control.
+
+The finding that matters most is that the obvious repair does not work. Dropping the
+lightness term and keeping the specular one fails, because the specular detector counts
+pixels over an *absolute* brightness threshold and is itself 5.3× higher on the lightest
+skin than the darkest. A tone-independent radiance metric needs highlight contrast
+measured against each image's own baseline rather than a fixed cut. That is a concrete,
+reproducible specification for the next version, arrived at by measurement.
+
+None of it makes the measurement useless — it establishes that what the metric captures
+is surface reflectance *including* lightness, under whatever illumination the photograph
+was taken in. That is a defensible thing to call radiance on a fixed capture rig, which
+is what the original engagement had and what public dermatology data does not.
+
+**The measurement then specified its own replacement**, and the route there is the part
+worth reading. Exposure and white-balance sensitivity became the acceptance criterion, and
+seven variants were scored through identical experiments so each change was attributable
+rather than bundled.
+
+| Variant | Gloss ρ | Brightness ρ | Tone ρ² | exp ±0.25 | Worst capture |
+|---|---|---|---|---|---|
+| `v6` original | 1.000 | **1.000** | 0.310 | 54.6% | 93.2% |
+| `v6` minus lightness | 1.000 | **1.000** | 0.250 | 48.5% | 72.2% |
+| `v7` relative features | 0.743 | −0.857 | 0.074 | 31.9% | 74.4% |
+| `v8` von Kries | 0.771 | −1.000 | 0.284 | 31.2% | 70.4% |
+| `v9` noise-corrected | 0.771 | −1.000 | 0.287 | 31.6% | 71.5% |
+| `v10` linear von Kries | 0.771 | −1.000 | 0.044 | 35.8% | 79.7% |
+| **`v11` specular-linear** | **0.829** | −0.857 | **0.002** | **26.8%** | **59.4%** |
+
+Tone dependence falls from ρ² 0.310 to **0.002** and worst-case capture sensitivity from
+93.2% to 59.4%, while the response to real gloss *improves*.
+
+Three of those rows are failures, and they are kept because the sequence is the argument.
+**Deleting the lightness term does nothing** — the other terms are absolute too.
+**Relative features fix exposure and break white balance**, because the specular test
+gates on saturation and warming an image raises saturation; von Kries repairs that, since
+an illuminant change is to first order a diagonal transform `R→aR, G→bG, B→cB` and
+dividing each channel by a statistic of itself cancels it. **The noise-floor correction
+was a dead end**: the hypothesis that von Kries amplifies sensor noise on darker skin was
+implemented in full and changed nothing, because the measured noise floor is ~2% of the
+skin median against relative spreads of 20–37%.
+
+Ruling that out is what identified the real cause. Von Kries is a *linear* model, and sRGB
+values are not radiance — under a ~1/2.2 transfer curve a fixed linear ratio maps to
+different encoded ratios depending on level, which on skin means depending on skin tone.
+Undoing the curve first takes the specular term's own tone correlation from +0.47 to
+−0.08, and weighting the metric onto that now-neutral term is `v11`. It requires excluding
+clipped pixels from the measurement region: a saturated pixel is maximally bright and
+minimally saturated, precisely the specular signature, so without the exclusion raising
+exposure manufactures gloss that was never in the scene.
+
+What remains unfixed is stated with it. Every variant still responds to a tone curve,
+because gamma is not a diagonal transform and no per-channel gain cancels one. Residual
+exposure sensitivity is bounded by clipping already present in the source rather than by
+the correction. And tone neutrality is established on a single source atlas.
+
+Results are generated into `docs/open_validation.md` from the run's JSON, so the
+documented numbers cannot drift from the run that produced them.
+
+### argus — dual-branch fluorescence anomaly detection
+**Status:** Results committed · PyTorch, scikit-learn · RxRx3-core, four pre-registered runs, 44 held-out experiments
+
+Anomaly detection over Cell Painting microscopy, splitting the six stains by excitation
+wavelength: a UV branch (Hoechst/DNA, ~350 nm) scored by a convolutional autoencoder's
+reconstruction error, and an Isolation Forest over pre-computed OpenPhenom embeddings,
+fused by rank. Built on Recursion's public RxRx3-core.
+
+**The test.** A protocol committed before scoring asks whether detectors trained only on
+control wells can flag the PLK1 and MTOR knockouts that every experiment carries as
+positive controls. Six held-out experiments are scored once, with a bootstrap over plates.
+The fixed baseline is a plain nuclei count, because PLK1 knockout leaves fewer cells.
+
+**Result: the dual-branch design failed its test.** The autoencoder ranked knockouts as
+*less* anomalous than controls (ROC-AUC 0.324). Fewer nuclei leave more empty background,
+which reconstructs easily. The score direction was fixed in advance, so it was not flipped
+afterwards. Fusion therefore fell to 0.532, below the embedding branch alone (−0.179,
+CI −0.206 to −0.152). The embedding branch reached 0.711, a tie with the nuclei count
+(0.712): better on PLK1 (0.83 against 0.79), worse on MTOR (0.59 against 0.64). One
+more caveat surfaced in the design: OpenPhenom embeds all six channels, so the embedding
+branch was never UV-free.
+
+**A second pre-registered run (v2)** tested two repairs on eight experiments nobody had
+scored (1,150 wells, 72 plates), because the repairs were designed after seeing v1. v1
+replicated: the autoencoder inverted again (0.32) and the embeddings tied the cell count
+again. Scoring reconstruction error on nuclear pixels only removed the inversion and left
+no signal at all (0.48). Regressing cell count out of the embeddings looked like it left a
+real MTOR signal (0.58, interval above 0.5), but a check made after scoring showed the
+residualized score still tracked cell count almost as strongly (Spearman −0.48 against
+−0.51): a linear regression cannot remove a nonlinear dependence, so the control did not do
+its job.
+
+**A third run (v3) compared wells only with controls of the same cell count**, on 15 more
+experiments nobody had scored (2,108 wells, 135 plates). Controls were cut into deciles of
+nuclei fraction, and each knockout was compared only with controls in its own decile. The
+built-in check passed: inside a bin, the cell count alone scored 0.521. Matched on count, the
+embeddings still reached 0.690 (CI 0.651–0.724), 0.169 above the count, and MTOR alone
+stayed above chance (0.579, CI 0.540–0.615). **So the embeddings do see more than a cell
+count.** Unmatched, they tied it again. A check made after scoring (not pre-registered):
+binning within each experiment, a stricter match, keeps the overall result above chance
+(0.588) but pulls MTOR alone to 0.548, whose interval includes 0.5; and bin by bin, the
+embeddings' signal sits in the three lowest-count deciles (AUC 0.68–0.85) and is near chance
+above them. The dual-branch design
+stays a failure; the embedding branch alone carries real signal.
+
+**A fourth run (v4) made those checks the pre-registered test**, on 15 more unscored
+experiments (2,064 wells). Matched within each experiment, the embeddings still separate
+knockouts at 0.608 (CI 0.559–0.649), with the count at 0.490; MTOR alone is 0.545 (CI
+0.490–0.596, not detected); and in wells with more nuclei than the median control they are at
+chance (0.508). Every expectation in the protocol held. The embeddings see more than a count,
+but only in wells a knockout has already thinned.
+
+### oncos — survival prediction from 3D CT
+**Status:** Implemented, in progress · public imaging data · PyTorch
+
+Work in progress. It predicts overall survival in non-small cell lung cancer from
+pre-treatment 3D CT, on public data. 3D deep learning is compared against classical
+survival baselines, with censoring handled explicitly, under an evaluation protocol fixed
+before any model was scored. Results and methods will be written up here once the work is
+further along.
+
+---
+
+## Certified structure in biological data
+
+Deciding when latent structure in high-dimensional biological data is real enough to act
+on, by applying topos (under Frameworks) to crop genomes: eight gated stages that end in
+an explicit GO, KILL or HOLD. A thread through transposable elements runs across the case
+studies, from repbox's element discovery to insertion polymorphisms in sorghum and
+TE-derived structural variants in tomato (lyco).
+
+**Flagship:** fragaria, the case study run furthest: an audit found its first Stage 0
+invalid, and two pre-registered rebuilds end in a GO that holds across sensitivities, for
+structure PCA and UMAP agree on. Every lesson became a rule in topos. lyco ran to a KILL
+at its last gate; the other case studies are specified and not yet run.
+
+### fragaria — nonlinear haplotype topology in octoploid strawberry
+**Status:** Results committed (Stage 2x) · Python, scikit-learn
+
+A topos case study on *Fragaria × ananassa* testing whether nonlinear manifold methods
+recover stable population structure beyond linear PCA in an octoploid context, where
+dosage ambiguity, subgenome assignment uncertainty and homoeologous exchange all
+complicate interpretation. Stage 0 has been run three times; Stages 1b and 1c tested the
+question on two wild panels, and Stage 2x asks what crossing the groups would add.
+
+**The first Stage 0 was invalid.** Its GO reproduced exactly, but an audit found the
+file's missing calls (`-1`) were never decoded, so about 930K of them entered PCA as a
+genotype value, and three of five rubric criteria passed by construction: seed-only
+stability on a deterministic pipeline, and a missingness check that saw no missing data.
+
+**Stage 0 v2, pre-registered: GO, narrowly, for linear structure only.** Rebuilt with
+missing calls decoded, full-sib families thinned to three members (one family has 187),
+and stability measured by resampling 80% of accessions and markers 20 times, across 189
+pipeline settings on 925 individuals. Two PCA→HDBSCAN settings pass every gate —
+the minimum the rule allows — with stability 0.82–0.84 and two or three clusters that
+track germplasm source (USDA accessions, named cultivars, the breeding program). No UMAP
+setting passes, so nothing yet supports the nonlinear hypothesis. The gate that bites is
+missingness: it fails 22 of the 24 stable, valid settings, and appears entangled with
+source through array ascertainment. Without the family cap, clusters were 72–100% a
+single family.
+
+**Stage 0 v3, pre-registered: GO, and it holds.** Three fixes v2 called for: relatedness
+capped with KING-robust kinship rather than family labels (234 unrelated accessions; the
+standard relationship matrix was rejected because it read population structure as
+kinship), a deduplicated grid, and a missingness gate tested within germplasm source.
+GO in the primary run and both sensitivities, carried by UMAP pipelines as well as PCA.
+The structure is the same either way: on the accessions both methods cluster, the
+partitions are identical — breeding-program lines against USDA accessions and named
+cultivars. UMAP only assigns the diverse accessions PCA leaves as noise. (The pre-registered
+non-redundancy check read 0.68 because it scored HDBSCAN noise as a cluster label, a design
+flaw in the check.) So stable,
+confound-defensible structure exists, and nothing yet shows structure beyond PCA; that is
+Stage 1's test. The lessons go upstream into topos. The only topos case study with
+executed analysis.
+
+**Stage 1b, wild panel, pre-registered: GO by the rule, not supported in substance.**
+202 wild woodland strawberries (*F. vesca*, whole-genome, public CC0 panel), 176 unrelated
+after kinship pruning. Stage 0's checks pass on an east–west split. The Stage 1 rule
+returned GO (three nonlinear settings on the whole panel, four within the western group),
+against an expectation of HOLD or KILL. A labelled post hoc check found why: the rule
+compared each nonlinear setting only with the linear setting sharing its clusterer, and
+density clustering on PCA fails on this panel, while k-means on the same PCA coordinates
+passes every gate and recovers the same clusters (whole panel ARI 0.70–0.81; the western
+group's Iberian and central-southern clusters at Jaccard 0.98–1.0). The wild panel has
+stable, geographic structure beyond the east–west split, and it is linear.
+
+**Stage 1c, wild octoploids, stricter rule: H1 KILL.** The rule was tightened first — a
+nonlinear partition counts only if no passing linear setting, under any clusterer or k-means
+at any k from 2 to 10, recovers it — then applied to a panel it had not seen: 102 wild
+*F. chiloensis* and *F. virginiana* from a public whole-genome set (CC-BY), the 33.6 GB variant
+file streamed and hash-sampled to 475,741 SNPs without being stored. Stable, confound-checked
+structure follows taxonomy (*chiloensis*, eastern and western *virginiana*), and every UMAP
+setting that finds it reproduces the matched PCA partition, three exactly. Every UMAP
+setting in Stages 0–1c embedded principal components; a post hoc rerun with UMAP on the
+genotypes themselves is still KILL, its stable partitions matching PCA's or a coarser version. Across three
+panels the answer is the same: the structure is real and linear. The hypothesis is closed as
+not supported.
+
+**Stage 2x part A, crossing value, pre-registered.** What crossing each group would add to
+cultivated germplasm: the share of sites where a wild group carries an allele at ≥ 20% that
+the UC Davis and Florida programs hold at < 5% is 11.9% for *F. chiloensis*, 7.5% for western
+*F. virginiana* and 3.6% for eastern, each distinct. Between wild groups, eastern *virginiana*
+× *chiloensis* adds the most heterozygosity and western *virginiana* × *chiloensis* the most
+variation the programs lack. The programs hold almost no private alleles. Groups are Stage 1c clusters named by majority
+taxon (2 wild hybrids in the *chiloensis* group, 1 *chiloensis* in eastern *virginiana*); a
+post hoc rerun on species-pure groups keeps every ranking.
+
+**Stage 2x part B, phenotype link.** A mixed-model association scan on 1,787 Florida breeding
+lines (the same study's 50K-array data) finds three fruit-size loci and no yield locus. The
+source study had already run its own scan (Fan & Whitaker 2024, *Plant Cell*, FarmCPU): the
+strongest locus here is among its 26 fruit-size signals, so what follows confirms and places a
+published association rather than finding a new one. Only 2 of its 26 fruit-size signals and
+none of its 11 yield signals pass the stricter single-marker Bonferroni scan used here. 52
+lines genotyped on both platforms map every array chromosome to the whole-genome reference and
+tag each locus (|r| ≥ 0.83). A follow-up test fixed in advance found the three loci are one
+signal: their markers sit on three independently segregating subgenomes yet are strongly
+associated (r² 0.40–0.68 against a background of 0.05), and conditioning on the strongest
+removes the others. The tags then disagree about wild frequencies, so the wild-donor reading
+is withdrawn until the causal site is known. What stands: the Florida program carries the
+size-increasing allele at two to six times UC Davis's frequency (intervals exclude a ratio of 1), a
+crossing lead between programs.
+A targeted second pass read every variant in the first 6 Mb of the four group-1
+subgenomes (585,789 sites) and placed the signal on subgenome 1B, in a haplotype at
+2.2–5.3 Mb (narrow margin over 1C). There the allele that goes with larger fruit is common in
+wild octoploids (*F. chiloensis* 0.86, *F. virginiana* 0.47–0.60) and rare at UC Davis (0.08);
+program-frequency-matched background alleles sit near 0.05 in the wild, so this is not an
+artifact of the programs' lost diversity. The effect is measured in Florida lines only.
+Array-level fine-mapping leaves the lead marker alone in the credible set, and an independent
+public marker table puts its probe on 1B at 1.7 Mb while flagging the 1C signal's probe as
+ambiguous between homoeologs, confirming the placement.
+A replication fixed in advance failed: in 529 UC Davis individuals with fruit weight (Feldmann
+et al. 2024, CC0), where the allele segregates at 0.17–0.20, its effect is −0.18 g per copy
+(95% CI −1.00 to +0.64), but with only 52% power at the source study's Florida estimate (+0.7 g),
+itself likely inflated by the scan that found it, so the replication is inconclusive. Wild *F. chiloensis* 'Del Norte' carries
+two copies, but its hybrids do not segregate, so the wild test could not run. The Florida → UC
+Davis crossing lead and the wild-donor reading are therefore not supported beyond Florida.
+A final check compared the array marker's linkage with the haplotype: mean r² 0.85 in Florida
+lines against 0.43 at UC Davis. A later check found the gap is mostly the tag's rarity at
+UC Davis (about 7 copies), which caps r²; normalized to that cap it is 0.14 (95% interval −0.23 to
+0.24), unresolved. The locus is untested outside Florida. The nonlinear
+test compares partitions, not geometry, and has no positive control, so its KILL means "not
+detected"; the controls are queued. Paused 2026-09-26.
+
+**TE landscape (descriptive, not pre-registered, 2026-09-28).** From public repeat annotations
+(an octoploid FL16.33-8 phase, RepeatMasker; *F. vesca* v4, EDTA), one class per base: the
+octoploid is 39.5% repeats but mostly unclassified, *F. vesca* 33.2% TE. The *F. vesca*-derived
+dominant subgenome A carries 23% fewer repeats than B–D and half their Gypsy, in all seven
+homoeologous groups, as published for Camarosa. The gene-density pericentromere rule used for
+tomato does not transfer to strawberry, and Gypsy is only modestly enriched in gene-poor regions
+(1.0–3.3×). The 50K array is gene-centred: on FaRR1, 46% of probes are genic and 74% within 1 kb
+of a gene, against 36% and 55% of bases. No downloadable strawberry population SV or TE-insertion
+genotype set exists, so the SV side stops there.
+
+### glyma — soybean haplogroup discovery
+**Status:** Designed (Stage 0) · *Glycine max*, SoySNP50K
+
+Parallel case study testing the same nonlinearity hypothesis against SoySNP50K, with
+conditional escalation into phenotype, transcriptomic and geo-climatic validation.
+Ideation, proposal and stage protocols complete; analysis not yet run.
+
+### sorghum — transposable element insertion-site polymorphism
+**Status:** Designed (Stage 0–1) · *Sorghum bicolor*, WGS
+
+Case study on reproducible TIP detection and staged escalation, testing whether insertion
+sites can be called reproducibly under perturbation of coverage, filtering and annotation
+scope before any large-scale interpretation is attempted.
+
+### lyco — what transposable-element insertions record about tomato's history
+**Status:** Results committed (Stage 1d) · *Solanum lycopersicum*, public pangenome call sets
+
+Most structural variants in tomato are derived from transposable elements. lyco asks what
+those TE-derived variants record that other structural variants do not, working entirely
+from published pangenome call sets on a laptop; nothing is re-called from reads. Every
+question is pre-registered with a frozen analysis grid before anything is scored.
+
+It began as a trait question: do TE-derived variants carry more of tomato's trait
+heritability? A power check written into the pre-registration killed that before any trait
+was scored. In a structured, inbred panel of about 300 accessions, relationship matrices
+built from TE-derived and non-TE variants correlate at 0.97, so heritability cannot be
+split between them; a per-variant redesign failed its own power check too. The project
+was reframed around population history, which is what that structure encodes, using all
+706 accessions and no traits.
+
+Results (2026-09-27), each scored once:
+- **Call-set agreement (the gate):** graph genotypes of TE-derived variants agree with
+  independent long-read calls as well as non-TE ones do (median concordance 0.984 for
+  both), so TE variants are not genotyped worse from short reads.
+- **Population history:** relationship matrices from matched TE-derived and non-TE
+  variants differ well beyond a random-split null (0.991 against 0.998 ± 0.0002),
+  concentrated in wild–cherry and cherry–big-fruited relatedness. It reproduces among
+  variants that both discovery routes (high-fidelity assemblies and long reads) could have
+  found, so discovery bias is an unlikely explanation.
+- **Element or region?** The difference is carried mainly by Gypsy LTR retrotransposons.
+  A further pre-registered test compared Gypsy with non-TE variants inside the gene-poor
+  pericentromeres and inside the chromosome arms separately: Gypsy differs in both, more
+  strongly in the arms, so the signal belongs to the insertions, not to where they sit.
+- **Frequency spectra through domestication:** no difference after correction.
+- **Young insertions as lineage markers:** more often private to one group as registered,
+  but mostly because young insertions are rarer.
+- **Introgression (2026-09-28), stopped at its gate:** a test of whether wild segments bred
+  into cultivated tomato explain the Gypsy signal required SNP-called
+  *S. pimpinellifolium*-type segments to recover five known introgressed loci first. They
+  recovered 0 of 31 carrier–locus pairs, so the test was not run; all five loci came from
+  more distant wild species that such a caller cannot see. The question stays open.
+
+### repbox — transposable element discovery and annotation
+**Status:** Shipped · Python CLI, published · [BMC Bioinformatics (2023)](https://doi.org/10.1186/s12859-023-05419-5)
+
+A Python-first CLI platform for identification and classification of novel repetitive
+genomic elements, evolved from thesis-era workflow into an adapter-based v2.0.0 with
+semantic versioning, a release process, and smoke-test diagnostics
+(`run` / `check` / `smoke` / `smoke-report`). Demonstrated 7% growth in detected elements
+across the *A. sativa* genome. Public.
+
 ---
 
 ## Supporting — production systems
@@ -1020,55 +1069,6 @@ interactive demo without shipping the pipeline to the browser: a Python backend 
 science stays server-side, a TypeScript frontend, and one `preprocess → predict →
 postprocess` contract. Its default variant is one shared backend with a router per
 project, which makes it cross-portfolio by construction.
-
-### noul — non-generative answers about code
-**Status:** Results committed (`find` only) · Python, PyTorch, Hugging Face Transformers · 41 labelled queries, 2 codebases
-
-Coding agents answer "where is X" by reading files into their context, where every file
-is re-sent with every later turn. TypeSafe's Jev points at an alternative: a model that
-returns typed, calibrated numbers instead of prose, in a single pass. Jev is API-only and
-its architecture unpublished, so noul asks how much of that shape can be rebuilt from open
-models running locally, with no text generation and nothing leaving the machine.
-
-`find` ranks files by how well they match a plain-language description, including
-descriptions whose words never appear in the code. It runs in two stages. BM25 and a
-33M-parameter embedding model, fused by reciprocal rank, shortlist 20 chunks, and a
-568M-parameter cross-encoder reranks only those. Notebooks are read as code and
-markdown, without outputs.
-
-**Measured** on 35 answerable, labelled queries across a JavaScript web application
-and a Python/notebook research codebase (iridis), plus six queries whose feature does
-not exist:
-
-| | P@1 | R@3 | s / query |
-|---|---:|---:|---:|
-| BM25 alone | 0.63 → 0.69 | 0.80 → 0.83 | < 0.01 |
-| Reranker over every chunk | 0.66 → 0.74 | 0.94 → 0.97 | 6.7–25.6 |
-| **Two-stage** | **0.69 → 0.77** | **0.94 → 0.97** | **2.1–2.3** |
-
-(Original labels → current labels, with the three widenings.) The honest reading: at top-1 the two-stage lead over
-keyword search is two or three queries of 35, too few to call. The replicated gain is the
-shortlist, where a correct file is in the top three for 34 of 35 queries against 29 for
-BM25 on the current labels, at a tenth of the brute-force cost on the larger codebase.
-Three labels were widened after the first run showed defensible answers they had missed.
-All 41 labels were drafted by Claude against the source and are not independently
-verified, and the sample is small.
-
-**On a strict rule — a query counts only when every correct file is found — the picture
-is less flattering.** Every single-file query has its file in the top five, but only 4 of
-9 multi-file queries have all their files there, fewer than keyword search (5). The
-20-chunk shortlist keeps the best chunks, which tend to come from one dominant file, so
-secondary files never reach the reranker. Overall, 30 of 35 queries are complete in the
-top five (keyword search 27). A pre-registered fix — a shortlist spread across files —
-lifted multi-file completeness from 4 to 6 of 9 on these queries but made no difference on
-a fresh held-out codebase (16 of 17 either way), so the default is unchanged. The held-out
-miss points somewhere else: test files crowding a source file out of the top five.
-
-**Not yet built:** calibration, which would turn scores into probabilities and let `find`
-answer "not here" (no single threshold separates absent features yet); the per-file
-yes/no `ask` mode; and a test on a large codebase, where the shortlist actually has to
-prove itself. A Claude Code skill already fronts it with a small-model agent, which the
-local scorer is meant to replace for all but ambiguous cases.
 
 ### legere — ensemble handwriting recognition scaffold
 **Status:** Designed (scaffold) · Python, module structure for TrOCR, Donut, PaddleOCR, SimpleHTR

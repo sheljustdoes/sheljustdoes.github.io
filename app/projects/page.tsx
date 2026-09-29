@@ -1,25 +1,43 @@
-import { LINES, PROJECT_BY_ID, SUPPORTING, displayStatus, projectsInArea, type AreaId, type Project } from "@/lib/projects";
+import { FRAMEWORKS, LINES, PROJECT_BY_ID, SUPPORTING, displayStatus, projectsInArea, type AreaId, type Project } from "@/lib/projects";
 import SectionNav from "./SectionNav";
 
 export const metadata = { title: "work — shel." };
 
-// The products view of the portfolio: three lines, each led by its flagship,
-// then everything else as supporting evidence. Every word comes from
+// The products view of the portfolio: the frameworks the research builds on,
+// then two lines, each led by its flagship, then everything else as supporting
+// evidence. Every word comes from
 // lib/projects.ts, so this page cannot say something the résumé does not.
 
 export default function ProjectsIndex() {
   return (
     <>
       <span className="kicker">Work</span>
-      <h1>Three product lines.</h1>
+      <h1>Frameworks, and two product lines.</h1>
       <p className="tagline">
-        Each line is led by a flagship. Across all three, results are compared against a plain baseline and a negative result is
-        reported as it came out. Everything else is supporting evidence of how the work gets built and shipped.
+        The frameworks come first: the research builds on them. Each line is led by a flagship. Throughout, results are compared
+        against a plain baseline and a negative result is reported as it came out. Everything else is supporting evidence of how
+        the work gets built and shipped.
       </p>
 
       <SectionNav
-        items={[...LINES.map((a) => ({ id: a.id, label: NAV_LABEL[a.id] ?? a.label })), { id: "supporting", label: "Supporting" }]}
+        items={[...[...FRAMEWORKS, ...LINES].map((a) => ({ id: a.id, label: NAV_LABEL[a.id] ?? a.label })), { id: "supporting", label: "Supporting" }]}
       />
+
+      {FRAMEWORKS.map((area) => (
+        <section key={area.id} id={area.id} className="line">
+          <SectionHead kicker="Foundations" title={area.label} />
+          <p className="line-thesis">{area.thesis}</p>
+          {projectsInArea(area.id).map((p) => (
+            <div key={p.id} className="line-flagship framework">
+              <h3>
+                {p.name}. <span className="line-meta">{meta(p)}</span>
+              </h3>
+              <p>{p.summary}</p>
+              {p.link && <a href={p.link}>{p.linkLabel ?? "Read the write-up →"}</a>}
+            </div>
+          ))}
+        </section>
+      ))}
 
       {LINES.map((area, i) => {
         const flagship = PROJECT_BY_ID[area.flagship!];
@@ -69,7 +87,6 @@ export default function ProjectsIndex() {
 const NAV_LABEL: Partial<Record<AreaId, string>> = {
   phenotyping: "Phenotyping",
   structure: "Certified structure",
-  cognition: "Research cognition",
 };
 
 /**
@@ -127,6 +144,8 @@ article h2.section-title { display: block; margin: 0; font-family: var(--serif);
 article h2.section-title::after { content: none; }
 article .line-thesis { font-style: italic; color: #4a4540; }
 article .line-flagship { border: 1px solid var(--parchment); border-left: 3px solid var(--terracotta); padding: 16px 20px; margin: 0 0 16px; }
+/* Framework cards carry the blueprint blue instead of the flagship terracotta. */
+article .line-flagship.framework { border-left-color: var(--indigo-deep); }
 article .line-flag-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta); }
 article h3 { font-family: var(--display); font-size: 1.15rem; font-weight: 600; margin: 4px 0 8px; }
 article .line-flagship p { font-size: 0.92rem; margin-bottom: 10px; }

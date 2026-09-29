@@ -9,7 +9,7 @@
 // and PORTFOLIO.md disagree on which projects exist, which section each sits
 // in, or its status — so the deploy cannot ship a drifted résumé.
 
-export type AreaId = "phenotyping" | "structure" | "cognition" | "production" | "learning" | "tooling";
+export type AreaId = "frameworks" | "phenotyping" | "structure" | "production" | "learning" | "tooling";
 
 export type Area = {
   id: AreaId;
@@ -17,11 +17,13 @@ export type Area = {
   /** The `## ` heading this area mirrors in PORTFOLIO.md, verbatim. */
   portfolioSection: string;
   /**
-   * A product line leads with a flagship; supporting areas show how the work
-   * gets built. The résumé page leads with the lines and folds the rest.
+   * Frameworks are what the research builds on and open the page, with no
+   * flagship; a product line leads with a flagship; supporting areas show how
+   * the work gets built. The résumé page opens frameworks and lines, and folds
+   * the rest.
    */
-  kind: "line" | "supporting";
-  /** Product lines only: one sentence on what the line is for. */
+  kind: "framework" | "line" | "supporting";
+  /** Frameworks and product lines: one sentence on what the area is for. */
   thesis?: string;
   /** Product lines only: the project that leads it. Listed first, with a write-up. */
   flagship?: string;
@@ -30,19 +32,19 @@ export type Area = {
 /** In PORTFOLIO.md order. */
 export const AREAS: Area[] = [
   {
+    id: "frameworks", label: "Frameworks", portfolioSection: "Frameworks",
+    kind: "framework",
+    thesis: "The frameworks the research builds on, each proven in real use and measured against a plain baseline, with fixes found in use going back into the framework.",
+  },
+  {
     id: "phenotyping", label: "Perceptual & Imaging Phenotyping", portfolioSection: "Perceptual & imaging phenotyping",
     kind: "line", flagship: "iridis",
     thesis: "Measurement science for visible traits that have no ground truth, each tested against a fixed baseline rather than on its own terms.",
   },
   {
     id: "structure", label: "Certified Structure in Biological Data", portfolioSection: "Certified structure in biological data",
-    kind: "line", flagship: "topos",
-    thesis: "Deciding when latent structure in high-dimensional biological data is real enough to act on, through gates that end in GO, KILL or HOLD.",
-  },
-  {
-    id: "cognition", label: "Research Cognition", portfolioSection: "Research cognition",
-    kind: "line", flagship: "veridian",
-    thesis: "Tools that help a researcher check what they read and keep what they learn, measured against a plain baseline on held-out data.",
+    kind: "line", flagship: "fragaria",
+    thesis: "Deciding when latent structure in high-dimensional biological data is real enough to act on, by running crop genomes through topos's gates to a GO, KILL or HOLD.",
   },
   { id: "production", label: "Production Systems", portfolioSection: "Supporting — production systems", kind: "supporting" },
   { id: "learning", label: "Learning & Knowledge Tools", portfolioSection: "Supporting — learning & knowledge tools", kind: "supporting" },
@@ -71,6 +73,31 @@ export type Project = {
 };
 
 export const PROJECTS: Project[] = [
+  // ---- Frameworks ----
+  {
+    id: "topos", name: "topos", area: "frameworks", status: "Implemented (Stage 0 checks)", date: "2025–", featured: true,
+    link: "/projects/topos/", linkLabel: "Read the write-up →",
+    summary:
+      "A stability-certification protocol for deciding when latent structure in high-dimensional biological data is real enough to act on: eight gating stages ending in an explicit GO/KILL/HOLD verdict. Stage 0 is a tested Python package whose every module enforces a rule learned on real data — declared missing-value codes, stability from resampling rather than seeds, untestable confounds blocking a GO, kinship-based relatedness control, deduplicated grids, and non-redundancy measured on rows both pipelines cluster. fragaria's scored Stage 0 runs on it and reproduces its results exactly.",
+  },
+  {
+    id: "veridian", name: "veridian", area: "frameworks", status: "Results committed (Check)", date: "2025", featured: true,
+    link: "/projects/veridian/", linkLabel: "Read the write-up →",
+    summary:
+      "A literature review tool with two modes over one frozen corpus: Explore maps a field and where it disagrees; Check grounds a claim against the papers, citing the sentences behind the verdict. After an audit found the original grounding answered “supported” to every claim, the rebuilt Check reached 86% verdict accuracy on 21 held-out claims written before any fix (95% interval 65–95%), against 48% for the original rule.",
+  },
+  {
+    id: "recolo", name: "recolo", area: "frameworks", status: "Results committed", date: "2026–", featured: true,
+    link: "/projects/recolo/", linkLabel: "Read the write-up →",
+    summary:
+      "Bio-inspired memory for LLM agents: episodic and semantic stores over SQLite, exponential decay computed at retrieval, salience scored independently of age, and a consolidation loop that promotes cluster centroids and accelerates decay on what they already represent rather than deleting it. Evaluated on LongMemEval under a protocol committed before scoring: as shipped it scored 0.32 against 0.73 for plain retrieval over the same memories, and ablations trace the loss to decay on a fixed clock. A second protocol tested decay that adapts to the history: none of three modes beat plain retrieval, even on knowledge-update questions. A third tested salience as a tie-breaker and consolidation as an index over its member episodes, with decay off: neither retrieved evidence better than plain retrieval, so none of recolo's mechanisms helps. A fourth showed why decay had nothing to add: shown dated and in time order, retrieved memories let the reader pick the newer fact itself (removing those cues costs 15 points). Reported as-is.",
+  },
+  {
+    id: "noul", name: "noul", area: "frameworks", status: "Results committed (`find` only)", date: "2026–", featured: true,
+    link: "/projects/noul/", linkLabel: "Read the write-up →",
+    summary:
+      "Local, non-generative code search: BM25 and a small embedding model shortlist candidates and a cross-encoder reranks only those — typed scores in a single pass instead of an agent reading files, with nothing leaving the machine. On 35 labelled queries across two codebases, every single-file answer lands in the top five, at a tenth of brute-force cost on the larger codebase; but on a strict rule that requires every correct file, only 4 of 9 multi-file answers are complete. A pre-registered fix helped on those queries but not on a fresh held-out codebase, so the default is unchanged.",
+  },
   // ---- Perceptual & imaging phenotyping ----
   {
     id: "iridis", name: "iridis", area: "phenotyping", status: "Results committed", date: "2023–2025", featured: true,
@@ -97,12 +124,6 @@ export const PROJECTS: Project[] = [
   },
 
   // ---- Certified structure in biological data ----
-  {
-    id: "topos", name: "topos", area: "structure", status: "Implemented (Stage 0 checks)", date: "2025–", featured: true,
-    link: "/projects/topos/", linkLabel: "Read the write-up →",
-    summary:
-      "A stability-certification protocol for deciding when latent structure in high-dimensional biological data is real enough to act on: eight gating stages ending in an explicit GO/KILL/HOLD verdict. Stage 0 is a tested Python package whose every module enforces a rule learned on real data — declared missing-value codes, stability from resampling rather than seeds, untestable confounds blocking a GO, kinship-based relatedness control, deduplicated grids, and non-redundancy measured on rows both pipelines cluster. fragaria's scored Stage 0 runs on it and reproduces its results exactly.",
-  },
   {
     id: "fragaria", name: "fragaria", area: "structure", status: "Results committed (Stage 2x)", date: "2026–", featured: true,
     link: "/projects/fragaria/", linkLabel: "Read the write-up →",
@@ -132,19 +153,6 @@ export const PROJECTS: Project[] = [
       "Python-first CLI for discovering and classifying novel repetitive genomic elements, evolved from dissertation work into an adapter-based v2.0.0 with semantic versioning and smoke-test diagnostics. Demonstrated 7% growth in detected elements across the A. sativa genome. Published in BMC Bioinformatics (2023).",
   },
 
-  // ---- Research cognition ----
-  {
-    id: "veridian", name: "veridian", area: "cognition", status: "Results committed (Check)", date: "2025", featured: true,
-    link: "/projects/veridian/", linkLabel: "Read the write-up →",
-    summary:
-      "A literature review tool with two modes over one frozen corpus: Explore maps a field and where it disagrees; Check grounds a claim against the papers, citing the sentences behind the verdict. After an audit found the original grounding answered “supported” to every claim, the rebuilt Check reached 86% verdict accuracy on 21 held-out claims written before any fix (95% interval 65–95%), against 48% for the original rule.",
-  },
-  {
-    id: "recolo", name: "recolo", area: "cognition", status: "Results committed", date: "2026–", featured: true,
-    link: "/projects/recolo/", linkLabel: "Read the write-up →",
-    summary:
-      "Bio-inspired memory for LLM agents: episodic and semantic stores over SQLite, exponential decay computed at retrieval, salience scored independently of age, and a consolidation loop that promotes cluster centroids and accelerates decay on what they already represent rather than deleting it. Evaluated on LongMemEval under a protocol committed before scoring: as shipped it scored 0.32 against 0.73 for plain retrieval over the same memories, and ablations trace the loss to decay on a fixed clock. A second protocol tested decay that adapts to the history: none of three modes beat plain retrieval, even on knowledge-update questions. A third tested salience as a tie-breaker and consolidation as an index over its member episodes, with decay off: neither retrieved evidence better than plain retrieval, so none of recolo's mechanisms helps. A fourth showed why decay had nothing to add: shown dated and in time order, retrieved memories let the reader pick the newer fact itself (removing those cues costs 15 points). Reported as-is.",
-  },
 
   // ---- Supporting — production systems ----
   {
@@ -204,12 +212,6 @@ export const PROJECTS: Project[] = [
       "Cross-portfolio tooling. Its rotation report ranks every project by its last commit that touched more than markdown, so documentation activity cannot disguise a stalled project, and pairs each with its next backlog item. The same script runs locally and as a weekly Action over treeless clones.",
   },
   {
-    id: "noul", name: "noul", area: "tooling", status: "Results committed (`find` only)", date: "2026–", featured: true,
-    link: "/projects/noul/", linkLabel: "Read the write-up →",
-    summary:
-      "Local, non-generative code search: BM25 and a small embedding model shortlist candidates and a cross-encoder reranks only those — typed scores in a single pass instead of an agent reading files, with nothing leaving the machine. On 35 labelled queries across two codebases, every single-file answer lands in the top five, at a tenth of brute-force cost on the larger codebase; but on a strict rule that requires every correct file, only 4 of 9 multi-file answers are complete. A pre-registered fix helped on those queries but not on a fresh held-out codebase, so the default is unchanged.",
-  },
-  {
     id: "legere", name: "legere", area: "tooling", status: "Designed (scaffold)", date: "2026–",
     summary:
       "Architecture for on-premises handwriting extraction from mixed-content forms: template-based field segmentation, a benchmarking matrix that tests every model against every field type before routing, vision-language arbitration across predictions, and a human review queue with per-field provenance. The repository is the scaffold for that design; model adapters are interface stubs.",
@@ -218,6 +220,7 @@ export const PROJECTS: Project[] = [
 
 export const PROJECT_BY_ID: Record<string, Project> = Object.fromEntries(PROJECTS.map((p) => [p.id, p]));
 
+export const FRAMEWORKS = AREAS.filter((a) => a.kind === "framework");
 export const LINES = AREAS.filter((a) => a.kind === "line");
 export const SUPPORTING = AREAS.filter((a) => a.kind === "supporting");
 
