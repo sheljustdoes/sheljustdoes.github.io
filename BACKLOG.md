@@ -59,7 +59,7 @@ Nine projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `topo
 - [ ] CI check that the site builds before deploy, so a broken build fails on push rather
       than on Pages.
 - [ ] Link checker for the external references across project pages.
-- [ ] Consider hosting interactive demos here via the catasta pattern.
+- [ ] Consider hosting interactive demos here via the demo pattern in `custos/demos/`.
 
 ## Documentation
 
