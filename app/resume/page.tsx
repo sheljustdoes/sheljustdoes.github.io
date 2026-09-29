@@ -22,10 +22,6 @@ export default function ResumePage() {
               sheljustdoes.github.io
             </a>
             <br />
-            <a href="https://www.linkedin.com/in/shelburkes/" target="_blank" rel="noopener">
-              linkedin.com/in/shelburkes
-            </a>
-            <br />
             ORCID 0000-0002-7339-1060
           </div>
         </div>
