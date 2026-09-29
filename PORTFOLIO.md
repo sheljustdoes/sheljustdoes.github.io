@@ -333,6 +333,14 @@ to +28, the pre-registered primary comparison); order carries most of it. The re
 recency itself when memories are presented chronologically, so the job decay was built for
 is already done downstream. Recency belongs in presentation, not in scoring.
 
+**Pre-registered, not yet run: consolidation as compaction (2026-09-29).** All four
+protocols tested recolo as a *ranker* over raw turns. None tested what the design calls it:
+compaction, where a summary replaces the episodes it covers so that more distinct
+information fits in fewer tokens. A fifth protocol, committed before any code, tests exactly
+that at tight budgets. The gate is free: summarised turns must cover more of the evidence
+than plain retrieval does, or the protocol stops there. Only then does a paid
+answer-accuracy step run, with a cost cap fixed in advance.
+
 Direct successor to veridian: it takes that project's core insight — semantic clustering
 as a general-purpose meaning-compression mechanism — and redirects it from external
 literature to an agent's own persistent memory.
