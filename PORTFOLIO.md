@@ -993,7 +993,7 @@ is putting a file where it belongs.
 Tooling that keeps the portfolio honest and moving, and designs not yet built out.
 
 ### custos — cross-portfolio tooling
-**Status:** Shipped · POSIX shell, GitHub Actions
+**Status:** Shipped · POSIX shell, Python, GitHub Actions
 
 Tooling that operates across every project rather than inside any one of them, built
 around a single rule: if an automation would still make sense as a hook on one
@@ -1010,6 +1010,10 @@ A scheduled workflow runs the same script weekly against treeless clones of ever
 repository — full history and trees, no file contents — so the automated report and the
 local one are the same implementation and cannot drift apart. Results are written to a
 single issue that is edited in place rather than reopened.
+
+It also renders every repository's README banner in the site's brand, from one
+configuration file seeded from this index: each project's section sets its theme, and its
+status line sets the label, so the banner and this index start from the same source.
 
 ### catasta — research-pipeline demo pattern
 **Status:** Designed (reference pattern) · FastAPI, Next.js, TypeScript
