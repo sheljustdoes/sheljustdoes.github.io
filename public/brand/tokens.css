@@ -42,6 +42,27 @@
   --tint-sky: #D6E6F0;
   --hl-term: #F6E6BE;
 
+  /* Brand v7: the 16 values from custos/brand/shel-brand-brief-v7.txt, the same in both themes.
+     Two tokens per colour, chosen by surface: --brand-* for fills, grounds, marks and the one
+     terracotta gesture (large display type too); the AA tokens above for text on light grounds,
+     where several brand values fall under 4.5:1 (brand terracotta on cream is about 3.3:1). */
+  --brand-cream: #F5F1EB;
+  --brand-parchment: #EAE4D9;
+  --brand-taupe: #C8BFB0;
+  --brand-charcoal: #1E1C1A;
+  --brand-ink: #141210;
+  --brand-terracotta: #D4603A;
+  --brand-blush: #E8B4A2;
+  --brand-rose-dust: #D4896E;
+  --brand-amber: #E8A830;
+  --brand-sage: #7A8C6E;
+  --brand-sage-pale: #C4D0B8;
+  --brand-indigo: #3A4D8F;
+  --brand-indigo-pale: #B8C0DC;
+  --brand-dusty-blue: #7A8FB5;
+  --brand-forest: #2E5A45;
+  --brand-forest-pale: #A8C4B4;
+
   /* Type */
   --display: "Outfit", system-ui, sans-serif;   /* interface and headings */
   --serif: "Lora", Georgia, serif;              /* reading text and asides */
