@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/banner.png" alt="sheljustdoes.github.io." width="100%"></p>
+
 # Shel Burkes, PhD
 
 **Principal Applied Scientist · AI for Life Sciences · Computer Vision for Biological Systems**
