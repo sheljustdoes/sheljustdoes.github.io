@@ -16,6 +16,8 @@ Nine projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `topo
       `PORTFOLIO.md` and `lib/projects.ts` share six sections (three lines, three
       supporting); `/projects/` is the products index; the build enforces one flagship
       per line, listed first, with a write-up.
+- [x] Frameworks section first (topos, veridian, recolo, noul), always open; Research
+      cognition dissolved; fragaria leads Certified structure. Done 2026-09-29.
 - [x] Write up `argus`. Done 2026-09-25: `/projects/argus/`, linked from the résumé,
       graph panel and products index.
 - [x] Audit fragaria's Stage 0 scorecard. Done 2026-09-25: reproducible but uninformative

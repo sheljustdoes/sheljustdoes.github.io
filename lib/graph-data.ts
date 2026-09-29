@@ -15,8 +15,9 @@
 //   project     terracotta family  Outfit         what was built
 //   skill       sage family        DM Mono        what it required
 //
-// Among projects, full terracotta is reserved for the three product-line
-// flagships (iridis, topos, veridian — see AREAS in lib/projects.ts).
+// Among projects, full terracotta is reserved for what the page leads with: the
+// frameworks (topos, veridian, recolo, noul) and the two product-line flagships
+// (iridis, fragaria) — see AREAS in lib/projects.ts.
 
 import { PROJECT_BY_ID } from "@/lib/projects";
 import { EXPERIENCE, type Role } from "@/lib/resume";
@@ -344,7 +345,7 @@ const AUTHORED: AuthoredNode[] = [
       "Explore was rebuilt with nothing generated; its map is in the demo, flagged as unstable because no cluster count survives resampling",
     ],
     keywords: ["Claim Grounding", "Retrieve-then-Entail", "LLM-as-Judge", "LLM Evaluation", "Embeddings", "ONNX Runtime", "transformers.js", "PubMed E-utilities", "MeSH", "UMAP", "Knowledge Graph", "Pre-registered Protocols", "Negative Results", "Claude API", "Local-First"] },
-  { id: "recolo", label: "recolo", type: "project", color: "blush-deep", r: 22, x: 1560, y: 372,
+  { id: "recolo", label: "recolo", type: "project", color: "terracotta", r: 22, x: 1560, y: 372,
     points: [
       "Maps biological memory onto an agent: episodic store, semantic store from cluster centroids, and a consolidation loop standing in for slow-wave replay",
       "Exponential decay w(t) = e^(−λt) on episodic weights, with λ a tunable parameter",
@@ -368,7 +369,7 @@ const AUTHORED: AuthoredNode[] = [
       "Stage 0 executed on strawberry three times; the pre-registered third run returns a GO that holds across sensitivities",
     ],
     keywords: ["Cluster Stability", "Perturbation Testing", "Matched-Model Comparison", "DBCV", "Confound Auditing", "Foundation Model Embeddings", "Go/Kill Criteria", "Manifold Learning", "Reproducibility"] },
-  { id: "fragaria", label: "fragaria", type: "project", color: "blush-deep", r: 18, x: 1006, y: 1062,
+  { id: "fragaria", label: "fragaria", type: "project", color: "terracotta", r: 24, x: 1006, y: 1062,
     points: [
       "Tests whether nonlinear manifold methods recover stable haplogroup structure beyond PCA in an octoploid system",
       "Run on the 50K array; the final panel is 234 accessions with no second-degree relatives, by KING kinship",
@@ -454,7 +455,7 @@ const AUTHORED: AuthoredNode[] = [
       "Work in progress; methods and results will be written up once further along",
     ],
     keywords: ["Survival Analysis", "3D CNNs", "CT Imaging", "Censoring", "Cox Models", "Pre-registered Protocols", "PyTorch", "MONAI", "Negative Results", "Biomedical Imaging"] },
-  { id: "noul", label: "noul", type: "project", color: "blush-deep", r: 20, x: 1110, y: 395,
+  { id: "noul", label: "noul", type: "project", color: "terracotta", r: 20, x: 1110, y: 395,
     points: [
       "Local, non-generative code search: typed scores in a single pass instead of an agent reading files, with nothing leaving the machine",
       "BM25 and a 33M-parameter embedding model shortlist 20 chunks; a 568M-parameter cross-encoder reranks only those",

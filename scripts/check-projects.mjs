@@ -93,7 +93,7 @@ for (const area of feed.areas) {
       errors.push(`${area.id}: flagship ${area.flagship ?? "(none)"} here, but PORTFOLIO.md's **Flagship:** line names ${named ?? "nothing"}`);
     }
   } else if (area.flagship || named) {
-    errors.push(`${area.id}: supporting areas have no flagship`);
+    errors.push(`${area.id}: only product lines have a flagship`);
   }
 }
 
