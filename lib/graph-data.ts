@@ -471,13 +471,6 @@ const AUTHORED: AuthoredNode[] = [
       "A scaffold, not a working system: model adapters are interface stubs",
     ],
     keywords: ["Handwriting Recognition", "OCR", "TrOCR", "Donut", "PaddleOCR", "Vision-Language Models", "Human-in-the-Loop", "Document AI", "Local-First"] },
-  { id: "catasta", label: "catasta", type: "project", color: "blush", r: 16, x: 1420, y: 720,
-    points: [
-      "A pattern for turning a research pipeline into an interactive demo without shipping the science to the browser",
-      "Python backend where the pipeline stays server-side; TypeScript frontend where people use it",
-      "One preprocess → predict → postprocess contract shared by embedded and standalone deployments",
-    ],
-    keywords: ["FastAPI", "Next.js", "TypeScript", "API Contracts", "Model Serving", "Demo Architecture"] },
   { id: "ponere", label: "ponere", type: "project", color: "blush", r: 17, x: 1668, y: 740,
     points: [
       "Takes a rough idea to a published post: capture, draft, live, dormant — so nothing sits untouched",
@@ -623,7 +616,7 @@ export const EDGES: GraphEdge[] = [
   ["web-api", "audire"],
   ["web-api", "ponere"],
   ["web-api", "mara"],
-  ["web-api", "catasta"],
+  ["web-api", "custos"],
   ["veridian", "evaluation"],
   ["fragaria", "manifold-stability"],
   ["glyma", "manifold-stability"],
