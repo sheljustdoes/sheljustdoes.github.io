@@ -18,14 +18,14 @@ export type Area = {
   portfolioSection: string;
   /**
    * Frameworks are what the research builds on and open the page, with no
-   * flagship; a product line leads with a flagship; supporting areas show how
+   * flagship; a research area leads with a flagship; supporting areas show how
    * the work gets built. The résumé page opens frameworks and lines, and folds
    * the rest.
    */
   kind: "framework" | "line" | "supporting";
-  /** Frameworks and product lines: one sentence on what the area is for. */
+  /** Frameworks and research areas: one sentence on what the area is for. */
   thesis?: string;
-  /** Product lines only: the project that leads it. Listed first, with a write-up. */
+  /** Research areas only: the project that leads it. Listed first, with a write-up. */
   flagship?: string;
 };
 
@@ -122,6 +122,11 @@ export const PROJECTS: Project[] = [
     summary:
       "Work in progress: 3D deep learning for overall-survival prediction in non-small cell lung cancer from pre-treatment CT, on public imaging data, evaluated against classical survival baselines under a protocol fixed before any model was scored.",
   },
+  {
+    id: "legere", name: "legere", area: "phenotyping", status: "Designed (scaffold)", date: "2026–",
+    summary:
+      "Architecture for on-premises handwriting extraction from mixed-content forms: template-based field segmentation, a benchmarking matrix that tests every model against every field type before routing, vision-language arbitration across predictions, and a human review queue with per-field provenance. The repository is the scaffold for that design; model adapters are interface stubs.",
+  },
 
   // ---- Certified structure in biological data ----
   {
@@ -176,11 +181,6 @@ export const PROJECTS: Project[] = [
     summary:
       "A multi-tenant pricing API for the moving industry: local hourly, interstate tariff and military 400NG pricing behind one survey endpoint that estimates weight from job-site photos, routes the move, recommends a crew and returns priced line items. Per-tenant rate configuration, hashed scoped API keys, distance resolution that falls back to free routing, and self-refreshing fuel and tariff data. In production as a client platform's pricing service. 10 test modules.",
   },
-  {
-    id: "additional", name: "Additional services", area: "production",
-    summary:
-      "Smaller production services, described by their engineering: an events-business backend with Stripe payments and Google OAuth; a private health-tracking application with signed-session gating on every route; a payment-plan portal with Stripe invoicing, magic-link login and verified webhooks; a moving company's operations platform, from quote to completed job, priced by mara; and a no-build marketing site.",
-  },
 
   // ---- Supporting — learning & knowledge tools ----
   {
@@ -197,12 +197,7 @@ export const PROJECTS: Project[] = [
     id: "bibliotheca", name: "bibliotheca", area: "learning", status: "Shipped", date: "2025–",
     link: "https://github.com/sheljustdoes/bibliotheca", linkLabel: "View repository ↗",
     summary:
-      "A public reading index driven entirely by filenames: an ISBN-13-named file pushed to a status folder triggers a GitHub Action that resolves metadata through the Google Books API and publishes it. Moving a file between folders updates reading status and completion date.",
-  },
-  {
-    id: "bibliotheca-archive", name: "bibliotheca-archive", area: "learning", status: "Shipped", date: "2026–",
-    summary:
-      "The automation behind the bibliotheca shelf: an ISBN-named file in a status folder fires an Action that resolves the work through the Google Books API and writes its metadata to the public shelf, with Git LFS for binaries. The filesystem is the interface — no form, database or admin UI.",
+      "A public reading index driven entirely by filenames: an ISBN-13-named file pushed to a status folder triggers a GitHub Action that resolves metadata through the Google Books API and publishes it. Moving a file between folders updates reading status and completion date. The files themselves stay in a private companion repository, where the Action runs; only the metadata is published.",
   },
 
   // ---- Supporting — tooling & designs ----
@@ -210,11 +205,6 @@ export const PROJECTS: Project[] = [
     id: "custos", name: "custos", area: "tooling", status: "Shipped", date: "2026–",
     summary:
       "Cross-portfolio tooling. Its rotation report ranks every project by its last commit that touched more than markdown, so documentation activity cannot disguise a stalled project, and pairs each with its next backlog item. The same script runs locally and as a weekly Action over treeless clones.",
-  },
-  {
-    id: "legere", name: "legere", area: "tooling", status: "Designed (scaffold)", date: "2026–",
-    summary:
-      "Architecture for on-premises handwriting extraction from mixed-content forms: template-based field segmentation, a benchmarking matrix that tests every model against every field type before routing, vision-language arbitration across predictions, and a human review queue with per-field provenance. The repository is the scaffold for that design; model adapters are interface stubs.",
   },
 ];
 
