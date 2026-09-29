@@ -23,7 +23,7 @@ The site reads a structured mirror
 of it (`lib/projects.ts`) for the [résumé](https://sheljustdoes.github.io/resume/), the
 homepage graph and the résumé document's feed, and the build fails when the three drift
 apart. A featured or Shipped project with no graph node also fails the build, and so does
-a graph role node quoting a figure its résumé entry in `lib/resume.ts` does not contain. Each product line must list its
+a graph role node quoting a figure its résumé entry in `lib/resume.ts` does not contain. Each research area must list its
 flagship first, name it on PORTFOLIO.md's `**Flagship:**` line, and give it a write-up.
 
 ---
