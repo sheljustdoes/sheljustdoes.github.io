@@ -27,6 +27,11 @@ before the app's own stylesheet. `crossorigin` lets a service worker cache the r
 - **Keep contrast.** `--ink`, `--ink-2` and `--ink-3` must stay WCAG AA (4.5:1) on
   `--canvas`, `--band` and `--surface`, in both themes, as must `--terracotta` used as text.
   scintilla's end-to-end test runs axe against these values.
+- **Brand v7 vs AA, by surface.** `--brand-*` are the 16 values of brand system v7
+  (`custos/brand/shel-brand-brief-v7.txt`, the source of truth). Use them for fills, grounds,
+  marks, banners and the one terracotta gesture. Use the AA tokens (`--terracotta`, `--amber`,
+  `--dusty-blue`, `--ink`...) for text on light grounds, where the brand values are too light.
+  Change a `--brand-*` value only when the brief changes.
 - **Dark theme** follows the system unless the page sets `data-theme="light"` on `<html>`.
   An app without dark styles (ponere, for now) must set it.
 - **Nothing app-specific here.** Layout and screens stay in each app; only what should look
