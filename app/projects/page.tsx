@@ -4,7 +4,7 @@ import SectionNav from "./SectionNav";
 export const metadata = { title: "work — shel." };
 
 // The products view of the portfolio: the frameworks the research builds on,
-// then two lines, each led by its flagship, then everything else as supporting
+// then the research areas, each led by its flagship, then everything else as supporting
 // evidence. Every word comes from
 // lib/projects.ts, so this page cannot say something the résumé does not.
 
@@ -12,9 +12,9 @@ export default function ProjectsIndex() {
   return (
     <>
       <span className="kicker">Work</span>
-      <h1>Frameworks, and two product lines.</h1>
+      <h1>Frameworks, and the research built on them.</h1>
       <p className="tagline">
-        The frameworks come first: the research builds on them. Each line is led by a flagship. Throughout, results are compared
+        The frameworks come first: the research builds on them. Each research area is led by a flagship. Throughout, results are compared
         against a plain baseline and a negative result is reported as it came out. Everything else is supporting evidence of how
         the work gets built and shipped.
       </p>
@@ -44,7 +44,7 @@ export default function ProjectsIndex() {
         const rest = projectsInArea(area.id).filter((p) => p.id !== flagship.id);
         return (
           <section key={area.id} id={area.id} className="line">
-            <SectionHead kicker={`Line ${String(i + 1).padStart(2, "0")}`} title={area.label} />
+            <SectionHead kicker={`Research ${String(i + 1).padStart(2, "0")}`} title={area.label} />
             <p className="line-thesis">{area.thesis}</p>
             <div className="line-flagship">
               <span className="line-flag-label">Flagship</span>

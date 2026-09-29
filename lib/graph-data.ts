@@ -499,9 +499,8 @@ const AUTHORED: AuthoredNode[] = [
     ],
     keywords: ["POSIX Shell", "GitHub Actions", "Developer Tooling", "Git Internals", "Automation"] },
   { id: "bibliotheca", label: "bibliotheca", type: "project", color: "blush", r: 17, x: 200, y: 190,
-    covers: ["bibliotheca-archive"],
     points: [
-      "A public reading shelf driven entirely by filenames, and the private automation behind it",
+      "A public reading shelf driven entirely by filenames, with the files kept in a private companion repository",
       "An ISBN-13-named file pushed to a status folder fires an Action that resolves the work through the Google Books API and writes it to the public shelf",
       "Moving a file between folders updates reading status and stamps a completion date",
       "The filesystem is the interface: no form, no database, no admin UI; binaries through Git LFS",

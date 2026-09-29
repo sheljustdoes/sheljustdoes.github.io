@@ -11,8 +11,8 @@ materially, this file changes with it.
 **How this index is organized**
 
 The index opens with the frameworks the research builds on (topos, veridian, recolo,
-noul), then two product lines, each led by a flagship: perceptual & imaging phenotyping,
-and certified structure in biological data. The same way of working runs through all of
+noul), then the research areas, each led by a flagship: perceptual & imaging
+phenotyping, and certified structure in biological data. The same way of working runs through all of
 it: results are compared against a plain baseline, protocols are
 committed before scoring where the work allows it (argus, recolo, oncos), and a negative
 result is reported as it came out — iridis, argus and recolo each include one. The
@@ -391,12 +391,13 @@ local scorer is meant to replace for all but ambiguous cases.
 ## Perceptual & imaging phenotyping
 
 Measurement science for visible traits that have no ground truth: skin tone, skin
-radiance, cell morphology and tumor appearance on CT. Each is measured against a fixed
+radiance, cell morphology, tumor appearance on CT and handwriting on forms. Each is measured against a fixed
 baseline — clinical labels, a nuclei count, classical survival models — rather than on
 its own terms. Capture comes first, because lambent showed that the camera can move a
 score further than the skin does.
 
-**Flagship:** iridis. **Also here:** lambent (optics), argus (Cell Painting), oncos (3D CT).
+**Flagship:** iridis. **Also here:** lambent (optics), argus (Cell Painting), oncos (3D CT), legere
+(handwriting).
 
 ### iridis — perceptual skin-tone phenotyping
 **Status:** Results committed · Python, PyTorch, scikit-learn, TabPFN, rembg
@@ -623,6 +624,22 @@ pre-treatment 3D CT, on public data. 3D deep learning is compared against classi
 survival baselines, with censoring handled explicitly, under an evaluation protocol fixed
 before any model was scored. Results and methods will be written up here once the work is
 further along.
+
+### legere — ensemble handwriting recognition scaffold
+**Status:** Designed (scaffold) · Python, module structure for TrOCR, Donut, PaddleOCR, SimpleHTR
+
+A structural design for extracting handwritten field values from mixed-content forms on
+premises — no document content leaving the building, which is the constraint that shapes
+the whole architecture. Template-based field segmentation feeds a benchmarking matrix in
+which every model is tested against every field type before routing is assigned, a
+vision-language model arbitrates across model predictions, and low-confidence fields route
+to a human review queue with per-field provenance.
+
+The repository is the **skeleton for that design, not a working system**: each model
+adapter is an interface stub, and the arbitration layer is placeholder logic pending a
+real implementation. The value here is the separation of concerns — a common prediction
+interface per model, arbitration isolated from prediction, evaluation isolated from both —
+which is what makes the design extensible.
 
 ---
 
@@ -910,23 +927,6 @@ per-track endpoints remain for callers that already know their track.
 
 10 test modules.
 
-### Additional services
-
-- **An events-business backend** — Express 5, Stripe payments, Google OAuth, transactional
-  email, and a schematic tooling layer.
-- **A private health-tracking application** — Next.js 16 / React 19, bcrypt plus signed JWT
-  session gating on every route, a service-account spreadsheet backend, and a
-  server-side-proxied nutrition data integration. Tokenized light/dark design system.
-- **A payment-plan portal** — Vercel serverless functions with Stripe invoicing, dual
-  authentication (passwordless magic link for participants, password for admin),
-  short-lived httpOnly/Secure/SameSite session cookies, timing-safe password comparison,
-  and raw-body Stripe webhook signature verification.
-- **A single-page marketing site** for a healthcare navigation practice — no framework, no
-  build step.
-- **An operations platform for a moving company** — Next.js, Postgres through Drizzle,
-  Auth.js, Stripe, transactional email and SMS, PDF estimates and e-signatures, taking a job
-  from quote request to completion. Its pricing is served by mara, above.
-
 ---
 
 ## Supporting — learning & knowledge tools
@@ -1022,18 +1022,8 @@ status folder triggers an Action that resolves metadata through the Google Books
 publishes to the public shelf. Moving a file between folders updates reading status and
 completion date. The file is the signal.
 
-### bibliotheca-archive — the automation behind the shelf
-**Status:** Shipped · GitHub Actions, Google Books API, Git LFS
-
-The private counterpart to bibliotheca, and where its automation actually runs. Adding an
-ISBN-13-named file to a status folder fires an Action that resolves the work through the
-Google Books API and writes the resulting metadata across to the public shelf repository,
-which rebuilds itself. Moving a file between folders updates reading status and stamps a
-completion date; an optional sidecar JSON carries a rating and note that get merged in.
-
-Binary files are handled through Git LFS. The design point is that **the filesystem is the
-interface** — there is no form, no database and no admin UI, and the only action required
-is putting a file where it belongs.
+The files themselves stay in a private companion repository, which is where the Action runs;
+only the metadata is published.
 
 ---
 
@@ -1069,22 +1059,6 @@ interactive demo without shipping the pipeline to the browser: a Python backend 
 science stays server-side, a TypeScript frontend, and one `preprocess → predict →
 postprocess` contract. Its default variant is one shared backend with a router per
 project, which makes it cross-portfolio by construction.
-
-### legere — ensemble handwriting recognition scaffold
-**Status:** Designed (scaffold) · Python, module structure for TrOCR, Donut, PaddleOCR, SimpleHTR
-
-A structural design for extracting handwritten field values from mixed-content forms on
-premises — no document content leaving the building, which is the constraint that shapes
-the whole architecture. Template-based field segmentation feeds a benchmarking matrix in
-which every model is tested against every field type before routing is assigned, a
-vision-language model arbitrates across model predictions, and low-confidence fields route
-to a human review queue with per-field provenance.
-
-The repository is the **skeleton for that design, not a working system**: each model
-adapter is an interface stub, and the arbitration layer is placeholder logic pending a
-real implementation. The value here is the separation of concerns — a common prediction
-interface per model, arbitration isolated from prediction, evaluation isolated from both —
-which is what makes the design extensible.
 
 ---
 
