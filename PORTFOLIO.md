@@ -980,6 +980,13 @@ v0.1.0; the player serves it from a private deployment until the learner test. I
 comes from a brand stylesheet shared with ponere and lumen and served from this site, so
 one change restyles all three.
 
+**Designed, not yet built (2026-09-30).** scintilla becomes a knowledge assessment platform
+with accounts. Learners import curricula built in lumen and assess themselves as they learn,
+in the pattern of online courses: questions on the part they are reading or watching, a unit
+test per module, and a final over the whole curriculum. Progress syncs across devices as the
+same event log, and cached lessons keep working offline. scintilla itself still never calls
+a model.
+
 ### lumen — the authoring pipeline behind scintilla
 **Status:** Implemented · Python; Claude API at authoring time only; veridian Check
 
@@ -1002,6 +1009,15 @@ prerequisites and a stated learner outcome, in a prerequisite graph with a singl
 Every item of the two earlier plans — 74 planned sections and 29 skill-tree nodes — is
 mapped into it, deferred to a named future track, or retired with a reason, and a checker
 run in CI proves none is missing and that every prerequisite comes first.
+
+**Designed, not yet built (2026-09-30).** lumen becomes a curriculum builder for anyone with
+an account: name a subject in data science, ML or AI, or supply your own materials. Each
+build generates an outline, the lessons, a unit test per module and a final, validated
+against the same catalog schema and checked by a port of veridian's Check. Built curricula
+are labelled as not reviewed by a person. Generation runs on the project's own key, bounded
+by a monthly build quota per account, a daily spend cap and per-account metering, and a
+request close to an existing curriculum is offered that curriculum instead. The pipeline
+above stays for the reviewed catalog.
 
 The catalog schema (v0.1) is defined too: JSON Schemas for a lesson and a release, and a
 validator for the rules a schema can't express. It checks that bridges follow the
