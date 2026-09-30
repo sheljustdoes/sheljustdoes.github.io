@@ -943,7 +943,7 @@ A lesson player and its authoring pipeline, which uses veridian's Check to verif
 generated claim, plus a public reading index.
 
 ### scintilla — a free lesson player that checks understanding throughout
-**Status:** Implemented · plain HTML, CSS and ES modules; Pyodide; offline service worker
+**Status:** Implemented · Next.js; player in plain ES modules; Pyodide; offline service worker
 
 A free learning platform for data science, ML and AI, built as a pair: lumen authors and
 verifies curricula, scintilla teaches them in the browser with no account and no cost. The
