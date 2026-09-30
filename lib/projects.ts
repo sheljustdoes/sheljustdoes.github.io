@@ -186,12 +186,12 @@ export const PROJECTS: Project[] = [
   {
     id: "scintilla", name: "scintilla", area: "learning", status: "Implemented", date: "2026–", featured: true,
     summary:
-      "A free, local-first lesson player for data science, ML and AI that checks understanding throughout every lesson: 5–10 minute lessons with bridges to what came before, frequent checkpoints, a hands-on item such as Python run in the browser, a Feynman self-check that routes to the missing prerequisite, and FSRS-scheduled review. Nothing is generated live, so learners need no account and no key. The player runs end to end on lumen's catalog, offline-capable and accessibility-tested; the first reviewed lesson is live in a private deployment.",
+      "A free, local-first lesson player for data science, ML and AI that checks understanding throughout every lesson: 5–10 minute lessons with bridges to what came before, frequent checkpoints, a hands-on item such as Python run in the browser, a Feynman self-check that routes to the missing prerequisite, and FSRS-scheduled review. Nothing is generated live, so learners need no account and no key. The player runs end to end on lumen's catalog, offline-capable and accessibility-tested; the first reviewed lesson is live in a private deployment. Designed next: accounts, importing curricula built in lumen, and self-assessment with unit tests and a final.",
   },
   {
     id: "lumen", name: "lumen", area: "learning", status: "Implemented", date: "2026–",
     summary:
-      "The authoring pipeline behind scintilla: retrieves openly licensed sources, generates with a pinned Claude model, verifies every claim against its source with veridian's Check engine, and publishes a versioned, validated catalog after human review. The build enforces the learner-facing rules — bridges, pinned sources, verified answer keys, named misconceptions. The pipeline runs: its first lesson passed validation on the first draft, with every principle supported by its source, and after review shipped as catalog release v0.1.0.",
+      "The authoring pipeline behind scintilla: retrieves openly licensed sources, generates with a pinned Claude model, verifies every claim against its source with veridian's Check engine, and publishes a versioned, validated catalog after human review. The build enforces the learner-facing rules — bridges, pinned sources, verified answer keys, named misconceptions. The pipeline runs: its first lesson passed validation on the first draft, with every principle supported by its source, and after review shipped as catalog release v0.1.0. Designed next: a web app where anyone with an account builds a curriculum from a subject or their own materials, within a monthly quota and a daily spend cap.",
   },
   {
     id: "bibliotheca", name: "bibliotheca", area: "learning", status: "Shipped", date: "2025–",
