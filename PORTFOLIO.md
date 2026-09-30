@@ -943,10 +943,10 @@ A lesson player and its authoring pipeline, which uses veridian's Check to verif
 generated claim, plus a public reading index.
 
 ### scintilla — a free lesson player that checks understanding throughout
-**Status:** Implemented · Next.js; player in plain ES modules; Pyodide; offline service worker
+**Status:** Implemented · Next.js; player in plain ES modules; Postgres; Pyodide; offline service worker
 
 A free learning platform for data science, ML and AI, built as a pair: lumen authors and
-verifies curricula, scintilla teaches them in the browser with no account and no cost. The
+verifies curricula, scintilla teaches them in the browser at no cost. The
 design targets the usual failures of self-paced courses — passive content, one easy quiz at
 the end, lessons that never connect, and nothing that schedules review.
 
@@ -980,12 +980,17 @@ v0.1.0; the player serves it from a private deployment until the learner test. I
 comes from a brand stylesheet shared with ponere and lumen and served from this site, so
 one change restyles all three.
 
-**Designed, not yet built (2026-09-30).** scintilla becomes a knowledge assessment platform
-with accounts. Learners import curricula built in lumen and assess themselves as they learn,
-in the pattern of online courses: questions on the part they are reading or watching, a unit
-test per module, and a final over the whole curriculum. Progress syncs across devices as the
-same event log, and cached lessons keep working offline. scintilla itself still never calls
-a model.
+Since 2026-09-30 learners sign in (invite-only until launch), and the same event log syncs
+across their devices: events are written in the browser first, pushed without duplicates and
+pulled by the server's cursor, so lessons already opened keep working offline. The server
+checks each event's shape but never scores it, and its database role can add to the progress
+and security logs but not change them. Passwords are checked against known breaches, sign-in
+locks after repeated failures, and a learner can export or delete their account.
+
+**Designed, not yet built.** scintilla becomes a knowledge assessment platform: learners import
+curricula built in lumen and assess themselves as they learn, in the pattern of online
+courses, with questions on the part they are reading or watching, a unit test per module, and
+a final over the whole curriculum. scintilla itself never calls a model.
 
 ### lumen — the authoring pipeline behind scintilla
 **Status:** Implemented · Python; Claude API at authoring time only; veridian Check

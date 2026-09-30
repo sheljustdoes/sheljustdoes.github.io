@@ -186,7 +186,7 @@ export const PROJECTS: Project[] = [
   {
     id: "scintilla", name: "scintilla", area: "learning", status: "Implemented", date: "2026–", featured: true,
     summary:
-      "A free, local-first lesson player for data science, ML and AI that checks understanding throughout every lesson: 5–10 minute lessons with bridges to what came before, frequent checkpoints, a hands-on item such as Python run in the browser, a Feynman self-check that routes to the missing prerequisite, and FSRS-scheduled review. Nothing is generated live, so learners need no account and no key. The player runs end to end on lumen's catalog, offline-capable and accessibility-tested; the first reviewed lesson is live in a private deployment. Designed next: accounts, importing curricula built in lumen, and self-assessment with unit tests and a final.",
+      "A free lesson player for data science, ML and AI that checks understanding throughout every lesson: 5–10 minute lessons with bridges to what came before, frequent checkpoints, a hands-on item such as Python run in the browser, a Feynman self-check that routes to the missing prerequisite, and FSRS-scheduled review. Nothing is generated live, so learners never need an API key. The player runs end to end on lumen's catalog, offline-capable and accessibility-tested; the first reviewed lesson is live in a private deployment. Invite-only accounts and progress synced across devices are built; importing curricula from lumen and self-assessment with unit tests and a final are designed next.",
   },
   {
     id: "lumen", name: "lumen", area: "learning", status: "Implemented", date: "2026–",
