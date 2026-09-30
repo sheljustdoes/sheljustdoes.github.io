@@ -896,7 +896,7 @@ runs — five processes in one container, the rules that let three of them share
 file, and a read and a write request traced end to end.
 
 ### ponere — content lifecycle tool
-**Status:** Shipped · Next.js (App Router), TypeScript, Claude API
+**Status:** Shipped · Next.js (App Router), TypeScript, Postgres, Claude API
 
 A single-user system for taking a rough idea to a published post: capture, a lifecycle
 that moves ideas from draft to live to dormant so nothing sits untouched, platform-specific
