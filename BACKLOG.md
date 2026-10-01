@@ -7,7 +7,7 @@ Created 2026-09-22.
 
 ---
 
-## P0 — Résumé, version A (Principal Data Scientist, Applied ML & LLM Systems)
+## P0 — Résumé, version A (Staff Applied Scientist, ML & LLM Systems)
 
 Broadened 2026-10-01 at Shel's request: the work is not only bio-based. Headline now
 "Applied ML & LLM Systems"; summary leads with ML and LLM systems across pharma, consumer
@@ -40,6 +40,9 @@ described as two partners (Shel owns code and infrastructure), not solo.
       then show at most one in-progress item.
 - [x] Google Doc header: paste "Principal Data Scientist | Applied ML & LLM Systems" by
       hand, remove the email line, add github.com/sheljustdoes (the sync never touches it).
+- [ ] Google Doc header: replace the title line with "Staff Applied Scientist | ML & LLM Systems"
+      (headline moved from Principal Data Scientist on 2026-10-01; Staff matches the scope of
+      the record, and Applied Scientist matches the title held).
 - [x] Google Doc: run Résumé → Force sync once. Summary is blocked because the closing
       "Looking for…" sentence was deleted in the Doc; the site now drops it too.
 - [ ] Google Doc: the Boehringer and consulting lead lines each sit in a one-cell table, which
