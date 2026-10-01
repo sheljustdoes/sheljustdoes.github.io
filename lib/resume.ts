@@ -24,7 +24,7 @@ export type Role = {
 export const HEADLINE = { title: "Senior Data Scientist", field: "AI for Life Sciences" };
 
 export const SUMMARY =
-  "PhD-trained data scientist with 9+ years across research and industry. Paid work spans **LLM classification on regulated pharmaceutical data**, computer vision systems deployed for clients, and trait prediction for crop breeding, each built with the evaluation that shows whether it works. Open, evaluated projects in literature review, imaging phenotyping and genomics add the rest, reported against plain baselines with negative results included. Has mentored junior data scientists and, as a graduate student, taught a university bioinformatics course for three terms. Looking for a senior data science role in life sciences, where production ML and careful evaluation both count.";
+  "PhD-trained data scientist with 9+ years across research and industry. Paid work spans **LLM classification on regulated pharmaceutical data**, computer vision systems deployed for clients, and trait prediction for crop breeding, each built with the evaluation that shows whether it works. Open, evaluated projects in literature review, imaging phenotyping and genomics add the rest, reported against plain baselines with negative results included. Has mentored two junior data scientists and, as a graduate student, taught the lab for a graduate bioinformatics course for three terms. Looking for a senior data science role in life sciences, where production ML and careful evaluation both count.";
 
 export const EXPERIENCE: Role[] = [
   {
@@ -34,11 +34,11 @@ export const EXPERIENCE: Role[] = [
     end: "2026-10",
     bullets: [
       "Designed and built an **LLM-based misinformation detection pipeline** on Databricks and Snowflake that triages social media content about high-visibility products, flagging early misinformation signals and reducing manual review in Sprinklr",
-      "Delivered the working proof of concept in **60 days**: automated classification, clustering and trend detection for corporate communications, built on regulated pharmaceutical data under the company's data-access and governance controls",
+      "Delivered the working proof of concept in **60 days**: automated classification, clustering and trend detection for corporate communications, built on regulated pharmaceutical data under the company's data-access and governance controls, then handed it off for further development",
       "Built the evaluation framework for the pipeline's outputs: success metrics and regression tests for classification with no single right answer",
-      "Developed a **financial potential model** estimating purchasing capacity across major customer portfolios, which commercial teams used to set targeting and outreach priorities",
+      "Built a **financial potential model** for commercial excellence in livestock and farming, estimating customers' purchasing capacity to help set targeting and outreach priorities",
       "Owned technical scoping and solution architecture for applied AI work in the Global Animal Health division (Python, PyTorch, TensorFlow), turning ambiguous asks from commercial, corporate affairs and analytics teams into scoped modeling objectives",
-      "Mentored junior data scientists through pairing and code review, and handed prototypes to data scientists and software engineers for full development and deployment",
+      "Mentored **two junior data scientists** through pairing and code review",
     ],
   },
   {
@@ -46,7 +46,7 @@ export const EXPERIENCE: Role[] = [
     company: "Independent Consultant",
     start: "2021-09",
     end: "2025-09",
-    lead: "Freelance work for consumer health-sensing clients, part-time until Sep 2022 alongside Syngenta.",
+    lead: "Contract data scientist for a consumer health-sensing startup, delivering for its two primary clients, a global beauty retailer and an international pharmacy group. Part-time until Sep 2022 alongside Syngenta.",
     bullets: [
       "Built a **shade-matching recommendation system** that ranks products by perceptual color distance (CIEDE2000) between a user's perceived and actual shade, applying a color-classification method developed independently on public data; a version was deployed to the client's customers",
       "Built a **CNN-based anomaly detection system** for a client's large clinical imaging database, deployed on AWS SageMaker with automated dataset quality checks and a client-facing SDK, and onboarded the client's engineers onto the SDK",
@@ -62,32 +62,32 @@ export const EXPERIENCE: Role[] = [
     start: "2021-09",
     end: "2022-09",
     bullets: [
-      "Built predictive models on VCF-derived haplotype data for **corn trait prediction**, combining environmental and genetic factors with biological domain reasoning",
+      "Built predictive models on VCF-derived haplotype markers for **trait prediction in corn, tomato and other crops**, combining environmental and genetic factors with biological domain reasoning",
       "Designed and deployed scalable bioinformatics workflows for trait-based prediction, integrating outputs into relational databases",
-      "Launched a decision-making analytics platform as **Product Owner** on a small blended team, owning the vision and backlog (Agile, Scrum); the platform was adopted across the corn and specialty-crop breeding organization",
+      "Led the build of a decision-making analytics platform as **Product Owner** on a small blended team, owning the vision and backlog through development (Agile, Scrum)",
     ],
   },
   {
     title: "Postdoctoral Researcher",
-    company: "NC Research Campus",
+    company: "Cooper Lab, North Carolina Research Campus",
     start: "2020-09",
     end: "2021-09",
     bullets: [
       "Designed and implemented the lab's analytical pipelines for large-scale NGS datasets in Python across UNIX and cloud/HPC environments",
-      "Developed pipelines for transposable element polymorphism detection and structural variant association analysis, linking insertion presence/absence variation to phenotypes",
+      "Developed pipelines for transposable element polymorphism detection in tomato and structural variant association analysis, linking insertion presence/absence variation to phenotypes",
       "Trained the lab's graduate and undergraduate researchers: wrote the internal documentation, ran pipeline walkthroughs and supported every researcher using them, taking students with wet-lab backgrounds and no computational experience to running their own NGS analyses",
       "Maintained code documentation and data stewardship practices so datasets stayed reproducible and accessible across ongoing research",
     ],
   },
   {
-    title: "Graduate Researcher, Teaching Assistant & Course Instructor",
+    title: "Graduate Researcher, Lab Instructor & Teaching Assistant",
     company: "University of North Carolina at Charlotte",
     start: "2017-01",
     end: "2020-09",
     bullets: [
-      "Dissertation research on genome annotation of Avena sativa (oat), building analytical pipelines over Illumina and PacBio sequencing data in Python and Linux; the repeat-discovery work became **RepBox** (BMC Bioinformatics, 2023)",
+      "Dissertation, \"Comparative Analysis of Repeat Landscapes in Avena (Oat)\": built analytical pipelines over Illumina and PacBio sequencing data in Python and Linux; the repeat-discovery work became **RepBox** (BMC Bioinformatics, 2023)",
       "Extracted and integrated data from NCBI and GenBank into optimized workflows for large-scale genomic data processing",
-      "Independent course instructor for **Biological Basis for Bioinformatics** across three Spring semesters at 10–15 students per term, owning syllabus, lecture material, assignments, assessment and office hours",
+      "Taught the lab for **Biological Basis of Bioinformatics** across three Spring semesters at 10–15 students per term, a graduate course giving students from computer science and quantitative backgrounds the genetics, molecular biology and biochemistry the program assumes",
       "Teaching assistant for introductory biology coursework",
     ],
   },
