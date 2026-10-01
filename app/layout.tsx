@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { HEADLINE } from "@/lib/resume";
 
 export const metadata: Metadata = {
   title: "shel.",
-  description: "Shel Burkes, PhD — Principal Applied Scientist",
+  description: `Shel Burkes, PhD, ${HEADLINE.title}`,
 };
 
 export default function RootLayout({
