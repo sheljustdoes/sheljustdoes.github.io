@@ -46,7 +46,7 @@ export const EXPERIENCE: Role[] = [
     company: "Independent Consultant",
     start: "2021-09",
     end: "2025-09",
-    lead: "Contract data scientist for a consumer health-sensing startup, delivering for its two primary clients, a global beauty retailer and an international pharmacy group. Part-time until Sep 2022 alongside Syngenta.",
+    lead: "Contract data scientist for a confidential consumer health-sensing startup, on engagements for its two anchor clients: a Fortune 500 pharmacy group and a global prestige beauty retailer. Part-time until Sep 2022 alongside Syngenta.",
     bullets: [
       "Built a **shade-matching recommendation system** that ranks products by perceptual color distance (CIEDE2000) between a user's perceived and actual shade, applying a color-classification method developed independently on public data; a version was deployed to the client's customers",
       "Built a **CNN-based anomaly detection system** for a client's large clinical imaging database, deployed on AWS SageMaker with automated dataset quality checks and a client-facing SDK, and onboarded the client's engineers onto the SDK",
