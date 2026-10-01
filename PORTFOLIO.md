@@ -851,7 +851,7 @@ Privately hosted, single- or small-tenant web applications. Repositories are not
 the engineering is described here. Personal and third-party data is excluded by design.
 
 ### menhir — adaptive strength coaching platform
-**Status:** Shipped · Next.js (App Router), TypeScript, Stripe, Neon Postgres · ~106K LOC, 349 files, 25 test modules
+**Status:** Implemented · Next.js (App Router), TypeScript, Stripe, Neon Postgres · ~106K LOC, 349 files, 25 test modules
 
 A dual-role platform serving both athletes and coaches. Its differentiator is adaptive
 programming driven by multiple autoregulation signals — readiness, sleep, performance
