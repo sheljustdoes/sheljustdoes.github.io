@@ -14,8 +14,8 @@ export default function MenhirPage() {
         Logging apps record what happened; coaching software tells you what to do next. The gap between them is autoregulation —
         adjusting a session against how the athlete actually turned up that day, rather than against a plan written three weeks ago —
         and it hurts most the self-coached athlete who has outgrown a spreadsheet and the coach managing ten to fifty people whose
-        check-ins arrive faster than they can be read. Here we describe menhir, a dual-role strength coaching platform built and
-        maintained solo, in which a generative pipeline sits on top of deterministic training mathematics rather than replacing it: a
+        check-ins arrive faster than they can be read. Here we describe menhir, a dual-role strength coaching platform built by two
+        partners, one owning the code and infrastructure and the other the training methodology, in which a generative pipeline sits on top of deterministic training mathematics rather than replacing it: a
         provider abstraction spans Groq, OpenAI and Anthropic, but fourteen deterministic methodology generators and an RPE calibration
         engine enforce the training mathematics, and every generated program is validated and shown for preview before it can be
         committed or assigned. The full loop is implemented on both the athlete and the coach side — roughly 106,000 lines across 349
@@ -27,7 +27,8 @@ export default function MenhirPage() {
         <em>autoregulation</em> — adjusting a session against how the athlete actually turned up that day, rather than against a plan
         written three weeks ago. menhir targets the two populations that gap hurts most: self-coached athletes who have outgrown a
         spreadsheet, and coaches managing ten to fifty people whose check-ins arrive faster than they can read them. It serves both
-        roles from one codebase, and it is built and maintained solo.
+        roles from one codebase, and two partners build it: Shel owns the code and infrastructure, and a coaching partner owns the
+        training methodology and content.
       </p>
 
       <h2>Autoregulation signals adjust the session before it starts</h2>
@@ -71,7 +72,7 @@ export default function MenhirPage() {
         implements.
       </p>
       <p>
-        The limits are the ordinary ones of a solo-maintained production system, and the current focus is on two of them:
+        The limits are the ordinary ones of a small-team production system, and the current focus is on two of them:
         documentation, and test coverage on the billing and offline-reconciliation paths.
       </p>
 

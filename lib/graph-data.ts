@@ -420,7 +420,7 @@ const AUTHORED: AuthoredNode[] = [
   // ---- Production systems. ----
   { id: "menhir", label: "menhir", type: "project", color: "blush-deep", r: 24, x: 1560, y: 900,
     points: [
-      "Dual-role platform serving athletes and coaches, built and maintained solo",
+      "Dual-role platform serving athletes and coaches, built with a coaching partner; Shel owns the code and infrastructure",
       "Adaptive programming driven by multiple autoregulation signals — readiness, sleep, performance trend, calibrated RPE",
       "Multi-provider LLM pipeline (Groq / OpenAI / Anthropic) generating programs on top of 14 deterministic methodology generators and an RPE calibration engine",
       "Generated programs are validated and previewed before they can be committed or assigned",

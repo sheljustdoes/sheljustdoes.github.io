@@ -855,7 +855,9 @@ the engineering is described here. Personal and third-party data is excluded by 
 
 A dual-role platform serving both athletes and coaches. Its differentiator is adaptive
 programming driven by multiple autoregulation signals — readiness, sleep, performance
-trend, calibrated RPE — plus a structured coach↔athlete channel.
+trend, calibrated RPE — plus a structured coach↔athlete channel. Built by two partners:
+Shel owns the code and infrastructure, and a coaching partner owns the training methodology
+and content.
 
 The architecturally interesting part is the **AI pipeline sitting on top of deterministic
 engines rather than replacing them**: a provider abstraction across Groq, OpenAI and

@@ -86,7 +86,7 @@ export const PROJECTS: Project[] = [
     id: "veridian", name: "veridian", area: "frameworks", status: "Results committed (Check)", date: "2025", featured: true,
     link: "/projects/veridian/", linkLabel: "Read the write-up →",
     resumeLine:
-      "Literature review tool that checks a claim against a frozen paper corpus and cites the sentences behind each verdict. After an audit, the rebuilt checker reached 86% verdict accuracy on 21 held-out claims (95% interval 65–95%), against 48% for the original rule.",
+      "Literature review tool that checks a claim against a frozen paper corpus and cites the sentences behind each verdict. Audited it, found the original rule called every claim supported, and rebuilt it: 86% verdict accuracy on 21 held-out claims (95% interval 65–95%), against 48% for the original rule.",
     summary:
       "A literature review tool with two modes over one frozen corpus: Explore maps a field and where it disagrees; Check grounds a claim against the papers, citing the sentences behind the verdict. After an audit found the original grounding answered “supported” to every claim, the rebuilt Check reached 86% verdict accuracy on 21 held-out claims written before any fix (95% interval 65–95%), against 48% for the original rule.",
   },
@@ -94,7 +94,7 @@ export const PROJECTS: Project[] = [
     id: "recolo", name: "recolo", area: "frameworks", status: "Results committed", date: "2026–", featured: true,
     link: "/projects/recolo/", linkLabel: "Read the write-up →",
     resumeLine:
-      "Memory for LLM agents: episodic and semantic stores with decay, salience and consolidation, evaluated on LongMemEval under protocols fixed before scoring. Plain retrieval over the same memories beat it (0.73 against 0.32 as shipped); ablations and three more pre-registered protocols traced why, reported as a negative result.",
+      "Designed memory for LLM agents (episodic and semantic stores with decay, salience and consolidation) and fixed the LongMemEval protocol before scoring. Plain retrieval over the same memories won (0.73 against 0.32 as shipped), so ablations and three more pre-registered protocols traced why, and the result was published as a negative finding rather than shipped.",
     summary:
       "Bio-inspired memory for LLM agents: episodic and semantic stores over SQLite, exponential decay computed at retrieval, salience scored independently of age, and a consolidation loop that promotes cluster centroids and accelerates decay on what they already represent rather than deleting it. Evaluated on LongMemEval under a protocol committed before scoring: as shipped it scored 0.32 against 0.73 for plain retrieval over the same memories, and ablations trace the loss to decay on a fixed clock. A second protocol tested decay that adapts to the history: none of three modes beat plain retrieval, even on knowledge-update questions. A third tested salience as a tie-breaker and consolidation as an index over its member episodes, with decay off: neither retrieved evidence better than plain retrieval, so none of recolo's mechanisms helps. A fourth showed why decay had nothing to add: shown dated and in time order, retrieved memories let the reader pick the newer fact itself (removing those cues costs 15 points). Reported as-is.",
   },
@@ -102,7 +102,7 @@ export const PROJECTS: Project[] = [
     id: "noul", name: "noul", area: "frameworks", status: "Results committed (`find` only)", date: "2026–", featured: true,
     link: "/projects/noul/", linkLabel: "Read the write-up →",
     resumeLine:
-      "Local code search: BM25 and an embedding model shortlist candidates and a cross-encoder reranks them, with nothing leaving the machine. On 35 labelled queries across two codebases, every single-file answer ranks in the top five at a tenth of brute-force cost; under a strict every-correct-file rule, only 4 of 9 multi-file answers are complete.",
+      "Local code search that keeps code on the machine: BM25 and an embedding model shortlist candidates and a cross-encoder reranks them. On 35 labelled queries across two codebases, every single-file answer ranks in the top five at a tenth of brute-force cost; a strict every-correct-file metric showed only 4 of 9 multi-file answers complete, and the default stays unchanged until a fix holds on a held-out codebase.",
     summary:
       "Local, non-generative code search: BM25 and a small embedding model shortlist candidates and a cross-encoder reranks only those — typed scores in a single pass instead of an agent reading files, with nothing leaving the machine. On 35 labelled queries across two codebases, every single-file answer lands in the top five, at a tenth of brute-force cost on the larger codebase; but on a strict rule that requires every correct file, only 4 of 9 multi-file answers are complete. A pre-registered fix helped on those queries but not on a fresh held-out codebase, so the default is unchanged.",
   },
@@ -176,9 +176,9 @@ export const PROJECTS: Project[] = [
     id: "menhir", name: "menhir", area: "production", status: "Shipped", date: "2026–", featured: true,
     link: "/projects/menhir/", linkLabel: "Read the write-up →",
     resumeLine:
-      "Training platform for athletes and coaches, built and run solo: a multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines, and every program is validated before it is committed. OAuth, tiered billing and an offline-capable PWA; ~106K LOC, 25 test modules.",
+      "Training platform for athletes and coaches, in production; owns all code and infrastructure, with a coaching partner owning the methodology. A multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines, and every program is validated before it is committed. OAuth, tiered billing and an offline-capable PWA; ~106K LOC, 25 test modules.",
     summary:
-      "A dual-role athlete and coach training platform, built and maintained solo. A multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines and an RPE calibration engine, and every generated program is validated and previewed before it can be committed. OAuth with role-aware access, tiered billing, Web Push, and an offline-capable PWA. ~106K LOC, 25 test modules.",
+      "A dual-role athlete and coach training platform, built with a coaching partner who owns the methodology; Shel owns the code and infrastructure. A multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines and an RPE calibration engine, and every generated program is validated and previewed before it can be committed. OAuth with role-aware access, tiered billing, Web Push, and an offline-capable PWA. ~106K LOC, 25 test modules.",
   },
   {
     id: "audire", name: "audire", area: "production", status: "Shipped", date: "2026–",
@@ -193,7 +193,7 @@ export const PROJECTS: Project[] = [
   {
     id: "mara", name: "mara", area: "production", status: "Shipped", date: "2026–", featured: true,
     resumeLine:
-      "Multi-tenant pricing API for the moving industry: one survey endpoint estimates weight from job-site photos, routes the move, recommends a crew and returns priced line items. Per-tenant rates and hashed, scoped API keys; in production. 10 test modules.",
+      "Designed and built a multi-tenant pricing API for the moving industry, in production as a client platform's pricing service: one survey endpoint estimates weight from job-site photos, routes the move, recommends a crew and returns priced line items. Per-tenant rates and hashed, scoped API keys; 10 test modules.",
     summary:
       "A multi-tenant pricing API for the moving industry: local hourly, interstate tariff and military 400NG pricing behind one survey endpoint that estimates weight from job-site photos, routes the move, recommends a crew and returns priced line items. Per-tenant rate configuration, hashed scoped API keys, distance resolution that falls back to free routing, and self-refreshing fuel and tariff data. In production as a client platform's pricing service. 10 test modules.",
   },
