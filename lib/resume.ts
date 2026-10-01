@@ -21,10 +21,10 @@ export type Role = {
 };
 
 /** The headline under the name, on the résumé, the homepage and the page metadata. */
-export const HEADLINE = { title: "Senior Data Scientist", field: "AI for Life Sciences" };
+export const HEADLINE = { title: "Senior Data Scientist", field: "Applied ML & LLM Systems" };
 
 export const SUMMARY =
-  "PhD-trained data scientist with 9+ years across research and industry. Paid work spans **LLM classification on regulated pharmaceutical data**, computer vision systems deployed for clients, and trait prediction for crop breeding, each built with the evaluation that shows whether it works. Open, evaluated projects in literature review, imaging phenotyping and genomics add the rest, reported against plain baselines with negative results included. Has mentored two junior data scientists and, as a graduate student, taught the lab for a graduate bioinformatics course for three terms. Looking for a senior data science role in life sciences, where production ML and careful evaluation both count.";
+  "PhD-trained data scientist with 9+ years across research and industry, building ML and LLM systems and the evaluation that shows whether they work. Paid work spans **LLM classification on regulated pharmaceutical data**, computer vision and recommendation systems deployed for consumer clients, A/B testing and causal inference on product features, and trait prediction from genomic data. Independent work adds an LLM-backed product in production, a multi-tenant API, and retrieval and agent-memory systems, each tested against plain baselines with negative results reported. Has mentored two junior data scientists and, as a graduate student, taught the lab for a graduate bioinformatics course for three terms. Looking for a senior data science role where production ML and careful evaluation both count.";
 
 export const EXPERIENCE: Role[] = [
   {
@@ -118,20 +118,28 @@ export const CERTIFICATIONS: { name: string; note: string }[] = [
 export const SKILLS: { group: string; items: string[] }[] = [
   { group: "Languages", items: ["Python", "SQL", "TypeScript", "Bash"] },
   {
-    group: "ML and LLM",
+    group: "ML and statistics",
     items: [
-      "PyTorch", "TensorFlow", "scikit-learn", "LLM classification pipelines", "Evaluation design",
-      "Computer vision (CNNs)", "Clustering and dimensionality reduction (K-means, PCA, UMAP)",
-      "A/B testing and causal inference", "Statistical modeling",
+      "PyTorch", "TensorFlow", "scikit-learn", "Computer vision (CNNs)", "Recommendation and ranking",
+      "Clustering and dimensionality reduction (K-means, PCA, UMAP)", "A/B testing and causal inference",
+      "Statistical modeling",
     ],
   },
-  { group: "Data platforms", items: ["Databricks", "Snowflake", "AWS (SageMaker, Athena)", "Linux and HPC", "Git"] },
   {
-    group: "Domain",
+    group: "LLM systems",
     items: [
-      "Genomics and NGS analysis", "Transposable elements and structural variants", "Crop trait prediction",
-      "Perceptual color science (CIE Lab, CIEDE2000)", "Imaging phenotyping", "Regulated pharmaceutical data",
+      "LLM classification pipelines", "Multi-provider LLM pipelines with output validation",
+      "Retrieval and reranking (BM25, embeddings, cross-encoders)", "Agent memory",
+      "Evaluation design and pre-registered protocols",
     ],
+  },
+  {
+    group: "Data and deployment",
+    items: ["Databricks", "Snowflake", "AWS (SageMaker, Athena)", "APIs and SDKs", "Plotly Dash and Tableau", "Linux and HPC", "Git"],
+  },
+  {
+    group: "Domains",
+    items: ["Regulated pharmaceutical data", "Consumer health and beauty", "Genomics and crop breeding", "Biomedical imaging"],
   },
 ];
 

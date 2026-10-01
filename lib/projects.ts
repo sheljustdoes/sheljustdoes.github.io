@@ -91,14 +91,18 @@ export const PROJECTS: Project[] = [
       "A literature review tool with two modes over one frozen corpus: Explore maps a field and where it disagrees; Check grounds a claim against the papers, citing the sentences behind the verdict. After an audit found the original grounding answered “supported” to every claim, the rebuilt Check reached 86% verdict accuracy on 21 held-out claims written before any fix (95% interval 65–95%), against 48% for the original rule.",
   },
   {
-    id: "recolo", name: "recolo", area: "frameworks", status: "Results committed", date: "2026–",
+    id: "recolo", name: "recolo", area: "frameworks", status: "Results committed", date: "2026–", featured: true,
     link: "/projects/recolo/", linkLabel: "Read the write-up →",
+    resumeLine:
+      "Memory for LLM agents: episodic and semantic stores with decay, salience and consolidation, evaluated on LongMemEval under protocols fixed before scoring. Plain retrieval over the same memories beat it (0.73 against 0.32 as shipped); ablations and three more pre-registered protocols traced why, reported as a negative result.",
     summary:
       "Bio-inspired memory for LLM agents: episodic and semantic stores over SQLite, exponential decay computed at retrieval, salience scored independently of age, and a consolidation loop that promotes cluster centroids and accelerates decay on what they already represent rather than deleting it. Evaluated on LongMemEval under a protocol committed before scoring: as shipped it scored 0.32 against 0.73 for plain retrieval over the same memories, and ablations trace the loss to decay on a fixed clock. A second protocol tested decay that adapts to the history: none of three modes beat plain retrieval, even on knowledge-update questions. A third tested salience as a tie-breaker and consolidation as an index over its member episodes, with decay off: neither retrieved evidence better than plain retrieval, so none of recolo's mechanisms helps. A fourth showed why decay had nothing to add: shown dated and in time order, retrieved memories let the reader pick the newer fact itself (removing those cues costs 15 points). Reported as-is.",
   },
   {
-    id: "noul", name: "noul", area: "frameworks", status: "Results committed (`find` only)", date: "2026–",
+    id: "noul", name: "noul", area: "frameworks", status: "Results committed (`find` only)", date: "2026–", featured: true,
     link: "/projects/noul/", linkLabel: "Read the write-up →",
+    resumeLine:
+      "Local code search: BM25 and an embedding model shortlist candidates and a cross-encoder reranks them, with nothing leaving the machine. On 35 labelled queries across two codebases, every single-file answer ranks in the top five at a tenth of brute-force cost; under a strict every-correct-file rule, only 4 of 9 multi-file answers are complete.",
     summary:
       "Local, non-generative code search: BM25 and a small embedding model shortlist candidates and a cross-encoder reranks only those — typed scores in a single pass instead of an agent reading files, with nothing leaving the machine. On 35 labelled queries across two codebases, every single-file answer lands in the top five, at a tenth of brute-force cost on the larger codebase; but on a strict rule that requires every correct file, only 4 of 9 multi-file answers are complete. A pre-registered fix helped on those queries but not on a fresh held-out codebase, so the default is unchanged.",
   },
@@ -110,7 +114,7 @@ export const PROJECTS: Project[] = [
       "Perceptual skin-tone phenotyping over ~17.8K open dermatology images (Fitzpatrick17k, ISIC 2018). A layered masking pipeline — foreground segmentation plus a ResNet18-U-Net lesion mask (held-out Dice 0.889) — isolates skin before CIE Lab featurization and CIEDE2000 perceptual clustering. Measured colour barely tracks Fitzpatrick type: type explains 7% of lightness variance, and predicting it from colour barely beats guessing the commonest type (35–42% against 34%); masking did not help. An earlier claim that discovered clusters were 2.5–2.8× more predictable was withdrawn as largely circular; a pre-registered retest found no stable colour categories at all (resampling ARI 0.31). Against a colorimeter on a second dataset, an independent reanalysis reproduced the dataset authors' finding that Fitzpatrick type tracks skin colour and Monk Skin Tone tracks it better, while image-derived colour does not, and measured how much of the image error is capture alone: the weak link was the camera, not the scale.",
   },
   {
-    id: "lambent", name: "lambent", area: "phenotyping", status: "Results committed", date: "2023–", featured: true,
+    id: "lambent", name: "lambent", area: "phenotyping", status: "Results committed", date: "2023–",
     link: "/projects/lambent/", linkLabel: "Read the write-up →",
     resumeLine:
       "Skin radiance metric from multi-region image features, developed independently on public data. Re-validated on 1,816 public dermatology images and rebuilt into a capture-robust, tone-neutral score (tone dependence ρ² 0.310 to 0.002).",
@@ -118,7 +122,7 @@ export const PROJECTS: Project[] = [
       "Computational quantification of skin radiance from multi-region image features, developed independently on public data. Re-validated on 1,816 public dermatology images by dose-response perturbation, which showed the original score could not separate gloss from brightening and was confounded by capture conditions. Rebuilt through seven measured variants into a capture-robust, tone-neutral metric: tone dependence ρ² 0.310 → 0.002, worst-case capture sensitivity 93% → 59%.",
   },
   {
-    id: "argus", name: "argus", area: "phenotyping", status: "Results committed", date: "2026–", featured: true,
+    id: "argus", name: "argus", area: "phenotyping", status: "Results committed", date: "2026–",
     link: "/projects/argus/", linkLabel: "Read the write-up →",
     resumeLine:
       "Cell Painting anomaly detection on Recursion's public RxRx3-core, tested in four pre-registered runs against a cell-count baseline. The first design failed (AUC 0.32), so the test was narrowed: against controls of matching cell count, the embeddings separated knockouts (AUC 0.69 against 0.52), though not the subtler MTOR phenotype.",
@@ -169,8 +173,10 @@ export const PROJECTS: Project[] = [
 
   // ---- Supporting — production systems ----
   {
-    id: "menhir", name: "menhir", area: "production", status: "Shipped", date: "2026–",
+    id: "menhir", name: "menhir", area: "production", status: "Shipped", date: "2026–", featured: true,
     link: "/projects/menhir/", linkLabel: "Read the write-up →",
+    resumeLine:
+      "Training platform for athletes and coaches, built and run solo: a multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines, and every program is validated before it is committed. OAuth, tiered billing and an offline-capable PWA; ~106K LOC, 25 test modules.",
     summary:
       "A dual-role athlete and coach training platform, built and maintained solo. A multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines and an RPE calibration engine, and every generated program is validated and previewed before it can be committed. OAuth with role-aware access, tiered billing, Web Push, and an offline-capable PWA. ~106K LOC, 25 test modules.",
   },
@@ -185,7 +191,9 @@ export const PROJECTS: Project[] = [
       "A single-user tool for taking a rough idea to a published post: a capture → draft → live → dormant lifecycle so nothing sits untouched, platform-specific drafting, and a log of what shipped where. Claude-assisted drafting is grounded in stored voice and platform notes — always a suggestion, never auto-published.",
   },
   {
-    id: "mara", name: "mara", area: "production", status: "Shipped", date: "2026–",
+    id: "mara", name: "mara", area: "production", status: "Shipped", date: "2026–", featured: true,
+    resumeLine:
+      "Multi-tenant pricing API for the moving industry: one survey endpoint estimates weight from job-site photos, routes the move, recommends a crew and returns priced line items. Per-tenant rates and hashed, scoped API keys; in production. 10 test modules.",
     summary:
       "A multi-tenant pricing API for the moving industry: local hourly, interstate tariff and military 400NG pricing behind one survey endpoint that estimates weight from job-site photos, routes the move, recommends a crew and returns priced line items. Per-tenant rate configuration, hashed scoped API keys, distance resolution that falls back to free routing, and self-refreshing fuel and tariff data. In production as a client platform's pricing service. 10 test modules.",
   },
