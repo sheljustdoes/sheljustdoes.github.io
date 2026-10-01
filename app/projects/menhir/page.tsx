@@ -50,7 +50,7 @@ export default function MenhirPage() {
 
       <h2>The unglamorous parts carry the product</h2>
       <p>
-        The rest is the unglamorous part of shipping something people depend on: Auth.js v5 OAuth with role-aware route protection,
+        The rest is the unglamorous part of shipping something people depend on: invite-based email-and-password accounts with role-aware route protection,
         tiered subscription billing across five plans for both athletes and coaches, server-backed notifications and Web Push, and an
         installable PWA with cached offline reads and background-sync offline writes — so a session logged in a basement gym reconciles
         when signal returns. The data layer sits behind a single adapter seam, so the storage backend is a swap rather than a rewrite.
@@ -116,8 +116,8 @@ export default function MenhirPage() {
       </p>
       <p>
         The limits are the ordinary ones of a small-team production system: documentation, and test coverage on the billing and
-        offline-reconciliation paths. Two changes come next. Google sign-in gives way to an email-and-password accounts core shared
-        with Shel&apos;s other apps, and the program audit rebuilds the engines family by family.
+        offline-reconciliation paths. Sign-in has moved from Google to an email-and-password accounts core shared with
+        Shel&apos;s other apps; next, the program audit rebuilds the engines family by family.
       </p>
 
       <div className="endmatter">

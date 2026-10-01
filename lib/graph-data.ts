@@ -424,11 +424,11 @@ const AUTHORED: AuthoredNode[] = [
       "Adaptive programming driven by multiple autoregulation signals — readiness, sleep, performance trend, calibrated RPE",
       "Multi-provider LLM pipeline (Groq / OpenAI / Anthropic) generating programs on top of 14 deterministic methodology generators and an RPE calibration engine",
       "Generated programs are validated and previewed before they can be committed or assigned",
-      "Auth.js v5 OAuth with role-aware route protection; tiered Stripe billing across five plans",
+      "Invite-based email-and-password accounts with role-aware route protection; tiered Stripe billing across five plans",
       "Installable PWA with cached offline reads and background-sync offline writes",
       "~106K LOC across 349 files, 25 test modules, 458 commits",
     ],
-    keywords: ["Next.js", "TypeScript", "Auth.js", "OAuth", "Stripe", "Web Push", "PWA", "Offline Sync", "Background Sync", "Multi-Provider LLM", "Deterministic Engines", "RPE", "Autoregulation"] },
+    keywords: ["Next.js", "TypeScript", "bcrypt", "Session Cookies", "Stripe", "Web Push", "PWA", "Offline Sync", "Background Sync", "Multi-Provider LLM", "Deterministic Engines", "RPE", "Autoregulation"] },
   { id: "audire", label: "audire", type: "project", color: "blush-deep", r: 20, x: 1420, y: 1034,
     points: [
       "Audio curation and library management, packaged and deployed as a Home Assistant add-on",

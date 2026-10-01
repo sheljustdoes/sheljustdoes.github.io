@@ -176,9 +176,9 @@ export const PROJECTS: Project[] = [
     id: "menhir", name: "menhir", area: "production", status: "Shipped", date: "2026–", featured: true,
     link: "/projects/menhir/", linkLabel: "Read the write-up →",
     resumeLine:
-      "Training platform for athletes and coaches, in production; owns all code and infrastructure, with a coaching partner owning the methodology. A multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines, and every program is validated before it is committed. OAuth, tiered billing and an offline-capable PWA; ~106K LOC, 25 test modules.",
+      "Training platform for athletes and coaches, in production; owns all code and infrastructure, with a coaching partner owning the methodology. A multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines, and every program is validated before commit. Invite-based accounts, tiered billing and an offline PWA; ~106K LOC, 25 test modules.",
     summary:
-      "A dual-role athlete and coach training platform, built with a coaching partner who owns the methodology; Shel owns the code and infrastructure. A multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines and an RPE calibration engine, and every generated program is validated and previewed before it can be committed. OAuth with role-aware access, tiered billing, Web Push, and an offline-capable PWA. ~106K LOC, 25 test modules.",
+      "A dual-role athlete and coach training platform, built with a coaching partner who owns the methodology; Shel owns the code and infrastructure. A multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines and an RPE calibration engine, and every generated program is validated and previewed before it can be committed. Invite-based accounts with role-aware access, tiered billing, Web Push, and an offline-capable PWA. ~106K LOC, 25 test modules.",
   },
   {
     id: "audire", name: "audire", area: "production", status: "Shipped", date: "2026–",
