@@ -1122,10 +1122,12 @@ isolates a node's connections; selecting one opens a detail panel whose connecti
 navigate the graph without returning to the canvas. Pannable and zoomable, with
 hand-rolled pointer handling and no visualization dependency.
 
-Ten projects carry long-form write-ups — iridis, topos, veridian, menhir, lambent,
-recolo, argus, fragaria, noul and lyco — reachable from their node in the graph. menhir's
-is the only public account of a private codebase; recolo's reports a result that went
-against the design, as measured. The write-ups' figures are interactive (Plotly): hover
+Nine projects carry long-form write-ups — iridis, topos, veridian, lambent, recolo,
+argus, fragaria, noul and lyco — reachable from their node in the graph; recolo's reports
+a result that went against the design, as measured. Supporting projects are shown rather
+than written up: `/projects/` presents them as a grid of screenshots captured from each
+app's demo mode or public page, and menhir's page is a visual summary — its screens and a
+spec list — as the public view of a private codebase. The write-ups' figures are interactive (Plotly): hover
 for exact values, zoom, legend toggles, and a data table under each figure, with the
 static image kept for narrow screens, print and no-JS readers. recolo and noul each
 add a view that exists only
