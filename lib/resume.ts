@@ -83,7 +83,7 @@ export const EXPERIENCE: Role[] = [
   },
   {
     title: "Graduate Researcher & Lab Instructor",
-    company: "University of North Carolina at Charlotte",
+    company: "Schlueter Lab, University of North Carolina at Charlotte",
     start: "2015-08",
     end: "2020-09",
     bullets: [
