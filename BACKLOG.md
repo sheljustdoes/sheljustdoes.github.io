@@ -7,7 +7,7 @@ Created 2026-09-22.
 
 ---
 
-## P0 — Résumé, version A (Senior Data Scientist, Applied ML & LLM Systems)
+## P0 — Résumé, version A (Principal Data Scientist, Applied ML & LLM Systems)
 
 Broadened 2026-10-01 at Shel's request: the work is not only bio-based. Headline now
 "Applied ML & LLM Systems"; summary leads with ML and LLM systems across pharma, consumer
@@ -30,10 +30,21 @@ Cooper Lab, TE insertions in tomato; dissertation title; teaching corrected to t
 graduate course. No further figures can be shared, so the 10-numbered-bullets target is
 dropped.
 
+Principal reframe done 2026-10-01: headline "Principal Data Scientist", matching the
+Boehringer contract title (Principal Applied Scientist); summary and bullets lead with
+ownership and decisions; project lines read as evaluations that drove a call; menhir is
+described as two partners (Shel owns code and infrastructure), not solo.
+
 - [x] GAANN fellowship 2020 to 2021; course confirmed as BINF 8100 on the program page. Done 2026-10-01.
 - [ ] Certifications: which exam is closest, its target month, and its verification link;
       then show at most one in-progress item.
-- [ ] Google Doc header: paste the new headline by hand (the sync never touches it).
+- [ ] Google Doc header: paste "Principal Data Scientist | Applied ML & LLM Systems" by
+      hand, remove the email line, add github.com/sheljustdoes (the sync never touches it).
+- [ ] Google Doc: run Résumé → Force sync once. Summary is blocked because the closing
+      "Looking for…" sentence was deleted in the Doc; the site now drops it too.
+- [ ] Google Doc: the consulting lead line sits in a one-cell table, which ATS parsers can
+      skip. Turn it back into a paragraph; the sync copies the Doc's styling.
+- [ ] menhir case study on the write-up page: what Shel owns, the decisions, the results.
 - [ ] Versions B, C and D as private files (`Shel-Burkes-Resume-[version]-[date]`), never in
       this public repo.
 
