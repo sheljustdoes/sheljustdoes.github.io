@@ -171,7 +171,7 @@ const AUTHORED: AuthoredNode[] = [
   { id: "production-eng", label: "Production\nEngineering", type: "skill", color: "stone", r: 20, x: 1340, y: 848,
     summary: "Shipping and keeping running the services people depend on: deployment, scheduled automation, release cadence, and test suites — solo, end to end.",
     points: [
-      "Model deployment on AWS SageMaker for a client's clinical imaging pipeline",
+      "Two client computer vision models trained on AWS SageMaker and run in production on in-store scanning devices",
       "Versioned releases, CI, and test suites across every shipped service",
       "Scheduled jobs that keep reference data current: a weekly fuel-price refresh and a quarterly tariff check that opens a pull request for review",
       "Failure handling that degrades rather than stops — fallback tiers, bounded retries",
@@ -202,9 +202,9 @@ const AUTHORED: AuthoredNode[] = [
     keywords: ["Next.js", "TypeScript", "React", "SvelteKit", "FastAPI", "API Design", "SDK Development", "Multi-Tenancy", "Postgres", "OAuth", "Auth.js", "JWT", "Stripe", "Webhooks", "PWA", "Service Workers"] },
 
   { id: "computer-vision", label: "Computer\nVision", type: "skill", color: "stone", r: 20, x: 940, y: 880,
-    summary: "Extracting quantitative signal from images — segmentation, featurization, and classification over biological and clinical imaging, where the hard part is usually deciding what to measure rather than which architecture to use.",
+    summary: "Extracting quantitative signal from images — segmentation, featurization, and classification over biological and skin imaging, where the hard part is usually deciding what to measure rather than which architecture to use.",
     points: [
-      "CNN architectures for anomaly detection over large clinical imaging databases",
+      "A CNN anomaly detector on skin images, in production on a client's in-store scanning devices",
       "Semantic segmentation with a ResNet18-U-Net for lesion exclusion (held-out Dice 0.889 / IoU 0.818)",
       "Vision Transformers for large-scale perceptual classification on a proprietary image database",
       "Robust image featurization: median-based pixel sampling, region anchoring, face detection, and masking pipelines that survive artifacts",
@@ -260,10 +260,10 @@ const AUTHORED: AuthoredNode[] = [
     ],
     keywords: ["Haplotype Analysis", "VCF", "Trait Prediction", "Predictive Modeling", "Plant Breeding", "Product Ownership", "Agile", "Scrum", "Machine Learning"] },
   { id: "consulting", label: "Senior Data Scientist\n(Contract)", type: "role", color: "dusty-blue", r: 32, x: 760, y: 640, company: "Confidential consumer health-sensing startup",
-    summary: "Senior Data Scientist (Contract) at a confidential consumer health-sensing startup. Sole data scientist from scoping to handoff on engagements for its two anchor clients, a Fortune 500 pharmacy group and a global prestige beauty retailer: a shade-matching recommender deployed to customers and a CNN anomaly detector on AWS SageMaker, built on methods developed independently on public data.",
+    summary: "Senior Data Scientist (Contract) at a confidential consumer health-sensing startup. Sole data scientist from scoping to handoff on engagements for its two anchor clients, a Fortune 500 pharmacy group and a global prestige beauty retailer: a shade-matching recommender deployed to customers and two computer vision models in production on in-store devices, built on methods developed independently on public data.",
     points: [
       "Built a shade-matching recommendation system ranking products by perceptual color distance (CIEDE2000); a version was deployed to the client's customers",
-      "Built a CNN-based anomaly detection system for a client's clinical imaging database on AWS SageMaker, with a client-facing SDK, and onboarded the client's engineers onto it",
+      "Built two production computer vision models that ran together on the client's in-store scanning devices, a CNN anomaly detector on skin images and a model for the camera's UV mode, trained on AWS SageMaker with a client-facing SDK",
       "Applied independently developed skin radiance and perceptual skin tone measures to client data, validated against the client's expert grading",
       "Designed and analyzed A/B tests and causal inference studies, and defined the product health metrics behind Plotly Dash and Tableau dashboards",
       "Taught client stakeholders the color science and ranking tradeoffs so their teams could own the delivered systems",
