@@ -2,7 +2,7 @@
 
 # Shel Burkes, PhD
 
-**Principal Applied Scientist · AI for Life Sciences · Computer Vision for Biological Systems**
+**Staff Applied Scientist · ML & LLM Systems**
 
 I build AI systems that extract quantitative signal from biological and multi-modal data — measurement frameworks, classification systems, and discovery tools for problems where no prior quantification exists.
 
@@ -15,10 +15,11 @@ PhD in Data Science · Bioinformatics · Computer Vision · Foundation Models ·
 ## Projects
 
 Every project is described in one place, [`PORTFOLIO.md`](PORTFOLIO.md): what it does, the
-approach, the stack, an honest status, and its results. It is organized as three product
-lines — perceptual & imaging phenotyping, certified structure in biological data, research
-cognition — each led by a flagship (iridis, topos, veridian), with everything else as
-supporting evidence; [/projects/](https://sheljustdoes.github.io/projects/) shows that view.
+approach, the stack, an honest status, and its results. It opens with the frameworks the
+research builds on (topos, veridian, recolo, noul), then the research areas, each led by a
+flagship — perceptual & imaging phenotyping (iridis) and certified structure in biological
+data (fragaria) — then supporting work; [/projects/](https://sheljustdoes.github.io/projects/)
+shows that view.
 The site reads a structured mirror
 of it (`lib/projects.ts`) for the [résumé](https://sheljustdoes.github.io/resume/), the
 homepage graph and the résumé document's feed, and the build fails when the three drift
