@@ -7,7 +7,12 @@ Created 2026-09-22.
 
 ---
 
-## P0 — Résumé, version A (Senior Data Scientist, AI for Life Sciences)
+## P0 — Résumé, version A (Senior Data Scientist, Applied ML & LLM Systems)
+
+Broadened 2026-10-01 at Shel's request: the work is not only bio-based. Headline now
+"Applied ML & LLM Systems"; summary leads with ML and LLM systems across pharma, consumer
+and genomics; skills regrouped with an LLM systems group; selected projects are veridian,
+recolo, noul, menhir and mara (lambent and argus stay on /projects/).
 
 Stage 1 done 2026-09-30: new headline in one place (`HEADLINE` in `lib/resume.ts`), summary
 rewritten to the dated 9+ years, Boehringer entry as a dated contract role with six
