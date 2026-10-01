@@ -72,6 +72,8 @@ export type Project = {
   /** Write-ups and public destinations only — never a private repository. */
   link?: string;
   linkLabel?: string;
+  /** Supporting projects only: a screenshot of the work, shown in the /projects/ grid. */
+  shot?: { src: string; alt: string; caption: string };
 };
 
 export const PROJECTS: Project[] = [
@@ -174,7 +176,8 @@ export const PROJECTS: Project[] = [
   // ---- Supporting — production systems ----
   {
     id: "menhir", name: "menhir", area: "production", status: "Shipped", date: "2026–", featured: true,
-    link: "/projects/menhir/", linkLabel: "Read the write-up →",
+    shot: { src: "/projects/supporting/menhir.webp", alt: "Athlete home in menhir: coach card, week schedule and today's prescribed session", caption: "Athlete and coach training platform; generated programs are validated before they commit." },
+    link: "/projects/menhir/", linkLabel: "See the work →",
     resumeLine:
       "Training platform for athletes and coaches, in production; owns all code and infrastructure, with a coaching partner owning the methodology. A multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines, and every program is validated before commit. Invite-based accounts, tiered billing and an offline PWA; ~106K LOC, 25 test modules.",
     summary:
@@ -182,16 +185,19 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "audire", name: "audire", area: "production", status: "Shipped", date: "2026–",
+    shot: { src: "/projects/supporting/audire.webp", alt: "audire's library view: genre filters and a sortable track table", caption: "Self-hosted audio library, packaged as a Home Assistant add-on." },
     summary:
       "A self-hosted audio library platform packaged as a Home Assistant add-on: FastAPI across 22 routers, a SvelteKit client, a native macOS launcher and a background queue worker behind Caddy, with ReplayGain normalization and MusicBrainz enrichment. Failure handling is deliberate — randomized pacing, one delayed retry that resumes only what is missing, no retry for permanent failures. Duplicate detection matches on tags and duration rather than hashes, because separate encodes of one recording never hash alike. 21K LOC, 37 test modules.",
   },
   {
     id: "ponere", name: "ponere", area: "production", status: "Shipped", date: "2025–",
+    shot: { src: "/projects/supporting/ponere.webp", alt: "ponere's lifecycle board: draft, live, deep and dormant ideas", caption: "Takes an idea from capture to published post, and flags what has gone quiet." },
     summary:
       "A single-user tool for taking a rough idea to a published post: a capture → draft → live → dormant lifecycle so nothing sits untouched, platform-specific drafting, and a log of what shipped where. Claude-assisted drafting is grounded in stored voice and platform notes — always a suggestion, never auto-published.",
   },
   {
     id: "mara", name: "mara", area: "production", status: "Shipped", date: "2026–", featured: true,
+    shot: { src: "/projects/supporting/mara.webp", alt: "mara's quote form: local, long-distance, 400NG and survey tracks", caption: "Moving-industry pricing API; this quote form calls it live." },
     resumeLine:
       "Designed and built a multi-tenant pricing API for the moving industry, in production as a client platform's pricing service: one survey endpoint estimates weight from job-site photos, routes the move, recommends a crew and returns priced line items. Per-tenant rates and hashed, scoped API keys; 10 test modules.",
     summary:
@@ -201,16 +207,19 @@ export const PROJECTS: Project[] = [
   // ---- Supporting — learning & knowledge tools ----
   {
     id: "scintilla", name: "scintilla", area: "learning", status: "Implemented", date: "2026–",
+    shot: { src: "/projects/supporting/scintilla.webp", alt: "A scintilla lesson: bridge from prior lessons, then ideas and checks", caption: "Lesson player that checks understanding throughout every lesson." },
     summary:
       "A free lesson player for data science, ML and AI that checks understanding throughout every lesson: 5–10 minute lessons with bridges to what came before, frequent checkpoints, a hands-on item such as Python run in the browser, a Feynman self-check that routes to the missing prerequisite, and FSRS-scheduled review. Nothing is generated live, so learners never need an API key. The player runs end to end on lumen's catalog, offline-capable and accessibility-tested; the first reviewed lesson is live in a private deployment. Invite-only accounts and progress synced across devices are built; importing curricula from lumen and self-assessment with unit tests and a final are designed next.",
   },
   {
     id: "lumen", name: "lumen", area: "learning", status: "Implemented", date: "2026–",
+    shot: { src: "/projects/supporting/lumen.webp", alt: "lumen's catalog viewer for release 0.1.0: subjects, chapters and readiness", caption: "Authoring pipeline that verifies every claim before a lesson is published." },
     summary:
       "The authoring pipeline behind scintilla: retrieves openly licensed sources, generates with a pinned Claude model, verifies every claim against its source with veridian's Check engine, and publishes a versioned, validated catalog after human review. The build enforces the learner-facing rules — bridges, pinned sources, verified answer keys, named misconceptions. The pipeline runs: its first lesson passed validation on the first draft, with every principle supported by its source, and after review shipped as catalog release v0.1.0. Designed next: a web app where anyone with an account builds a curriculum from a subject or their own materials, within a monthly quota and a daily spend cap.",
   },
   {
     id: "bibliotheca", name: "bibliotheca", area: "learning", status: "Shipped", date: "2025–",
+    shot: { src: "/projects/supporting/bibliotheca.webp", alt: "bibliotheca's public shelf: currently reading and finished books", caption: "Public reading index driven entirely by filenames." },
     link: "https://github.com/sheljustdoes/bibliotheca", linkLabel: "View repository ↗",
     summary:
       "A public reading index driven entirely by filenames: an ISBN-13-named file pushed to a status folder triggers a GitHub Action that resolves metadata through the Google Books API and publishes it. Moving a file between folders updates reading status and completion date. The files themselves stay in a private companion repository, where the Action runs; only the metadata is published.",
@@ -219,6 +228,7 @@ export const PROJECTS: Project[] = [
   // ---- Supporting — tooling & designs ----
   {
     id: "custos", name: "custos", area: "tooling", status: "Shipped", date: "2026–",
+    shot: { src: "/projects/supporting/custos.webp", alt: "README banners custos renders for each repo from the brand system", caption: "Cross-portfolio tooling: rotation and drift reports, and every repo's README banner." },
     summary:
       "Cross-portfolio tooling. Its rotation report ranks every project by its last commit that touched more than markdown, so documentation activity cannot disguise a stalled project, and pairs each with its next backlog item. The same script runs locally and as a weekly Action over treeless clones.",
   },
