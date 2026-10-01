@@ -87,7 +87,7 @@ export const EXPERIENCE: Role[] = [
     bullets: [
       "Dissertation, \"Comparative Analysis of Repeat Landscapes in Avena (Oat)\": built analytical pipelines over Illumina and PacBio sequencing data in Python and Linux; the repeat-discovery work became **RepBox** (BMC Bioinformatics, 2023)",
       "Extracted and integrated data from NCBI and GenBank into optimized workflows for large-scale genomic data processing",
-      "Taught the lab for **Biological Basis of Bioinformatics** across three Spring semesters at 10–15 students per term, a graduate course giving students from computer science and quantitative backgrounds the genetics, molecular biology and biochemistry the program assumes",
+      "Taught the lab for **Biological Basis of Bioinformatics** (BINF 8100) across three Spring semesters at 10–15 students per term, a graduate course giving students from computer science and quantitative backgrounds the genetics, molecular biology and biochemistry the program assumes",
       "Teaching assistant for introductory biology coursework",
     ],
   },
@@ -97,7 +97,7 @@ export const EDUCATION: { degree: string; institution: string; year: string }[] 
   { degree: "Doctor of Philosophy, Bioinformatics & Computational Biology (Data Science)", institution: "University of North Carolina at Charlotte", year: "2020" },
   { degree: "Master of Science, Bioinformatics & Computational Biology (Data Science)", institution: "University of North Carolina at Charlotte", year: "2016" },
   { degree: "Bachelor of Science", institution: "University of North Carolina at Charlotte", year: "2013" },
-  { degree: "GAANN Fellowship (Graduate Assistance in Areas of National Need)", institution: "University of North Carolina at Charlotte", year: "" },
+  { degree: "GAANN Fellowship (Graduate Assistance in Areas of National Need)", institution: "University of North Carolina at Charlotte", year: "2020 to 2021" },
 ];
 
 export const PUBLICATIONS: { citation: string; doi: string }[] = [
