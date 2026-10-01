@@ -43,7 +43,7 @@ export const EXPERIENCE: Role[] = [
     ],
   },
   {
-    title: "Data Scientist (Contract)",
+    title: "Senior Data Scientist (Contract)",
     company: "Confidential consumer health-sensing startup",
     start: "2021-09",
     end: "2025-09",
