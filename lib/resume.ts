@@ -62,7 +62,7 @@ export const EXPERIENCE: Role[] = [
     start: "2021-09",
     end: "2022-09",
     bullets: [
-      "Built predictive models on VCF-derived haplotype markers for **trait prediction in corn, tomato and other crops**, combining environmental and genetic factors with biological domain reasoning",
+      "Built predictive models on genomic marker data (VCF) for **crop trait prediction**, combining environmental and genetic factors with domain reasoning",
       "Designed and deployed scalable bioinformatics workflows for trait-based prediction, integrating outputs into relational databases",
       "Led the build of a decision-making analytics platform as **Product Owner** on a small blended team, owning the vision and backlog through development (Agile, Scrum)",
     ],
@@ -74,28 +74,27 @@ export const EXPERIENCE: Role[] = [
     end: "2021-09",
     bullets: [
       "Designed and implemented the lab's analytical pipelines for large-scale NGS datasets in Python across UNIX and cloud/HPC environments",
-      "Developed pipelines for transposable element polymorphism detection in tomato and structural variant association analysis, linking insertion presence/absence variation to phenotypes",
+      "Developed variant detection and association analysis pipelines linking genetic variation to phenotypes",
       "Trained the lab's graduate and undergraduate researchers: wrote the internal documentation, ran pipeline walkthroughs and supported every researcher using them, taking students with wet-lab backgrounds and no computational experience to running their own NGS analyses",
       "Maintained code documentation and data stewardship practices so datasets stayed reproducible and accessible across ongoing research",
     ],
   },
   {
-    title: "Graduate Researcher, Lab Instructor & Teaching Assistant",
+    title: "Graduate Researcher & Lab Instructor",
     company: "University of North Carolina at Charlotte",
     start: "2017-01",
     end: "2020-09",
     bullets: [
-      "Dissertation, \"Comparative Analysis of Repeat Landscapes in Avena (Oat)\": built analytical pipelines over Illumina and PacBio sequencing data in Python and Linux; the repeat-discovery work became **RepBox** (BMC Bioinformatics, 2023)",
-      "Extracted and integrated data from NCBI and GenBank into optimized workflows for large-scale genomic data processing",
-      "Taught the lab for **Biological Basis of Bioinformatics** (BINF 8100) across three Spring semesters at 10–15 students per term, a graduate course giving students from computer science and quantitative backgrounds the genetics, molecular biology and biochemistry the program assumes",
-      "Teaching assistant for introductory biology coursework",
+      "Built analytical pipelines in Python and Linux over large Illumina and PacBio sequencing datasets",
+      "Turned the repeat-discovery work into **RepBox**, an open-source tool published in BMC Bioinformatics (2023)",
+      "Taught the lab for a graduate course, **Biological Basis of Bioinformatics** (BINF 8100), across three Spring semesters at 10–15 students per term",
     ],
   },
 ];
 
 export const EDUCATION: { degree: string; institution: string; year: string }[] = [
-  { degree: "Doctor of Philosophy, Bioinformatics & Computational Biology (Data Science)", institution: "University of North Carolina at Charlotte", year: "2020" },
-  { degree: "Master of Science, Bioinformatics & Computational Biology (Data Science)", institution: "University of North Carolina at Charlotte", year: "2016" },
+  { degree: "Doctor of Philosophy, Bioinformatics & Computational Biology", institution: "College of Computing and Informatics, University of North Carolina at Charlotte", year: "2020" },
+  { degree: "Master of Science, Bioinformatics & Computational Biology", institution: "College of Computing and Informatics, University of North Carolina at Charlotte", year: "2016" },
   { degree: "Bachelor of Science", institution: "University of North Carolina at Charlotte", year: "2013" },
   { degree: "GAANN Fellowship (Graduate Assistance in Areas of National Need)", institution: "University of North Carolina at Charlotte", year: "2020 to 2021" },
 ];
