@@ -1,5 +1,5 @@
-import { FRAMEWORKS, LINES, SUPPORTING, displayStatus, projectsInArea, type Area, type AreaId } from "@/lib/projects";
-import { CERTIFICATIONS, EDUCATION, EXPERIENCE, SKILLS, SUMMARY, emphasisParts, siteDates } from "@/lib/resume";
+import { RESUME_PROJECTS, displayStatus, type AreaId } from "@/lib/projects";
+import { CERTIFICATIONS, EDUCATION, EXPERIENCE, HEADLINE, PUBLICATIONS, SKILLS, SUMMARY, emphasisParts, siteDates } from "@/lib/resume";
 
 export const metadata = { title: "shel. — resume" };
 
@@ -16,20 +16,24 @@ export default function ResumePage() {
             Shel Burkes<em>, PhD</em>
           </div>
           <div className="contact">
-            <a href="mailto:shel.burkes@gmail.com">shel.burkes@gmail.com</a>
-            <br />
             <a href="https://sheljustdoes.github.io" target="_blank" rel="noopener">
               sheljustdoes.github.io
             </a>
             <br />
-            ORCID 0000-0002-7339-1060
+            <a href="https://github.com/sheljustdoes" target="_blank" rel="noopener">
+              github.com/sheljustdoes
+            </a>
+            <br />
+            <a href="https://orcid.org/0000-0002-7339-1060" target="_blank" rel="noopener">
+              ORCID 0000-0002-7339-1060
+            </a>
           </div>
         </div>
         <div className="title-row">
           <div className="title-dot" style={{ background: "var(--terracotta)" }} />
-          <span className="title-mono">Principal Applied Scientist</span>
+          <span className="title-mono">{HEADLINE.title}</span>
           <div className="title-dot" style={{ background: "var(--indigo)" }} />
-          <span className="title-mono">AI for Life Sciences</span>
+          <span className="title-mono">{HEADLINE.field}</span>
         </div>
       </header>
 
@@ -47,7 +51,6 @@ export default function ResumePage() {
             key={role.company + role.start}
             company={role.company}
             date={siteDates(role)}
-            dateNote={role.dateNote}
             title={role.title}
             last={i === EXPERIENCE.length - 1}
           >
@@ -67,7 +70,24 @@ export default function ResumePage() {
           {EDUCATION.map((e) => (
             <li key={e.degree} className="edu-row">
               <span className="edu-degree">{e.degree}</span>
-              <span className="edu-inst">, {e.institution}</span>
+              <span className="edu-inst">
+                , {e.institution}
+                {e.year && `, ${e.year}`}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <div className="section-label">Publication</div>
+        <ul className="edu-list">
+          {PUBLICATIONS.map((p) => (
+            <li key={p.doi} className="edu-row">
+              <span className="edu-inst">{p.citation} </span>
+              <a className="pub-doi" href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener">
+                doi:{p.doi}
+              </a>
             </li>
           ))}
         </ul>
@@ -79,32 +99,47 @@ export default function ResumePage() {
           {CERTIFICATIONS.map((c) => (
             <li key={c.name} className="edu-row">
               <span className="edu-degree">{c.name}</span>
-              <span className="edu-inst"> — {c.note}</span>
+              <span className="edu-inst">, {c.note}</span>
             </li>
           ))}
         </ul>
       </section>
 
       <section>
-        <div className="section-label">Projects</div>
-        {[...FRAMEWORKS, ...LINES].map((area) => (
-          <AreaGroup key={area.id} area={area} open />
-        ))}
-        <div className="supporting-label">Supporting evidence — how the work gets built</div>
-        {SUPPORTING.map((area) => (
-          <AreaGroup key={area.id} area={area} />
-        ))}
+        <div className="section-label">Selected projects</div>
+        <div className="projects-grid">
+          {RESUME_PROJECTS.map((p) => (
+            <Project
+              key={p.id}
+              accent={AREA_ACCENT[p.area]}
+              name={`${p.name}.`}
+              tag={[p.date, p.status && displayStatus(p.status)].filter(Boolean).join(" · ")}
+              href={p.link}
+              linkLabel={p.linkLabel}
+            >
+              {p.resumeLine ?? p.summary}
+            </Project>
+          ))}
+        </div>
+        <a className="all-projects" href="/projects/">
+          All projects →
+        </a>
       </section>
 
       <section>
         <div className="section-label">Skills</div>
-        <div className="skills-wrap">
-          {SKILLS.map((s) => (
-            <span key={s} className="skill">
-              {s}
-            </span>
-          ))}
-        </div>
+        {SKILLS.map((g) => (
+          <div key={g.group} className="skill-group">
+            <div className="skill-group-label">{g.group}</div>
+            <div className="skills-wrap">
+              {g.items.map((s) => (
+                <span key={s} className="skill">
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </section>
     </>
   );
@@ -121,40 +156,6 @@ const AREA_ACCENT: Record<AreaId, string> = {
   tooling: "var(--sage)",
 };
 
-/**
- * One area of the Projects section. Frameworks and research areas open with their
- * thesis, lines leading with the flagship; supporting areas start folded, so
- * the frameworks and lines read first.
- */
-function AreaGroup({ area, open = false }: { area: Area; open?: boolean }) {
-  const projects = projectsInArea(area.id);
-  return (
-    <details className={`area area-${area.kind}`} open={open}>
-      <summary className="area-summary">
-        <span className="area-dot" style={{ background: AREA_ACCENT[area.id] }} />
-        <span className="area-label">{area.label}</span>
-        <span className="area-count">{projects.length}</span>
-      </summary>
-      {area.thesis && <p className="area-thesis">{area.thesis}</p>}
-      <div className="projects-grid">
-        {projects.map((p) => (
-          <Project
-            key={p.id}
-            accent={AREA_ACCENT[area.id]}
-            name={`${p.name}.`}
-            tag={[p.id === area.flagship && "Flagship", p.date, p.status && displayStatus(p.status)].filter(Boolean).join(" · ")}
-            flagship={p.id === area.flagship}
-            href={p.link}
-            linkLabel={p.linkLabel}
-          >
-            {p.summary}
-          </Project>
-        ))}
-      </div>
-    </details>
-  );
-}
-
 /** Renders **emphasis** markers from lib/resume.ts as bold. */
 function Rich({ text }: { text: string }) {
   return (
@@ -167,15 +168,12 @@ function Rich({ text }: { text: string }) {
 function Job({
   company,
   date,
-  dateNote,
   title,
   children,
   last,
 }: {
   company: string;
   date: string;
-  /** A second date line, for a role that overlaps another. */
-  dateNote?: string;
   title: string;
   children: React.ReactNode;
   last?: boolean;
@@ -185,7 +183,6 @@ function Job({
       <div className="job-meta">
         <div className="job-company">{company}</div>
         <div className="job-date">{date}</div>
-        {dateNote && <div className="job-date">{dateNote}</div>}
       </div>
       <div className="job-body">
         <div className="job-title">{title}</div>
@@ -201,20 +198,18 @@ function Project({
   tag,
   href,
   linkLabel,
-  flagship = false,
   children,
 }: {
   accent: string;
   name: string;
   tag: string;
-  flagship?: boolean;
   href?: string;
   linkLabel?: string;
   children: React.ReactNode;
 }) {
   const external = href?.startsWith("http");
   return (
-    <div className={flagship ? "project project-flagship" : "project"}>
+    <div className="project">
       <div className="project-accent" style={{ background: accent }} />
       <div className="project-name">{name}</div>
       <div className="project-tag">{tag}</div>
@@ -288,26 +283,13 @@ section { margin-bottom: 40px; }
 .project-link { display: block; margin-top: 10px; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--terracotta); text-decoration: none; }
 .project-link:hover { text-decoration: underline; text-underline-offset: 2px; }
-/* Each area collapses independently. Open by default so a skim, and a print,
-   show everything; the marker is drawn by hand to match the mono labels. */
-.area { margin-bottom: 18px; }
-.area:last-child { margin-bottom: 0; }
-.area-summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 6px 0 10px;
-  font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--charcoal); }
-.area-summary::-webkit-details-marker { display: none; }
-.area-summary::before { content: '▸'; color: var(--warm-taupe); font-size: 0.7rem; transition: transform 0.15s ease; }
-.area[open] > .area-summary::before { transform: rotate(90deg); }
-.area-summary:hover .area-label { color: var(--terracotta); }
-.area-summary:focus-visible { outline: 2px solid var(--indigo); outline-offset: 2px; }
-.area-dot { width: 6px; height: 6px; flex-shrink: 0; }
-.area-count { color: var(--warm-taupe); letter-spacing: 0.04em; }
-.area-thesis { font-family: var(--serif); font-style: italic; font-size: 0.84rem; color: #5a5550; margin: -4px 0 12px 16px; max-width: 62ch; }
-/* The flagship spans the row so each research area visibly leads with it. */
-.project-flagship { grid-column: 1 / -1; border-color: var(--taupe); }
-.supporting-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm-taupe);
-  margin: 28px 0 10px; padding-top: 14px; border-top: 1px solid var(--parchment); }
-/* Supporting areas start folded on screen; print shows everything. */
-@media print { .area-supporting::details-content { content-visibility: visible; } }
+.all-projects { display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--terracotta); text-decoration: none; }
+.all-projects:hover { text-decoration: underline; text-underline-offset: 2px; }
+.skill-group { display: grid; grid-template-columns: 148px 1fr; gap: 0 28px; margin-bottom: 10px; }
+.skill-group-label { font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terracotta); padding-top: 6px; }
+.pub-doi { font-family: var(--mono); font-size: 0.72rem; color: var(--indigo); text-decoration: none; }
+.pub-doi:hover { color: var(--terracotta); }
 /* Credentials read as a list, marked with the same arrow the experience
    bullets use, rather than separated by rules. */
 .edu-list { list-style: none; padding: 0; margin: 0; }
@@ -330,6 +312,7 @@ section { margin-bottom: 40px; }
   .job { grid-template-columns: 1fr; gap: 4px; }
   .job-meta { display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px; }
   .projects-grid { grid-template-columns: 1fr; }
+  .skill-group { grid-template-columns: 1fr; gap: 4px; }
   .edu-degree, .edu-inst { font-size: 0.84rem; }
 }
 `;
