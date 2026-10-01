@@ -261,8 +261,8 @@ const AUTHORED: AuthoredNode[] = [
       "Led the build of a decision-making analytics platform as Product Owner, owning the vision and backlog through development",
     ],
     keywords: ["Haplotype Analysis", "VCF", "Trait Prediction", "Predictive Modeling", "Plant Breeding", "Product Ownership", "Agile", "Scrum", "Machine Learning"] },
-  { id: "consulting", label: "Independent\nData Scientist", type: "role", color: "dusty-blue", r: 32, x: 760, y: 640, company: "Independent Consultant",
-    summary: "Independent Data Scientist. Contract data scientist for a confidential consumer health-sensing startup, sole data scientist from scoping to handoff on engagements for its two anchor clients, a Fortune 500 pharmacy group and a global prestige beauty retailer: a shade-matching recommender deployed to customers and a CNN anomaly detector on AWS SageMaker, built on methods developed independently on public data.",
+  { id: "consulting", label: "Data Scientist\n(Contract)", type: "role", color: "dusty-blue", r: 32, x: 760, y: 640, company: "Confidential consumer health-sensing startup",
+    summary: "Data Scientist (Contract) at a confidential consumer health-sensing startup. Sole data scientist from scoping to handoff on engagements for its two anchor clients, a Fortune 500 pharmacy group and a global prestige beauty retailer: a shade-matching recommender deployed to customers and a CNN anomaly detector on AWS SageMaker, built on methods developed independently on public data.",
     points: [
       "Built a shade-matching recommendation system ranking products by perceptual color distance (CIEDE2000); a version was deployed to the client's customers",
       "Built a CNN-based anomaly detection system for a client's clinical imaging database on AWS SageMaker, with a client-facing SDK, and onboarded the client's engineers onto it",
