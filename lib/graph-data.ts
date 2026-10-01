@@ -83,7 +83,7 @@ const AUTHORED: AuthoredNode[] = [
     points: [
       "Dissertation on repeat landscapes in Avena (oat), building pipelines over Illumina and PacBio data; the repeat-discovery work became RepBox",
       "Extracted and integrated data from NCBI and GenBank into optimized large-scale processing workflows",
-      "Taught the lab for Biological Basis of Bioinformatics, a graduate course, across three Spring semesters at 10–15 students per term",
+      "Taught the lab for Biological Basis of Bioinformatics (BINF 8100), a graduate course, across three Spring semesters at 10–15 students per term",
       "Teaching assistant for introductory biology coursework",
     ],
     keywords: ["Genome Annotation", "NCBI", "GenBank", "Curriculum Design", "Assessment", "Teaching Assistant", "Lab Instructor", "Python", "Linux"] },

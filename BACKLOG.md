@@ -30,7 +30,7 @@ Cooper Lab, TE insertions in tomato; dissertation title; teaching corrected to t
 graduate course. No further figures can be shared, so the 10-numbered-bullets target is
 dropped.
 
-- [ ] GAANN fellowship: year to show (Shel held it for one year, during the postdoc).
+- [x] GAANN fellowship 2020 to 2021; course confirmed as BINF 8100 on the program page. Done 2026-10-01.
 - [ ] Certifications: which exam is closest, its target month, and its verification link;
       then show at most one in-progress item.
 - [ ] Google Doc header: paste the new headline by hand (the sync never touches it).
