@@ -71,8 +71,8 @@ const AUTHORED: AuthoredNode[] = [
       "Bioinformatics & Computational Biology (Data Science), UNC Charlotte",
     ],
     keywords: ["Bioinformatics", "Computational Biology", "Statistical Modeling", "Algorithms", "Python", "R"] },
-  { id: "phd", label: "PhD Data Science", type: "education", color: "forest", r: 24, x: 124, y: 540, date: "2020",
-    summary: "Doctorate in Bioinformatics & Computational Biology. Dissertation on large-scale genomic annotation of the Avena sativa genome, building real-time analytical pipelines over Illumina and PacBio sequencing data.",
+  { id: "phd", label: "PhD Bioinformatics", type: "education", color: "forest", r: 24, x: 124, y: 540, date: "2020",
+    summary: "Doctorate in Bioinformatics & Computational Biology. Dissertation on genome annotation of Avena sativa (oat), building analytical pipelines over Illumina and PacBio sequencing data.",
     points: [
       "Bioinformatics & Computational Biology (Data Science), UNC Charlotte",
       "Dissertation: comparative analysis of repeat landscapes in Avena, the work that became repbox",
@@ -81,7 +81,7 @@ const AUTHORED: AuthoredNode[] = [
   { id: "grad-researcher", label: "Graduate Researcher\n& Instructor", type: "role", color: "plum", r: 27, x: 348, y: 430, company: "University of North Carolina at Charlotte",
     summary: "Dissertation research alongside teaching: three Spring semesters as independent instructor of Biological Basis for Bioinformatics at 10–15 students per term, owning syllabus through assessment, plus teaching assistant work in introductory biology.",
     points: [
-      "Dissertation research on large-scale genomic annotation of the Avena sativa genome, building real-time pipelines over Illumina and PacBio data",
+      "Dissertation research on genome annotation of Avena sativa (oat), building pipelines over Illumina and PacBio data",
       "Extracted and integrated data from NCBI and GenBank into optimized large-scale processing workflows",
       "Independent course instructor for Biological Basis for Bioinformatics across three Spring semesters, 10–15 students per term",
       "As independent course instructor, owned syllabus, lecture material, assignments, assessment, and office hours",
@@ -93,18 +93,17 @@ const AUTHORED: AuthoredNode[] = [
     points: [
       "Designed the analytical pipelines for large-scale NGS datasets across UNIX and HPC that underpinned all lab research",
       "Built transposable element polymorphism detection and structural variant association analysis, applying GWAS-adjacent methods",
-      "Extended the work into protein sequence analysis and peptide structure annotation",
       "Served as the lab's computational trainer: wrote the internal documentation, ran pipeline walkthroughs, and debugged for every researcher using them",
       "Took students with wet-lab backgrounds and no computational experience to independently running their own NGS analyses",
     ],
-    keywords: ["NGS", "GWAS", "Structural Variants", "TE Insertion Polymorphism", "Protein Structure Annotation", "HPC", "UNIX", "Reproducibility", "Mentorship", "Transposable Elements"] },
+    keywords: ["NGS", "GWAS", "Structural Variants", "TE Insertion Polymorphism", "HPC", "UNIX", "Reproducibility", "Mentorship", "Transposable Elements"] },
   { id: "repbox", label: "repbox", type: "project", color: "rose-dust", r: 21, x: 120, y: 1022,
     points: [
       "Python-first CLI for transposable element discovery and annotation, evolved from the thesis-era workflow",
       "Adapter-based integration with RepeatModeler and RepeatMasker paths",
       "Commands: run, check, smoke, smoke-report — with machine-readable diagnostics",
       "Semantic versioning and a documented release process; v2.0.0 is the stable baseline",
-      "Demonstrated 7% growth in detected elements across the A. sativa genome",
+      "Benchmarked against RepeatModeler on two plant genomes: more elements classified, and more TE families",
       "Published in BMC Bioinformatics (2023)",
     ],
     keywords: ["Transposable Elements", "RepeatModeler", "RepeatMasker", "Genome Annotation", "CLI Design", "Semantic Versioning", "Python Packaging", "Bioconda"] },
@@ -272,20 +271,20 @@ const AUTHORED: AuthoredNode[] = [
       "Brought non-specialist clients up to speed on perceptual colour science so they could interpret results and make product decisions independently",
       "Led original research quantifying physiological skin properties that previously existed only as qualitative descriptors",
       "Designed and ran A/B tests and causal inference studies, owning protocol design through analysis",
-      "Built longitudinal profiling over real-time capacitive sensor data, modeling individual baselines over time",
+      "Modeled individual baselines over time from capacitive skin sensor data",
       "Defined and operationalized product health metrics, with Plotly Dash and Tableau dashboards for stakeholders",
     ],
     keywords: ["Applied ML", "Measurement Methodology", "Computer Vision", "Colour Science", "A/B Testing", "Causal Inference", "Client Delivery", "SDK Development", "Stakeholder Training", "Biomedical Imaging"] },
-  { id: "bi", label: "Boehringer\nIngelheim", type: "role", color: "indigo", r: 34, x: 1210, y: 232, company: "Data Science Talent @ Boehringer Ingelheim",
-    summary: "Principal Applied Scientist, Global Animal Health. Technical scoping and solution architecture across applied AI engagements; built an LLM-based misinformation detection pipeline on Databricks and Snowflake, delivered production-ready in 60 days, with the evaluation frameworks to prove it worked.",
+  { id: "bi", label: "Boehringer\nIngelheim", type: "role", color: "indigo", r: 34, x: 1210, y: 232, company: "Boehringer Ingelheim Animal Health, via Data Science Talent",
+    summary: "Principal Applied Scientist (Contract), Global Animal Health. Technical scoping and solution architecture for applied AI work; built an LLM-based misinformation detection pipeline on Databricks and Snowflake, a working proof of concept in 60 days, with the evaluation framework to measure it.",
     points: [
-      "Own technical scoping and solution architecture for applied AI engagements in the Global Animal Health division",
+      "Owned technical scoping and solution architecture for applied AI work in the Global Animal Health division",
       "Designed and built an LLM-based misinformation detection pipeline on Databricks and Snowflake, automating social-media content triage where no prior capability existed",
-      "Delivered production-ready in 60 days — classification, clustering, and trend detection feeding corporate communications",
+      "Delivered the proof of concept in 60 days: classification, clustering, and trend detection for corporate communications",
       "Built the evaluation and measurement frameworks behind it: success metrics and regression tests for classification tasks with no single right answer",
       "Developed a financial potential model estimating purchasing capacity across major customer portfolios",
-      "Mentor junior data scientists on modeling technique, code structure, and review as work moves toward production",
-      "Navigate regulated data-access processes, coordinating permissions against internal governance and regulatory standards",
+      "Mentored junior data scientists through pairing and code review",
+      "Worked on regulated pharmaceutical data under the company's data-access and governance controls",
     ],
     keywords: ["LLMs", "Generative AI", "Text Classification", "Clustering", "Trend Detection", "Databricks", "Snowflake", "LLM Evaluation", "Regulated Environments", "Mentorship", "Solution Architecture"] },
 
@@ -637,7 +636,7 @@ const figures = (text: string) => text.match(/\d+(?:[.,]\d+)?/g) ?? [];
 function fromResume(n: AuthoredNode): AuthoredNode {
   const role = n.company ? ROLE_BY_COMPANY[n.company] : undefined;
   if (!role) throw new Error(`Role node "${n.id}" names no résumé entry in lib/resume.ts (company: ${n.company ?? "missing"})`);
-  const resumeText = [role.title, role.company, role.lead ?? "", role.dateNote ?? "", ...role.bullets].join(" ");
+  const resumeText = [role.title, role.company, role.lead ?? "", ...role.bullets].join(" ");
   const resumeFigures = new Set(figures(resumeText));
   for (const f of figures([n.summary ?? "", ...(n.points ?? [])].join(" "))) {
     if (!resumeFigures.has(f)) throw new Error(`Role node "${n.id}" says "${f}", which its résumé entry in lib/resume.ts does not`);

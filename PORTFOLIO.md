@@ -839,8 +839,9 @@ Results (2026-09-27), each scored once:
 A Python-first CLI platform for identification and classification of novel repetitive
 genomic elements, evolved from thesis-era workflow into an adapter-based v2.0.0 with
 semantic versioning, a release process, and smoke-test diagnostics
-(`run` / `check` / `smoke` / `smoke-report`). Demonstrated 7% growth in detected elements
-across the *A. sativa* genome. Public.
+(`run` / `check` / `smoke` / `smoke-report`). In the paper, benchmarked against
+RepeatModeler on two plant genomes, it classified more elements and a more diverse set of TE
+families. v2.0.0 was released in 2026. Public.
 
 ---
 

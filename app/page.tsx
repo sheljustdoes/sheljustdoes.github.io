@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { HEADLINE } from "@/lib/resume";
 import { ADJACENCY, EDGES, KEYWORD_INDEX, NODES, NODE_BY_ID, TYPE_LABEL, boundsOf, randomLayout, type GraphNode, type Point } from "@/lib/graph-data";
 
 const FIT_PADDING = 64;
@@ -241,7 +242,8 @@ export default function HomePage() {
             shel<span className="dot-p">.</span>
           </h1>
           <p className="hdr-sub">
-            Principal Applied Scientist<span className="hdr-sub-x"> · AI for Life Sciences</span>
+            {HEADLINE.title}
+            <span className="hdr-sub-x"> · {HEADLINE.field}</span>
           </p>
         </div>
         <nav className="hdr-nav">
