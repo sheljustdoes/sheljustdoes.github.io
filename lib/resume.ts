@@ -24,7 +24,7 @@ export type Role = {
 export const HEADLINE = { title: "Staff Applied Scientist", field: "ML & LLM Systems" };
 
 export const SUMMARY =
-  "Data scientist with a PhD and 9+ years who owns ML and LLM systems from ambiguous request to handoff, including the evaluation that shows whether they work. Most recently Principal Applied Scientist in a pharmaceutical animal-health division, owning applied AI scoping and taking an **LLM classification pipeline on regulated data** to a handed-off proof of concept in 60 days. Before that, sole data scientist for a startup's two anchor clients, a Fortune 500 pharmacy group and a global prestige beauty retailer, shipping computer vision, recommendation and experimentation work, and Product Owner for an analytics platform at Syngenta. Leads through others, mentoring two junior data scientists and training researchers with no computational background to run their own analyses, and writes production software: a multi-tenant pricing API in production and a training platform heading into open beta. Tests every system against plain baselines and publishes negative results rather than shipping weaker systems.";
+  "Data scientist with a PhD and 11 years of data science and computational research, including graduate research, who owns ML and LLM systems from ambiguous request to handoff, along with the evaluation that shows whether they work. Most recently Principal Applied Scientist in a pharmaceutical animal-health division, owning applied AI scoping and taking an **LLM classification pipeline on regulated data** to a handed-off proof of concept in 60 days. Before that, sole data scientist for a startup's two anchor clients, a Fortune 500 pharmacy group and a global prestige beauty retailer, shipping computer vision, recommendation and experimentation work, and Product Owner for an analytics platform at Syngenta. Leads through others, mentoring two junior data scientists and training researchers with no computational background to run their own analyses, and writes production software: a multi-tenant pricing API in production and a training platform heading into open beta. Tests every system against plain baselines and publishes negative results rather than shipping weaker systems.";
 
 export const EXPERIENCE: Role[] = [
   {
@@ -50,7 +50,8 @@ export const EXPERIENCE: Role[] = [
     lead: "Sole data scientist for the startup's two anchor clients, a Fortune 500 pharmacy group and a global prestige beauty retailer, owning the data science from scoping to handoff. Part-time until 2022 alongside Syngenta.",
     bullets: [
       "Designed and built a **shade-matching recommendation system** that ranks products by perceptual color distance (CIEDE2000) between a user's perceived and actual shade, on a color-classification method developed independently on public data; a version shipped to the client's customers",
-      "Architected and deployed a **CNN-based anomaly detection system** for a client's large clinical imaging database on AWS SageMaker, with automated dataset quality checks and a client-facing SDK, and onboarded the client's engineers onto the SDK",
+      "Built **two production computer vision models** that ran together on the client's in-store scanning devices: a CNN anomaly detector on skin images, and a model for the camera's UV mode that needed little retraining",
+      "Trained both on AWS SageMaker over the client's regional image stores in S3, with automated dataset quality checks and a client-facing SDK, and onboarded the client's engineers onto the SDK",
       "Brought independently developed measures of skin radiance and perceptual skin tone to client data, validating them against the client's expert grading",
       "Ran product experimentation: designed and analyzed A/B tests and causal inference studies on product features (SQL, Python, AWS Athena), and defined the product health metrics (engagement, retention, conversion) tracked in Plotly Dash and Tableau dashboards",
       "Modeled individual baselines over time from capacitive skin sensor data, and segmented customers with K-means, PCA and UMAP to inform product decisions",
@@ -83,7 +84,7 @@ export const EXPERIENCE: Role[] = [
   {
     title: "Graduate Researcher & Lab Instructor",
     company: "University of North Carolina at Charlotte",
-    start: "2017-01",
+    start: "2015-08",
     end: "2020-09",
     bullets: [
       "Built analytical pipelines in Python and Linux over large Illumina and PacBio sequencing datasets",
@@ -130,7 +131,7 @@ export const SKILLS: { group: string; items: string[] }[] = [
     items: [
       "LLM classification pipelines", "Multi-provider LLM pipelines with output validation",
       "Retrieval and reranking (BM25, embeddings, cross-encoders)", "Agent memory",
-      "Evaluation design and pre-registered protocols",
+      "Evaluation design and pre-registered protocols", "LLM APIs (Anthropic, OpenAI, Groq)", "Claude Code (skills, subagents, hooks)",
     ],
   },
   {
