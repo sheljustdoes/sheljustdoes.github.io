@@ -15,7 +15,7 @@ export default function ProjectsIndex() {
       <h1>Selected work.</h1>
       <p className="tagline">
         Frameworks for testing whether a result holds up, the research that uses them, and the systems built along the way. Each
-        entry gives its status and links to a write-up where one exists.
+        entry gives its status; research links to a write-up, and supporting work is shown as screenshots.
       </p>
 
       <SectionNav
@@ -64,16 +64,12 @@ export default function ProjectsIndex() {
 
       <section id="supporting">
         <SectionHead kicker="Everything else" title="Supporting evidence" />
-        {SUPPORTING.map((area) => (
-          <div key={area.id} className="support">
-            <h3 className="support-label">{area.label}</h3>
-            <ul className="line-rest">
-              {projectsInArea(area.id).map((p) => (
-                <Entry key={p.id} p={p} />
-              ))}
-            </ul>
-          </div>
-        ))}
+        <p className="line-thesis">The systems built along the way, shown as they run. Screens use demo data.</p>
+        <ol className="tile-grid">
+          {SUPPORTING.flatMap((area) => projectsInArea(area.id).map((p) => ({ p, area: area.label }))).map(({ p, area }, i) => (
+            <Tile key={p.id} p={p} n={i + 1} area={area} />
+          ))}
+        </ol>
       </section>
 
       {/* suppressHydrationWarning: dark-mode browser extensions tag <style> elements before hydration */}
@@ -121,6 +117,27 @@ function Entry({ p }: { p: Project }) {
   );
 }
 
+/** A supporting project as a catalog tile: the screenshot, its number, name, and one line. */
+function Tile({ p, n, area }: { p: Project; n: number; area: string }) {
+  const href = p.link ?? p.shot?.src;
+  const external = href?.startsWith("http") || href === p.shot?.src;
+  return (
+    <li className="tile">
+      {p.shot && href && (
+        <a className="tile-img" href={href} {...(external ? { target: "_blank", rel: "noopener" } : {})}>
+          <img src={p.shot.src} alt={p.shot.alt} loading="lazy" />
+        </a>
+      )}
+      <div className="tile-head">
+        <span className="tile-n">{String(n).padStart(2, "0")}</span>
+        <h3>{p.link ? <a href={p.link}>{p.name}.</a> : <>{p.name}.</>}</h3>
+      </div>
+      <p className="line-meta">{[area, meta(p)].join(" · ")}</p>
+      {p.shot && <p className="tile-cap">{p.shot.caption}</p>}
+    </li>
+  );
+}
+
 const INDEX_CSS = `
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -153,9 +170,25 @@ article .line-meta { font-family: var(--mono); font-size: 0.62rem; letter-spacin
 article .line-rest { list-style: none; padding-left: 0; }
 article .line-rest li { padding: 4px 0; border-bottom: 1px solid var(--parchment); }
 article .entry-name { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; }
-/* Projects sit one step in under their supporting subheading. */
-article .support .line-rest { padding-left: 24px; }
-article .support-label { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6a655e; font-weight: 500; margin-top: 20px; }
+/* Supporting tiles: a catalog grid, wider than the text column. */
+article .tile-grid { list-style: none; padding: 0; position: relative; left: 50%; transform: translateX(-50%);
+  width: min(1040px, calc(100vw - 32px)); display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 28px; margin: 28px 0 0; }
+article .tile-img { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; background: var(--parchment);
+  padding: 22px; overflow: hidden; }
+article .tile-img img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 6px 18px rgba(30, 28, 26, 0.14);
+  transition: transform 0.25s ease; }
+article .tile-img:hover img { transform: translateY(-3px); }
+article .tile-img:focus-visible { outline: 2px solid var(--indigo); outline-offset: 2px; }
+article .tile-head { display: flex; align-items: baseline; gap: 10px; margin-top: 14px; }
+article .tile-n { font-family: var(--display); font-size: 1.4rem; font-weight: 300; color: var(--terracotta); line-height: 1; }
+article .tile h3 { margin: 0; font-size: 1.05rem; }
+article .tile h3 a { color: inherit; text-decoration: none; font-family: inherit; font-size: inherit; letter-spacing: 0; }
+article .tile h3 a:hover { color: var(--terracotta); }
+article .tile .line-meta { margin: 2px 0 6px; line-height: 1.5; }
+article .tile-cap { font-size: 0.86rem; line-height: 1.55; margin: 0; color: #4a4540; }
+@media (max-width: 900px) { article .tile-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { article .tile-grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { article .tile-img img { transition: none; } }
 @media (max-width: 640px) {
   article .line-flagship { padding: 14px 16px; }
   article .section-head { margin-top: 48px; }

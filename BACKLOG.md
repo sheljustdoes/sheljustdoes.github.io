@@ -55,7 +55,18 @@ described as two partners (Shel owns code and infrastructure), not solo.
 ## P0 — Project coverage
 
 Nine projects have long-form write-up pages (`iridis`, `lambent`, `argus`, `topos`,
-`fragaria`, `veridian`, `recolo`, `noul`, `menhir`) while `PORTFOLIO.md` describes twenty-five.
+`fragaria`, `veridian`, `recolo`, `noul`, `lyco`) while `PORTFOLIO.md` describes twenty-five.
+Supporting projects are a screenshot grid on `/projects/` instead, and menhir's page is a
+visual summary.
+
+- [x] Supporting projects as a screenshot grid, menhir's write-up replaced by a visual
+  summary. Done 2026-10-01; shots in `public/projects/supporting/`, from demo modes
+  (`APP_DEMO=1`) or public pages only.
+- [ ] Recapture lumen's tile from its web app once that lands on `main`; it shows the
+  catalog viewer for now because the web app is a placeholder.
+- [ ] Keep the capture repeatable: commit the Playwright capture script (demo logins,
+  hidden Next dev badge, mara's client name hidden) so shots can be refreshed when a UI
+  changes.
 
 - [x] Restructure around three product lines with flagships. Done 2026-09-25:
       `PORTFOLIO.md` and `lib/projects.ts` share six sections (three lines, three
