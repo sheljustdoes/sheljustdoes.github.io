@@ -20,7 +20,7 @@
 // (iridis, fragaria) — see AREAS in lib/projects.ts.
 
 import { PROJECT_BY_ID } from "@/lib/projects";
-import { EXPERIENCE, type Role } from "@/lib/resume";
+import { EDUCATION, EXPERIENCE, type Role } from "@/lib/resume";
 
 export type NodeType = "education" | "role" | "project" | "skill";
 
@@ -53,31 +53,23 @@ export const CANVAS = { w: 1760, h: 1120 };
 
 /**
  * A project node's summary, date and link come from lib/projects.ts, not from here.
- * A role node names its résumé entry in `company`; its date comes from lib/resume.ts.
+ * A role node names its résumé entry in `company`, an education node in `degree`; their
+ * labels and dates (and an education node's institution) come from lib/resume.ts.
  */
-type AuthoredNode = Omit<GraphNode, "summary"> & { summary?: string; company?: string };
+type AuthoredNode = Omit<GraphNode, "summary" | "label"> & { label?: string; summary?: string; company?: string; degree?: string };
 
 const AUTHORED: AuthoredNode[] = [
   // ---- Academic origin. Anchors the lower-left region. ----
-  { id: "bs-biology", label: "BS Biology", type: "education", color: "forest", r: 17, x: 120, y: 838, date: "2013",
-    summary: "Foundation in biology and scientific method at UNC Charlotte, the domain grounding under the computational work that followed.",
-    points: [
-      "Biology, UNC Charlotte",
-    ],
-    keywords: ["Molecular Biology", "Genetics", "Scientific Method", "Laboratory Technique"] },
-  { id: "ms-bioinformatics", label: "MS", type: "education", color: "forest", r: 19, x: 116, y: 690, date: "2016",
+  { id: "bs-biology", type: "education", color: "forest", r: 17, x: 120, y: 838, degree: "Bachelor of Science",
+    summary: "Undergraduate science foundation at UNC Charlotte: scientific method and quantitative reasoning, the grounding under the computational work that followed.",
+    keywords: ["Scientific Method", "Statistics", "Research Design"] },
+  { id: "ms-bioinformatics", type: "education", color: "forest", r: 19, x: 116, y: 690, degree: "Master of Science, Bioinformatics & Computational Biology",
     summary: "Graduate training in bioinformatics and data science: statistical modeling, computational methods, and large-scale biological data analysis.",
-    points: [
-      "Bioinformatics & Computational Biology, College of Computing and Informatics, UNC Charlotte",
-    ],
     keywords: ["Bioinformatics", "Computational Biology", "Statistical Modeling", "Algorithms", "Python", "R"] },
-  { id: "phd", label: "PhD", type: "education", color: "forest", r: 24, x: 124, y: 540, date: "2020",
+  { id: "phd", type: "education", color: "forest", r: 24, x: 124, y: 540, degree: "Doctor of Philosophy, Bioinformatics & Computational Biology",
     summary: "Doctorate in Bioinformatics & Computational Biology from the College of Computing and Informatics. Built analytical pipelines over large sequencing datasets; the work became RepBox, an open-source tool published in BMC Bioinformatics.",
-    points: [
-      "Bioinformatics & Computational Biology, College of Computing and Informatics, UNC Charlotte",
-    ],
     keywords: ["Genome Annotation", "Transposable Elements", "Illumina", "PacBio", "Comparative Genomics", "Python", "Linux", "Research Design"] },
-  { id: "grad-researcher", label: "Graduate Researcher\n& Lab Instructor", type: "role", color: "plum", r: 27, x: 348, y: 430, company: "Schlueter Lab, University of North Carolina at Charlotte",
+  { id: "grad-researcher", type: "role", color: "plum", r: 27, x: 348, y: 430, company: "Schlueter Lab, University of North Carolina at Charlotte",
     summary: "Graduate research building pipelines over large sequencing datasets, which became RepBox, alongside teaching: three Spring semesters teaching the lab for a graduate course (BINF 8100) at 10–15 students per term.",
     points: [
       "Built analytical pipelines in Python and Linux over large Illumina and PacBio sequencing datasets",
@@ -85,7 +77,7 @@ const AUTHORED: AuthoredNode[] = [
       "Taught the lab for a graduate course, Biological Basis of Bioinformatics (BINF 8100), across three Spring semesters at 10–15 students per term",
     ],
     keywords: ["Data Pipelines", "Open-Source Tooling", "Curriculum Design", "Assessment", "Lab Instructor", "Python", "Linux"] },
-  { id: "postdoc", label: "Postdoctoral\nResearcher", type: "role", color: "amber-deep", r: 26, x: 344, y: 712, company: "Cooper Lab, North Carolina Research Campus",
+  { id: "postdoc", type: "role", color: "amber-deep", r: 26, x: 344, y: 712, company: "Cooper Lab, North Carolina Research Campus",
     summary: "Postdoc in the Cooper Lab at the North Carolina Research Campus. Built the lab's analytical pipelines for large-scale NGS data across UNIX and HPC, and trained the lab's researchers to run their own analyses.",
     points: [
       "Designed and implemented the lab's analytical pipelines for large-scale NGS datasets across UNIX and cloud/HPC environments",
@@ -251,15 +243,15 @@ const AUTHORED: AuthoredNode[] = [
     ],
     keywords: ["Ranking", "Recommendation Systems", "Similarity Search", "Perceptual Distance", "Relevance Scoring", "Candidate Generation", "Presentation Bias", "Semantic Search", "Embedding Retrieval"] },
   // ---- Employers. Each anchors its own region. ----
-  { id: "syngenta", label: "Syngenta", type: "role", color: "amber", r: 26, x: 630, y: 300, company: "Syngenta",
-    summary: "Data Scientist. Predictive models on genomic marker data (VCF) for crop trait prediction, scalable bioinformatics workflows, and a decision-making analytics platform led as Product Owner.",
+  { id: "syngenta", type: "role", color: "amber", r: 26, x: 630, y: 300, company: "Syngenta",
+    summary: "Syngenta. Predictive models on genomic marker data (VCF) for crop trait prediction, scalable bioinformatics workflows, and a decision-making analytics platform led as Product Owner.",
     points: [
       "Built predictive models on genomic marker data (VCF) for crop trait prediction",
       "Designed and deployed scalable bioinformatics workflows, integrating outputs into relational databases",
       "Led the build of a decision-making analytics platform as Product Owner, owning the vision and backlog through development",
     ],
     keywords: ["Haplotype Analysis", "VCF", "Trait Prediction", "Predictive Modeling", "Plant Breeding", "Product Ownership", "Agile", "Scrum", "Machine Learning"] },
-  { id: "consulting", label: "Senior Data Scientist\n(Contract)", type: "role", color: "dusty-blue", r: 32, x: 760, y: 640, company: "Confidential consumer health-sensing startup",
+  { id: "consulting", type: "role", color: "dusty-blue", r: 32, x: 760, y: 640, company: "Confidential consumer health-sensing startup",
     summary: "Senior Data Scientist (Contract) at a confidential consumer health-sensing startup. Sole data scientist from scoping to handoff on engagements for its two anchor clients, a Fortune 500 pharmacy group and a global prestige beauty retailer: a shade-matching recommender deployed to customers and two computer vision models in production on in-store devices, built on methods developed independently on public data.",
     points: [
       "Built a shade-matching recommendation system ranking products by perceptual color distance (CIEDE2000); a version was deployed to the client's customers",
@@ -269,8 +261,8 @@ const AUTHORED: AuthoredNode[] = [
       "Taught client stakeholders the color science and ranking tradeoffs so their teams could own the delivered systems",
     ],
     keywords: ["Applied ML", "Measurement Methodology", "Computer Vision", "Colour Science", "A/B Testing", "Causal Inference", "Client Delivery", "SDK Development", "Stakeholder Training", "Biomedical Imaging"] },
-  { id: "bi", label: "Boehringer\nIngelheim", type: "role", color: "indigo", r: 34, x: 1210, y: 232, company: "Boehringer Ingelheim Animal Health, via Data Science Talent",
-    summary: "Principal Applied Scientist (Contract), Global Animal Health. Technical scoping and solution architecture for applied AI work; built an LLM-based misinformation detection pipeline on Databricks and Snowflake, a working proof of concept in 60 days, with the evaluation framework to measure it.",
+  { id: "bi", type: "role", color: "indigo", r: 34, x: 1210, y: 232, company: "Boehringer Ingelheim Animal Health, via Data Science Talent",
+    summary: "Boehringer Ingelheim Animal Health, Global Animal Health division. Technical scoping and solution architecture for applied AI work; built an LLM-based misinformation detection pipeline on Databricks and Snowflake, a working proof of concept in 60 days, with the evaluation framework to measure it.",
     points: [
       "Owned technical scoping and solution architecture for applied AI work in the Global Animal Health division",
       "Designed and built an LLM-based misinformation detection pipeline on Databricks and Snowflake, automating social-media content triage where no prior capability existed",
@@ -636,18 +628,40 @@ function fromResume(n: AuthoredNode): AuthoredNode {
     if (!resumeFigures.has(f)) throw new Error(`Role node "${n.id}" says "${f}", which its résumé entry in lib/resume.ts does not`);
   }
   const year = (m: string) => m.slice(0, 4);
-  return { ...n, date: `${year(role.start)}–${role.end ? year(role.end) : "Present"}` };
+  return { ...n, label: wrap(role.title), date: `${year(role.start)}–${role.end ? year(role.end) : "Present"}` };
+}
+
+const EDUCATION_BY_DEGREE = Object.fromEntries(EDUCATION.map((e) => [e.degree, e]));
+
+/** An education node shows its degree exactly as the résumé lists it. */
+function fromEducation(n: AuthoredNode): AuthoredNode {
+  const e = n.degree ? EDUCATION_BY_DEGREE[n.degree] : undefined;
+  if (!e) throw new Error(`Education node "${n.id}" names no résumé entry in lib/resume.ts (degree: ${n.degree ?? "missing"})`);
+  return { ...n, label: wrap(e.degree), date: e.year, points: [e.institution] };
+}
+
+/** Breaks a résumé name into centred label lines of at most `max` characters. */
+function wrap(text: string, max = 22): string {
+  const lines: string[] = [];
+  for (const word of text.split(" ")) {
+    const last = lines.length - 1;
+    if (last >= 0 && (lines[last] + " " + word).length <= max) lines[last] += " " + word;
+    else lines.push(word);
+  }
+  return lines.join("\n");
 }
 
 export const NODES: GraphNode[] = AUTHORED.map((raw) => {
-  const n = raw.type === "role" ? fromResume(raw) : raw;
+  const n = raw.type === "role" ? fromResume(raw) : raw.type === "education" ? fromEducation(raw) : raw;
+  const label = n.label;
+  if (label === undefined) throw new Error(`Graph node "${n.id}" has no label`);
   if (n.type !== "project") {
     if (n.summary === undefined) throw new Error(`Graph node "${n.id}" has no summary`);
-    return { ...n, summary: n.summary };
+    return { ...n, label, summary: n.summary };
   }
   const p = PROJECT_BY_ID[n.id];
   if (!p) throw new Error(`Graph project "${n.id}" has no entry in lib/projects.ts`);
-  return { ...n, summary: p.summary, date: p.date, link: p.link, linkLabel: p.linkLabel };
+  return { ...n, label, summary: p.summary, date: p.date, link: p.link, linkLabel: p.linkLabel };
 });
 
 export const NODE_BY_ID: Record<string, GraphNode> = Object.fromEntries(NODES.map((n) => [n.id, n]));
