@@ -38,12 +38,12 @@ described as two partners (Shel owns code and infrastructure), not solo.
 - [x] GAANN fellowship 2020 to 2021; course confirmed as BINF 8100 on the program page. Done 2026-10-01.
 - [ ] Certifications: which exam is closest, its target month, and its verification link;
       then show at most one in-progress item.
-- [ ] Google Doc header: paste "Principal Data Scientist | Applied ML & LLM Systems" by
+- [x] Google Doc header: paste "Principal Data Scientist | Applied ML & LLM Systems" by
       hand, remove the email line, add github.com/sheljustdoes (the sync never touches it).
-- [ ] Google Doc: run Résumé → Force sync once. Summary is blocked because the closing
+- [x] Google Doc: run Résumé → Force sync once. Summary is blocked because the closing
       "Looking for…" sentence was deleted in the Doc; the site now drops it too.
-- [ ] Google Doc: the consulting lead line sits in a one-cell table, which ATS parsers can
-      skip. Turn it back into a paragraph; the sync copies the Doc's styling.
+- [ ] Google Doc: the Boehringer and consulting lead lines each sit in a one-cell table, which
+      ATS parsers can skip. Turn both back into paragraphs; the sync copies the Doc's styling.
 - [x] menhir case study on the write-up page: what Shel owns, the decisions, the results.
 - [ ] menhir figures (~106K LOC, 349 files, 25 test modules, 458 commits) predate the Neon move; recount with one documented method and update every surface together.
 - [ ] Versions B, C and D as private files (`Shel-Burkes-Resume-[version]-[date]`), never in
