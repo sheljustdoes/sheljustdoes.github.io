@@ -16,23 +16,18 @@ projects cut to three selected (`featured` plus a short `resumeLine`), skills cu
 four groups, the paper on its own line, RepBox's unsupported 7% figure replaced with the
 paper's result, em dashes and "real-time" removed, GitHub and ORCID linked in the header.
 
-Stage 2 needs facts from Shel before any wording changes:
+Stage 2 done 2026-09-30 with the facts Shel could share: Boehringer proof of concept
+handed off, financial model scoped to livestock and farming commercial excellence, two
+juniors mentored; consulting as a contract data scientist for an unnamed startup with two
+primary clients (described, never named, on this public site); Syngenta markers in corn and
+tomato, platform "led" rather than "launched" (Shel left before launch); postdoc in the
+Cooper Lab, TE insertions in tomato; dissertation title; teaching corrected to the lab of a
+graduate course. No further figures can be shared, so the 10-numbered-bullets target is
+dropped.
 
-- [ ] Boehringer: pipeline volume and review time removed; what happened to the proof of
-      concept after day 60 (production, handoff, or retired); financial model scale
-      (accounts, markets, team, decision); number of data scientists mentored.
-- [ ] Consulting: how many main clients (the graph says two, the private notes say one)
-      and a type-and-scale descriptor for each; shade matcher reach (customers, since
-      when); anomaly detector scale (images screened) and engineers onboarded; agreement
-      with expert grading; the A/B finding if the NDA allows.
-- [ ] Syngenta: scale (lines, markers, traits, platform users).
-- [ ] Postdoc: employer of record and lab; organisms, samples, data volume; researchers
-      trained.
-- [ ] UNC Charlotte: dissertation title; course catalog code, graduate or undergraduate,
-      instructor of record; TA details; exact degree names; GAANN years.
+- [ ] GAANN fellowship: year to show (Shel held it for one year, during the postdoc).
 - [ ] Certifications: which exam is closest, its target month, and its verification link;
       then show at most one in-progress item.
-- [ ] At least 10 bullets carrying a number.
 - [ ] Google Doc header: paste the new headline by hand (the sync never touches it).
 - [ ] Versions B, C and D as private files (`Shel-Burkes-Resume-[version]-[date]`), never in
       this public repo.
