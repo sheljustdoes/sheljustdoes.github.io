@@ -48,6 +48,12 @@ described as two partners (Shel owns code and infrastructure), not solo.
 - [ ] Google Doc: the Boehringer and consulting lead lines each sit in a one-cell table, which
       ATS parsers can skip. Turn both back into paragraphs; the sync copies the Doc's styling.
 - [x] menhir case study on the write-up page: what Shel owns, the decisions, the results.
+- [x] menhir moved from Shipped to Implemented on every surface (2026-10-01): it is not yet
+      open to users.
+- [ ] menhir: flip back to Shipped when open beta starts, on every surface together:
+      `PORTFOLIO.md`, `lib/projects.ts` (status, summary, `resumeLine`), the spec line in
+      `app/projects/menhir/page.tsx`, the résumé summary in `lib/resume.ts`, and menhir's
+      README status line.
 - [ ] menhir figures (~106K LOC, 349 files, 25 test modules, 458 commits) predate the Neon move; recount with one documented method and update every surface together.
 - [ ] Versions B, C and D as private files (`Shel-Burkes-Resume-[version]-[date]`), never in
       this public repo.
