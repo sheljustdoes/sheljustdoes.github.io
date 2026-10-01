@@ -851,7 +851,7 @@ Privately hosted, single- or small-tenant web applications. Repositories are not
 the engineering is described here. Personal and third-party data is excluded by design.
 
 ### menhir — adaptive strength coaching platform
-**Status:** Shipped · Next.js (App Router), TypeScript, Auth.js v5, Stripe, Neon Postgres · ~106K LOC, 349 files, 25 test modules
+**Status:** Shipped · Next.js (App Router), TypeScript, Stripe, Neon Postgres · ~106K LOC, 349 files, 25 test modules
 
 A dual-role platform serving both athletes and coaches. Its differentiator is adaptive
 programming driven by multiple autoregulation signals — readiness, sleep, performance
@@ -866,11 +866,11 @@ underneath enforce the training mathematics, and generated programs are validate
 shown for preview before they can be committed or assigned. A mock mode runs the entire
 flow with live AI disabled.
 
-Also: role-aware route protection over Google OAuth, tiered subscription billing for both
-roles, server-backed notifications and Web Push, an installable PWA with cached offline
-reads and background-sync offline writes, and a pluggable data layer behind a single
-adapter seam, through which storage moved from an Apps Script backend to Neon Postgres
-before launch.
+Also: role-aware route protection over invite-based email-and-password accounts, tiered
+subscription billing for both roles, server-backed notifications and Web Push, an
+installable PWA with cached offline reads and background-sync offline writes, and a
+pluggable data layer behind a single adapter seam, through which storage moved from an
+Apps Script backend to Neon Postgres before launch.
 
 ### audire — self-hosted media library platform
 **Status:** Shipped · FastAPI, SvelteKit, Python · 21K LOC, 37 test modules, versioned releases
