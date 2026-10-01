@@ -77,7 +77,7 @@ const AUTHORED: AuthoredNode[] = [
       "Bioinformatics & Computational Biology, College of Computing and Informatics, UNC Charlotte",
     ],
     keywords: ["Genome Annotation", "Transposable Elements", "Illumina", "PacBio", "Comparative Genomics", "Python", "Linux", "Research Design"] },
-  { id: "grad-researcher", label: "Graduate Researcher\n& Lab Instructor", type: "role", color: "plum", r: 27, x: 348, y: 430, company: "University of North Carolina at Charlotte",
+  { id: "grad-researcher", label: "Graduate Researcher\n& Lab Instructor", type: "role", color: "plum", r: 27, x: 348, y: 430, company: "Schlueter Lab, University of North Carolina at Charlotte",
     summary: "Graduate research building pipelines over large sequencing datasets, which became RepBox, alongside teaching: three Spring semesters teaching the lab for a graduate course (BINF 8100) at 10–15 students per term.",
     points: [
       "Built analytical pipelines in Python and Linux over large Illumina and PacBio sequencing datasets",
