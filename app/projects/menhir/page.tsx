@@ -6,7 +6,7 @@ export default function MenhirPage() {
       <span className="kicker">Project — menhir · 2026–</span>
       <h1>A strength coaching platform keeps deterministic training mathematics above its generative pipeline</h1>
       <p className="byline">
-        Shel Burkes, PhD<span className="sep">·</span>2026<span className="sep">·</span>Private and in use
+        Shel Burkes, PhD<span className="sep">·</span>2026<span className="sep">·</span>Private beta
       </p>
 
       <div className="abstract">
@@ -18,8 +18,9 @@ export default function MenhirPage() {
         partners, one owning the code and infrastructure and the other the training methodology, in which a generative pipeline sits on top of deterministic training mathematics rather than replacing it: a
         provider abstraction spans Groq, OpenAI and Anthropic, but fourteen deterministic methodology generators and an RPE calibration
         engine enforce the training mathematics, and every generated program is validated and shown for preview before it can be
-        committed or assigned. The full loop is implemented on both the athlete and the coach side — roughly 106,000 lines across 349
-        files, with 25 test modules and 458 commits — and the platform is private and in use.
+        committed or assigned. Before launch, the storage backend moved from a spreadsheet-backed script to Postgres through a single
+        adapter seam, deleting about 4,300 lines of the old backend. The full loop is implemented on both the athlete and the coach
+        side — roughly 106,000 lines across 349 files, with 25 test modules and 458 commits — and the platform is in private beta.
       </div>
 
       <p>
@@ -55,6 +56,47 @@ export default function MenhirPage() {
         when signal returns. The data layer sits behind a single adapter seam, so the storage backend is a swap rather than a rewrite.
       </p>
 
+      <h2>The storage backend was replaced through one adapter seam before launch</h2>
+      <p>
+        The first version stored everything through a Google Apps Script web app: one JSON file per profile in Drive, and session logs
+        in Sheets. Cold starts took 20 seconds or more, which the code worked around with a 25-second call budget, a warm-up ping and
+        redirect handling. Shared writes had no locking, and the coach roster was stored twice, once on the coach and once on each
+        athlete; keeping the two in step by hand had already caused two shipped bugs.
+      </p>
+      <p>
+        We moved the backend to Neon Postgres before launch rather than after the training-program audit. With no users yet, the
+        migration needed no data moved, and any hardening of the old backend would have been thrown away. The audit was the reason
+        to wait, because it will keep changing the shape of program data, and a hybrid schema removed that reason: identity, rosters
+        and logs went into tables with constraints, while programs, training-system documents and AI outputs went into{" "}
+        <code>jsonb</code>, which absorbs shape changes without migrations. Neon won over Supabase because only the Next.js server
+        connects to the database, so Supabase&apos;s own sign-in and row-level security would have gone unused, and Neon&apos;s free
+        tier resumes an idle database on the next query, where Supabase&apos;s pauses one after a week and needs restoring by hand.
+      </p>
+      <p>
+        Every caller already went through one 55-method data interface, so the move was a new adapter, not a rewrite. The new adapter
+        matches the old one&apos;s observable behaviour with three deliberate differences: the roster has a single source of truth,
+        multi-row changes run in one transaction, and roster transitions follow rules the partners agreed for the move. Logic that had
+        lived only in the Apps Script (ID generation, idempotent writes, personal-record lookup, roster offboarding) was ported to
+        TypeScript, where it is now tested: 32 contract tests run the adapter against real Postgres in memory. Production cut over on
+        30 September 2026, and the change that deleted the old backend removed about 4,300 lines.
+      </p>
+
+      <h2>Two partners decide in writing before they build</h2>
+      <p>
+        menhir has two owners with different expertise, so decisions live in the repository rather than in chat. A single decision
+        register records each decision with an owner and a reviewer: the coaching partner owns methodology and content, and Shel owns
+        code and infrastructure. Large and medium changes need an accepted decision record and an approved specification before any
+        code is written, and every change goes through a pull request reviewed by the other partner, with tests, lint and a production
+        build run on each one. The register&apos;s first principle is that code is the source of truth, so decisions cite the file and
+        line they rest on.
+      </p>
+      <p>
+        The same split governs the training content. The platform never invents it: exercises and programs come from the movement
+        library, the training-system documents or the coaching partner&apos;s sources. The audit of the program library scores each
+        program twice, for content fidelity, judged by the coaching partner, and for runtime fidelity, judged by Shel, and rebuilds the
+        engines one family at a time, with the most complex method last.
+      </p>
+
       <h2>The full loop is implemented on both sides</h2>
       <p>
         The codebase stands at roughly <strong>106,000 lines across 349 files</strong>, with 25 test modules and 458 commits. The full
@@ -67,13 +109,15 @@ export default function MenhirPage() {
       <p>
         menhir&apos;s central design decision is that the generative pipeline proposes while deterministic training mathematics
         disposes: the same validation-and-preview gate that keeps a generated program from reaching an athlete unchecked also makes the
-        whole system developable with AI switched off, against mock templates. The platform is private and in use, which
-        bounds what this account can claim: there are no public deployment figures here, only the shape of the system and the loop it
-        implements.
+        whole system developable with AI switched off, against mock templates. The second decision was timing: infrastructure work is
+        nearly free before launch, so the backend moved to Postgres while there was no data to carry. The platform is in private
+        beta, which bounds what this account can claim: there are no public usage figures here, only the shape of the system and the
+        loop it implements.
       </p>
       <p>
-        The limits are the ordinary ones of a small-team production system, and the current focus is on two of them:
-        documentation, and test coverage on the billing and offline-reconciliation paths.
+        The limits are the ordinary ones of a small-team production system: documentation, and test coverage on the billing and
+        offline-reconciliation paths. Two changes come next. Google sign-in gives way to an email-and-password accounts core shared
+        with Shel&apos;s other apps, and the program audit rebuilds the engines family by family.
       </p>
 
       <div className="endmatter">

@@ -44,7 +44,8 @@ described as two partners (Shel owns code and infrastructure), not solo.
       "Looking for…" sentence was deleted in the Doc; the site now drops it too.
 - [ ] Google Doc: the consulting lead line sits in a one-cell table, which ATS parsers can
       skip. Turn it back into a paragraph; the sync copies the Doc's styling.
-- [ ] menhir case study on the write-up page: what Shel owns, the decisions, the results.
+- [x] menhir case study on the write-up page: what Shel owns, the decisions, the results.
+- [ ] menhir figures (~106K LOC, 349 files, 25 test modules, 458 commits) predate the Neon move; recount with one documented method and update every surface together.
 - [ ] Versions B, C and D as private files (`Shel-Burkes-Resume-[version]-[date]`), never in
       this public repo.
 
