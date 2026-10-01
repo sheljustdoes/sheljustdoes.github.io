@@ -8,7 +8,7 @@ export const metadata = { title: "menhir. — shel." };
 const p = PROJECT_BY_ID.menhir;
 
 const SPECS: [string, string][] = [
-  ["Status", `${displayStatus(p.status!)} · private beta`],
+  ["Status", `${displayStatus(p.status!)} · open beta coming`],
   ["Roles", "Athlete and coach, one codebase"],
   ["Stack", "Next.js (App Router), TypeScript, Stripe, Neon Postgres"],
   ["Generation", "Groq, OpenAI and Anthropic behind one interface; 14 deterministic methodology engines and an RPE calibration engine validate every program before it commits"],
