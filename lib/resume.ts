@@ -46,7 +46,7 @@ export const EXPERIENCE: Role[] = [
     company: "Confidential consumer health-sensing startup",
     start: "2021-09",
     end: "2025-09",
-    lead: "Sole data scientist on engagements for the startup's two anchor clients, a Fortune 500 pharmacy group and a global prestige beauty retailer. Part-time until Sep 2022 alongside Syngenta.",
+    lead: "Sole data scientist on engagements for the startup's two anchor clients, a Fortune 500 pharmacy group and a global prestige beauty retailer. Part-time until 2022 alongside Syngenta.",
     bullets: [
       "Built a **shade-matching recommendation system** that ranks products by perceptual color distance (CIEDE2000) between a user's perceived and actual shade, applying a color-classification method developed independently on public data; a version was deployed to the client's customers",
       "Built a **CNN-based anomaly detection system** for a client's large clinical imaging database, deployed on AWS SageMaker with automated dataset quality checks and a client-facing SDK, and onboarded the client's engineers onto the SDK",
@@ -144,19 +144,15 @@ export const SKILLS: { group: string; items: string[] }[] = [
 
 // ---- Formatting shared by the site and the Doc feed ----
 
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-/** Site: "Sep 2025 to Present". */
-export const siteDates = (r: Role) => {
-  const f = (m: Month) => `${MONTHS[Number(m.slice(5)) - 1]} ${m.slice(0, 4)}`;
-  return `${f(r.start)} to ${r.end ? f(r.end) : "Present"}`;
-};
+/** Years only, so the public résumé never dates a move to the month. */
+const year = (m: Month) => m.slice(0, 4);
 
-/** Doc: "09/2025 - Present", the format the Doc résumé has always used. */
-export const docDates = (r: Role) => {
-  const f = (m: Month) => `${m.slice(5)}/${m.slice(0, 4)}`;
-  return `${f(r.start)} - ${r.end ? f(r.end) : "Present"}`;
-};
+/** Site: "2025 to 2026". */
+export const siteDates = (r: Role) => `${year(r.start)} to ${r.end ? year(r.end) : "Present"}`;
+
+/** Doc: "2025 - 2026". */
+export const docDates = (r: Role) => `${year(r.start)} - ${r.end ? year(r.end) : "Present"}`;
 
 /** Emphasis markers removed, for surfaces without inline bold. */
 export const plain = (text: string) => text.replace(/\*\*/g, "");
