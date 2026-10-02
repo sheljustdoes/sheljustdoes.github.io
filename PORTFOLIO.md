@@ -1023,10 +1023,18 @@ run in CI proves none is missing and that every prerequisite comes first.
 an account: name a subject in data science, ML or AI, or supply your own materials. Each
 build generates an outline, the lessons, a unit test per module and a final, validated
 against the same catalog schema and checked by a port of veridian's Check. Built curricula
-are labelled as not reviewed by a person. Generation runs on the project's own key, bounded
-by a monthly build quota per account, a daily spend cap and per-account metering, and a
-request close to an existing curriculum is offered that curriculum instead. The pipeline
-above stays for the reviewed catalog.
+are labelled as not reviewed by a person. At launch, builds run on the user's own API key,
+bounded by a monthly build quota per account, a daily spend cap and per-account metering,
+and a request close to an existing curriculum is offered that curriculum instead. The
+pipeline above stays for the reviewed catalog.
+
+**Cost measured (2026-10-02).** Ranking each lesson's sources with BM25 over page sections
+cuts their input to 14–64% of the full pages. Four versions of one lesson, ranked blind,
+put the cheapest first: a mid-size model at medium reasoning effort, at about a third of
+the default setting's cost, ahead of the same model at high effort and a larger model.
+Output, mostly reasoning, is about 90% of a lesson's cost, so effort is the main lever.
+Until launch, reviewed catalog courses are generated through Claude Code rather than the
+metered API.
 
 The catalog schema (v0.1) is defined too: JSON Schemas for a lesson and a release, and a
 validator for the rules a schema can't express. It checks that bridges follow the
