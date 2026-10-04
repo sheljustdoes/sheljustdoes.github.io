@@ -145,7 +145,7 @@ export default function ResumePage() {
   );
 }
 
-// One accent per area, so a card's colour says which body of work it belongs to.
+// One accent per area, so a card's color says which body of work it belongs to.
 // Frameworks take the deep blue of the blueprint grid their banners sit on.
 const AREA_ACCENT: Record<AreaId, string> = {
   frameworks: "var(--indigo-deep)",

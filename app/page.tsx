@@ -17,7 +17,7 @@ function fontFor(t: GraphNode["type"]): string {
   return "var(--serif)";
 }
 
-/** Labels carry authored line breaks; render them as tspans so they stay centred. */
+/** Labels carry authored line breaks; render them as tspans so they stay centered. */
 function Label({ node, dim }: { node: GraphNode; dim: boolean }) {
   const lines = node.label.split("\n");
   const size = node.type === "skill" ? 12.5 : node.r >= 25 ? 16 : 14;
@@ -65,7 +65,7 @@ export default function HomePage() {
   const selected = selectedId ? NODE_BY_ID[selectedId] : null;
 
   const kwNodes = useMemo(() => (activeKw ? new Set(KEYWORD_INDEX[activeKw] ?? []) : null), [activeKw]);
-  const neighbours = useMemo(
+  const neighbors = useMemo(
     () => kwNodes ?? (activeId ? new Set([activeId, ...ADJACENCY[activeId]]) : null),
     [kwNodes, activeId],
   );
@@ -176,7 +176,7 @@ export default function HomePage() {
     if (!d.moved && Math.hypot(dx, dy) > 4) {
       d.moved = true;
       // Now that this is a drag and not a tap, capture so the pan survives the
-      // pointer leaving the element. A click will not be synthesised afterwards.
+      // pointer leaving the element. A click will not be synthesized afterwards.
       try {
         wrapRef.current?.setPointerCapture(e.pointerId);
       } catch {
@@ -296,7 +296,7 @@ export default function HomePage() {
 
             <g className="g-nodes">
               {NODES.map(({ id }) => placed[id]).map((n) => {
-                const dim = !!neighbours && !neighbours.has(n.id);
+                const dim = !!neighbors && !neighbors.has(n.id);
                 const isSel = selectedId === n.id;
                 return (
                   <g
@@ -351,7 +351,7 @@ export default function HomePage() {
         )}
 
         {/* The swatch count mirrors reality: education and capabilities are one
-            colour each, roles and projects each span a family. A single dot for
+            color each, roles and projects each span a family. A single dot for
             roles would claim a uniformity the graph does not have. */}
         <div className="legend" aria-hidden="true">
           <span className="lg">
@@ -366,7 +366,7 @@ export default function HomePage() {
               <i style={{ background: "var(--dusty-blue)" }} />
               <i style={{ background: "var(--indigo)" }} />
             </span>
-            roles — one colour each
+            roles — one color each
           </span>
           <span className="lg">
             <span className="sw">

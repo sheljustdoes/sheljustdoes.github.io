@@ -6,7 +6,7 @@ caches for up to ten minutes.
 
 | File | What it holds |
 |---|---|
-| `tokens.css` | Colours (light and dark), typefaces (loads Outfit, Lora and DM Mono), radii |
+| `tokens.css` | Colors (light and dark), typefaces (loads Outfit, Lora and DM Mono), radii |
 | `components.css` | Opt-in `b-` classes: eyebrow, meta, wordmark, pill, button, card, dot stepper, book (collapsible subject with chapters) |
 
 ## Who links it

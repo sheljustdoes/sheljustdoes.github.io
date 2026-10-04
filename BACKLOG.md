@@ -117,7 +117,7 @@ cannot animate a change of state, which is where custom D3 earns its place. Plan
 2026-10-03, ranked by story strength, data on hand, and what D3 adds. Each story is a
 scroll-driven route beside its write-up (`/projects/<name>/story`).
 
-- [ ] **iridis** — in progress on `feat/iridis-story`: colour as a continuum, Fitzpatrick
+- [ ] **iridis** — in progress on `feat/iridis-story`: color as a continuum, Fitzpatrick
       and Monk against a colorimeter, capture as the weak link.
 - [ ] Extract the scroll-step engine from `app/projects/iridis/story/Story.tsx` into a
       shared component once iridis ships, so later stories cost data and copy, not
