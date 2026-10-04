@@ -9,10 +9,14 @@ export default function ProjectsLayout({ children }: { children: React.ReactNode
       {/* Same reason as <body> in layout.tsx: dark-mode extensions rewrite this tag
           (adding class="native-dark-class-modified") before hydration. */}
       <style suppressHydrationWarning>{WRITEUP_CSS}</style>
-      <a href="/" className="write-up-back">
-        ← shel.
-      </a>
-      <article>{children}</article>
+      <nav aria-label="Site">
+        <a href="/" className="write-up-back">
+          ← shel.
+        </a>
+      </nav>
+      <main>
+        <article>{children}</article>
+      </main>
     </div>
   );
 }
@@ -27,8 +31,8 @@ const WRITEUP_CSS = `
 }
 .write-up { background: var(--cream); min-height: 100vh; color: var(--charcoal); font-family: var(--serif); }
 .write-up-back {
-  display: inline-block; margin: 32px 0 0 48px; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--taupe); text-decoration: none;
+  display: inline-block; margin: 32px 0 0 48px; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #655f55; text-decoration: none;
 }
 .write-up-back:hover { color: var(--terracotta); }
 article { max-width: 720px; margin: 0 auto; padding: 32px 32px 96px; line-height: 1.7; font-size: 1rem; }
@@ -79,7 +83,7 @@ article h2 {
 article h2::after { content: ''; flex: 1; height: 1px; background: var(--parchment); }
 article p { margin: 0 0 16px; color: #333130; }
 article strong { color: var(--indigo); font-weight: 600; }
-article a { color: var(--terracotta); }
+article a { color: #a8431f; } /* terracotta darkened to over 5:1 on cream for link text */
 article ul, article ol { margin: 0 0 16px; padding-left: 20px; color: #333130; }
 article li { margin-bottom: 6px; }
 article table { width: 100%; border-collapse: collapse; margin: 0 0 24px; font-size: 0.88rem; }

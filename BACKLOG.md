@@ -135,6 +135,14 @@ scroll-driven route beside its write-up (`/projects/<name>/story`).
       are one aside card. Data: fragaria `scripts/story_export.py`. Linked from the write-up and
       shipped 2026-10-04. Origin maps restored the same day: the plants open on a map
       of where they were collected, move to the genetic map, and return to it for the payoff.
+      2026-10-04: v4 for clarity and accessibility. Every frame opens with a headline
+      stating its takeaway; the dots move forward through four views (map, DNA with
+      spread circles, bars for missing variety, a 0–100% strip for the larger-fruit trait)
+      and end back on the map with only the carriers lit. Okabe-Ito colors with direct
+      labels, 13px minimum stage text, a live text description per frame, a numbers table,
+      and phone plots that end above the cards. axe-core reports no violations.
+- [ ] fragaria story: under tritanopia the eastern Virginia strawberry and cultivated
+      hues converge. Direct labels carry the difference; revisit the hue if needed.
 - [ ] **topos gate ledger** — the topos page has no figures. Draw the eight stage gates,
       then every pre-registered run across the portfolio (fragaria, lyco, argus, recolo,
       noul, iridis) flowing through them to GO / KILL / HOLD. Fast, and it shows negative
@@ -162,6 +170,8 @@ scroll-driven route beside its write-up (`/projects/<name>/story`).
 ## P1 — Quality
 
 - [ ] Accessibility pass: heading order, link text, focus states, contrast in both themes.
+      Started 2026-10-04: write-ups now have `nav` and `main` landmarks, the back link and
+      article links meet 4.5:1 on cream.
 - [ ] Lighthouse run; the fully static export should score near the ceiling and any gap is
       worth understanding.
 - [ ] Open Graph and Twitter card images for the site and each project page.
