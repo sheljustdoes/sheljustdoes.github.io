@@ -127,12 +127,13 @@ scroll-driven route beside its write-up (`/projects/<name>/story`).
       are removed, PCA and UMAP landing on the same groups, geography in wild strawberry.
       D3 moments: the pedigree as a force network, relatives removed live, points morphing
       from PCA to UMAP coordinates, a `d3-geo` map of wild accessions.
-      2026-10-03: built at `/projects/fragaria/story`, "What the wild kept", 15 frames on a
-      breeder's arc: the parents' journey on a world map, the cultivated cloud, families and
-      kinship as the first obstacle, PCA and UMAP agreeing, the invalid first run, woodland
-      strawberry on a map of Europe, the wild octoploids, their plants flowing into the
-      novel-variant bars, and the fruit-size coda. Data from fragaria
-      `scripts/story_export.py`. Not yet linked from the write-up, pending Shel's read.
+      2026-10-03: rebuilt as one map (v3). The first two versions followed the analysis
+      stage by stage and read as fragments. Now 146 unrelated cultivated and wild plants
+      stay on one genetic map the whole way: cultivated plants huddle in one corner, the
+      wild parents spread 2.3 times as far, each wild group's share of variants the
+      programs lack, then every plant colored by its larger-fruit copies. Method checks
+      are one aside card. Data: fragaria `scripts/story_export.py`. Not yet linked from
+      the write-up, pending Shel's read.
 - [ ] **topos gate ledger** — the topos page has no figures. Draw the eight stage gates,
       then every pre-registered run across the portfolio (fragaria, lyco, argus, recolo,
       noul, iridis) flowing through them to GO / KILL / HOLD. Fast, and it shows negative
