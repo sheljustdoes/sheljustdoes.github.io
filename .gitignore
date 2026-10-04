@@ -20,3 +20,11 @@ next-env.d.ts
 .DS_Store
 .DS_Store
 tsconfig.tsbuildinfo
+
+# Locked projects (any project with a story): the source lives in the private apotheca repo
+# under site/ and is pulled in before a build. See scripts/locked.mjs.
+/app/projects/iridis/
+/public/projects/iridis/
+/app/projects/fragaria/
+/public/projects/fragaria/
+/.apotheca/
