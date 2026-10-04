@@ -72,6 +72,8 @@ export type Project = {
   /** Write-ups and public destinations only — never a private repository. */
   link?: string;
   linkLabel?: string;
+  /** A scroll-driven visual story beside the write-up, linked just before it. */
+  story?: string;
   /** Supporting projects only: a screenshot of the work, shown in the /projects/ grid. */
   shot?: { src: string; alt: string; caption: string };
 };
@@ -111,7 +113,7 @@ export const PROJECTS: Project[] = [
   // ---- Perceptual & imaging phenotyping ----
   {
     id: "iridis", name: "iridis", area: "phenotyping", status: "Results committed", date: "2023–2025",
-    link: "/projects/iridis/", linkLabel: "Read the write-up →",
+    link: "/projects/iridis/", linkLabel: "Read the write-up →", story: "/projects/iridis/story/",
     summary:
       "Perceptual skin-tone phenotyping over ~17.8K open dermatology images (Fitzpatrick17k, ISIC 2018). A layered masking pipeline — foreground segmentation plus a ResNet18-U-Net lesion mask (held-out Dice 0.889) — isolates skin before CIE Lab featurization and CIEDE2000 perceptual clustering. Measured color barely tracks Fitzpatrick type: type explains 7% of lightness variance, and predicting it from color barely beats guessing the commonest type (35–42% against 34%); masking did not help. An earlier claim that discovered clusters were 2.5–2.8× more predictable was withdrawn as largely circular; a pre-registered retest found no stable color categories at all (resampling ARI 0.31). Against a colorimeter on a second dataset, an independent reanalysis reproduced the dataset authors' finding that Fitzpatrick type tracks skin color and Monk Skin Tone tracks it better, while image-derived color does not, and measured how much of the image error is capture alone: the weak link was the camera, not the scale.",
   },
@@ -145,7 +147,7 @@ export const PROJECTS: Project[] = [
   // ---- Certified structure in biological data ----
   {
     id: "fragaria", name: "fragaria", area: "structure", status: "Results committed (Stage 2x)", date: "2026–",
-    link: "/projects/fragaria/", linkLabel: "Read the write-up →",
+    link: "/projects/fragaria/", linkLabel: "Read the write-up →", story: "/projects/fragaria/story/",
     summary:
       "Nonlinear haplotype topology in octoploid strawberry: does manifold learning recover stable population structure beyond PCA? An audit found the first Stage 0 invalid; two pre-registered rebuilds followed. The second — 234 unrelated accessions by KING kinship, missingness tested within germplasm source — returns GO in every sensitivity run. PCA and UMAP find the same two groups wherever both cluster, so stable structure exists and nothing yet shows structure beyond PCA. Pre-registered tests on two wild whole-genome panels (woodland strawberry; wild octoploids, under a stricter rule) found the same: stable structure that is geographic or taxonomic, and linear, so the nonlinear hypothesis found no support, though the test has no positive control yet; a rerun with UMAP on genotypes rather than principal components agreed. A crossing-value stage then ranked wild groups by the variation they would add to breeding programs: F. chiloensis first, carrying common alleles the programs lack at 12% of sites. An association scan confirmed a fruit-size locus the source study had already reported, placed it on subgenome 1B with a targeted second pass, and checked the placement against an independent marker table; its larger-fruit allele is common in wild octoploids. A replication at UC Davis found no effect but had about 50% power, and whether the array marker still tags the haplotype there is unresolved, so the locus remains untested outside Florida. Paused.",
   },
