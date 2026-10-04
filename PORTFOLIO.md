@@ -458,13 +458,26 @@ commonest type: no better than chance.
 Archive, CC-BY) has colorimeter readings at 501 skin sites. Against that instrument,
 Fitzpatrick type tracks skin color strongly (Spearman −0.80 with ITA; 66% of variance) and
 the Monk Skin Tone scale better still (−0.93; 88%; difference +0.125, CI +0.073 to +0.208).
-Color measured from the dermoscopic images of the same sites does not reproduce the
-instrument, and 41% of its variance comes from imaging the same skin under different
-dermoscope modes, against 1.1% between repeat colorimeter readings. The first two findings
-replicate the dataset authors' own report (Weir et al. 2025, *npj Digital Medicine*); the
-capture-variance share and the ITA breakdown on 32% of images (b* ≤ 0) are what this adds.
-So the weak link on Fitzpatrick17k is mainly the camera, not the scale. A coding error in the first run (the
-wrong ITA formula) was caught by a pre-registered sanity check, corrected and logged.
+As scored, color measured from the dermoscopic images of the same sites did not reproduce the
+instrument (Spearman −0.13), and 41% of its variance came from imaging the same skin under
+different dermoscope modes, against 1.1% between repeat colorimeter readings. These replicate
+the dataset authors' own report (Weir et al. 2025, *npj Digital Medicine*). A coding error in
+the first run (the wrong ITA formula) was caught by a pre-registered sanity check, corrected
+and logged.
+
+**Why the images fail (post hoc, 2026-10-04).** Most of that failure is the angle itself: 32%
+of the images have b* ≤ 0, a color no skin has, and ITA's arctan flips them from the light end
+of the scale to the dark end. Where b* > 0, image and instrument agree at ρ 0.85. The cause is
+a blue cast that differs by device and dermoscope mode and grows with skin lightness; red is
+close to natural. A 3×3 color matrix per device and mode, fitted on held-out patients,
+recovers the instrument (ρ 0.915, ICC3 0.90) and cuts the capture share from 40% to 5.8%,
+while a per-channel white balance does not (ρ 0.67), because the cast depends on lightness.
+14,235 spectrophotometer readings of skin from an open archive never reach b* ≤ 0, and a
+physics simulation (skin spectra × light × camera sensitivity) reproduces the cast from a white
+balance set once under one light and used under a bluer one. A CNN trained on the same images
+reaches higher agreement (ICC3 0.94; Benčević et al. 2026); what this adds is the mechanism.
+So the weak link on Fitzpatrick17k is the camera, not the scale, and here the camera's error
+is a systematic calibration fault that per-device QC would remove.
 
 **Limit.** Every Fitzpatrick17k image in the benchmark comes from a single source atlas.
 The source is therefore constant rather than a confound, but the result is established on
