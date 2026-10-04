@@ -9,7 +9,7 @@
  * Styling is copied, not coded. Before a section is rebuilt, one existing line
  * of each kind is kept as a pattern — a bullet, a role title, a project name —
  * and every new line is a copy of its pattern with the text swapped. Fonts,
- * weights (including Light, which Apps Script cannot set), colours and spacing
+ * weights (including Light, which Apps Script cannot set), colors and spacing
  * therefore stay exactly as styled in the Doc. To restyle, restyle the Doc: the
  * next rebuild copies the new look.
  *

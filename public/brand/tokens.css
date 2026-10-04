@@ -1,7 +1,7 @@
 /* sheljustdoes brand tokens: the one place the apps' look is defined.
    Served at https://sheljustdoes.github.io/brand/tokens.css and linked at runtime by
    scintilla, ponere and lumen's viewer, so a change here restyles all of them with the
-   next Pages deploy. Apps keep their own layout CSS but take every colour, typeface and
+   next Pages deploy. Apps keep their own layout CSS but take every color, typeface and
    radius from here. See README.md in this folder before renaming or removing a token. */
 
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500;600;700&display=swap");
@@ -24,7 +24,7 @@
   --rule: #E4DFD5;
   --rule-strong: #CFC8BB;
 
-  /* Accents. Terracotta is the brand colour; the rest are used sparingly. */
+  /* Accents. Terracotta is the brand color; the rest are used sparingly. */
   --terracotta: #A8431F;
   --terracotta-tint: #F6DDD2;
   --forest: #2E5A45;
@@ -43,7 +43,7 @@
   --hl-term: #F6E6BE;
 
   /* Brand v7: the 16 values from custos/brand/shel-brand-brief-v7.txt, the same in both themes.
-     Two tokens per colour, chosen by surface: --brand-* for fills, grounds, marks and the one
+     Two tokens per color, chosen by surface: --brand-* for fills, grounds, marks and the one
      terracotta gesture (large display type too); the AA tokens above for text on light grounds,
      where several brand values fall under 4.5:1 (brand terracotta on cream is about 3.3:1). */
   --brand-cream: #F5F1EB;

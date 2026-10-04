@@ -477,7 +477,7 @@
    "id": "h20",
    "claim": "Metformin use is associated with a lower risk of dry age-related macular degeneration.",
    "key": "supported",
-   "key_notes": "JUDGEMENT CALL. A systematic review's synthesis, so it counts under the review rule — but the verb is 'suggested'. Is that a hedge (unsupported) or a cautious report of findings (supported)? Also sits beside the corpus's null on early and late AMD (c17, c43). Shel's check: supported outside the corpus too, with a duration effect — stronger after five or more years — which fits the corpus's nulls on early and late AMD.",
+   "key_notes": "JUDGMENT CALL. A systematic review's synthesis, so it counts under the review rule — but the verb is 'suggested'. Is that a hedge (unsupported) or a cautious report of findings (supported)? Also sits beside the corpus's null on early and late AMD (c17, c43). Shel's check: supported outside the corpus too, with a duration effect — stronger after five or more years — which fits the corpus's nulls on early and late AMD.",
    "null_result": false,
    "secondhand": true,
    "verdict": "supported",

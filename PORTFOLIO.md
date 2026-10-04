@@ -126,8 +126,8 @@ interpretation layer on top of them did not.
 
 **The rework rebuilt Check first**, since it was the broken half: a claim retrieves
 specific abstracts and receives a verdict with the evidence cited by PMID, measured against
-hand-labelled claims rather than asserted. **Explore was rebuilt next**, with nothing
-generated: clusters are labelled by the MeSH terms that distinguish them, represented by
+hand-labeled claims rather than asserted. **Explore was rebuilt next**, with nothing
+generated: clusters are labeled by the MeSH terms that distinguish them, represented by
 the papers nearest their centroid and the findings those papers state, and the cluster
 count is chosen by resampling stability using topos. On the frozen corpus no count is
 stable (the best, three clusters, reaches 0.63), and the legacy map's ten clusters score
@@ -140,7 +140,7 @@ metformin result describes the corpus, which has no separable subfields. The sam
 curriculum, grounding each generated principle in its source before review.
 
 Retrieval itself is not the differentiator — general research agents and existing tools do
-that well. Calibrated judgement with a known error rate on a specific corpus is.
+that well. Calibrated judgment with a known error rate on a specific corpus is.
 
 **First piece landed:** the corpus layer now parses what PubMed already returns and the
 original parser discarded — PMIDs (without which nothing can be cited), MeSH headings with
@@ -159,7 +159,7 @@ is embedded client-side in transformers.js while the corpus is embedded offline 
 the two must share a vector space exactly; rather than maintain two implementations,
 Python runs *the same quantized ONNX weights* the browser runs.
 
-Making them agree exactly surfaced two int8 quantization behaviours worth knowing about.
+Making them agree exactly surfaced two int8 quantization behaviors worth knowing about.
 The model's output depends on **sequence length** — the same text padded to 19 tokens and
 to 256 differs at cosine 0.992, though padding is masked out of the pooling — and on
 **batch composition**, since quantization scales are computed across the batch. Both are
@@ -202,11 +202,11 @@ for nothing that requires writing prose, so a **typed-decision model** — one t
 classifications with confidences and no free text at all — is a first-class judge here
 rather than a degraded one. An adapter exists for one, which sets up a comparison the
 evaluation can make directly: typed-decision model against LLM judge against the embedding
-baseline, on the same hand-labelled claims.
+baseline, on the same hand-labeled claims.
 
 **Not yet done, and stated plainly:** the LLM judge has run live (the measured result is
-below); the typed-decision adapter has not, and is labelled unrun in the code. The legacy
-module is still the CLI entry, so anyone running the app today still gets the old behaviour.
+below); the typed-decision adapter has not, and is labeled unrun in the code. The legacy
+module is still the CLI entry, so anyone running the app today still gets the old behavior.
 
 A **browser demo** runs with no key and no backend. Its retrieval tab searches either the
 frozen corpus or **any PubMed topic**: the page queries E-utilities directly (NCBI serves
@@ -229,15 +229,15 @@ and its errors were diagnosed rather than tuned away: ten came from a rule the a
 used and the judge was never told (a null result is not a contradiction), five from
 evidence that never reached the judge — abstracts truncated at 256 tokens were being ranked
 on their background — and the rest from genuine misreadings. The fixes were general: the
-judge was given every labelling rule and each sentence's paper context, and papers were
+judge was given every labeling rule and each sentence's paper context, and papers were
 ranked by their single best-matching sentence. Development accuracy rose to 86%. The
 held-out set, frozen before those fixes, scored the same — the evidence that they
-generalised rather than fitting the claims they were built on.
+generalized rather than fitting the claims they were built on.
 
 Two of the three held-out errors fall on the claims that were hardest to label in the first
-place, and neither was re-labelled after scoring. The limits are stated with the number:
+place, and neither was re-labeled after scoring. The limits are stated with the number:
 both answer keys were drafted by Claude and reviewed by Shel — individually for every
-judgement call, in bulk for claims following established patterns — the held-out claims
+judgment call, in bulk for claims following established patterns — the held-out claims
 were written by the same hand as the fixes, and the corpus is 150 abstracts on one topic
 with no genuine contested claims in it. Total cost of every run: under $6.
 
@@ -337,7 +337,7 @@ is already done downstream. Recency belongs in presentation, not in scoring.
 protocols tested recolo as a *ranker* over raw turns. None tested what the design calls it:
 compaction, where a summary replaces the episodes it covers so that more distinct
 information fits in fewer tokens. A fifth protocol, committed before any code, tests exactly
-that at tight budgets. The gate is free: summarised turns must cover more of the evidence
+that at tight budgets. The gate is free: summarized turns must cover more of the evidence
 than plain retrieval does, or the protocol stops there. Only then does a paid
 answer-accuracy step run, with a cost cap fixed in advance.
 
@@ -346,7 +346,7 @@ as a general-purpose meaning-compression mechanism — and redirects it from ext
 literature to an agent's own persistent memory.
 
 ### noul — non-generative answers about code
-**Status:** Results committed (`find` only) · Python, PyTorch, Hugging Face Transformers · 41 labelled queries, 2 codebases
+**Status:** Results committed (`find` only) · Python, PyTorch, Hugging Face Transformers · 41 labeled queries, 2 codebases
 
 Coding agents answer "where is X" by reading files into their context, where every file
 is re-sent with every later turn. TypeSafe's Jev points at an alternative: a model that
@@ -360,7 +360,7 @@ descriptions whose words never appear in the code. It runs in two stages. BM25 a
 568M-parameter cross-encoder reranks only those. Notebooks are read as code and
 markdown, without outputs.
 
-**Measured** on 35 answerable, labelled queries across a JavaScript web application
+**Measured** on 35 answerable, labeled queries across a JavaScript web application
 and a Python/notebook research codebase (iridis), plus six queries whose feature does
 not exist:
 
@@ -429,10 +429,10 @@ discovered cluster ID — under matched classifiers so the comparison isn't conf
 model choice.
 
 **Results.** Benchmarked on Fitzpatrick17k (12,631 images; 12,222 with valid labels), with
-and without masking, under both Random Forest and TabPFN. **Measured skin colour barely
+and without masking, under both Random Forest and TabPFN. **Measured skin color barely
 tracks Fitzpatrick type.** Type explains 7% of the variance in lightness (L*) and 12% in
 yellowness (b*); the middle half of type I (L* 53–71) overlaps the middle half of type IV
-(47–61); and predicting type from colour reaches 34.6–42.3% accuracy against 33.8% for
+(47–61); and predicting type from color reaches 34.6–42.3% accuracy against 33.8% for
 always guessing the commonest type. **Masking does not help:** isolating skin from
 background and lesion was expected to make type more predictable, and accuracy stayed flat
 or fell slightly. The lesion-exclusion U-Net reaches held-out Dice 0.889 / IoU 0.818 on
@@ -441,24 +441,24 @@ ISIC 2018 Task 1 (2,594 dermoscopy images).
 **Correction (2026-09-26).** Earlier versions reported the discovered clusters as 2.5–2.8×
 more predictable than Fitzpatrick labels (95.8–96.3% against 34.6–42.3%) and read that as
 evidence the scale discards real structure. It is not evidence. The clusters are defined
-from the same colour features the classifier uses, so predicting them is largely true by
+from the same color features the classifier uses, so predicting them is largely true by
 construction. And the perceptual merge chains transitively: one cluster ends up with 68%
 of the images and spans nearly the whole lightness range, so the 96% sits against a 68%
-baseline. What stands is the weak link between colour and type, which in uncalibrated
+baseline. What stands is the weak link between color and type, which in uncalibrated
 clinical photographs cannot yet separate the scale's coarseness from capture variation.
 
-**Are there colour categories at all? (pre-registered, 2026-09-26).** With a merge that cannot
-chain, colour splits into 92 clusters, the largest holding 3.7% of images, and refit on
+**Are there color categories at all? (pre-registered, 2026-09-26).** With a merge that cannot
+chain, color splits into 92 clusters, the largest holding 3.7% of images, and refit on
 resampled images they do not reproduce (median ARI 0.31 against the 0.80 required). Skin
-colour in this data is a continuum, not a set of categories. On the same split, colour
+color in this data is a continuum, not a set of categories. On the same split, color
 predicts Fitzpatrick type at 34.6% (95% CI 32.6–36.5%) against 33.9% for always guessing the
 commonest type: no better than chance.
 
 **Scale or camera? (pre-registered, 2026-09-26).** The MSKCC Skin Tone Labeling Dataset (ISIC
 Archive, CC-BY) has colorimeter readings at 501 skin sites. Against that instrument,
-Fitzpatrick type tracks skin colour strongly (Spearman −0.80 with ITA; 66% of variance) and
+Fitzpatrick type tracks skin color strongly (Spearman −0.80 with ITA; 66% of variance) and
 the Monk Skin Tone scale better still (−0.93; 88%; difference +0.125, CI +0.073 to +0.208).
-Colour measured from the dermoscopic images of the same sites does not reproduce the
+Color measured from the dermoscopic images of the same sites does not reproduce the
 instrument, and 41% of its variance comes from imaging the same skin under different
 dermoscope modes, against 1.1% between repeat colorimeter readings. The first two findings
 replicate the dataset authors' own report (Weir et al. 2025, *npj Digital Medicine*); the
@@ -507,7 +507,7 @@ to type 6.
 
 **The tone gradient's size is not established, and the reason is the more interesting
 result.** Fitzpatrick17k is scraped clinical photography: no controlled illumination, no
-camera calibration, no colour reference in frame. Re-scoring each image under capture
+camera calibration, no color reference in frame. Re-scoring each image under capture
 changes that cannot alter how glossy skin actually is shows a quarter-stop exposure
 difference moving the score by ~51% of the entire type-1-to-type-6 span, half a stop by
 90%, and a 10% white-balance drift by ~40%. The metric is about as sensitive to the
@@ -707,7 +707,7 @@ executed analysis.
 202 wild woodland strawberries (*F. vesca*, whole-genome, public CC0 panel), 176 unrelated
 after kinship pruning. Stage 0's checks pass on an east–west split. The Stage 1 rule
 returned GO (three nonlinear settings on the whole panel, four within the western group),
-against an expectation of HOLD or KILL. A labelled post hoc check found why: the rule
+against an expectation of HOLD or KILL. A labeled post hoc check found why: the rule
 compared each nonlinear setting only with the linear setting sharing its clusterer, and
 density clustering on PCA fails on this panel, while k-means on the same PCA coordinates
 passes every gate and recovers the same clusters (whole panel ARI 0.70–0.81; the western
@@ -777,7 +777,7 @@ octoploid is 39.5% repeats but mostly unclassified, *F. vesca* 33.2% TE. The *F.
 dominant subgenome A carries 23% fewer repeats than B–D and half their Gypsy, in all seven
 homoeologous groups, as published for Camarosa. The gene-density pericentromere rule used for
 tomato does not transfer to strawberry, and Gypsy is only modestly enriched in gene-poor regions
-(1.0–3.3×). The 50K array is gene-centred: on FaRR1, 46% of probes are genic and 74% within 1 kb
+(1.0–3.3×). The 50K array is gene-centered: on FaRR1, 46% of probes are genic and 74% within 1 kb
 of a gene, against 36% and 55% of bases. No downloadable strawberry population SV or TE-insertion
 genotype set exists, so the SV side stops there.
 
@@ -886,7 +886,7 @@ arrives from different sources as separate encodes, so duplicate detection match
 tags and duration rather than file hashes, grades each match by how much agrees, and
 quarantines rather than deletes. Duration alone proved too weak — an album is full of songs
 of near-identical length — so a match also needs the title or the track slot to agree, and
-a person's "not a duplicate" judgement is remembered per pair of files. Artwork a user sets,
+a person's "not a duplicate" judgment is remembered per pair of files. Artwork a user sets,
 album covers and artist photos alike, is written where the streaming server and every
 client read it — into the files and the artist's folder — not into the app's own database.
 
@@ -906,7 +906,7 @@ A single-user system for taking a rough idea to a published post: capture, a lif
 that moves ideas from draft to live to dormant so nothing sits untouched, platform-specific
 drafting shaped to how each platform actually works, and a log of what shipped where.
 AI-assisted drafting turns a rough capture into a platform-ready draft grounded in stored
-voice and platform notes — always a suggestion, never auto-published. Its colours and
+voice and platform notes — always a suggestion, never auto-published. Its colors and
 typefaces come from the brand stylesheet it shares with scintilla and lumen.
 
 ### mara — multi-tenant pricing API
@@ -973,7 +973,7 @@ to a first neural network. The MVP is one of those lessons built end to end thro
 and tested with four learners.
 
 The player is implemented and runs end to end against lumen's catalog releases. It checks
-each release's schema version and sanitises every piece of lesson text to a small allowed
+each release's schema version and sanitizes every piece of lesson text to a small allowed
 markup set. It records progress as an append-only event log with export and import, and
 derives the weekly streak, its forgiveness rules and the "learned" status from that log in
 pure, unit-tested functions. Lesson code runs in the browser with Pyodide, loaded only on
@@ -1003,7 +1003,7 @@ Builds scintilla's curriculum as a versioned static catalog: retrieve openly lic
 sources, generate with a pinned Claude model, verify, review by hand, publish. The catalog
 schema is the only contract between the two repositories, and a release that fails
 validation is never published. The rules that matter to learners are enforced by the
-build: every lesson bridges to its neighbours, every principle has a pinned source and two
+build: every lesson bridges to its neighbors, every principle has a pinned source and two
 representations, every answer key is verified by string match, computation or an
 executable check, and every wrong option maps to a named misconception.
 
@@ -1023,7 +1023,7 @@ run in CI proves none is missing and that every prerequisite comes first.
 an account: name a subject in data science, ML or AI, or supply your own materials. Each
 build generates an outline, the lessons, a unit test per module and a final, validated
 against the same catalog schema and checked by a port of veridian's Check. Built curricula
-are labelled as not reviewed by a person. At launch, builds run on the user's own API key,
+are labeled as not reviewed by a person. At launch, builds run on the user's own API key,
 bounded by a monthly build quota per account, a daily spend cap and per-account metering,
 and a request close to an existing curriculum is offered that curriculum instead. The
 pipeline above stays for the reviewed catalog.
@@ -1116,12 +1116,12 @@ education, roles, projects and capabilities, positioned by hand so proximity car
 meaning.
 
 The structure makes one argument. Roles and education are anchors, each in its own
-colour; capabilities are neutral grey rings rather than filled discs, deliberately
+color; capabilities are neutral gray rings rather than filled discs, deliberately
 subordinate. Roles are never wired to each other directly — a capability touching two
 roles *is* the claim that the same competence carried across both, so the shared skill is
 what links them. Teaching connects a graduate instructorship, a postdoc, and a current
 industry role; bioinformatics connects a doctorate, two research posts, and an agri-genomics
-role. Node type is signalled three ways at once — colour, size, and typeface, following the
+role. Node type is signaled three ways at once — color, size, and typeface, following the
 brand's serif-is-voice / display-is-structure / mono-is-utility rule. Selecting any node
 opens résumé-derived detail plus its working vocabulary — the terminology a reader would
 search for. Vocabulary terms are themselves navigable: selecting one reveals every node

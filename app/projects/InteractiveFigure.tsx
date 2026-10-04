@@ -53,16 +53,16 @@ export default function InteractiveFigure({ n, spec, src, alt, lead, children, s
   useEffect(() => {
     const el = box.current;
     if (!el) return;
-    let cancelled = false;
+    let canceled = false;
     const start = async () => {
       if (el.clientWidth < minWidth) {
-        fetch(spec).then((r) => r.json()).then((s: Spec) => !cancelled && setTable(s.table ?? null)).catch(() => {});
+        fetch(spec).then((r) => r.json()).then((s: Spec) => !canceled && setTable(s.table ?? null)).catch(() => {});
         return;
       }
       setState("loading");
       try {
         const [P, s] = await Promise.all([loadPlotly(), fetch(spec).then((r) => r.json() as Promise<Spec>)]);
-        if (cancelled || !plot.current) return;
+        if (canceled || !plot.current) return;
         setTable(s.table ?? null);
         await P.newPlot(plot.current, s.data, { ...s.layout, autosize: true }, {
           responsive: true,
@@ -70,10 +70,10 @@ export default function InteractiveFigure({ n, spec, src, alt, lead, children, s
           modeBarButtonsToRemove: ["select2d", "lasso2d", "autoScale2d", "toggleSpikelines", "hoverClosestCartesian", "hoverCompareCartesian"],
           toImageButtonOptions: { format: "png", filename: `${slug}-fig${n}`, scale: 2 },
         });
-        if (!cancelled) setState("ready");
+        if (!canceled) setState("ready");
       } catch (e) {
         console.warn(`Fig. ${n}: interactive chart unavailable, showing the static image`, e);
-        if (!cancelled) setState("static");
+        if (!canceled) setState("static");
       }
     };
     const io = new IntersectionObserver((entries) => {
@@ -84,7 +84,7 @@ export default function InteractiveFigure({ n, spec, src, alt, lead, children, s
     }, { rootMargin: "600px 0px" });
     io.observe(el);
     return () => {
-      cancelled = true;
+      canceled = true;
       io.disconnect();
       const w = window as unknown as { Plotly?: PlotlyLike };
       if (plot.current && w.Plotly) w.Plotly.purge(plot.current);

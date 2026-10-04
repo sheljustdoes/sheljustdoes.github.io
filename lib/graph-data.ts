@@ -1,6 +1,6 @@
 // Spatial knowledge graph for the homepage.
 //
-// Positions are randomised on every page load (randomLayout below; Shel's call,
+// Positions are randomized on every page load (randomLayout below; Shel's call,
 // 2026-09-27). The authored coordinates are kept as the server-rendered fallback and
 // as a record of the clustered composition, but the live page does not use them.
 // Coordinates live in a fixed virtual canvas (CANVAS below); the view is fitted and
@@ -9,7 +9,7 @@
 // Node type drives three cues simultaneously, per the brand guide's role
 // definitions — serif is voice, display is structure, mono is utility:
 //
-//   type        colour family      typeface       meaning
+//   type        color family      typeface       meaning
 //   education   forest             Lora italic    where it started
 //   role        archive palette    Lora italic    who it was for
 //   project     terracotta family  Outfit         what was built
@@ -125,13 +125,13 @@ const AUTHORED: AuthoredNode[] = [
     ],
     keywords: ["Novel Metric Development", "Composite Scoring", "Construct Validity", "Expert-Grading Validation", "Feature Engineering", "Measurement Theory"] },
   { id: "perceptual-color", label: "Perceptual\nColor Science", type: "skill", color: "stone", r: 20, x: 700, y: 962,
-    summary: "CIE Lab/LCh featurization, CIEDE2000 perceptual distance, and the measurement methodology that makes colour comparisons reflect what an eye would actually distinguish.",
+    summary: "CIE Lab/LCh featurization, CIEDE2000 perceptual distance, and the measurement methodology that makes color comparisons reflect what an eye would actually distinguish.",
     points: [
       "CIE Lab / LCh featurization and CIEDE2000 perceptual distance",
       "Robust sampling that survives specular highlights and imperfect segmentation",
       "Measurement methodology translated for non-specialist stakeholders so they could act on results independently",
     ],
-    keywords: ["CIE Lab", "LCh", "CIEDE2000", "ITA", "Perceptual Colour Distance", "Colour Constancy", "Fitzpatrick Scale", "Monk Skin Tone Scale"] },
+    keywords: ["CIE Lab", "LCh", "CIEDE2000", "ITA", "Perceptual Color Distance", "Color Constancy", "Fitzpatrick Scale", "Monk Skin Tone Scale"] },
   { id: "manifold-stability", label: "Manifold\n& Clustering", type: "skill", color: "stone", r: 20, x: 886, y: 716,
     summary: "Dimensionality reduction, density clustering, and — more importantly — the stability testing that separates structure which survives perturbation from structure an embedding invented.",
     points: [
@@ -208,7 +208,7 @@ const AUTHORED: AuthoredNode[] = [
     points: [
       "Analytical pipelines for large-scale NGS datasets across UNIX, HPC, and cloud environments",
       "LLM classification pipelines on Databricks and Snowflake in a regulated pharmaceutical environment",
-      "AWS Athena for large-scale dataset retrieval; MongoDB with geoJSON for geolocation-based behaviour analysis",
+      "AWS Athena for large-scale dataset retrieval; MongoDB with geoJSON for geolocation-based behavior analysis",
       "Bioinformatics workflows integrating outputs into relational databases for downstream consumption",
       "Reproducible, documented workflows — pipelines that a second person can run and get the same answer",
     ],
@@ -236,7 +236,7 @@ const AUTHORED: AuthoredNode[] = [
   { id: "ranking", label: "Ranking &\nRecommendation", type: "skill", color: "stone", r: 20, x: 988, y: 566,
     summary: "Ordering candidates by a distance that means something. The hard part is rarely the ranker — it is choosing the metric the ordering is computed against, and understanding how presentation order changes what people pick.",
     points: [
-      "Shade-matching recommendation system, built for a client on a self-developed perceptual-color method, ranking products by perceptual colour distance between a user's perceived and actual shade; a version was deployed to real customers",
+      "Shade-matching recommendation system, built for a client on a self-developed perceptual-color method, ranking products by perceptual color distance between a user's perceived and actual shade; a version was deployed to real customers",
       "A/B tested how result ordering affected selection, finding that presentation position interacted with user skin tone",
       "Constraining candidates to a bounded perceptual distance shifted selection bias directionally by tone group",
       "Ranked, salience-weighted retrieval in agent memory and corpus-grounded claim matching",
@@ -260,7 +260,7 @@ const AUTHORED: AuthoredNode[] = [
       "Designed and analyzed A/B tests and causal inference studies, and defined the product health metrics behind Plotly Dash and Tableau dashboards",
       "Taught client stakeholders the color science and ranking tradeoffs so their teams could own the delivered systems",
     ],
-    keywords: ["Applied ML", "Measurement Methodology", "Computer Vision", "Colour Science", "A/B Testing", "Causal Inference", "Client Delivery", "SDK Development", "Stakeholder Training", "Biomedical Imaging"] },
+    keywords: ["Applied ML", "Measurement Methodology", "Computer Vision", "Color Science", "A/B Testing", "Causal Inference", "Client Delivery", "SDK Development", "Stakeholder Training", "Biomedical Imaging"] },
   { id: "bi", type: "role", color: "indigo", r: 34, x: 1210, y: 232, company: "Boehringer Ingelheim Animal Health, via Data Science Talent",
     summary: "Boehringer Ingelheim Animal Health, Global Animal Health division. Technical scoping and solution architecture for applied AI work; built an LLM-based misinformation detection pipeline on Databricks and Snowflake, a working proof of concept in 60 days, with the evaluation framework to measure it.",
     points: [
@@ -277,7 +277,7 @@ const AUTHORED: AuthoredNode[] = [
   // ---- Consulting-era research projects. ----
   { id: "lambent", label: "lambent", type: "project", color: "blush-deep", r: 20, x: 520, y: 1002,
     points: [
-      "Multi-region extraction across full, centre, forehead, cheeks and chin, with optional face detection for anchoring",
+      "Multi-region extraction across full, center, forehead, cheeks and chin, with optional face detection for anchoring",
       "Features span Lab, ITA, hue, texture, and specular / red / dark proxies, aggregated to subject level",
       "Transparent composite scoring at image, subject-region and subject level",
       "Validated without ground truth by perturbation: known doses of synthetic gloss, global brightening and noise applied to real images",
@@ -285,21 +285,21 @@ const AUTHORED: AuthoredNode[] = [
       "The specular term is itself 5.3x higher on the lightest skin than the darkest, because it counts pixels over an absolute brightness threshold",
       "A quarter-stop exposure difference moved the original score by ~51% of the full type-1-to-type-6 span, so uncalibrated data could not separate skin tone from the camera",
       "Rebuilt through seven measured variants into a capture-robust, tone-neutral metric: tone dependence falls from rho-squared 0.310 to 0.002 and worst-case capture sensitivity from 93% to 59%",
-      "The decisive step was colour-science rather than statistical — von Kries is a linear model, so applying it to gamma-encoded sRGB left a residue that varied with skin tone",
+      "The decisive step was color-science rather than statistical — von Kries is a linear model, so applying it to gamma-encoded sRGB left a residue that varied with skin tone",
       "Packaged as an installable CLI with folder and manifest ingestion modes",
       "Methodology documented across six iterations; the public repo is the sanitized open-image reimplementation",
     ],
     keywords: ["Skin Radiance", "Composite Scoring", "CIE Lab", "ITA", "Texture Features", "Region Segmentation", "Face Detection", "scikit-learn", "XGBoost", "Perturbation Testing", "Biomedical Imaging"] },
   { id: "iridis", label: "iridis", type: "project", color: "terracotta", r: 26, x: 762, y: 1092,
     points: [
-      "Layered masking isolates skin before colour is measured: foreground segmentation, a ResNet18-U-Net trained on ISIC 2018 to exclude the lesion, and a centre-crop fallback",
-      "Per-image colour is the median over sampled pixels in CIE Lab — far less sensitive to specular highlights and residual segmentation error than a mean",
+      "Layered masking isolates skin before color is measured: foreground segmentation, a ResNet18-U-Net trained on ISIC 2018 to exclude the lesion, and a center-crop fallback",
+      "Per-image color is the median over sampled pixels in CIE Lab — far less sensitive to specular highlights and residual segmentation error than a mean",
       "MiniBatchKMeans at k=120, then perceptual merging by CIEDE2000 distance so categories reflect what an eye would distinguish",
       "Benchmarked on Fitzpatrick17k (12,631 images) under matched Random Forest and TabPFN classifiers",
-      "Measured colour barely tracks Fitzpatrick type: type explains 7% of lightness variance; predicting it reaches 35–42% against 34% for the commonest type",
+      "Measured color barely tracks Fitzpatrick type: type explains 7% of lightness variance; predicting it reaches 35–42% against 34% for the commonest type",
       "An earlier 2.5–2.8× cluster-vs-Fitzpatrick gap was withdrawn: clusters come from the same features, and one holds 68% of images",
-      "Pre-registered retest: no stable colour categories (resampling ARI 0.31); skin colour here is a continuum",
-      "Against a colorimeter (MSKCC), Fitzpatrick tracks skin colour at ρ −0.80 and Monk Skin Tone at −0.93; image colour does not, so capture is the limit",
+      "Pre-registered retest: no stable color categories (resampling ARI 0.31); skin color here is a continuum",
+      "Against a colorimeter (MSKCC), Fitzpatrick tracks skin color at ρ −0.80 and Monk Skin Tone at −0.93; image color does not, so capture is the limit",
       "Lesion U-Net reaches held-out Dice 0.889 / IoU 0.818",
       "Masking did not make type more predictable — the negative result",
     ],
@@ -640,7 +640,7 @@ function fromEducation(n: AuthoredNode): AuthoredNode {
   return { ...n, label: wrap(e.degree), date: e.year, points: [e.institution] };
 }
 
-/** Breaks a résumé name into centred label lines of at most `max` characters. */
+/** Breaks a résumé name into centered label lines of at most `max` characters. */
 function wrap(text: string, max = 22): string {
   const lines: string[] = [];
   for (const word of text.split(" ")) {
