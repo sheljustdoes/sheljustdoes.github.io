@@ -122,7 +122,7 @@ scroll-driven route beside its write-up (`/projects/<name>/story`).
 - [ ] Extract the scroll-step engine from `app/projects/iridis/story/Story.tsx` into a
       shared component once iridis ships, so later stories cost data and copy, not
       plumbing.
-- [ ] **fragaria** — the strongest arc on the site: an invalid analysis that passed every
+- [x] **fragaria** — the strongest arc on the site: an invalid analysis that passed every
       check, clusters that turn out to be families, structure that holds once relatives
       are removed, PCA and UMAP landing on the same groups, geography in wild strawberry.
       D3 moments: the pedigree as a force network, relatives removed live, points morphing
@@ -132,8 +132,8 @@ scroll-driven route beside its write-up (`/projects/<name>/story`).
       stay on one genetic map the whole way: cultivated plants huddle in one corner, the
       wild parents spread 2.3 times as far, each wild group's share of variants the
       programs lack, then every plant colored by its larger-fruit copies. Method checks
-      are one aside card. Data: fragaria `scripts/story_export.py`. Not yet linked from
-      the write-up, pending Shel's read.
+      are one aside card. Data: fragaria `scripts/story_export.py`. Linked from the write-up and
+      shipped 2026-10-04.
 - [ ] **topos gate ledger** — the topos page has no figures. Draw the eight stage gates,
       then every pre-registered run across the portfolio (fragaria, lyco, argus, recolo,
       noul, iridis) flowing through them to GO / KILL / HOLD. Fast, and it shows negative

@@ -35,7 +35,7 @@ flagship first, name it on PORTFOLIO.md's `**Flagship:**` line, and give it a wr
 
 ## Stack
 
-Next.js (App Router, static export) deployed to GitHub Pages via Actions. See `app/` for the knowledge-graph homepage, résumé, and project write-up pages.
+Next.js (App Router, static export) deployed to GitHub Pages via Actions. See `app/` for the knowledge-graph homepage, résumé, project write-up pages, and the scroll-driven visual stories beside some write-ups (`app/projects/<name>/story/`, custom D3).
 
 **Shared brand.** `public/brand/` is the single source of the apps' look — colors, typefaces, radii and a few shared components — served at `https://sheljustdoes.github.io/brand/`. scintilla, ponere and lumen's viewer link it at runtime, so a change there restyles all three on the next deploy of this site. See [`public/brand/README.md`](public/brand/README.md).
 

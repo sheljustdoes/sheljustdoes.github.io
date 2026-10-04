@@ -667,6 +667,8 @@ at its last gate; the other case studies are specified and not yet run.
 ### fragaria — nonlinear haplotype topology in octoploid strawberry
 **Status:** Results committed (Stage 2x) · Python, scikit-learn
 
+[Write-up](https://sheljustdoes.github.io/projects/fragaria/) · [Visual story](https://sheljustdoes.github.io/projects/fragaria/story/)
+
 A topos case study on *Fragaria × ananassa* testing whether nonlinear manifold methods
 recover stable population structure beyond linear PCA in an octoploid context, where
 dosage ambiguity, subgenome assignment uncertainty and homoeologous exchange all
