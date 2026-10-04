@@ -110,6 +110,45 @@ visual summary.
 - [x] Squash or rewrite history to remove the client name from the old README's project
       table. Done 2026-09-25: history squashed to one commit.
 
+## P0 — Data-visual stories (D3)
+
+Every write-up page shows static PNGs plus Plotly JSON. Plotly is good for inspection but
+cannot animate a change of state, which is where custom D3 earns its place. Planned
+2026-10-03, ranked by story strength, data on hand, and what D3 adds. Each story is a
+scroll-driven route beside its write-up (`/projects/<name>/story`).
+
+- [ ] **iridis** — in progress on `feat/iridis-story`: colour as a continuum, Fitzpatrick
+      and Monk against a colorimeter, capture as the weak link.
+- [ ] Extract the scroll-step engine from `app/projects/iridis/story/Story.tsx` into a
+      shared component once iridis ships, so later stories cost data and copy, not
+      plumbing.
+- [ ] **fragaria** — the strongest arc on the site: an invalid analysis that passed every
+      check, clusters that turn out to be families, structure that holds once relatives
+      are removed, PCA and UMAP landing on the same groups, geography in wild strawberry.
+      D3 moments: the pedigree as a force network, relatives removed live, points morphing
+      from PCA to UMAP coordinates, a `d3-geo` map of wild accessions.
+      2026-10-03: built at `/projects/fragaria/story`, "What the wild kept", 15 frames on a
+      breeder's arc: the parents' journey on a world map, the cultivated cloud, families and
+      kinship as the first obstacle, PCA and UMAP agreeing, the invalid first run, woodland
+      strawberry on a map of Europe, the wild octoploids, their plants flowing into the
+      novel-variant bars, and the fruit-size coda. Data from fragaria
+      `scripts/story_export.py`. Not yet linked from the write-up, pending Shel's read.
+- [ ] **topos gate ledger** — the topos page has no figures. Draw the eight stage gates,
+      then every pre-registered run across the portfolio (fragaria, lyco, argus, recolo,
+      noul, iridis) flowing through them to GO / KILL / HOLD. Fast, and it shows negative
+      results, which few portfolios do.
+- [ ] **recolo explorable** — the reader drags decay rate and salience and watches
+      episodic weights fade and retrieval accuracy fall against plain retrieval. Needs
+      parameter sweeps exported from the recolo repo; the figure JSON holds summary points
+      only.
+- [ ] **lyco** — chromosome ideogram of TE insertions linked to the population-history
+      panel: the signal follows the element, not the pericentromere.
+- [ ] **lambent** (optional) — exposure slider moving the score as far as the skin-tone
+      span; seven variants as small multiples. Second skin-domain piece after iridis, so
+      only if the portfolio can carry it.
+- [ ] Lower priority: veridian resampling-instability animation; noul and argus are
+      mostly tables and AUCs.
+
 ## P1 — Quality
 
 - [ ] Accessibility pass: heading order, link text, focus states, contrast in both themes.
