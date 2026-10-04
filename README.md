@@ -43,19 +43,25 @@ load. `lib/graph-layout.ts` runs a `d3-force` simulation only while a node is dr
 (`d3-drag`): links tug its neighbors along, collision moves other nodes aside, and on
 release everything springs back home.
 
-**Locked projects.** Any project in `lib/projects.ts` with a `story` is shared by password
-(today iridis and fragaria). Its source is not in this repo: `app/projects/<slug>/` and
-`public/projects/<slug>/` are git-ignored and live in the private apotheca repo under
-`site/`. `npm run locked:pull` copies them in and `npm run locked:push` copies edits back for
-committing there. After the build, `scripts/protect.mjs` encrypts every file of a locked
-project (AES-GCM, key from the project's password via PBKDF2) and puts a lock page in front
-of it; once a visitor unlocks, `public/lock-sw.js` decrypts the files in the browser. The
-deploy reads apotheca with the `APOTHECA_TOKEN` secret and the passwords from `LOCK_<SLUG>`
-secrets. The build fails if a locked project's source is tracked here, its password is
-missing, or any of its text is still readable in `out/`. Adding a story to a project locks
-it: move its folders to apotheca, add them to `.gitignore`, and add its secret and workflow
-line. A local build without the `LOCK_*` variables leaves locked projects readable, which is
-fine for previewing but not for deploying.
+**Write-ups and locked projects.** Project write-ups and stories are not in this repo:
+every folder under `app/projects/` and `public/projects/` (except `supporting/`) is
+git-ignored and lives in the private apotheca repo under `site/`, so the source and its
+history stay private. `npm run dev` pulls them in when nothing local would be lost;
+`npm run locked:pull`, `locked:status`, `locked:push` and `locked:ship -- -m "<msg>"`
+(copy back, commit and push in apotheca, redeploy) do the rest. See apotheca's
+`site/README.md` for the editing loop.
+
+A project whose entry in `lib/projects.ts` has a `story` is also shared by password, one per
+project (today iridis and fragaria). After the build, `scripts/protect.mjs` encrypts every
+file of a locked project (AES-GCM, key from its password via PBKDF2) and puts a lock page in
+front of it; once a visitor unlocks, `public/lock-sw.js` decrypts the files in the browser.
+The deploy reads apotheca with the `APOTHECA_TOKEN` secret and each password from a
+`LOCK_<SLUG>` secret named in the workflow. The build fails if project source is tracked
+here, a locked project's password is missing, or any locked text is still readable in
+`out/`. Locking a project: add `story:` to its entry, set `LOCK_<SLUG>`, and add that secret
+to the build step's `env` in `.github/workflows/deploy-pages.yml`. A local build without the
+`LOCK_*` variables leaves locked projects readable, which is fine for previewing but not for
+deploying.
 
 **Shared brand.** `public/brand/` is the single source of the apps' look — colors, typefaces, radii and a few shared components — served at `https://sheljustdoes.github.io/brand/`. scintilla, ponere and lumen's viewer link it at runtime, so a change there restyles all three on the next deploy of this site. See [`public/brand/README.md`](public/brand/README.md).
 

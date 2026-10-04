@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # Locked projects (any with a story) keep their source in the private apotheca repo.
+      # Write-up source lives in the private apotheca repo (site/).
       - uses: actions/checkout@v4
         with:
           repository: sheljustdoes/apotheca

@@ -1,5 +1,5 @@
-// Post-build encryption of locked projects (see scripts/locked.mjs). For each project with
-// a story, every file under out/projects/<slug>/ and its route chunks under
+// Post-build encryption of locked projects: those whose lib/projects.ts entry has a story
+// (see scripts/locked.mjs). For each, every file under out/projects/<slug>/ and its route chunks under
 // out/_next/static/chunks/app/projects/<slug>/ is encrypted with AES-GCM under a key
 // derived (PBKDF2-SHA-256) from that project's password, and stored beside its old path as
 // <path>.enc; each HTML page is replaced by a lock page. After unlocking, public/lock-sw.js
@@ -24,7 +24,8 @@ const slugs = lockedSlugs();
 const envName = (slug) => `LOCK_${slug.toUpperCase().replace(/[^A-Z0-9]/g, "_")}`;
 const missing = slugs.filter((s) => !process.env[envName(s)]);
 if (missing.length && process.env.CI) {
-  console.error(`protect: no password for ${missing.map(envName).join(", ")}; set it as an Actions secret and pass it to the build step`);
+  console.error(`protect: no password for ${missing.map(envName).join(", ")}. Set the secret (gh secret set ${missing.map(envName)[0]}) ` +
+    `and add \`${missing.map(envName)[0]}: \${{ secrets.${missing.map(envName)[0]} }}\` to the build step's env in .github/workflows/deploy-pages.yml`);
   process.exit(1);
 }
 for (const slug of slugs) {

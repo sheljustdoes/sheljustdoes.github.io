@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
+    "predev": "node scripts/locked.mjs pull --soft",
     "dev": "next dev -p 3500",
     "build": "next build",
     "postbuild": "node scripts/check-projects.mjs && node scripts/resume-sync.test.mjs && node scripts/locked.mjs check && node scripts/protect.mjs",
@@ -13,6 +14,7 @@
     "test:ui": "python scripts/ui-smoke.py",
     "locked:pull": "node scripts/locked.mjs pull",
     "locked:push": "node scripts/locked.mjs push",
+    "locked:ship": "node scripts/locked.mjs ship",
     "locked:status": "node scripts/locked.mjs status"
   },
   "dependencies": {
