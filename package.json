@@ -5,12 +5,15 @@
   "scripts": {
     "dev": "next dev -p 3500",
     "build": "next build",
-    "postbuild": "node scripts/check-projects.mjs && node scripts/resume-sync.test.mjs",
+    "postbuild": "node scripts/check-projects.mjs && node scripts/resume-sync.test.mjs && node scripts/locked.mjs check && node scripts/protect.mjs",
     "start": "next start",
     "lint": "next lint",
     "preview": "next build && npx --yes http-server out -p 3502 -s -c-1 -o",
     "check": "next build && npx --yes tsc --noEmit",
-    "test:ui": "python scripts/ui-smoke.py"
+    "test:ui": "python scripts/ui-smoke.py",
+    "locked:pull": "node scripts/locked.mjs pull",
+    "locked:push": "node scripts/locked.mjs push",
+    "locked:status": "node scripts/locked.mjs status"
   },
   "dependencies": {
     "d3-color": "^3.1.0",

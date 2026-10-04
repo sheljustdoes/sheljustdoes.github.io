@@ -19,12 +19,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # Locked projects (any with a story) keep their source in the private apotheca repo.
+      - uses: actions/checkout@v4
+        with:
+          repository: sheljustdoes/apotheca
+          token: ${{ secrets.APOTHECA_TOKEN }}
+          path: .apotheca
+          sparse-checkout: site
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: node scripts/locked.mjs pull --from .apotheca && rm -rf .apotheca
+      # One password per locked project; scripts/protect.mjs fails the build if one is missing.
       - run: npm run build
+        env:
+          LOCK_IRIDIS: ${{ secrets.LOCK_IRIDIS }}
+          LOCK_FRAGARIA: ${{ secrets.LOCK_FRAGARIA }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
