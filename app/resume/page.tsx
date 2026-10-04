@@ -224,8 +224,8 @@ function Project({
 }
 
 const RESUME_CSS = `
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 @import url('https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Mono:wght@300;400;500&display=swap');
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --cream:#F5F1EB; --parchment:#EAE4D9; --taupe:#C8BFB0; --warm-taupe:#C8BFB0;
   --charcoal:#1E1C1A; --ink:#141210; --near-black:#141210;
