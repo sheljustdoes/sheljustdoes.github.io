@@ -141,6 +141,13 @@ scroll-driven route beside its write-up (`/projects/<name>/story`).
       and end back on the map with only the carriers lit. Okabe-Ito colors with direct
       labels, 13px minimum stage text, a live text description per frame, a numbers table,
       and phone plots that end above the cards. axe-core reports no violations.
+      2026-10-04: v5 adds the ancestry. Act 1 opens on the write-up's European woodland
+      strawberries (the dominant subgenome's line), widens to the wild parents from Alaska to
+      Chile, follows the 1714 crossing to France and the European cultivars (1854 onward),
+      then breeding back in North America; the land zooms between map views. Every plant
+      now sits where it was collected or bred (USDA GRIN, release papers, patents); one
+      line stays unplaced. History cited to Edger 2019, Hardigan 2021, Pincot 2021, Fan and
+      Whitaker 2024.
 - [ ] fragaria story: under tritanopia the eastern Virginia strawberry and cultivated
       hues converge. Direct labels carry the difference; revisit the hue if needed.
 - [ ] **topos gate ledger** — the topos page has no figures. Draw the eight stage gates,
