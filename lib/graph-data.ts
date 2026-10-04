@@ -41,6 +41,8 @@ export type GraphNode = {
   /** The working vocabulary for this node — the terms a reader would search for. */
   keywords?: string[];
   link?: string;
+  /** A visual story beside the write-up, from lib/projects.ts. */
+  story?: string;
   linkLabel?: string;
   /** Other lib/projects.ts entries this node also stands for, when one node shows a pair. */
   covers?: string[];
@@ -661,7 +663,7 @@ export const NODES: GraphNode[] = AUTHORED.map((raw) => {
   }
   const p = PROJECT_BY_ID[n.id];
   if (!p) throw new Error(`Graph project "${n.id}" has no entry in lib/projects.ts`);
-  return { ...n, label, summary: p.summary, date: p.date, link: p.link, linkLabel: p.linkLabel };
+  return { ...n, label, summary: p.summary, date: p.date, link: p.link, linkLabel: p.linkLabel, story: p.story };
 });
 
 export const NODE_BY_ID: Record<string, GraphNode> = Object.fromEntries(NODES.map((n) => [n.id, n]));

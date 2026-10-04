@@ -522,10 +522,19 @@ export default function HomePage() {
                 );
               })}
             </div>
-            {selected.link && (
-              <a className="panel-link" href={selected.link} {...(selected.link.startsWith("/") ? {} : { target: "_blank", rel: "noopener" })}>
-                {selected.linkLabel ?? "Open ↗"}
-              </a>
+            {(selected.story || selected.link) && (
+              <div className="panel-links">
+                {selected.story && (
+                  <a className="panel-link" href={selected.story}>
+                    See the visual story →
+                  </a>
+                )}
+                {selected.link && (
+                  <a className="panel-link" href={selected.link} {...(selected.link.startsWith("/") ? {} : { target: "_blank", rel: "noopener" })}>
+                    {selected.linkLabel ?? "Open ↗"}
+                  </a>
+                )}
+              </div>
             )}
           </div>
         )}
@@ -700,6 +709,7 @@ const GRAPH_CSS = `
 }
 .tag:hover { background: rgba(30,28,26,0.05); color: var(--ink); }
 .tag-dot { width: 6px; height: 6px; border-radius: 50%; flex: none; }
+.panel-links { display: flex; flex-wrap: wrap; gap: 0 22px; }
 .panel-link {
   display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 0.7rem;
   letter-spacing: 0.06em; color: var(--terracotta); text-decoration: none;

@@ -32,7 +32,7 @@ export default function ProjectsIndex() {
                 {p.name}. <span className="line-meta">{meta(p)}</span>
               </h3>
               <p>{p.summary}</p>
-              {p.link && <a href={p.link}>{p.linkLabel ?? "Read the write-up →"}</a>}
+              <Links p={p} />
             </div>
           ))}
         </section>
@@ -51,7 +51,7 @@ export default function ProjectsIndex() {
                 {flagship.name}. <span className="line-meta">{meta(flagship)}</span>
               </h3>
               <p>{flagship.summary}</p>
-              {flagship.link && <a href={flagship.link}>{flagship.linkLabel ?? "Read the write-up →"}</a>}
+              <Links p={flagship} />
             </div>
             <ul className="line-rest">
               {rest.map((p) => (
@@ -99,6 +99,17 @@ function SectionHead({ kicker, title }: { kicker: string; title: string }) {
 }
 
 const meta = (p: Project) => [p.date, p.status && displayStatus(p.status)].filter(Boolean).join(" · ");
+
+/** A card's links: the visual story, where there is one, then the write-up. */
+function Links({ p }: { p: Project }) {
+  if (!p.story && !p.link) return null;
+  return (
+    <p className="line-links">
+      {p.story && <a href={p.story}>See the visual story →</a>}
+      {p.link && <a href={p.link}>{p.linkLabel ?? "Read the write-up →"}</a>}
+    </p>
+  );
+}
 
 /** A non-flagship project: name and status, the name linking only where a write-up or public page exists. */
 function Entry({ p }: { p: Project }) {
@@ -165,6 +176,7 @@ article .line-flagship.framework { border-left-color: var(--indigo-deep); }
 article .line-flag-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta); }
 article h3 { font-family: var(--display); font-size: 1.15rem; font-weight: 600; margin: 4px 0 8px; }
 article .line-flagship p { font-size: 0.92rem; margin-bottom: 10px; }
+article .line-flagship .line-links { display: flex; flex-wrap: wrap; gap: 0 22px; margin: 0; }
 article .line-flagship a, article .line-rest a { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; }
 article .line-meta { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: #8a8378; font-weight: 400; }
 article .line-rest { list-style: none; padding-left: 0; }
