@@ -133,7 +133,8 @@ scroll-driven route beside its write-up (`/projects/<name>/story`).
       wild parents spread 2.3 times as far, each wild group's share of variants the
       programs lack, then every plant colored by its larger-fruit copies. Method checks
       are one aside card. Data: fragaria `scripts/story_export.py`. Linked from the write-up and
-      shipped 2026-10-04.
+      shipped 2026-10-04. Origin maps restored the same day: the plants open on a map
+      of where they were collected, move to the genetic map, and return to it for the payoff.
 - [ ] **topos gate ledger** — the topos page has no figures. Draw the eight stage gates,
       then every pre-registered run across the portfolio (fragaria, lyco, argus, recolo,
       noul, iridis) flowing through them to GO / KILL / HOLD. Fast, and it shows negative
