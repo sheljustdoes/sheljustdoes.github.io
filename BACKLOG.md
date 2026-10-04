@@ -150,6 +150,14 @@ scroll-driven route beside its write-up (`/projects/<name>/story`).
 - [ ] Lower priority: veridian resampling-instability animation; noul and argus are
       mostly tables and AUCs.
 
+- [x] Give homepage graph nodes fixed homes instead of a random layout per load, and add
+      D3 physics. Done 2026-10-03: authored positions are the homes; `d3-force` +
+      `d3-drag` let a dragged node tug its neighbors, then spring back.
+- [ ] Faint region labels on the graph (education, genomics, AI systems, production) so
+      the homes read as named areas, if the clusters alone are not enough.
+- [ ] Consider `d3-zoom` in place of the hand-rolled pan and pinch code; keep the
+      pointer-capture behavior `test:ui` guards.
+
 ## P1 — Quality
 
 - [ ] Accessibility pass: heading order, link text, focus states, contrast in both themes.

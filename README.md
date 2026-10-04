@@ -37,6 +37,12 @@ flagship first, name it on PORTFOLIO.md's `**Flagship:**` line, and give it a wr
 
 Next.js (App Router, static export) deployed to GitHub Pages via Actions. See `app/` for the knowledge-graph homepage, résumé, project write-up pages, and the scroll-driven visual stories beside some write-ups (`app/projects/<name>/story/`, custom D3).
 
+**Homepage graph.** React renders the SVG; D3 does the physics. Every node has a fixed
+home, its authored position in `lib/graph-data.ts`, so the layout is the same on every
+load. `lib/graph-layout.ts` runs a `d3-force` simulation only while a node is dragged
+(`d3-drag`): links tug its neighbors along, collision moves other nodes aside, and on
+release everything springs back home.
+
 **Shared brand.** `public/brand/` is the single source of the apps' look — colors, typefaces, radii and a few shared components — served at `https://sheljustdoes.github.io/brand/`. scintilla, ponere and lumen's viewer link it at runtime, so a change there restyles all three on the next deploy of this site. See [`public/brand/README.md`](public/brand/README.md).
 
 ---

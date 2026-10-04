@@ -73,6 +73,30 @@ try:
         page.wait_for_timeout(300)
         check("dragging does not select", open_(), False)
 
+        # Nodes have fixed homes: the authored layout, identical on every load.
+        disc = lambda id_: page.locator(f'[data-id="{id_}"] .g-disc')
+        pos = lambda id_: (float(disc(id_).get_attribute("cx")), float(disc(id_).get_attribute("cy")))
+        home = {id_: pos(id_) for id_ in ("iridis", "perceptual-color")}
+        page.reload(wait_until="networkidle")
+        check("layout is the same on reload", {id_: pos(id_) for id_ in home}, home)
+
+        # Dragging a node moves it, tugs a neighbor, and springs both back home.
+        box = disc("iridis").bounding_box()
+        cx, cy = box["x"] + box["width"] / 2, box["y"] + box["height"] / 2
+        page.mouse.move(cx, cy)
+        page.mouse.down()
+        page.mouse.move(cx + 160, cy - 140, steps=16)
+        page.wait_for_timeout(400)
+        moved = pos("iridis")
+        neighbor = pos("perceptual-color")
+        page.mouse.up()
+        check("dragging a node moves it", moved != home["iridis"], True)
+        check("dragging a node tugs its neighbor", neighbor != home["perceptual-color"], True)
+        check("dragging a node does not select it", open_(), False)
+        page.wait_for_timeout(4000)
+        back = all(abs(a - b) < 6 for id_ in home for a, b in zip(pos(id_), home[id_]))
+        check("nodes spring back home on release", back, True)
+
         check("no uncaught page errors", errors, [])
         browser.close()
 finally:

@@ -2,7 +2,10 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { HEADLINE } from "@/lib/resume";
-import { ADJACENCY, EDGES, KEYWORD_INDEX, NODES, NODE_BY_ID, TYPE_LABEL, boundsOf, randomLayout, type GraphNode, type Point } from "@/lib/graph-data";
+import { drag as d3drag } from "d3-drag";
+import { select } from "d3-selection";
+import { ADJACENCY, BOUNDS, EDGES, KEYWORD_INDEX, NODES, NODE_BY_ID, TYPE_LABEL, type GraphNode } from "@/lib/graph-data";
+import { createSimulation, snapHome, type SimNode } from "@/lib/graph-layout";
 
 const FIT_PADDING = 64;
 const MIN_K = 0.35;
@@ -51,17 +54,16 @@ export default function HomePage() {
   const [hintGone, setHintGone] = useState(false);
   const [activeKw, setActiveKw] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
-  // Random layout per load, generated after hydration so server and client agree on
-  // the first render (authored positions, hidden until ready).
-  const [layout, setLayout] = useState<Record<string, Point> | null>(null);
-  useEffect(() => setLayout(randomLayout()), []);
-  const placed = useMemo(
-    () => Object.fromEntries(NODES.map((n) => [n.id, layout ? { ...n, ...layout[n.id] } : n])) as Record<string, GraphNode>,
-    [layout],
-  );
-  const bounds = useMemo(() => boundsOf((n) => placed[n.id]), [placed]);
+  const [draggingId, setDraggingId] = useState<string | null>(null);
+  // Positions live on the simulation's nodes, which start on their homes (the authored
+  // layout), so server and client render the same graph. A tick bumps `frame` to
+  // re-render while a drag is moving things.
+  const sim = useMemo(createSimulation, []);
+  const placed = useMemo(() => Object.fromEntries(sim.nodes().map((n) => [n.id, n])) as Record<string, SimNode>, [sim]);
+  const [, setFrame] = useState(0);
+  const bounds = BOUNDS;
 
-  const activeId = selectedId ?? hoverId;
+  const activeId = draggingId ?? selectedId ?? hoverId;
   const selected = selectedId ? NODE_BY_ID[selectedId] : null;
 
   const kwNodes = useMemo(() => (activeKw ? new Set(KEYWORD_INDEX[activeKw] ?? []) : null), [activeKw]);
@@ -86,8 +88,8 @@ export default function HomePage() {
       x: (width - bounds.w * k) / 2 - bounds.x * k,
       y: (height - bounds.h * k) / 2 - bounds.y * k,
     });
-    if (layout) setReady(true);
-  }, [bounds, layout]);
+    setReady(true);
+  }, [bounds]);
 
   useEffect(() => {
     fit();
@@ -111,6 +113,82 @@ export default function HomePage() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  // ---- node drag: d3-drag moves the node, d3-force carries its neighbors. ----
+  const viewRef = useRef(view);
+  viewRef.current = view;
+  const svgRef = useRef<SVGSVGElement | null>(null);
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    const svg = svgRef.current;
+    if (!wrap || !svg) return;
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const rerender = () => setFrame((f) => f + 1);
+    sim.on("tick", rerender);
+    // Once cooled, every node is within a fraction of a unit of home; land it exactly.
+    sim.on("end", () => {
+      snapHome(sim);
+      rerender();
+    });
+
+    // The pointer is read in screen space against the wrapper and mapped back into canvas
+    // units through the current pan/zoom, so dragging stays under the finger at any zoom.
+    const toCanvas = (sx: number, sy: number) => {
+      const v = viewRef.current;
+      return { x: (sx - v.x) / v.k, y: (sy - v.y) / v.k };
+    };
+    let moved = false;
+    const behavior = d3drag<SVGGElement, SimNode>()
+      .container(() => wrap)
+      // Under 4 px a press is a click (selection), matching the canvas pan threshold.
+      .clickDistance(4)
+      .subject((_, d) => {
+        const v = viewRef.current;
+        return { x: d.x! * v.k + v.x, y: d.y! * v.k + v.y };
+      })
+      .on("start", () => {
+        moved = false;
+      })
+      .on("drag", (e, d) => {
+        const p = toCanvas(e.x, e.y);
+        if (!moved) {
+          moved = true;
+          setDraggingId(d.id);
+          setHintGone(true);
+          if (!still.matches) sim.alphaTarget(0.3).restart();
+        }
+        d.fx = p.x;
+        d.fy = p.y;
+        if (still.matches) {
+          // Reduced motion: only the dragged node moves; nothing else animates.
+          d.x = p.x;
+          d.y = p.y;
+          rerender();
+        }
+      })
+      .on("end", (_, d) => {
+        if (!moved) return;
+        setDraggingId(null);
+        d.fx = d.fy = null;
+        if (still.matches) {
+          snapHome(sim);
+          rerender();
+        } else {
+          sim.alphaTarget(0);
+        }
+      });
+
+    const nodes = select(svg).selectAll<SVGGElement, SimNode>(".g-node");
+    nodes.each(function () {
+      select(this).datum(placed[this.dataset.id!]);
+    });
+    nodes.call(behavior);
+    return () => {
+      nodes.on(".drag", null);
+      sim.on("tick", null).on("end", null).stop();
+    };
+  }, [sim, placed]);
 
   // ---- pan / zoom. Hand-rolled: no dependency, and the interaction is simple. ----
   const drag = useRef<{ id: number; x: number; y: number; moved: boolean } | null>(null);
@@ -264,7 +342,7 @@ export default function HomePage() {
         onPointerUp={endPointer}
         onPointerCancel={endPointer}
       >
-        <svg className="canvas" width="100%" height="100%" role="presentation">
+        <svg ref={svgRef} className="canvas" width="100%" height="100%" role="presentation">
 
           {/* Transparent surface so a click on empty space is detectable. */}
           <rect className="g-surface" x={0} y={0} width="100%" height="100%" fill="transparent" />
@@ -301,13 +379,16 @@ export default function HomePage() {
                 return (
                   <g
                     key={n.id}
-                    className={`g-node${isSel ? " is-sel" : ""}`}
+                    data-id={n.id}
+                    className={`g-node${isSel ? " is-sel" : ""}${draggingId === n.id ? " is-drag" : ""}`}
                     tabIndex={0}
                     role="button"
                     aria-pressed={isSel}
                     aria-label={`${n.label.replace(/\n/g, " ")} — ${TYPE_LABEL[n.type]}`}
                     onPointerEnter={() => setHoverId(n.id)}
                     onPointerLeave={() => setHoverId((p) => (p === n.id ? null : p))}
+                    // A press on a node belongs to d3-drag, not to the canvas pan.
+                    onPointerDown={(e) => e.stopPropagation()}
                     onClick={() => pick(n.id)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") {
@@ -335,7 +416,7 @@ export default function HomePage() {
           </g>
         </svg>
 
-        <div className={`hint${hintGone ? " is-gone" : ""}`}>explore the graph</div>
+        <div className={`hint${hintGone ? " is-gone" : ""}`}>explore the graph · drag a node</div>
 
         {activeKw && (
           <div className="kwbar">
@@ -515,7 +596,8 @@ const GRAPH_CSS = `
 .g-root { transform-origin: 0 0; transition: opacity .5s ease; }
 .g-edges line, .g-disc, .g-label { transition: opacity .24s ease, stroke .24s ease, stroke-width .24s ease; }
 
-.g-node { cursor: pointer; outline: none; }
+.g-node { cursor: pointer; outline: none; touch-action: none; }
+.g-node.is-drag { cursor: grabbing; }
 .g-node .g-disc { transition: opacity .28s ease, transform .2s ease; transform-origin: center; }
 .g-node:hover .g-disc { filter: brightness(1.05); }
 .g-node:focus-visible .g-disc { stroke: var(--ink); stroke-width: 2; }
