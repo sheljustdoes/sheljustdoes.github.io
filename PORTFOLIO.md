@@ -471,6 +471,11 @@ The source is therefore constant rather than a confound, but the result is estab
 that atlas only; the dataset's other atlas has a very different skin-type mix and would
 need a source audit before it is added.
 
+**Visual story (2026-10-03).** [Diversity within diversity](https://sheljustdoes.github.io/projects/iridis/story/)
+tells the analysis start to finish as a scroll-driven D3 piece, wrong turns included: every
+photograph drawn as a point in its measured color (no patient images), a rendered specimen
+plate for the masking pipeline, and the instrument frames from MSKCC.
+
 ### lambent — computational quantification of skin radiance
 **Status:** Results committed · Python, scikit-image, OpenCV, scikit-learn · 1,816 images, 68 tests
 
