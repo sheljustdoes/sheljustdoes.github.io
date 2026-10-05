@@ -80,7 +80,7 @@ linear-vs-nonlinear comparison, genotype-specific confound checks, a verdict ove
 fixed before scoring, and a role as a guardrail for analysis written by LLM agents.
 
 ### veridian — literature review: map the disagreement, check the claim
-**Status:** Results committed (Check) · Explore rebuilt · Python, ONNX Runtime, transformers.js, PubMed E-utilities, Anthropic API
+**Status:** Results committed (Check) · Explore rebuilt · Python, ONNX Runtime, transformers.js, PubMed E-utilities, Parquet, SQLite, asyncio, Anthropic API
 
 Entering an unfamiliar research domain means facing thousands of papers with no visible
 hierarchy of concepts, no sense of which interpretations are dominant versus emerging, and
@@ -241,7 +241,21 @@ judgment call, in bulk for claims following established patterns — the held-ou
 were written by the same hand as the fixes, and the corpus is 150 abstracts on one topic
 with no genuine contested claims in it. Total cost of every run: under $6.
 
-138 tests, running offline against committed fixtures.
+**Pipeline infrastructure (2026-10).** The next phases scale the work from one frozen
+topic to a production-style scientific text pipeline, and the plumbing came first. Every
+stage writes immutable, versioned Parquet with a manifest and a dead-letter file, keyed by
+its inputs, model and prompt, so reruns are idempotent and a cached LLM verdict is reused
+only when everything that produced it matches. LLM calls run through one client with a hard
+token budget, a dry-run mode and a per-call log of the model that actually answered.
+Ingestion is now concurrent: async PubMed fetches inside NCBI's rate limit, with retries
+that honor `Retry-After`, a raw-response cache, and a SQLite job queue with leases, so a
+killed run resumes where it stopped. It froze a second corpus of 2,587 abstracts across
+eight disciplines; at the unauthenticated limit, async fetching cut 1,000 abstracts from
+12 s to 5 s, and the rate limit, not concurrency, sets the floor. Entity extraction,
+structured claim extraction and a cost comparison of approaches come next. The held-out
+claims and the result above are untouched.
+
+169 tests, running offline against committed fixtures.
 
 ### recolo — bio-inspired memory for LLM agents
 **Status:** Results committed · Python, SQLite, numpy · v0.1.0, 79 tests · LongMemEval, four protocols, 400 held-out questions
