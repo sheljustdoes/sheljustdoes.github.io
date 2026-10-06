@@ -263,10 +263,18 @@ was not trained on (NCBI disease) it scores 0.57, and the rules do not help, whi
 honest expectation for the eight-discipline corpus. All 29,213 of its sentences were
 tagged in about two minutes on one process; spaCy's process pool was slower at this size,
 because each worker spends about 27 s receiving the pipeline before it tags anything.
-Structured claim extraction and a cost comparison of approaches come next. The held-out
-claims and the result above are untouched.
 
-181 tests, running offline against committed fixtures.
+**Claim tuples (Phase 4).** Structured extraction is built and tested. One Claude Code CLI
+call per abstract returns tuples of subject, relation, object, polarity, certainty and the
+evidence sentence, under a closed relation vocabulary. The subject and object must be copied
+word for word from a sentence that states a finding, so an argument cannot be invented.
+Output is checked with Pydantic, gets one repair call if it fails, and anything still
+invalid goes to the dead-letter file. Two 20-abstract pilots on Haiku 4.5 gave valid tuples
+for 34 of 40 abstracts (147 tuples). That measures validity, not accuracy; scoring the
+tuples against labeled abstracts is Phase 5, and a cost comparison of approaches comes with
+it. The held-out claims and the result above are untouched.
+
+202 tests pass (3 skipped), running offline against committed fixtures.
 
 ### recolo — bio-inspired memory for LLM agents
 **Status:** Results committed · Python, SQLite, numpy · v0.1.0, 79 tests · LongMemEval, four protocols, 400 held-out questions
@@ -1036,6 +1044,12 @@ checks each event's shape but never scores it, and its database role can add to 
 and security logs but not change them. Passwords are checked against known breaches, sign-in
 locks after repeated failures, and a learner can export or delete their account.
 
+At the end of each lesson the learner sees a results block: active time (counted only while
+the page is visible), checkpoints answered right first try, wrong answers, and how often the
+self-check agreed with the checkpoints. It is computed in the browser from the same event log.
+The thresholds that mark an answer as fast are provisional
+until there is tester data. It is not deployed yet.
+
 **Designed, not yet built.** scintilla becomes a knowledge assessment platform: learners import
 curricula built in lumen and assess themselves as they learn, in the pattern of online
 courses, with questions on the part they are reading or watching, a unit test per module, and
@@ -1080,6 +1094,12 @@ the default setting's cost, ahead of the same model at high effort and a larger 
 Output, mostly reasoning, is about 90% of a lesson's cost, so effort is the main lever.
 Until launch, reviewed catalog courses are generated through Claude Code rather than the
 metered API.
+
+A whole course can now be authored on a Claude subscription through headless Claude Code,
+with no API spend. First an outline is written with Wikipedia sources for each lesson, then
+the lessons are drafted one at a time, resumable if a run stops, and each draft is validated
+against the catalog schema. The first 20-lesson course, on LLM evaluation and fairness, is
+drafted and not yet reviewed.
 
 The catalog schema (v0.1) is defined too: JSON Schemas for a lesson and a release, and a
 validator for the rules a schema can't express. It checks that bridges follow the
