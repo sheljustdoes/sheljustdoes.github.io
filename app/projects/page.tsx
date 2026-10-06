@@ -176,8 +176,14 @@ article .line-flagship.framework { border-left-color: var(--indigo-deep); }
 article .line-flag-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta); }
 article h3 { font-family: var(--display); font-size: 1.15rem; font-weight: 600; margin: 4px 0 8px; }
 article .line-flagship p { font-size: 0.92rem; margin-bottom: 10px; }
-article .line-flagship .line-links { display: flex; flex-wrap: wrap; gap: 0 22px; margin: 0; }
 article .line-flagship a, article .line-rest a { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; }
+/* Card links as CTA pills: the section-nav shape, filled with the AA-safe terracotta so cream text clears 5:1. */
+article .line-flagship .line-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 0; }
+article .line-flagship .line-links a { font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+  color: var(--cream); background: #a8431f; border: 1px solid #a8431f; padding: 7px 14px; border-radius: 999px; transition: background 0.15s ease; }
+article .line-flagship .line-links a:hover { background: #8a3617; border-color: #8a3617; }
+article .line-flagship .line-links a:focus-visible { outline: 2px solid var(--indigo); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { article .line-flagship .line-links a { transition: none; } }
 article .line-meta { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: #8a8378; font-weight: 400; }
 article .line-rest { list-style: none; padding-left: 0; }
 article .line-rest li { padding: 4px 0; border-bottom: 1px solid var(--parchment); }
