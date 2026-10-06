@@ -34,10 +34,10 @@ applications, learning tools, and portfolio tooling.
 
 The frameworks the research builds on, each proven in real use rather than on a toy
 example. topos certifies whether structure in biological data is real enough to act on;
-veridian grounds claims in the literature; recolo tested whether a biologically inspired
-memory helps an LLM agent; noul answers questions about code without generating text. Each
+veridian grounds claims in the literature; recolo tests what a biologically inspired
+memory adds for an LLM agent; noul answers questions about code without generating text. Each
 is measured against a plain baseline, negative results stay in (none of recolo's
-mechanisms helped), and fixes found by the studies that use a framework go back into it.
+original mechanisms helped), and fixes found by the studies that use a framework go back into it.
 
 ### topos — stability certification for latent structure
 **Status:** Implemented (Stage 0 checks) · Python package, 8 stage specifications, 27 tests
@@ -277,7 +277,7 @@ it. The held-out claims and the result above are untouched.
 202 tests pass (3 skipped), running offline against committed fixtures.
 
 ### recolo — bio-inspired memory for LLM agents
-**Status:** Results committed · Python, SQLite, numpy · v0.1.0, 79 tests · LongMemEval, four protocols, 400 held-out questions
+**Status:** Results committed · Python, SQLite, numpy · v0.1.0, 79 tests · LongMemEval, five protocols, 400 held-out questions · Memora, summary-first memory beats retrieval and rolling compaction
 
 Context engineering addresses what enters the window now. Biological memory architecture
 addresses what accumulates and is selectively forgotten over time. recolo combines both,
@@ -366,13 +366,31 @@ to +28, the pre-registered primary comparison); order carries most of it. The re
 recency itself when memories are presented chronologically, so the job decay was built for
 is already done downstream. Recency belongs in presentation, not in scoring.
 
-**Pre-registered, not yet run: consolidation as compaction (2026-09-29).** All four
-protocols tested recolo as a *ranker* over raw turns. None tested what the design calls it:
-compaction, where a summary replaces the episodes it covers so that more distinct
-information fits in fewer tokens. A fifth protocol, committed before any code, tests exactly
-that at tight budgets. The gate is free: summarized turns must cover more of the evidence
-than plain retrieval does, or the protocol stops there. Only then does a paid
-answer-accuracy step run, with a cost cap fixed in advance.
+**Consolidation as compaction, fifth protocol (2026-10-05).** All four protocols tested
+recolo as a *ranker* over raw turns. The fifth tested what the design calls it: compaction,
+where a summary replaces the episodes it covers. Its free gate asked whether summarized turns
+cover more of the evidence than plain retrieval does at the same budget. They did not (0.796
+against 0.801 at 1,000 tokens), so no paid step ran. A replay of the first protocol through a
+Claude subscription instead of the API reproduced its findings.
+
+**Memory driven by repetition, on Memora (2026-10-06).** LongMemEval turned out to hold almost
+no repeated information, so it could not test the idea at recolo's center: that what a person
+repeats, revises or retracts should drive what memory keeps. The next phase moved to Memora
+(ACL 2026), month-long conversations for ten personas in which remembered facts are added,
+updated and deleted, scored with a measure that rewards recalling current facts and
+penalizes repeating stale ones. recolo's version is a summary-first store: a model labels each
+session as adding, updating or retracting a remembered item, an update replaces the item, a
+retraction removes it, and related items are kept as short summaries. It was compared at the
+same 1,000-token read budget against plain retrieval and against rolling compaction, the
+production approach in which the history is rewritten in order into one running summary.
+Both comparisons were committed before scoring. On 150 questions, with Claude Haiku 4.5 as
+reader and judge, the store scored 0.278 against 0.182 for plain retrieval (+0.096, 95% CI
++0.037 to +0.155) and 0.177 for rolling compaction (+0.101, 95% CI +0.035 to +0.167). Rolling
+compaction did no better than plain retrieval. The labeling model caught only 16% of
+retractions, yet replacing its labels with the benchmark's gold labels added just 0.04, an
+amount the interval does not distinguish from zero. Every path scored low in absolute terms,
+so the finding is the comparison. The store is an evaluation prototype, not yet part of the
+library.
 
 Direct successor to veridian: it takes that project's core insight — semantic clustering
 as a general-purpose meaning-compression mechanism — and redirects it from external
