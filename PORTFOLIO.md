@@ -80,7 +80,7 @@ linear-vs-nonlinear comparison, genotype-specific confound checks, a verdict ove
 fixed before scoring, and a role as a guardrail for analysis written by LLM agents.
 
 ### veridian — literature review: map the disagreement, check the claim
-**Status:** Results committed (Check) · Explore rebuilt · Python, ONNX Runtime, transformers.js, PubMed E-utilities, Parquet, SQLite, asyncio, Anthropic API
+**Status:** Results committed (Check) · Explore rebuilt · Python, ONNX Runtime, transformers.js, PubMed E-utilities, Parquet, SQLite, asyncio, scispaCy, Anthropic API
 
 Entering an unfamiliar research domain means facing thousands of papers with no visible
 hierarchy of concepts, no sense of which interpretations are dominant versus emerging, and
@@ -251,11 +251,22 @@ Ingestion is now concurrent: async PubMed fetches inside NCBI's rate limit, with
 that honor `Retry-After`, a raw-response cache, and a SQLite job queue with leases, so a
 killed run resumes where it stopped. It froze a second corpus of 2,587 abstracts across
 eight disciplines; at the unauthenticated limit, async fetching cut 1,000 abstracts from
-12 s to 5 s, and the rate limit, not concurrency, sets the floor. Entity extraction,
-structured claim extraction and a cost comparison of approaches come next. The held-out
+12 s to 5 s, and the rate limit, not concurrency, sets the floor.
+
+**Biomedical entities** come from scispaCy (chemicals and diseases), found sentence by
+sentence over the same sentences the judge reads, so every span is addressed by paper,
+sentence and character offset. Scored against public gold corpora, the largest error was
+the tokenizer rather than the model: it kept words like "doxorubicin-induced" whole, so
+the drug inside could never be tagged. Two splitting rules, chosen on the development
+split, raised strict F1 on the BC5CDR test split from 0.75 to 0.80. On a corpus the model
+was not trained on (NCBI disease) it scores 0.57, and the rules do not help, which is the
+honest expectation for the eight-discipline corpus. All 29,213 of its sentences were
+tagged in about two minutes on one process; spaCy's process pool was slower at this size,
+because each worker spends about 27 s receiving the pipeline before it tags anything.
+Structured claim extraction and a cost comparison of approaches come next. The held-out
 claims and the result above are untouched.
 
-169 tests, running offline against committed fixtures.
+181 tests, running offline against committed fixtures.
 
 ### recolo — bio-inspired memory for LLM agents
 **Status:** Results committed · Python, SQLite, numpy · v0.1.0, 79 tests · LongMemEval, four protocols, 400 held-out questions
