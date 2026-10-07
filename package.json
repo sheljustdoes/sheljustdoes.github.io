@@ -3,8 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "predev": "node scripts/locked.mjs pull --soft",
+    "predev": "node scripts/locked.mjs pull --soft && node scripts/repo-dates.mjs",
     "dev": "next dev -p 3500",
+    "prebuild": "node scripts/repo-dates.mjs",
     "build": "next build",
     "postbuild": "node scripts/check-projects.mjs && node scripts/resume-sync.test.mjs && node scripts/locked.mjs check && node scripts/protect.mjs",
     "start": "next start",
