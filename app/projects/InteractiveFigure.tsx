@@ -49,6 +49,7 @@ export default function InteractiveFigure({ n, spec, src, alt, lead, children, s
   const plot = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<"static" | "loading" | "ready">("static");
   const [table, setTable] = useState<Table | null>(null);
+  const [legend, setLegend] = useState(true);
 
   useEffect(() => {
     const el = box.current;
@@ -64,6 +65,7 @@ export default function InteractiveFigure({ n, spec, src, alt, lead, children, s
         const [P, s] = await Promise.all([loadPlotly(), fetch(spec).then((r) => r.json() as Promise<Spec>)]);
         if (canceled || !plot.current) return;
         setTable(s.table ?? null);
+        setLegend(s.layout.showlegend !== false);
         await P.newPlot(plot.current, s.data, { ...s.layout, autosize: true }, {
           responsive: true,
           displaylogo: false,
@@ -111,7 +113,7 @@ export default function InteractiveFigure({ n, spec, src, alt, lead, children, s
           {label} {n} | {lead}
         </span>{" "}
         {children}
-        {state === "ready" && <span className="ifig-hint"> Hover for values; drag to zoom, double-click to reset; click a legend entry to hide it.</span>}
+        {state === "ready" && <span className="ifig-hint"> Hover for values; drag to zoom, double-click to reset{legend ? "; click a legend entry to hide it" : ""}.</span>}
       </figcaption>
       {table && (
         <details className="ifig-data">
