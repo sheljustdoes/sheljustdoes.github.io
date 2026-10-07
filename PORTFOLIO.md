@@ -951,8 +951,8 @@ Apps Script backend to Neon Postgres before launch.
 **Status:** Shipped · FastAPI, SvelteKit, Python · 21K LOC, 37 test modules, versioned releases
 
 A personal audio curation and library-management platform, packaged and deployed as a Home
-Assistant add-on. FastAPI backend across 22 routers, SvelteKit web client, a native macOS
-launcher, and a background queue worker behind Caddy, with library synchronization,
+Assistant add-on. FastAPI backend across 23 routers, SvelteKit web client, a native macOS
+launcher, and a background queue worker behind nginx, with library synchronization,
 ReplayGain normalization, cover art handling, and metadata enrichment from MusicBrainz and
 Wikipedia.
 
@@ -973,6 +973,13 @@ and rollback process; CI runs the Python and web suites and the web build on eve
 pinned to the add-on image's runtime versions. The architecture is written down as it
 runs — five processes in one container, the rules that let three of them share one SQLite
 file, and a read and a write request traced end to end.
+
+Access is invite-only, ahead of reaching it from outside the home network: a port of the
+shared accounts core to Python (bcrypt, breached-password checks, lockout from a security
+log, single-use set-password links, a signed session cookie that can be revoked
+everywhere), two roles, and every API route gated with writes denied to non-admins by
+default. Requests through Home Assistant's own authenticated proxy are trusted as admin,
+which is also how the first account is made on an appliance with no shell.
 
 ### ponere — content lifecycle tool
 **Status:** Shipped · Next.js (App Router), TypeScript, Postgres, Claude API
