@@ -4,9 +4,9 @@ import { PROJECT_BY_ID } from "@/lib/projects";
 
 /**
  * A write-up's byline, dated like a journal article. The years come from the project's résumé
- * dates (`date` in lib/projects.ts), the ground truth for when it ran; "Last updated" is the
+ * dates (`date` in lib/projects.ts), the ground truth for when it ran; "Updated" is the
  * repository's last commit, which scripts/repo-dates.mjs records before dev and build. A project
- * with no end year, or with a commit after its end year, is shown as active. A visual story, where
+ * with no end year, or with a commit after its end year, runs to "present". A visual story, where
  * there is one, is linked here and nowhere else on the site's lists. Children are the work's
  * milestones, on a second line.
  */
@@ -23,17 +23,12 @@ export default function Byline({ id, children }: { id: string; children?: React.
         {start && (
           <>
             <span className="sep">·</span>
-            {active ? `Started ${start}` : start === end ? start : `${start}–${end}`}
-          </>
-        )}
-        {start && active && (
-          <>
-            <span className="sep">·</span>Active
+            {active ? `${start}–present` : start === end ? start : `${start}–${end}`}
           </>
         )}
         {updated && (
           <>
-            <span className="sep">·</span>Last updated <time dateTime={updated}>{long(updated)}</time>
+            <span className="sep">·</span>Updated <time dateTime={updated}>{long(updated)}</time>
           </>
         )}
       </p>
@@ -55,4 +50,4 @@ const UPDATED: Record<string, string> = (() => {
 })();
 
 const long = (iso: string) =>
-  new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+  new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
