@@ -392,7 +392,10 @@ reader and judge, the store scored 0.278 against 0.182 for plain retrieval (+0.0
 +0.037 to +0.155) and 0.177 for rolling compaction (+0.101, 95% CI +0.035 to +0.167). Rolling
 compaction did no better than plain retrieval. The labeling model caught only 16% of
 retractions, yet replacing its labels with the benchmark's gold labels added just 0.04, an
-amount the interval does not distinguish from zero. Every path scored low in absolute terms,
+amount the interval does not distinguish from zero. A follow-up split of the score, also
+committed before it was computed, showed the gain came from recalling more current facts; the
+store was worse than rolling compaction at withholding retired ones, which the gold labels
+fixed. Every path scored low in absolute terms,
 so the finding is the comparison. The store is an evaluation prototype, not yet part of the
 library.
 
