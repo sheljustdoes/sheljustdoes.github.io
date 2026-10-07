@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import WriteupToc from "./WriteupToc";
 
 // Every project write-up (and the /projects index) stays out of search results; pages remain linkable.
 export const metadata: Metadata = { robots: { index: false, follow: true } };
@@ -14,6 +15,7 @@ export default function ProjectsLayout({ children }: { children: React.ReactNode
           ← shel.
         </a>
       </nav>
+      <WriteupToc />
       <main>
         <article>{children}</article>
       </main>
@@ -45,10 +47,38 @@ article .kicker {
   margin-bottom: 16px; display: block;
 }
 article .tagline { font-style: italic; color: #4a4540; font-size: 1.1rem; margin-bottom: 32px; padding-bottom: 28px; border-bottom: 1px solid var(--parchment); }
+/* Visual story link under a write-up's byline: the Work page's CTA pill. */
+article .story-link { margin: -8px 0 24px; }
+article .story-link a { display: inline-block; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none; color: var(--cream); background: #a8431f; border: 1px solid #a8431f; padding: 7px 14px; border-radius: 999px;
+  transition: background 0.15s ease; }
+article .story-link a:hover { background: #8a3617; border-color: #8a3617; }
+article .story-link a:focus-visible { outline: 2px solid var(--indigo); outline-offset: 2px; }
+/* Write-up contents: a sticky left rail beside the 720px column, only where there is room for it. */
+.writeup-toc { display: none; }
+@media (min-width: 1240px) {
+  .writeup-toc { display: block; position: fixed; top: 120px; left: max(24px, calc(50vw - 480px - 236px)); width: 212px;
+    max-height: calc(100vh - 160px); overflow-y: auto; scrollbar-width: thin; }
+  /* Wide figures give up width rather than run under the rail. */
+  .write-up:has(.writeup-toc) article figure.wide { width: min(960px, calc(100vw - 520px)); }
+}
+.writeup-toc-label { display: block; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--terracotta); margin-bottom: 10px; }
+.writeup-toc ol { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--parchment); }
+.writeup-toc a { display: block; padding: 5px 0 5px 12px; margin-left: -1px; border-left: 2px solid transparent;
+  font-family: var(--display); font-size: 0.8rem; line-height: 1.35; color: #655f55; text-decoration: none; }
+.writeup-toc a:hover { color: var(--terracotta); }
+.writeup-toc a.is-active { color: var(--charcoal); border-left-color: var(--terracotta); }
+.writeup-toc a:focus-visible { outline: 2px solid var(--indigo); outline-offset: 2px; }
+article h2[id] { scroll-margin-top: 24px; }
+@media (prefers-reduced-motion: reduce) { article .story-link a { transition: none; } }
 article .byline {
   font-family: var(--mono); font-size: 0.72rem; color: #4a4540; margin: 0 0 24px;
 }
 article .byline .sep { color: var(--taupe); margin: 0 8px; }
+/* Milestones sit directly under the dates, as one byline block. */
+article .byline:has(+ .byline-history) { margin-bottom: 4px; }
+article .byline-history { color: #8a8378; }
 article .abstract {
   font-size: 0.95rem; line-height: 1.65; color: #333130; margin: 0 0 36px; padding: 20px 24px;
   background: rgba(227, 220, 207, 0.28); border-top: 1px solid var(--parchment); border-bottom: 1px solid var(--parchment);

@@ -63,6 +63,14 @@ to the build step's `env` in `.github/workflows/deploy-pages.yml`. A local build
 `LOCK_*` variables leaves locked projects readable, which is fine for previewing but not for
 deploying.
 
+Each write-up's byline is dated like an article. Its years come from the project's résumé
+`date` in `lib/projects.ts`, and "Last updated" is the last commit on the project's own
+repository, which `scripts/repo-dates.mjs` records before every dev start and build. A
+project committed to after its résumé end year is shown as active. The project repositories
+are private, so the deploy reads them with the `REPOS_TOKEN` secret (fine-grained, read-only
+contents on those repositories); local runs read the clones beside this one instead. Without
+either, the build still succeeds and the bylines leave out the date.
+
 **Shared brand.** `public/brand/` is the single source of the apps' look — colors, typefaces, radii and a few shared components — served at `https://sheljustdoes.github.io/brand/`. scintilla, ponere and lumen's viewer link it at runtime, so a change there restyles all three on the next deploy of this site. See [`public/brand/README.md`](public/brand/README.md).
 
 ---

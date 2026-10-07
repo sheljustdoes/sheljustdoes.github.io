@@ -62,6 +62,10 @@ export type Project = {
    * Designed. Absent only where PORTFOLIO.md gives none.
    */
   status?: string;
+  /**
+   * Years active, as the résumé shows them ("2023–2025", or "2026–" while open). The ground truth
+   * for when a project started; a write-up's byline also reads it, beside the repository's last commit.
+   */
   date?: string;
   /** Shared by the résumé card, the graph panel lead, and the Google Doc. */
   summary: string;
@@ -72,7 +76,7 @@ export type Project = {
   /** Write-ups and public destinations only — never a private repository. */
   link?: string;
   linkLabel?: string;
-  /** A scroll-driven visual story beside the write-up, linked just before it. */
+  /** A scroll-driven visual story, linked from the top of its write-up and nowhere else. */
   story?: string;
   /** Supporting projects only: a screenshot of the work, shown in the /projects/ grid. */
   shot?: { src: string; alt: string; caption: string };

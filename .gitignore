@@ -28,4 +28,5 @@ tsconfig.tsbuildinfo
 /public/projects/*/
 !/public/projects/supporting/
 /.locked-base
+/lib/repo-dates.json
 /.apotheca/

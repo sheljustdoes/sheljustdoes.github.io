@@ -36,6 +36,8 @@ jobs:
       # One password per locked project; scripts/protect.mjs fails the build if one is missing.
       - run: npm run build
         env:
+          # Read-only on the project repositories: dates each write-up's "Last updated".
+          REPOS_TOKEN: ${{ secrets.REPOS_TOKEN }}
           LOCK_IRIDIS: ${{ secrets.LOCK_IRIDIS }}
           LOCK_FRAGARIA: ${{ secrets.LOCK_FRAGARIA }}
       - uses: actions/upload-pages-artifact@v3
