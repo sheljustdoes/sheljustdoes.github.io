@@ -99,7 +99,7 @@ export const PROJECTS: Project[] = [
       "A stability-certification protocol for deciding when latent structure in high-dimensional biological data is real enough to act on: eight gating stages ending in an explicit GO/KILL/HOLD verdict. Stage 0 is a tested Python package whose every module enforces a rule learned on real data — declared missing-value codes, stability from resampling rather than seeds, untestable confounds blocking a GO, kinship-based relatedness control, deduplicated grids, and non-redundancy measured on rows both pipelines cluster. fragaria's scored Stage 0 runs on it and reproduces its results exactly.",
   },
   {
-    id: "veridian", name: "veridian", area: "frameworks", status: "Results committed (Check)", date: "2025", featured: true,
+    id: "veridian", name: "veridian", area: "frameworks", status: "Results committed (Check)", date: "2025–", featured: true,
     link: "/projects/veridian/", linkLabel: "Read the write-up →",
     resumeLine:
       "Literature review tool that checks a claim against a frozen paper corpus and cites the sentences behind each verdict. Audited it, found the original rule called every claim supported, and rebuilt it: 86% verdict accuracy on 21 held-out claims (95% interval 65–95%), against 48% for the original rule.",
@@ -116,7 +116,7 @@ export const PROJECTS: Project[] = [
   },
   // ---- Perceptual & imaging phenotyping ----
   {
-    id: "iridis", name: "iridis", area: "phenotyping", status: "Results committed", date: "2023–2025",
+    id: "iridis", name: "iridis", area: "phenotyping", status: "Results committed", date: "2023–",
     link: "/projects/iridis/", linkLabel: "Read the write-up →", story: "/projects/iridis/story/",
     summary:
       "Perceptual skin-tone phenotyping over ~17.8K open dermatology images (Fitzpatrick17k, ISIC 2018). A layered masking pipeline — foreground segmentation plus a ResNet18-U-Net lesion mask (held-out Dice 0.889) — isolates skin before CIE Lab featurization and CIEDE2000 perceptual clustering. Measured color barely tracks Fitzpatrick type: type explains 7% of lightness variance, and predicting it from color barely beats guessing the commonest type (35–42% against 34%); masking did not help. An earlier claim that discovered clusters were 2.5–2.8× more predictable was withdrawn as largely circular; a pre-registered retest found no stable color categories at all (resampling ARI 0.31). Against a colorimeter on a second dataset, an independent reanalysis reproduced the dataset authors' finding that Fitzpatrick type tracks skin color and Monk Skin Tone tracks it better, while image-derived color does not, and measured how much of the image error is capture alone: the weak link was the camera, not the scale.",
