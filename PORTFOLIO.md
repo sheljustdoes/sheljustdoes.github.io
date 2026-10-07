@@ -39,6 +39,10 @@ memory adds for an LLM agent; noul answers questions about code without generati
 is measured against a plain baseline, negative results stay in (none of recolo's
 original mechanisms helped), and fixes found by the studies that use a framework go back into it.
 
+**Flagship:** recolo, the framework carried furthest: its original mechanisms failed
+pre-registered tests, and the redesign that followed beat both plain retrieval and rolling
+compaction on Memora at the same token budget.
+
 ### topos — stability certification for latent structure
 **Status:** Implemented (Stage 0 checks) · Python package, 8 stage specifications, 27 tests
 

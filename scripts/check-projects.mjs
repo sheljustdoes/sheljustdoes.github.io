@@ -75,15 +75,15 @@ for (const c of canonical.values()) {
   }
 }
 
-// ---- Product lines: each leads with one flagship, first, with a write-up ----
+// ---- Frameworks and product lines: each leads with one flagship, first, with a write-up ----
 // The flagship is what a reader opens first, so it must have somewhere to go;
 // PORTFOLIO.md names the same flagship on the line's `**Flagship:**` line.
 for (const area of feed.areas) {
   const named = flagshipLines.get(area.portfolioSection) ?? null;
-  if (area.kind === "line") {
+  if (area.kind === "line" || area.kind === "framework") {
     const first = area.projects[0];
     if (!area.flagship) {
-      errors.push(`${area.id}: research area with no flagship`);
+      errors.push(`${area.id}: ${area.kind === "line" ? "research area" : "framework area"} with no flagship`);
     } else if (first?.id !== area.flagship) {
       errors.push(`${area.id}: flagship ${area.flagship} must be listed first (found ${first?.id ?? "nothing"})`);
     } else if (!first.link?.startsWith("/projects/")) {
@@ -93,7 +93,7 @@ for (const area of feed.areas) {
       errors.push(`${area.id}: flagship ${area.flagship ?? "(none)"} here, but PORTFOLIO.md's **Flagship:** line names ${named ?? "nothing"}`);
     }
   } else if (area.flagship || named) {
-    errors.push(`${area.id}: only research areas have a flagship`);
+    errors.push(`${area.id}: only frameworks and research areas have a flagship`);
   }
 }
 

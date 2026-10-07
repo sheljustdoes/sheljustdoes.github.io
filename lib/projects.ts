@@ -17,15 +17,15 @@ export type Area = {
   /** The `## ` heading this area mirrors in PORTFOLIO.md, verbatim. */
   portfolioSection: string;
   /**
-   * Frameworks are what the research builds on and open the page, with no
-   * flagship; a research area leads with a flagship; supporting areas show how
+   * Frameworks are what the research builds on and open the page; frameworks
+   * and research areas lead with a flagship; supporting areas show how
    * the work gets built. The résumé page opens frameworks and lines, and folds
    * the rest.
    */
   kind: "framework" | "line" | "supporting";
   /** Frameworks and research areas: one sentence on what the area is for. */
   thesis?: string;
-  /** Research areas only: the project that leads it. Listed first, with a write-up. */
+  /** Frameworks and research areas: the project that leads it. Listed first, with a write-up. */
   flagship?: string;
 };
 
@@ -33,7 +33,7 @@ export type Area = {
 export const AREAS: Area[] = [
   {
     id: "frameworks", label: "Frameworks", portfolioSection: "Frameworks",
-    kind: "framework",
+    kind: "framework", flagship: "recolo",
     thesis: "The frameworks the research builds on, each proven in real use and measured against a plain baseline, with fixes found in use going back into the framework.",
   },
   {
@@ -81,6 +81,14 @@ export type Project = {
 export const PROJECTS: Project[] = [
   // ---- Frameworks ----
   {
+    id: "recolo", name: "recolo", area: "frameworks", status: "Results committed", date: "2026–", featured: true,
+    link: "/projects/recolo/", linkLabel: "Read the write-up →",
+    resumeLine:
+      "Designed memory for LLM agents (episodic and semantic stores with decay, salience and consolidation) and fixed the LongMemEval protocol before scoring. Plain retrieval over the same memories won (0.73 against 0.32 as shipped), so ablations and four more pre-registered protocols traced why and tested compaction. A redesign around what users add, revise and retract then beat both plain retrieval and rolling compaction on Memora at the same token budget (0.28 against 0.18).",
+    summary:
+      "Memory for LLM agents, tested against plain retrieval under protocols committed before scoring. The current design is a summary-first store: a model labels each session as adding, updating or retracting a remembered item, and a retraction removes the item along with its source sessions. On Memora, at the same 1,000-token read budget, it scored 0.278 against 0.182 for plain retrieval and 0.177 for rolling compaction, the production approach (both differences +0.10, 95% intervals above zero); absolute scores stay low. It replaced the original bio-inspired design (decay, salience and consolidation), which lost to plain retrieval on LongMemEval (0.32 against 0.73) and which four follow-up protocols could not rescue. Reported as-is.",
+  },
+  {
     id: "topos", name: "topos", area: "frameworks", status: "Implemented (Stage 0 checks)", date: "2025–",
     link: "/projects/topos/", linkLabel: "Read the write-up →",
     summary:
@@ -93,14 +101,6 @@ export const PROJECTS: Project[] = [
       "Literature review tool that checks a claim against a frozen paper corpus and cites the sentences behind each verdict. Audited it, found the original rule called every claim supported, and rebuilt it: 86% verdict accuracy on 21 held-out claims (95% interval 65–95%), against 48% for the original rule.",
     summary:
       "A literature review tool with two modes over one frozen corpus: Explore maps a field and where it disagrees; Check grounds a claim against the papers, citing the sentences behind the verdict. After an audit found the original grounding answered “supported” to every claim, the rebuilt Check reached 86% verdict accuracy on 21 held-out claims written before any fix (95% interval 65–95%), against 48% for the original rule.",
-  },
-  {
-    id: "recolo", name: "recolo", area: "frameworks", status: "Results committed", date: "2026–", featured: true,
-    link: "/projects/recolo/", linkLabel: "Read the write-up →",
-    resumeLine:
-      "Designed memory for LLM agents (episodic and semantic stores with decay, salience and consolidation) and fixed the LongMemEval protocol before scoring. Plain retrieval over the same memories won (0.73 against 0.32 as shipped), so ablations and four more pre-registered protocols traced why and tested compaction. A redesign around what users add, revise and retract then beat both plain retrieval and rolling compaction on Memora at the same token budget (0.28 against 0.18).",
-    summary:
-      "Bio-inspired memory for LLM agents: episodic and semantic stores over SQLite, exponential decay computed at retrieval, salience scored independently of age, and a consolidation loop that promotes cluster centroids and accelerates decay on what they already represent rather than deleting it. Evaluated on LongMemEval under a protocol committed before scoring: as shipped it scored 0.32 against 0.73 for plain retrieval over the same memories, and ablations trace the loss to decay on a fixed clock. A second protocol tested decay that adapts to the history: none of three modes beat plain retrieval, even on knowledge-update questions. A third tested salience as a tie-breaker and consolidation as an index over its member episodes, with decay off: neither retrieved evidence better than plain retrieval, so none of recolo's mechanisms helps. A fourth showed why decay had nothing to add: shown dated and in time order, retrieved memories let the reader pick the newer fact itself (removing those cues costs 15 points). A fifth found that compacting clusters into summaries put no more evidence in front of the reader. The next phase redesigned memory around repetition: a summary-first store in which a model labels each session as adding, updating or retracting a remembered item. On Memora, at the same 1,000-token budget and under a pre-registered protocol, it scored 0.278 against 0.182 for plain retrieval and 0.177 for rolling compaction, the production approach (both differences +0.10, 95% intervals above zero). Reported as-is.",
   },
   {
     id: "noul", name: "noul", area: "frameworks", status: "Results committed (`find` only)", date: "2026–", featured: true,
