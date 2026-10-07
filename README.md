@@ -64,9 +64,9 @@ to the build step's `env` in `.github/workflows/deploy-pages.yml`. A local build
 deploying.
 
 Each write-up's byline is dated like an article. Its years come from the project's résumé
-`date` in `lib/projects.ts`, and "Last updated" is the last commit on the project's own
+`date` in `lib/projects.ts`, and "Updated" is the last commit on the project's own
 repository, which `scripts/repo-dates.mjs` records before every dev start and build. A
-project committed to after its résumé end year is shown as active. The project repositories
+project committed to after its résumé end year runs to "present". The project repositories
 are private, so the deploy reads them with the `REPOS_TOKEN` secret (fine-grained, read-only
 contents on those repositories); local runs read the clones beside this one instead. Without
 either, the build still succeeds and the bylines leave out the date.

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BackLink from "./BackLink";
 import WriteupToc from "./WriteupToc";
 
 // Every project write-up (and the /projects index) stays out of search results; pages remain linkable.
@@ -11,9 +12,7 @@ export default function ProjectsLayout({ children }: { children: React.ReactNode
           (adding class="native-dark-class-modified") before hydration. */}
       <style suppressHydrationWarning>{WRITEUP_CSS}</style>
       <nav aria-label="Site">
-        <a href="/" className="write-up-back">
-          ← shel.
-        </a>
+        <BackLink />
       </nav>
       <WriteupToc />
       <main>
