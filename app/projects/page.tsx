@@ -3,7 +3,7 @@ import SectionNav from "./SectionNav";
 
 export const metadata = { title: "work — shel." };
 
-// The products view of the portfolio: the frameworks the research builds on,
+// The products view of the portfolio: the frameworks the research builds on, led by their flagship,
 // then the research areas, each led by its flagship, then everything else as supporting
 // evidence. Every word comes from
 // lib/projects.ts, so this page cannot say something the résumé does not.
@@ -28,6 +28,7 @@ export default function ProjectsIndex() {
           <p className="line-thesis">{area.thesis}</p>
           {projectsInArea(area.id).map((p) => (
             <div key={p.id} className="line-flagship framework">
+              {p.id === area.flagship && <span className="line-flag-label">Flagship</span>}
               <h3>
                 {p.name}. <span className="line-meta">{meta(p)}</span>
               </h3>
