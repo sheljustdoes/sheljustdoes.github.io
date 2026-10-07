@@ -522,18 +522,11 @@ export default function HomePage() {
                 );
               })}
             </div>
-            {(selected.story || selected.link) && (
+            {selected.link && (
               <div className="panel-links">
-                {selected.story && (
-                  <a className="panel-link" href={selected.story}>
-                    See the visual story →
-                  </a>
-                )}
-                {selected.link && (
-                  <a className="panel-link" href={selected.link} {...(selected.link.startsWith("/") ? {} : { target: "_blank", rel: "noopener" })}>
-                    {selected.linkLabel ?? "Open ↗"}
-                  </a>
-                )}
+                <a className="panel-link" href={selected.link} {...(selected.link.startsWith("/") ? {} : { target: "_blank", rel: "noopener" })}>
+                  {selected.linkLabel ?? "Open ↗"}
+                </a>
               </div>
             )}
           </div>
