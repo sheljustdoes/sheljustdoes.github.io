@@ -3,9 +3,9 @@ import SectionNav from "./SectionNav";
 
 export const metadata = { title: "work — shel." };
 
-// The products view of the portfolio: the frameworks the research builds on, led by their flagship,
-// then the research areas, each led by its flagship, then everything else as supporting
-// evidence. Every word comes from
+// The products view of the portfolio: the frameworks the research builds on, then the research
+// areas, each section led by one flagship card with the rest listed below it, then everything
+// else as supporting evidence. Every word comes from
 // lib/projects.ts, so this page cannot say something the résumé does not.
 
 export default function ProjectsIndex() {
@@ -22,31 +22,16 @@ export default function ProjectsIndex() {
         items={[...[...FRAMEWORKS, ...LINES].map((a) => ({ id: a.id, label: NAV_LABEL[a.id] ?? a.label })), { id: "supporting", label: "Supporting" }]}
       />
 
-      {FRAMEWORKS.map((area) => (
-        <section key={area.id} id={area.id} className="line">
-          <SectionHead kicker="Foundations" title={area.label} />
-          <p className="line-thesis">{area.thesis}</p>
-          {projectsInArea(area.id).map((p) => (
-            <div key={p.id} className="line-flagship framework">
-              {p.id === area.flagship && <span className="line-flag-label">Flagship</span>}
-              <h3>
-                {p.name}. <span className="line-meta">{meta(p)}</span>
-              </h3>
-              <p>{p.summary}</p>
-              <Links p={p} />
-            </div>
-          ))}
-        </section>
-      ))}
-
-      {LINES.map((area, i) => {
+      {[...FRAMEWORKS, ...LINES].map((area) => {
         const flagship = PROJECT_BY_ID[area.flagship!];
         const rest = projectsInArea(area.id).filter((p) => p.id !== flagship.id);
+        const isFramework = FRAMEWORKS.includes(area);
+        const kicker = isFramework ? "Foundations" : `Research ${String(LINES.indexOf(area) + 1).padStart(2, "0")}`;
         return (
           <section key={area.id} id={area.id} className="line">
-            <SectionHead kicker={`Research ${String(i + 1).padStart(2, "0")}`} title={area.label} />
+            <SectionHead kicker={kicker} title={area.label} />
             <p className="line-thesis">{area.thesis}</p>
-            <div className="line-flagship">
+            <div className={isFramework ? "line-flagship framework" : "line-flagship"}>
               <span className="line-flag-label">Flagship</span>
               <h3>
                 {flagship.name}. <span className="line-meta">{meta(flagship)}</span>
@@ -101,29 +86,39 @@ function SectionHead({ kicker, title }: { kicker: string; title: string }) {
 
 const meta = (p: Project) => [p.date, p.status && displayStatus(p.status)].filter(Boolean).join(" · ");
 
-/** A card's links: the visual story, where there is one, then the write-up. */
+/** A card's link. A visual story is reached from its write-up, never linked here. */
 function Links({ p }: { p: Project }) {
-  if (!p.story && !p.link) return null;
+  if (!p.link) return null;
   return (
     <p className="line-links">
-      {p.story && <a href={p.story}>See the visual story →</a>}
-      {p.link && <a href={p.link}>{p.linkLabel ?? "Read the write-up →"}</a>}
+      <a href={p.link}>{p.linkLabel ?? "Read the write-up →"}</a>
     </p>
   );
 }
 
-/** A non-flagship project: name and status, the name linking only where a write-up or public page exists. */
+/**
+ * A non-flagship project: name and status. The name links to a write-up or public page where one
+ * exists; otherwise it opens the project's summary in place, since a private repo would 404.
+ */
 function Entry({ p }: { p: Project }) {
   const external = p.link?.startsWith("http");
+  if (!p.link) {
+    return (
+      <li>
+        <details className="entry-more">
+          <summary>
+            <span className="entry-name">{p.name}.</span> <span className="line-meta">{meta(p)}</span>
+          </summary>
+          <p>{p.summary}</p>
+        </details>
+      </li>
+    );
+  }
   return (
     <li>
-      {p.link ? (
-        <a href={p.link} {...(external ? { target: "_blank", rel: "noopener" } : {})}>
-          {p.name}.
-        </a>
-      ) : (
-        <span className="entry-name">{p.name}.</span>
-      )}{" "}
+      <a href={p.link} {...(external ? { target: "_blank", rel: "noopener" } : {})}>
+        {p.name}.
+      </a>{" "}
       <span className="line-meta">{meta(p)}</span>
     </li>
   );
@@ -189,6 +184,13 @@ article .line-meta { font-family: var(--mono); font-size: 0.62rem; letter-spacin
 article .line-rest { list-style: none; padding-left: 0; }
 article .line-rest li { padding: 4px 0; border-bottom: 1px solid var(--parchment); }
 article .entry-name { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; }
+/* Entries without a page: the name reads as a link and opens the summary in place. */
+article .entry-more summary { list-style: none; cursor: pointer; }
+article .entry-more summary::-webkit-details-marker { display: none; }
+article .entry-more .entry-name { color: #a8431f; text-decoration: underline; }
+article .entry-more summary:hover .entry-name { color: #8a3617; }
+article .entry-more summary:focus-visible { outline: 2px solid var(--indigo); outline-offset: 2px; }
+article .entry-more p { font-size: 0.88rem; margin: 6px 0 4px; color: #4a4540; }
 /* Supporting tiles: a catalog grid, wider than the text column. */
 article .tile-grid { list-style: none; padding: 0; position: relative; left: 50%; transform: translateX(-50%);
   width: min(1040px, calc(100vw - 32px)); display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 28px; margin: 28px 0 0; }
