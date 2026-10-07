@@ -40,6 +40,7 @@ jobs:
           REPOS_TOKEN: ${{ secrets.REPOS_TOKEN }}
           LOCK_IRIDIS: ${{ secrets.LOCK_IRIDIS }}
           LOCK_FRAGARIA: ${{ secrets.LOCK_FRAGARIA }}
+          LOCK_RECOLO: ${{ secrets.LOCK_RECOLO }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
