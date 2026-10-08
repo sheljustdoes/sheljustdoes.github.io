@@ -988,6 +988,14 @@ The streaming server's credentials never reach the browser: the proxy signs each
 itself, opens only the five endpoints playback needs, and rejects any request that brings
 its own credentials.
 
+It is now the music section of a private family media platform, reachable from anywhere
+but never open to the internet. The app itself answers only on a private mesh network. The
+one public entry point is a TLS passthrough that the proxy opens only for devices holding a
+client certificate; any other connection is closed without a response, so there is no page
+to find or attack. Getting there meant working around a mobile browser limitation: iOS
+sends no client certificate on a service worker's own requests, so the app runs without one
+behind that entry point.
+
 ### ponere — content lifecycle tool
 **Status:** Shipped · Next.js (App Router), TypeScript, Postgres, Claude API
 
