@@ -957,7 +957,9 @@ A personal audio curation and library-management platform, packaged and deployed
 Assistant add-on. FastAPI backend across 23 routers, SvelteKit web client, a native macOS
 launcher, and a background queue worker behind nginx, with library synchronization,
 ReplayGain normalization, cover art handling, and metadata enrichment from MusicBrainz and
-Wikipedia.
+Wikipedia. For Internet Archive items, a dedicated resolver reads the item's file list and
+takes the uploader's originals (lossless first) over the archive's derived copies, recording
+each item's license in the file's tags.
 
 Library hygiene is handled where the obvious approach doesn't work: the same recording
 arrives from different sources as separate encodes, so duplicate detection matches on
