@@ -86,7 +86,7 @@ export const PROJECTS: Project[] = [
   // ---- Frameworks ----
   {
     id: "recolo", name: "recolo", area: "frameworks", status: "Results committed", date: "2026–", featured: true,
-    link: "/projects/recolo/", linkLabel: "Read the write-up →",
+    link: "/projects/recolo/", linkLabel: "Read the write-up →", story: "/projects/recolo/story/",
     resumeLine:
       "Designed memory for LLM agents (episodic and semantic stores with decay, salience and consolidation) and fixed the LongMemEval protocol before scoring. Plain retrieval over the same memories won (0.73 against 0.32 as shipped), so ablations and four more pre-registered protocols traced why and tested compaction. A redesign around what users add, revise and retract then beat both plain retrieval and rolling compaction on Memora at the same token budget (0.28 against 0.18).",
     summary:
