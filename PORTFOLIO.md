@@ -996,6 +996,15 @@ to find or attack. Getting there meant working around a mobile browser limitatio
 sends no client certificate on a service worker's own requests, so the app runs without one
 behind that entry point.
 
+Devices are enrolled, not configured by hand. The add-on runs its own certificate
+authority: an admin names a device and gets a single-use install link, stored only as a
+hash and expiring after three days, which the phone opens in its own browser to receive
+its certificate. Revoking a device publishes a revocation list the proxy checks on every
+connection, so a lost phone is shut out at once. One list shows accounts, devices and open
+invites together, and an invite can carry the device step, so a new listener sets a
+password and installs the app in one visit. Tests drive a real proxy with enrolled,
+revoked and missing certificates.
+
 ### ponere — content lifecycle tool
 **Status:** Shipped · Next.js (App Router), TypeScript, Postgres, Claude API
 
