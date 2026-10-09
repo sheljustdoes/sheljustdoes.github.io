@@ -973,11 +973,14 @@ client read it — into the files and the artist's folder — not into the app's
 Notable for its **failure handling against an uncooperative upstream**: randomized pacing
 between requests, a single delayed retry for transient rate-limiting that resumes only the
 missing items, and no retry at all for permanent failures — waiting doesn't fix a removed
-resource. Every release is a tagged version with a changelog entry and a written release
-and rollback process; CI runs the Python and web suites and the web build on every push,
-pinned to the add-on image's runtime versions. The architecture is written down as it
-runs — five processes in one container, the rules that let three of them share one SQLite
-file, and a read and a write request traced end to end.
+resource. The download queue reports what actually happened: a run that brought nothing
+because every entry was already in the downloader's archive, its files deleted since, is
+told apart from a source that had nothing, and each item can be retried, fetched again past
+the archive, or retried in another format. Every release is a tagged version with a
+changelog entry and a written release and rollback process; CI runs the Python and web
+suites and the web build on every push, pinned to the add-on image's runtime versions. The
+architecture is written down as it runs — five processes in one container, the rules that
+let three of them share one SQLite file, and a read and a write request traced end to end.
 
 Access is invite-only, ahead of reaching it from outside the home network: a port of the
 shared accounts core to Python (bcrypt, breached-password checks, lockout from a security
