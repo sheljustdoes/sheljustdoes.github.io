@@ -987,8 +987,8 @@ shared accounts core to Python (bcrypt, breached-password checks, lockout from a
 log, single-use set-password links, a signed session cookie that can be revoked
 everywhere), two roles, and every API route gated with writes denied to non-admins by
 default. Requests through Home Assistant's own authenticated proxy are trusted as admin,
-which is also how the first account is made on an appliance with no shell. A share-sheet
-shortcut queues downloads with a per-account API token that works on that one route only.
+which is also how the first account is made on an appliance with no shell. Suspending an
+account revokes its devices along with its sessions.
 The streaming server's credentials never reach the browser: the proxy signs each request
 itself, opens only the five endpoints playback needs, and rejects any request that brings
 its own credentials.
