@@ -990,7 +990,10 @@ log, single-use set-password links, a signed session cookie that can be revoked
 everywhere), two roles, and every API route gated with writes denied to non-admins by
 default. Requests through Home Assistant's own authenticated proxy are trusted as admin,
 which is also how the first account is made on an appliance with no shell. Suspending an
-account revokes its devices along with its sessions.
+account revokes its devices along with its sessions. A listener sees a pared-down app,
+close to a streaming service: library, playlists and their own wishlist, with upkeep pages
+and library edits closed to them; an admin can change a role, and the last admin cannot be
+demoted.
 The streaming server's credentials never reach the browser: the proxy signs each request
 itself, opens only the five endpoints playback needs, and rejects any request that brings
 its own credentials.
