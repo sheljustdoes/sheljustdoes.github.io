@@ -958,7 +958,8 @@ Assistant add-on. FastAPI backend across 23 routers, SvelteKit web client, a nat
 launcher, and a background queue worker behind nginx, with library synchronization,
 ReplayGain normalization, cover art handling, and metadata enrichment from MusicBrainz and
 Wikipedia, with Apple's iTunes catalog as a fallback for the singles and session recordings
-MusicBrainz has no release for. For Internet Archive items, a dedicated resolver reads the item's file list and
+MusicBrainz has no release for. The same catalog search finds an album from a half-remembered
+name when adding it to a wishlist, and playlists import from a Spotify data export. For Internet Archive items, a dedicated resolver reads the item's file list and
 takes the uploader's originals (lossless first) over the archive's derived copies, recording
 each item's license in the file's tags.
 
@@ -1009,7 +1010,9 @@ its certificate: an iPhone as a configuration profile, an Android phone as a cer
 file whose one-time password is shown only on that page. Revoking a device publishes a revocation list the proxy checks on every
 connection, so a lost phone is shut out at once. One list shows accounts, devices and open
 invites together, and an invite can carry the device step, so a new listener sets a
-password and installs the app in one visit. Tests drive a real proxy with enrolled,
+password and installs the app in one visit. Joining has its own port that never asks for a
+certificate: a phone's browser remembers declining one for a host and port, so a phone that
+joined on the certificate port would be refused there until the browser restarted. Tests drive a real proxy with enrolled,
 revoked and missing certificates.
 
 ### ponere — content lifecycle tool
