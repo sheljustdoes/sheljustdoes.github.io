@@ -965,7 +965,9 @@ name when adding it to a wishlist, and playlists import from a Spotify data expo
 takes the uploader's originals (lossless first) over the archive's derived copies, recording
 each item's license in the file's tags. Downloads also come from YouTube, SoundCloud and
 Bandcamp, queued from the web app or the Mac launcher, and the wishlist can search each source
-for an album.
+for an album. Each person keeps one wishlist, a sortable table that ranks albums by a 0–100
+popularity score derived from Last.fm listener counts, kept apart from the household's own
+listening.
 
 The genre layer is a sourced family tree rather than free-text tags: about 280 genres with
 their lineage links, each placement recorded with the Wikipedia section it was read from, and
@@ -986,6 +988,9 @@ of near-identical length — so a match also needs the title or the track slot t
 a person's "not a duplicate" judgment is remembered per pair of files. Artwork a user sets,
 album covers and artist photos alike, is written where the streaming server and every
 client read it — into the files and the artist's folder — not into the app's own database.
+Space is reclaimed the same cautious way: only lossless files (ALAC, FLAC, WAV) are converted
+to 256 kbps AAC, never an already lossy MP3 or Opus, with a preview first, an optional cap on
+how many files a run converts, and the originals quarantined until someone empties them.
 
 Notable for its **failure handling against an uncooperative upstream**: randomized pacing
 between requests, a single delayed retry for transient rate-limiting that resumes only the
