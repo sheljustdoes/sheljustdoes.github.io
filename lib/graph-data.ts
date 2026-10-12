@@ -169,7 +169,7 @@ const AUTHORED: AuthoredNode[] = [
       "Versioned releases, CI, and test suites across every shipped service",
       "Scheduled jobs that keep reference data current: a weekly fuel-price refresh and a quarterly tariff check that opens a pull request for review",
       "Failure handling that degrades rather than stops — fallback tiers, bounded retries",
-      "Demonstrated in menhir, audire, mara, and a client model deployment on AWS SageMaker",
+      "Demonstrated in menhir, Cella, mara, and a client model deployment on AWS SageMaker",
     ],
     keywords: ["Model Deployment", "AWS SageMaker", "MLOps", "CI/CD", "Docker", "Release Management", "Testing", "Scheduled Jobs", "Graceful Degradation"] },
 
@@ -191,7 +191,7 @@ const AUTHORED: AuthoredNode[] = [
       "APIs designed for other callers: a multi-tenant pricing API with scoped keys, and a client-facing SDK",
       "FastAPI services behind a SvelteKit client, packaged for self-hosting",
       "Offline-capable PWAs with background-sync writes",
-      "Demonstrated in menhir, audire, ponere, mara, and a delivered client SDK",
+      "Demonstrated in menhir, Cella, ponere, mara, and a delivered client SDK",
     ],
     keywords: ["Next.js", "TypeScript", "React", "SvelteKit", "FastAPI", "API Design", "SDK Development", "Multi-Tenancy", "Postgres", "OAuth", "Auth.js", "JWT", "Stripe", "Webhooks", "PWA", "Service Workers"] },
 
@@ -424,9 +424,9 @@ const AUTHORED: AuthoredNode[] = [
       "~106K LOC across 349 files, 25 test modules, 458 commits",
     ],
     keywords: ["Next.js", "TypeScript", "bcrypt", "Session Cookies", "Stripe", "Web Push", "PWA", "Offline Sync", "Background Sync", "Multi-Provider LLM", "Deterministic Engines", "RPE", "Autoregulation"] },
-  { id: "audire", label: "audire", type: "project", color: "blush-deep", r: 20, x: 1420, y: 1034,
+  { id: "cella", label: "Cella", type: "project", color: "blush-deep", r: 20, x: 1420, y: 1034,
     points: [
-      "Audio curation and library management, packaged and deployed as a Home Assistant add-on",
+      "Household entertainment hub on Home Assistant; its music section, Audire, handles audio curation and library management as an add-on",
       "FastAPI backend across 31 routers, SvelteKit client, Navidrome streaming, native macOS launcher, background queue worker",
       "Library synchronization, ReplayGain normalization, cover art, and metadata enrichment from MusicBrainz and Wikipedia",
       "Wikipedia-sourced genre family tree drawn as a radial lineage wheel, with sourced genre waves",
@@ -583,7 +583,7 @@ export const EDGES: GraphEdge[] = [
   ["lumen", "teaching"],
   ["menhir", "production-eng"],
   ["menhir", "llm-agents"],
-  ["audire", "production-eng"],
+  ["cella", "production-eng"],
 
   ["oncos", "computer-vision"],
   ["oncos", "evaluation"],
@@ -602,7 +602,7 @@ export const EDGES: GraphEdge[] = [
   // evaluation, lumen to agents), the shared term alone connects them in the vocabulary view.
   ["web-api", "consulting"],
   ["web-api", "menhir"],
-  ["web-api", "audire"],
+  ["web-api", "cella"],
   ["web-api", "ponere"],
   ["web-api", "mara"],
   ["web-api", "custos"],
