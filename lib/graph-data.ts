@@ -427,12 +427,13 @@ const AUTHORED: AuthoredNode[] = [
   { id: "audire", label: "audire", type: "project", color: "blush-deep", r: 20, x: 1420, y: 1034,
     points: [
       "Audio curation and library management, packaged and deployed as a Home Assistant add-on",
-      "FastAPI backend across 20 routers, SvelteKit client, native macOS launcher, background queue worker, behind Caddy",
+      "FastAPI backend across 31 routers, SvelteKit client, Navidrome streaming, native macOS launcher, background queue worker",
       "Library synchronization, ReplayGain normalization, cover art, and metadata enrichment from MusicBrainz and Wikipedia",
+      "Wikipedia-sourced genre family tree drawn as a radial lineage wheel, with sourced genre waves",
       "Deliberate failure handling against an uncooperative upstream: randomized pacing, one delayed retry resuming only what is missing, and no retry at all for permanent failures",
-      "21K LOC, 37 test modules, versioned release cadence, in daily use",
+      "About 1,300 tests, 95+ tagged releases, in daily use",
     ],
-    keywords: ["FastAPI", "SvelteKit", "Home Assistant", "Caddy", "Queue Workers", "MusicBrainz", "ReplayGain", "Navidrome", "Release Management", "pytest", "Local-First"] },
+    keywords: ["FastAPI", "SvelteKit", "Home Assistant", "nginx", "Queue Workers", "MusicBrainz", "ReplayGain", "Navidrome", "Release Management", "pytest", "Local-First"] },
 
   // ---- Added 2026-09-25: every featured or Shipped project gets a node. ----
   { id: "oncos", label: "oncos", type: "project", color: "blush-deep", r: 21, x: 872, y: 1008,

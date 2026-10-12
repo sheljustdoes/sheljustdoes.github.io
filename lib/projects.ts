@@ -193,7 +193,7 @@ export const PROJECTS: Project[] = [
     id: "audire", name: "audire", area: "production", status: "Shipped", date: "2026–",
     shot: { src: "/projects/supporting/audire.webp", alt: "audire's library view: genre filters and a sortable track table", caption: "Self-hosted audio library, packaged as a Home Assistant add-on." },
     summary:
-      "A self-hosted audio library platform packaged as a Home Assistant add-on: FastAPI across 23 routers, a SvelteKit client, a native macOS launcher and a background queue worker behind nginx, with invite-only accounts gating every route, ReplayGain normalization and MusicBrainz enrichment. Failure handling is deliberate — randomized pacing, one delayed retry that resumes only what is missing, no retry for permanent failures. Duplicate detection matches on tags and duration rather than hashes, because separate encodes of one recording never hash alike. 21K LOC, 37 test modules.",
+      "The music section of a household media server, self-hosted as a Home Assistant add-on: FastAPI across 31 routers, a SvelteKit client, Navidrome streaming, a native macOS launcher and a background queue worker. Downloads from YouTube, Internet Archive, SoundCloud and Bandcamp with deliberate failure handling (randomized pacing, one delayed retry, no retry for permanent failures); invite-only accounts and enrolled devices gate every route. Genres form a Wikipedia-sourced family tree drawn as a radial lineage wheel, with sourced genre waves. Duplicate detection matches on tags and duration rather than hashes. About 1,300 tests across 95+ tagged releases.",
   },
   {
     id: "ponere", name: "ponere", area: "production", status: "Shipped", date: "2025–",
