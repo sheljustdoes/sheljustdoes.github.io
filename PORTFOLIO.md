@@ -951,17 +951,28 @@ pluggable data layer behind a single adapter seam, through which storage moved f
 Apps Script backend to Neon Postgres before launch.
 
 ### audire — self-hosted media library platform
-**Status:** Shipped · FastAPI, SvelteKit, Python · 21K LOC, 37 test modules, versioned releases
+**Status:** Shipped · FastAPI, SvelteKit, Python · 31 API routers, about 1,300 tests, 95+ tagged releases
 
-A personal audio curation and library-management platform, packaged and deployed as a Home
-Assistant add-on. FastAPI backend across 23 routers, SvelteKit web client, a native macOS
-launcher, and a background queue worker behind nginx, with library synchronization,
+A personal audio curation and library-management platform, the music section of a household
+media server called Cella, packaged and deployed as a Home Assistant add-on. FastAPI backend
+across 31 routers, SvelteKit web client, a native macOS launcher, and a background queue worker
+behind nginx, with Navidrome for streaming, library synchronization,
 ReplayGain normalization, cover art handling, and metadata enrichment from MusicBrainz and
 Wikipedia, with Apple's iTunes catalog as a fallback for the singles and session recordings
 MusicBrainz has no release for. The same catalog search finds an album from a half-remembered
 name when adding it to a wishlist, and playlists import from a Spotify data export. For Internet Archive items, a dedicated resolver reads the item's file list and
 takes the uploader's originals (lossless first) over the archive's derived copies, recording
-each item's license in the file's tags.
+each item's license in the file's tags. Downloads also come from YouTube, SoundCloud and
+Bandcamp, queued from the web app or the Mac launcher, and the wishlist can search each source
+for an album.
+
+The genre layer is a sourced family tree rather than free-text tags: about 250 genres with
+their lineage links, each placement recorded with the Wikipedia section it was read from, and
+Discogs and MusicBrainz votes weighed when tagging an import. A radial wheel draws the tree
+from the center out, lights a genre's path and its other relations (fusions, second parents,
+borrowing) on selection, and the panel beside it lists a genre's waves, such as the first and
+second waves of black metal, with years, region and bands, each wave cited to Wikipedia and
+linked to the matching artists in the library.
 
 Library hygiene is handled where the obvious approach doesn't work: the same recording
 arrives from different sources as separate encodes, so duplicate detection matches on
