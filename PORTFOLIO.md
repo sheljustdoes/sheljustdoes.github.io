@@ -951,7 +951,7 @@ pluggable data layer behind a single adapter seam, through which storage moved f
 Apps Script backend to Neon Postgres before launch.
 
 ### audire — self-hosted media library platform
-**Status:** Shipped · FastAPI, SvelteKit, Python · 31 API routers, about 1,300 tests, 95+ tagged releases
+**Status:** Shipped · FastAPI, SvelteKit, Python · 31 API routers, about 1,650 tests, 95+ tagged releases
 
 A personal audio curation and library-management platform, the music section of a household
 media server called Cella, packaged and deployed as a Home Assistant add-on. FastAPI backend
@@ -966,7 +966,7 @@ each item's license in the file's tags. Downloads also come from YouTube, SoundC
 Bandcamp, queued from the web app or the Mac launcher, and the wishlist can search each source
 for an album.
 
-The genre layer is a sourced family tree rather than free-text tags: about 250 genres with
+The genre layer is a sourced family tree rather than free-text tags: about 280 genres with
 their lineage links, each placement recorded with the Wikipedia section it was read from, and
 Discogs and MusicBrainz votes weighed when tagging an import. A radial wheel draws the tree
 from the center out, lights a genre's path and its other relations (fusions, second parents,
