@@ -190,10 +190,10 @@ export const PROJECTS: Project[] = [
       "A dual-role athlete and coach training platform, built with a coaching partner who owns the methodology; Shel owns the code and infrastructure. A multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines and an RPE calibration engine, and every generated program is validated and previewed before it can be committed. Invite-based accounts with role-aware access, tiered billing, Web Push, and an offline-capable PWA. ~106K LOC, 25 test modules.",
   },
   {
-    id: "audire", name: "audire", area: "production", status: "Shipped", date: "2026–",
-    shot: { src: "/projects/supporting/audire.webp", alt: "audire's library view: genre filters and a sortable track table", caption: "Self-hosted audio library, packaged as a Home Assistant add-on." },
+    id: "cella", name: "Cella", area: "production", status: "Shipped", date: "2026–",
+    shot: { src: "/projects/supporting/audire.webp", alt: "Audire's library view (Cella's music section): genre filters and a sortable track table", caption: "Cella's music section, Audire: a self-hosted audio library packaged as a Home Assistant add-on." },
     summary:
-      "The music section of a household media server, self-hosted as a Home Assistant add-on: FastAPI across 31 routers, a SvelteKit client, Navidrome streaming, a native macOS launcher and a background queue worker. Downloads from YouTube, Internet Archive, SoundCloud and Bandcamp with deliberate failure handling (randomized pacing, one delayed retry, no retry for permanent failures); invite-only accounts and enrolled devices gate every route. Genres form a Wikipedia-sourced family tree drawn as a radial lineage wheel, with sourced genre waves. Duplicate detection matches on tags and duration rather than hashes. About 1,650 tests across 95+ tagged releases.",
+      "An entertainment hub for one household, with Home Assistant as its hosting backbone. Its music section, Audire, is live today, self-hosted as a Home Assistant add-on: FastAPI across 31 routers, a SvelteKit client, Navidrome streaming, a native macOS launcher and a background queue worker. Downloads from YouTube, Internet Archive, SoundCloud and Bandcamp with deliberate failure handling (randomized pacing, one delayed retry, no retry for permanent failures); invite-only accounts and enrolled devices gate every route. Genres form a Wikipedia-sourced family tree drawn as a radial lineage wheel, with sourced genre waves. Duplicate detection matches on tags and duration rather than hashes. About 1,650 tests across 95+ tagged releases.",
   },
   {
     id: "ponere", name: "ponere", area: "production", status: "Shipped", date: "2025–",

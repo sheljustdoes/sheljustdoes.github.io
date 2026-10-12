@@ -950,11 +950,12 @@ installable PWA with cached offline reads and background-sync offline writes, an
 pluggable data layer behind a single adapter seam, through which storage moved from an
 Apps Script backend to Neon Postgres before launch.
 
-### audire — self-hosted media library platform
+### Cella — household entertainment hub
 **Status:** Shipped · FastAPI, SvelteKit, Python · 31 API routers, about 1,650 tests, 95+ tagged releases
 
-A personal audio curation and library-management platform, the music section of a household
-media server called Cella, packaged and deployed as a Home Assistant add-on. FastAPI backend
+Cella is the entertainment hub for one household, with Home Assistant as its hosting backbone.
+Its music section, Audire, is the only section live today: a personal audio curation and
+library-management platform, packaged and deployed as a Home Assistant add-on. FastAPI backend
 across 31 routers, SvelteKit web client, a native macOS launcher, and a background queue worker
 behind nginx, with Navidrome for streaming, library synchronization,
 ReplayGain normalization, cover art handling, and metadata enrichment from MusicBrainz and
