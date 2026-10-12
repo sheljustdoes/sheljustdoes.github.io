@@ -431,7 +431,7 @@ const AUTHORED: AuthoredNode[] = [
       "Library synchronization, ReplayGain normalization, cover art, and metadata enrichment from MusicBrainz and Wikipedia",
       "Wikipedia-sourced genre family tree drawn as a radial lineage wheel, with sourced genre waves",
       "Deliberate failure handling against an uncooperative upstream: randomized pacing, one delayed retry resuming only what is missing, and no retry at all for permanent failures",
-      "About 1,300 tests, 95+ tagged releases, in daily use",
+      "About 1,650 tests, 95+ tagged releases, in daily use",
     ],
     keywords: ["FastAPI", "SvelteKit", "Home Assistant", "nginx", "Queue Workers", "MusicBrainz", "ReplayGain", "Navidrome", "Release Management", "pytest", "Local-First"] },
 
