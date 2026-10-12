@@ -950,7 +950,7 @@ installable PWA with cached offline reads and background-sync offline writes, an
 pluggable data layer behind a single adapter seam, through which storage moved from an
 Apps Script backend to Neon Postgres before launch.
 
-### Cella — household entertainment hub
+### cella — household entertainment hub
 **Status:** Shipped · FastAPI, SvelteKit, Python · 31 API routers, about 1,650 tests, 95+ tagged releases
 
 Cella is the entertainment hub for one household, with Home Assistant as its hosting backbone.
