@@ -951,7 +951,7 @@ pluggable data layer behind a single adapter seam, through which storage moved f
 Apps Script backend to Neon Postgres before launch.
 
 ### cella — household entertainment hub
-**Status:** Shipped · FastAPI, SvelteKit, Python · 31 API routers, about 1,650 tests, 95+ tagged releases
+**Status:** Shipped · FastAPI, SvelteKit, Python · 31 API routers, about 1,700 tests, 95+ tagged releases
 
 Cella is the entertainment hub for one household, with Home Assistant as its hosting backbone.
 Its music section, Audire, is the only section live today: a personal audio curation and
@@ -969,7 +969,10 @@ for an album.
 
 The genre layer is a sourced family tree rather than free-text tags: about 280 genres with
 their lineage links, each placement recorded with the Wikipedia section it was read from, and
-Discogs and MusicBrainz votes weighed when tagging an import. A radial wheel draws the tree
+Discogs and MusicBrainz votes weighed when tagging an import. An admin review checks the
+filed genres against those votes and each album's Wikipedia infobox, weighting the album over
+the artist because artists change genres across a career, and retags only on a click; it
+replaced a tempo-based audit that measured the wrong thing. A radial wheel draws the tree
 from the center out, lights a genre's path and its other relations (fusions, second parents,
 borrowing) on selection, and the panel beside it lists a genre's waves, such as the first and
 second waves of black metal, with years, region and bands, each wave cited to Wikipedia and
