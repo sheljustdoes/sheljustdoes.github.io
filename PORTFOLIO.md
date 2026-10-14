@@ -1254,6 +1254,12 @@ repository — full history and trees, no file contents — so the automated rep
 local one are the same implementation and cannot drift apart. Results are written to a
 single issue that is edited in place rather than reopened.
 
+A second tool checks portfolio drift: whether each repository's README states the same
+status as this index, has a backlog, sets its GitHub description and topics, and links a
+homepage that answers. It also checks coverage in both directions, so a repository with no
+entry here, or an entry whose repository is gone, is flagged rather than missed. Deliberate
+exceptions are written down with a reason, and the same script runs every other day in CI.
+
 It also renders every repository's README banner in the site's brand, from one
 configuration file seeded from this index: each project's section sets its theme, and its
 status line sets the label, so the banner and this index start from the same source.
