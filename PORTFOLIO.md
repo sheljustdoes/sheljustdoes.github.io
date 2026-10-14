@@ -928,7 +928,8 @@ fairly. Over the next ten years, does its sound keep moving away from its parent
 back, or hold?
 
 The Stage 1 pre-registration is signed off and its analysis grid frozen; nothing has been
-scored. Divergence is AMOVA ΦST, the multivariate analogue of Fst, on AcousticBrainz features,
+scored. The open sources are linked: 480,262 Discogs releases and masters
+each carry one AcousticBrainz recording. Divergence is AMOVA ΦST, the multivariate analogue of Fst, on AcousticBrainz features,
 measured net of the drift between styles that were already established and judged against
 how much those established pairs move. The panel is the 60 most popular styles that qualify.
 A second question asks whether early gene flow predicts the trajectory, with each artist
