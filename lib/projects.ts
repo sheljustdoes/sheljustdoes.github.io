@@ -172,6 +172,11 @@ export const PROJECTS: Project[] = [
       "What do transposable-element-derived structural variants record about tomato's history that other variants do not? Pre-registered and scored once on 706 accessions from published pangenome call sets. A trait-heritability version was killed by its own power check before any trait was scored (the two classes' relationship matrices correlate at 0.97). Graph genotypes of TE variants agree with long-read calls as well as other variants do (0.984 both); TE-derived variants record a measurably different population history (0.991 against a 0.998 null), which survives a discovery-bias check and is carried by Gypsy LTR retrotransposons in the chromosome arms as well as the pericentromeres; frequency spectra show no difference; young insertions look lineage-specific mostly because they are rare. A test of whether bred-in wild segments explain the Gypsy signal stopped at its positive-control gate (0 of 31 known introgressions recovered), so that question stays open.",
   },
   {
+    id: "diaphonia", name: "diaphonia", area: "structure", status: "Designed (Stage 1)", date: "2026–",
+    summary:
+      "A topos application outside biology: when does a music style start to sound apart from its parent? Recordings are individuals, precomputed AcousticBrainz features are genotypes and cross-boundary artists are gene flow; no audio is downloaded. Stage 0 held the first framing (too few recordings before genres are named), so the question starts at each style's takeoff: over the next decade, does it keep diverging from its parent, drift back or hold, measured as AMOVA ΦST net of background drift? Pre-registered with a frozen grid; nothing scored yet.",
+  },
+  {
     id: "repbox", name: "repbox", area: "structure", status: "Shipped", date: "2020–2023",
     link: "https://doi.org/10.1186/s12859-023-05419-5", linkLabel: "View publication ↗",
     summary:

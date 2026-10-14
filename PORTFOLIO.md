@@ -733,7 +733,8 @@ Deciding when latent structure in high-dimensional biological data is real enoug
 on, by applying topos (under Frameworks) to crop genomes: eight gated stages that end in
 an explicit GO, KILL or HOLD. A thread through transposable elements runs across the case
 studies, from repbox's element discovery to insertion polymorphisms in sorghum and
-TE-derived structural variants in tomato (lyco).
+TE-derived structural variants in tomato (lyco). One case study, diaphonia, takes the same
+population-genetics measures outside biology, to music genres.
 
 **Flagship:** fragaria, the case study run furthest: an audit found its first Stage 0
 invalid, and two pre-registered rebuilds end in a GO that holds across sensitivities, for
@@ -910,6 +911,30 @@ Results (2026-09-27), each scored once:
   *S. pimpinellifolium*-type segments to recover five known introgressed loci first. They
   recovered 0 of 31 carrier–locus pairs, so the test was not run; all five loci came from
   more distant wild species that such a caller cannot see. The question stays open.
+
+### diaphonia — when a music genre starts to sound apart from its parent
+**Status:** Designed (Stage 1) · AcousticBrainz, Discogs and MusicBrainz open data
+
+A topos application outside biology. It treats music styles the way population genetics
+treats incipient species: recordings are individuals, their precomputed audio features are
+genotypes, release years are generations, and artists who work on both sides of a boundary
+are gene flow. No audio is downloaded; everything comes from open metadata and features.
+
+It first asked whether a genre's sound diverges before anyone names it. The Stage 0 audit
+held that question: the genres in the test set have almost no recordings before their names,
+and Discogs styles are tagged with hindsight. The question now starts at each style's
+takeoff, the year its releases reach a fixed share of that year's output, so eras compare
+fairly. Over the next ten years, does its sound keep moving away from its parent, drift
+back, or hold?
+
+The Stage 1 pre-registration is signed off and its analysis grid frozen; nothing has been
+scored. Divergence is AMOVA ΦST, the multivariate analogue of Fst, on AcousticBrainz features,
+measured net of the drift between styles that were already established and judged against
+how much those established pairs move. The panel is the 60 most popular styles that qualify.
+A second question asks whether early gene flow predicts the trajectory, with each artist
+weighted by how much they keep their own sound from track to track. A measurement gate runs
+first: the features must tell established styles apart and find nothing in random splits of
+one style.
 
 ### repbox — transposable element discovery and annotation
 **Status:** Shipped · Python CLI, published · [BMC Bioinformatics (2023)](https://doi.org/10.1186/s12859-023-05419-5)
