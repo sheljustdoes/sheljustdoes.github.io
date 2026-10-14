@@ -955,7 +955,7 @@ Privately hosted, single- or small-tenant web applications. Repositories are not
 the engineering is described here. Personal and third-party data is excluded by design.
 
 ### menhir — adaptive strength coaching platform
-**Status:** Implemented · Next.js (App Router), TypeScript, Stripe, Neon Postgres · about 85K lines of code, 90 test files, about 1,900 tests
+**Status:** Implemented · Next.js (App Router), TypeScript, Stripe, Neon Postgres · about 84K lines of code, 90 test files, about 1,900 tests
 
 A dual-role platform serving both athletes and coaches. Its differentiator is adaptive
 programming driven by multiple autoregulation signals — readiness, sleep, performance
@@ -977,12 +977,12 @@ pluggable data layer behind a single adapter seam, through which storage moved f
 Apps Script backend to Neon Postgres before launch.
 
 ### cella — household entertainment hub
-**Status:** Shipped · FastAPI, SvelteKit, Python · 29 API routers, about 1,250 tests, 95+ tagged releases
+**Status:** Shipped · FastAPI, SvelteKit, Python · 32 API routers, about 1,900 tests, 130 tagged releases
 
 Cella is the entertainment hub for one household, with Home Assistant as its hosting backbone.
 Its music section, Audire, is the only section live today: a curation and library-management
 platform for music the household already owns, packaged and deployed as a Home Assistant
-add-on. FastAPI backend across 29 routers, SvelteKit web client, a native macOS launcher, and a
+add-on. FastAPI backend across 32 routers, SvelteKit web client, a native macOS launcher, and a
 background queue worker behind nginx, with Navidrome for streaming, library synchronization,
 ReplayGain normalization, cover art handling, and metadata enrichment from MusicBrainz and
 Wikipedia, with Apple's iTunes catalog and then Discogs as fallbacks for the singles, session
