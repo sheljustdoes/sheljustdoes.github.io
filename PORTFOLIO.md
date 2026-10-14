@@ -6,7 +6,7 @@ what each one does, how it works, what it has actually produced, and where it st
 Maintained as the canonical reference for these projects. When a project changes
 materially, this file changes with it.
 
-**Last updated:** 2026-09-29
+**Last updated:** 2026-10-14
 
 **How this index is organized**
 
@@ -954,20 +954,13 @@ Apps Script backend to Neon Postgres before launch.
 **Status:** Shipped · FastAPI, SvelteKit, Python · 31 API routers, about 1,700 tests, 95+ tagged releases
 
 Cella is the entertainment hub for one household, with Home Assistant as its hosting backbone.
-Its music section, Audire, is the only section live today: a personal audio curation and
-library-management platform, packaged and deployed as a Home Assistant add-on. FastAPI backend
-across 31 routers, SvelteKit web client, a native macOS launcher, and a background queue worker
-behind nginx, with Navidrome for streaming, library synchronization,
+Its music section, Audire, is the only section live today: a curation and library-management
+platform for music the household already owns, packaged and deployed as a Home Assistant
+add-on. FastAPI backend across 31 routers, SvelteKit web client, a native macOS launcher, and a
+background queue worker behind nginx, with Navidrome for streaming, library synchronization,
 ReplayGain normalization, cover art handling, and metadata enrichment from MusicBrainz and
 Wikipedia, with Apple's iTunes catalog as a fallback for the singles and session recordings
-MusicBrainz has no release for. The same catalog search finds an album from a half-remembered
-name when adding it to a wishlist, and playlists import from a Spotify data export. For Internet Archive items, a dedicated resolver reads the item's file list and
-takes the uploader's originals (lossless first) over the archive's derived copies, recording
-each item's license in the file's tags. Downloads also come from YouTube, SoundCloud and
-Bandcamp, queued from the web app or the Mac launcher, and the wishlist can search each source
-for an album. Each person keeps one wishlist, a sortable table that ranks albums by a 0–100
-popularity score derived from Last.fm listener counts, kept apart from the household's own
-listening.
+MusicBrainz has no release for.
 
 The genre layer is a sourced family tree rather than free-text tags: about 280 genres with
 their lineage links, each placement recorded with the Wikipedia section it was read from, and
@@ -980,25 +973,19 @@ borrowing) on selection, and the panel beside it lists a genre's waves, such as 
 second waves of black metal, with years, region and bands, each wave cited to Wikipedia and
 linked to the matching artists in the library.
 
-Library hygiene is handled where the obvious approach doesn't work: the same recording
-arrives from different sources as separate encodes, so duplicate detection matches on
-tags and duration rather than file hashes, grades each match by how much agrees, and
-quarantines rather than deletes. Duration alone proved too weak — an album is full of songs
-of near-identical length — so a match also needs the title or the track slot to agree, and
-a person's "not a duplicate" judgment is remembered per pair of files. Artwork a user sets,
-album covers and artist photos alike, is written where the streaming server and every
-client read it — into the files and the artist's folder — not into the app's own database.
-Space is reclaimed the same cautious way: only lossless files (ALAC, FLAC, WAV) are converted
-to 256 kbps AAC, never an already lossy MP3 or Opus, with a preview first, an optional cap on
-how many files a run converts, and the originals quarantined until someone empties them.
+Library hygiene is handled where the obvious approach doesn't work: the same recording often
+enters the library more than once, as separate encodes, so duplicate detection matches on tags
+and duration rather than file hashes, grades each match by how much agrees, and quarantines
+rather than deletes. Duration alone proved too weak — an album is full of songs of
+near-identical length — so a match also needs the title or the track slot to agree, and a
+person's "not a duplicate" judgment is remembered per pair of files. Artwork a user sets, album
+covers and artist photos alike, is written where the streaming server and every client read it
+— into the files and the artist's folder — not into the app's own database. Space is reclaimed
+the same cautious way: only lossless files (ALAC, FLAC, WAV) are converted to 256 kbps AAC,
+never an already lossy MP3 or Opus, with a preview first, an optional cap on how many files a
+run converts, and the originals quarantined until someone empties them.
 
-Notable for its **failure handling against an uncooperative upstream**: randomized pacing
-between requests, a single delayed retry for transient rate-limiting that resumes only the
-missing items, and no retry at all for permanent failures — waiting doesn't fix a removed
-resource. The download queue reports what actually happened: a run that brought nothing
-because every entry was already in the downloader's archive, its files deleted since, is
-told apart from a source that had nothing, and each item can be retried, fetched again past
-the archive, or retried in another format. Every release is a tagged version with a
+Every release is a tagged version with a
 changelog entry and a written release and rollback process; CI runs the Python and web
 suites and the web build on every push, pinned to the add-on image's runtime versions. The
 architecture is written down as it runs — five processes in one container, the rules that
@@ -1011,7 +998,7 @@ everywhere), two roles, and every API route gated with writes denied to non-admi
 default. Requests through Home Assistant's own authenticated proxy are trusted as admin,
 which is also how the first account is made on an appliance with no shell. Suspending an
 account revokes its devices along with its sessions. A listener sees a pared-down app,
-close to a streaming service: library, playlists and their own wishlist, with upkeep pages
+close to a streaming service: library and playlists, with upkeep pages
 and library edits closed to them; an admin can change a role, and the last admin cannot be
 demoted.
 The streaming server's credentials never reach the browser: the proxy signs each request
