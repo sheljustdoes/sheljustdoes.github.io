@@ -959,8 +959,8 @@ platform for music the household already owns, packaged and deployed as a Home A
 add-on. FastAPI backend across 31 routers, SvelteKit web client, a native macOS launcher, and a
 background queue worker behind nginx, with Navidrome for streaming, library synchronization,
 ReplayGain normalization, cover art handling, and metadata enrichment from MusicBrainz and
-Wikipedia, with Apple's iTunes catalog as a fallback for the singles and session recordings
-MusicBrainz has no release for.
+Wikipedia, with Apple's iTunes catalog and then Discogs as fallbacks for the singles, session
+recordings and limited editions MusicBrainz has no release for.
 
 The genre layer is a sourced family tree rather than free-text tags: about 280 genres with
 their lineage links, each placement recorded with the Wikipedia section it was read from, and
