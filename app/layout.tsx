@@ -4,7 +4,7 @@ import { HEADLINE } from "@/lib/resume";
 
 export const metadata: Metadata = {
   title: "shel.",
-  description: `Shel Burkes, PhD, ${HEADLINE.title}`,
+  description: `Shel Burkes, PhD, ${HEADLINE.title}. ${HEADLINE.field}`,
 };
 
 export default function RootLayout({
