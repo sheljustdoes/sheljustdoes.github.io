@@ -82,7 +82,7 @@ export const EXPERIENCE: Role[] = [
     company: "Cooper Lab, North Carolina Research Campus",
     start: "2020-09",
     end: "2021-09",
-    lead: "GAANN Fellow (Graduate Assistance in Areas of National Need).",
+    lead: "Multicultural Postdoctoral Fellow, University of North Carolina at Charlotte.",
     bullets: [
       "Owned the lab's analytical pipelines for large-scale NGS datasets in Python across UNIX and cloud/HPC environments",
       "Developed pipelines for transposable element polymorphism detection and structural variant association analysis in tomato, linking insertion presence/absence to phenotypes",
@@ -109,7 +109,8 @@ export const EDUCATION: { degree: string; institution: string; year: string }[] 
   { degree: "Doctor of Philosophy, Bioinformatics & Computational Biology", institution: "College of Computing and Informatics, University of North Carolina at Charlotte", year: "2020" },
   { degree: "Master of Science, Bioinformatics & Computational Biology", institution: "College of Computing and Informatics, University of North Carolina at Charlotte", year: "2016" },
   { degree: "Bachelor of Science", institution: "University of North Carolina at Charlotte", year: "2013" },
-  { degree: "GAANN Fellowship (Graduate Assistance in Areas of National Need)", institution: "University of North Carolina at Charlotte", year: "2020 to 2021" },
+  { degree: "GAANN Fellowship (Graduate Assistance in Areas of National Need)", institution: "University of North Carolina at Charlotte", year: "2017 to 2020" },
+  { degree: "Multicultural Postdoctoral Fellowship", institution: "University of North Carolina at Charlotte", year: "2020 to 2021" },
 ];
 
 export const PUBLICATIONS: { citation: string; doi: string }[] = [
