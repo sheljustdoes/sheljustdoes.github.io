@@ -116,13 +116,15 @@ export const PROJECTS: Project[] = [
   },
   // ---- Perceptual & imaging phenotyping ----
   {
-    id: "iridis", name: "iridis", area: "phenotyping", status: "Results committed", date: "2023–",
+    id: "iridis", name: "iridis", area: "phenotyping", status: "Results committed", date: "2023–", featured: true,
     link: "/projects/iridis/", linkLabel: "Read the write-up →", story: "/projects/iridis/story/",
+    resumeLine:
+      "Tested whether image-derived skin color tracks Fitzpatrick type and Monk Skin Tone on open dermatology images, and found much of the image error is the camera, not the scale. A color matrix per device and dermoscope mode, fitted on held-out patients, recovers a colorimeter at ρ 0.915 and cuts the capture share of variance from 40% to 5.8%.",
     summary:
       "Perceptual skin-tone phenotyping over ~17.8K open dermatology images (Fitzpatrick17k, ISIC 2018). A layered masking pipeline — foreground segmentation plus a ResNet18-U-Net lesion mask (held-out Dice 0.889) — isolates skin before CIE Lab featurization and CIEDE2000 perceptual clustering. Measured color barely tracks Fitzpatrick type: type explains 7% of lightness variance, and predicting it from color barely beats guessing the commonest type (35–42% against 34%); masking did not help. An earlier claim that discovered clusters were 2.5–2.8× more predictable was withdrawn as largely circular; a pre-registered retest found no stable color categories at all (resampling ARI 0.31). Against a colorimeter on a second dataset, an independent reanalysis reproduced the dataset authors' finding that Fitzpatrick type tracks skin color and Monk Skin Tone tracks it better, while image-derived color does not, and measured how much of the image error is capture alone: the weak link was the camera, not the scale.",
   },
   {
-    id: "lambent", name: "lambent", area: "phenotyping", status: "Results committed", date: "2023–",
+    id: "lambent", name: "lambent", area: "phenotyping", status: "Results committed", date: "2023–", featured: true,
     link: "/projects/lambent/", linkLabel: "Read the write-up →",
     resumeLine:
       "Skin radiance metric from multi-region image features, developed independently on public data. Re-validated on 1,816 public dermatology images and rebuilt into a capture-robust, tone-neutral score (tone dependence ρ² 0.310 to 0.002).",
@@ -251,8 +253,15 @@ export const FRAMEWORKS = AREAS.filter((a) => a.kind === "framework");
 export const LINES = AREAS.filter((a) => a.kind === "line");
 export const SUPPORTING = AREAS.filter((a) => a.kind === "supporting");
 
-/** The résumé's selected projects, in PORTFOLIO.md order. */
-export const RESUME_PROJECTS = PROJECTS.filter((p) => p.featured);
+/** Featured projects lead in this order; any others follow in PORTFOLIO.md order. */
+const RESUME_ORDER = ["iridis", "lambent", "veridian", "recolo", "noul", "menhir", "mara"];
+export const resumeRank = (id: string) => {
+  const i = RESUME_ORDER.indexOf(id);
+  return i === -1 ? RESUME_ORDER.length : i;
+};
+
+/** The résumé's selected projects, in RESUME_ORDER. */
+export const RESUME_PROJECTS = PROJECTS.filter((p) => p.featured).sort((a, b) => resumeRank(a.id) - resumeRank(b.id));
 
 export const projectsInArea = (area: AreaId) => PROJECTS.filter((p) => p.area === area);
 

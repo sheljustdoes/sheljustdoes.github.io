@@ -550,8 +550,7 @@ plate for the masking pipeline, and the instrument frames from MSKCC.
 ### lambent — computational quantification of skin radiance
 **Status:** Results committed · Python, scikit-image, OpenCV, scikit-learn · 1,816 images, 68 tests
 
-Developed independently on public data, from 2023; a consulting client later applied the
-method to its own data. An open-image pipeline estimating interpretable "glow" proxy
+Developed independently on public data, from 2023. An open-image pipeline estimating interpretable "glow" proxy
 features from images, aggregating them by subject, and optionally fitting supervised models where labels exist.
 The underlying research question was whether radiance — an attribute that existed only as
 a qualitative descriptor — could be quantified from multi-modal physiological image

@@ -21,10 +21,10 @@ export type Role = {
 };
 
 /** The headline under the name, on the résumé, the homepage and the page metadata. */
-export const HEADLINE = { title: "Staff Applied Scientist", field: "ML & LLM Systems" };
+export const HEADLINE = { title: "Fairness & Measurement Scientist", field: "AI Evaluation" };
 
 export const SUMMARY =
-  "Data scientist with a PhD and 11 years of data science and computational research, including graduate research, who owns ML and LLM systems from ambiguous request to handoff, along with the evaluation that shows whether they work. Most recently Principal Applied Scientist in a pharmaceutical animal-health division, owning applied AI scoping and taking an **LLM classification pipeline on regulated data** to a handed-off proof of concept in 60 days. Before that, sole data scientist for a startup's two anchor clients, a Fortune 500 pharmacy group and a global prestige beauty retailer, shipping computer vision, recommendation and experimentation work, and Product Owner for an analytics platform at Syngenta. Leads through others, mentoring two junior data scientists and training researchers with no computational background to run their own analyses, and writes production software: a multi-tenant pricing API in production and a training platform heading into open beta. Tests every system against plain baselines and publishes negative results rather than shipping weaker systems.";
+  "Scientist with a PhD and 11 years of data science and computational research, working on **fairness in measurement**: whether a skin, color or language measure means the same thing for everyone it is applied to, and how to test that with AI evaluation. Independent work shows where common measures break. In iridis, skin-tone measurement error traces to the camera rather than the tone scale, and a per-device color correction reaches ρ 0.915. In lambent, a radiance metric's specular threshold sits 5.3 times higher on the lightest skin type than the darkest. In veridian, an LLM judge is checked against hand-labeled claims because embeddings place a claim and its negation almost together. Before that, four years as sole data scientist at a consumer health-sensing startup, building computer vision models that ran on in-store devices, and applied AI work on a team in a pharmaceutical animal-health division, including an LLM classification pipeline and its regression tests. Mentors junior data scientists, has trained researchers with no computational background to run their own analyses, writes production software including a multi-tenant pricing API, and publishes negative results rather than shipping weaker systems.";
 
 export const EXPERIENCE: Role[] = [
   {
@@ -32,14 +32,18 @@ export const EXPERIENCE: Role[] = [
     company: "Boehringer Ingelheim Animal Health, via Data Science Talent",
     start: "2025-09",
     end: "2026-10",
-    lead: "Owned applied AI scoping and delivery for the Global Animal Health division, from ambiguous request to handed-off system.",
+    lead: "On the applied AI team in the Global Animal Health division. Python, PyTorch, TensorFlow, Databricks, Snowflake, GitHub Copilot.",
     bullets: [
-      "Owned technical scoping and solution architecture for applied AI across the division (Python, PyTorch, TensorFlow), turning ambiguous asks from commercial, corporate affairs and analytics teams into scoped modeling objectives",
-      "Owned **misinformation detection** for high-visibility products end to end: designed and built an LLM classification pipeline on Databricks and Snowflake that triages social media content, flags early misinformation signals and reduces manual review in Sprinklr",
-      "Took it from request to a working proof of concept in **60 days** (classification, clustering and trend detection for corporate communications) on regulated pharmaceutical data under the company's data-access and governance controls, then handed it off for further development",
-      "Defined how the pipeline is judged: success metrics and regression tests for classification with no single right answer, so the team taking it over can tell whether a change helps",
-      "Built a **financial potential model** for commercial excellence in livestock and farming, estimating each customer's purchasing capacity so commercial teams could set targeting and outreach priorities",
-      "Mentored **two junior data scientists** through pairing and code review",
+      "Contributed to technical scoping and solution architecture for applied AI engagements, drafting conceptual frameworks and first implementation approaches",
+      "Built model prototypes and early implementations in Python, PyTorch and TensorFlow, then handed them to engineering teams for production development",
+      "Worked with client teams across commercial, corporate affairs and analytics to translate business needs into scoped modeling objectives",
+      "Worked within regulated pharmaceutical data-access processes, coordinating permissions so modeling followed internal governance standards",
+      "With the team, built an LLM-based **misinformation detection pipeline** on Databricks over social media data in Snowflake: LLM classification of posts through the company's internal gateway of vetted LLM APIs, clustering and trend detection over flagged content, and triage output for review in Sprinklr. Delivered as a proof of concept in **60 days**",
+      "The pipeline gave corporate communications earlier signals of misinformation about high-visibility animal health products",
+      "Helped define success metrics and regression tests for classification with no single right answer, so changes could be checked before handoff",
+      "Built a **financial potential model** for livestock and farming customers, estimating purchasing capacity across major customer portfolios to guide commercial targeting and outreach",
+      "Mentored **two junior data scientists** on modeling techniques, code structure and maintainable practices",
+      "Contributed to project planning, requirements, documentation and cross-team communication",
     ],
   },
   {
@@ -47,15 +51,17 @@ export const EXPERIENCE: Role[] = [
     company: "Confidential consumer health-sensing startup",
     start: "2021-09",
     end: "2025-09",
-    lead: "Sole data scientist for the startup's two anchor clients, a Fortune 500 pharmacy group and a global prestige beauty retailer, owning the data science from scoping to handoff. Part-time until 2022 alongside Syngenta.",
+    lead: "Sole data scientist for the startup, owning ML research, measurement methodology and analytics infrastructure from scoping to handoff. Part-time until 2022 alongside Syngenta.",
     bullets: [
-      "Designed and built a **shade-matching recommendation system** that ranks products by perceptual color distance (CIEDE2000) between a user's perceived and actual shade, on a color-classification method developed independently on public data; a version shipped to the client's customers",
-      "Built **two production computer vision models** that ran together on the client's in-store scanning devices: a CNN anomaly detector on skin images, and a model for the camera's UV mode that needed little retraining",
-      "Trained both on AWS SageMaker over the client's regional image stores in S3, with automated dataset quality checks and a client-facing SDK, and onboarded the client's engineers onto the SDK",
-      "Brought independently developed measures of skin radiance and perceptual skin tone to client data, validating them against the client's expert grading",
-      "Ran product experimentation: designed and analyzed A/B tests and causal inference studies on product features (SQL, Python, AWS Athena), and defined the product health metrics (engagement, retention, conversion) tracked in Plotly Dash and Tableau dashboards",
-      "Modeled individual baselines over time from capacitive skin sensor data, and segmented customers with K-means, PCA and UMAP to inform product decisions",
-      "Handed each system over by teaching client stakeholders the color science and ranking tradeoffs, so their teams could own what was delivered",
+      "Built **three anomaly detection models**, including a UV-mode model, in TensorFlow/Keras and PyTorch, trained on SageMaker and run in production on in-store devices for a global prestige beauty retailer and a Fortune 500 pharmacy group",
+      "Created image-based measures of **skin radiance**, an attribute that had existed only as a qualitative descriptor, validated against expert grading",
+      "Conceived a **skin-tone classification system** on the startup's internal image data, later offered to clients as a paid service",
+      "Designed **shade-matching logic** for a luxury beauty house that ranks products by perceptual color distance",
+      "Scoped exploratory models for a national beauty retailer and a national pharmacy chain",
+      "Owned A/B tests and causal inference studies from protocol design to analysis, isolating the effect of product features on user behavior",
+      "Defined core product health metrics (engagement, retention, conversion) used in product, engineering and executive reporting",
+      "Segmented customers with K-means, PCA and UMAP, including geolocation analysis, to inform product decisions",
+      "Built Plotly Dash and Tableau dashboards and turned findings into development priorities for clients and non-technical stakeholders",
     ],
   },
   {
@@ -64,21 +70,24 @@ export const EXPERIENCE: Role[] = [
     start: "2021-09",
     end: "2022-09",
     bullets: [
-      "As **Product Owner**, led a small blended team building a decision-making analytics platform, owning the vision and backlog through development (Agile, Scrum)",
-      "Built predictive models on genomic marker data (VCF) for **crop trait prediction**, combining environmental and genetic factors with domain reasoning",
-      "Designed and deployed scalable workflows for trait-based prediction, integrating outputs into relational databases",
+      "Built predictive models on haplotype data to identify traits and optimize product performance based on environmental and genetic factors, combining biological domain reasoning with ML modeling end-to-end",
+      "Designed and deployed scalable bioinformatics workflows for trait-based prediction and optimization, integrating outputs into relational databases",
+      "Collaborated cross-functionally across the data science lifecycle — data wrangling, exploratory analysis, hypothesis testing, prototyping, validation, and deployment",
+      "Launched a decision-making analytic platform as **Product Owner** on a small blended team, owning the product vision and backlog using Agile and Scrum methodologies",
+      "Communicated complex analytical work to technical and non-technical stakeholders throughout project execution",
     ],
   },
   {
-    title: "Postdoctoral Researcher",
+    title: "Postdoctoral Research Fellow",
     company: "Cooper Lab, North Carolina Research Campus",
     start: "2020-09",
     end: "2021-09",
+    lead: "GAANN Fellow (Graduate Assistance in Areas of National Need).",
     bullets: [
-      "Owned the lab's analytical pipelines: designed and implemented them for large-scale NGS datasets in Python across UNIX and cloud/HPC environments",
-      "Developed variant detection and association analysis pipelines linking genetic variation to phenotypes",
-      "Trained the lab's graduate and undergraduate researchers: wrote the internal documentation, ran pipeline walkthroughs and supported every researcher using them, taking students with wet-lab backgrounds and no computational experience to running their own NGS analyses",
-      "Maintained code documentation and data stewardship practices so datasets stayed reproducible and accessible across ongoing research",
+      "Owned the lab's analytical pipelines for large-scale NGS datasets in Python across UNIX and cloud/HPC environments",
+      "Developed pipelines for transposable element polymorphism detection and structural variant association analysis in tomato, linking insertion presence/absence to phenotypes",
+      "Mentored the lab's graduate and undergraduate researchers: wrote internal documentation, ran pipeline walkthroughs, and took students with wet-lab backgrounds and no computational experience to running their own NGS analyses",
+      "Maintained code documentation and data stewardship so datasets stayed reproducible across ongoing research",
     ],
   },
   {
@@ -87,9 +96,11 @@ export const EXPERIENCE: Role[] = [
     start: "2015-08",
     end: "2020-09",
     bullets: [
-      "Built analytical pipelines in Python and Linux over large Illumina and PacBio sequencing datasets",
+      "Conducted dissertation research on repeat landscapes in Avena (oat), building analytical pipelines in Python and Linux over large Illumina and PacBio sequencing datasets",
+      "Integrated data from NCBI and GenBank into large-scale genomic processing workflows",
       "Turned the repeat-discovery work into **RepBox**, an open-source tool published in BMC Bioinformatics (2023)",
       "Taught the lab for a graduate course, **Biological Basis of Bioinformatics** (BINF 8100), across three Spring semesters at 10–15 students per term",
+      "Served as teaching assistant for Biological Basis of Bioinformatics",
     ],
   },
 ];
@@ -131,7 +142,7 @@ export const SKILLS: { group: string; items: string[] }[] = [
     items: [
       "LLM classification pipelines", "Multi-provider LLM pipelines with output validation",
       "Retrieval and reranking (BM25, embeddings, cross-encoders)", "Agent memory",
-      "Evaluation design and pre-registered protocols", "LLM APIs (Anthropic, OpenAI, Groq)", "Claude Code (skills, subagents, hooks)",
+      "Evaluation design and pre-registered protocols", "LLM APIs (Anthropic, OpenAI, Groq)", "Claude Code (skills, subagents, hooks)", "GitHub Copilot",
     ],
   },
   {
