@@ -31,9 +31,7 @@ export default function ResumePage() {
         </div>
         <div className="title-row">
           <div className="title-dot" style={{ background: "var(--terracotta)" }} />
-          <span className="title-mono">{HEADLINE.title}</span>
-          <div className="title-dot" style={{ background: "var(--indigo)" }} />
-          <span className="title-mono title-plain">{HEADLINE.field}</span>
+          <span className="title-mono title-plain">{HEADLINE}</span>
         </div>
       </header>
 
