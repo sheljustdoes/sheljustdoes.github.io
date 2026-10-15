@@ -21,7 +21,7 @@ export type Role = {
 };
 
 /** The headline under the name, on the résumé, the homepage and the page metadata. */
-export const HEADLINE = { title: "Scientist", field: "I test whether AI works as well for everyone it measures." };
+export const HEADLINE = "Scientist working on whether AI measures everyone equally";
 
 export const SUMMARY =
   "Scientist with a PhD and 11 years of data science and computational research, working on **fairness in measurement**: whether a skin, color or language measure means the same thing for everyone it is applied to, and how to test that with AI evaluation. Independent work shows where common measures break. In iridis, skin-tone measurement error traces to the camera rather than the tone scale, and a per-device color correction reaches ρ 0.915. In lambent, a radiance metric's specular threshold sits 5.3 times higher on the lightest skin type than the darkest. In veridian, an LLM judge is checked against hand-labeled claims because embeddings place a claim and its negation almost together. Before that, four years as sole data scientist at a consumer health-sensing startup, building computer vision models that ran on in-store devices, and applied AI work on a team in a pharmaceutical animal-health division, including an LLM classification pipeline and its regression tests. Mentors junior data scientists, has trained researchers with no computational background to run their own analyses, writes production software including a multi-tenant pricing API, and publishes negative results rather than shipping weaker systems.";

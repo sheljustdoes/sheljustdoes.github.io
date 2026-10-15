@@ -320,8 +320,7 @@ export default function HomePage() {
             shel<span className="dot-p">.</span>
           </h1>
           <p className="hdr-sub">
-            {HEADLINE.title}
-            <span className="hdr-sub-x"> · {HEADLINE.field}</span>
+            {HEADLINE}
           </p>
         </div>
         <nav className="hdr-nav">
@@ -581,9 +580,8 @@ const GRAPH_CSS = `
 .dot-p { color: var(--terracotta); }
 .hdr-sub {
   margin: 7px 0 0; font-family: var(--mono); font-size: 0.68rem;
-  letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-soft);
+  letter-spacing: 0.04em; color: var(--ink-soft);
 }
-.hdr-sub-x { text-transform: none; letter-spacing: 0.04em; }
 .hdr-nav { display: flex; gap: 20px; }
 .hdr-nav a {
   font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
@@ -716,8 +714,7 @@ const GRAPH_CSS = `
      from horizontal distribution at this width. */
   .hdr { display: block; padding: 12px 18px 8px; }
   .hdr-id h1 { font-size: 1.4rem; }
-  .hdr-sub { margin-top: 4px; font-size: 0.58rem; letter-spacing: 0.1em; }
-  .hdr-sub-x { display: none; }
+  .hdr-sub { margin-top: 4px; font-size: 0.62rem; letter-spacing: 0.02em; }
   .hdr-nav { margin-top: 8px; gap: 16px; justify-content: flex-start; }
   .hdr-nav a { font-size: 0.66rem; letter-spacing: 0.05em; }
   .hdr-nav a { font-size: 0.64rem; letter-spacing: 0.05em; }
