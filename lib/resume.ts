@@ -122,6 +122,7 @@ export const PUBLICATIONS: { citation: string; doi: string }[] = [
 
 export const CERTIFICATIONS: { name: string; note: string }[] = [
   { name: "Databricks Generative AI Fundamentals (accreditation)", note: "2026" },
+  { name: "Agile Product Owner Role: Foundations, LinkedIn", note: "2021" },
   { name: "Databricks Certified Generative AI Engineer Associate", note: "In progress" },
   { name: "Claude Certified Architect, Foundations (CCAR-F), Anthropic", note: "In progress" },
   { name: "Claude Certified Architect, Professional (CCAR-P), Anthropic", note: "In progress" },
