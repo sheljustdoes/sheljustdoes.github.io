@@ -33,7 +33,7 @@ export default function ResumePage() {
           <div className="title-dot" style={{ background: "var(--terracotta)" }} />
           <span className="title-mono">{HEADLINE.title}</span>
           <div className="title-dot" style={{ background: "var(--indigo)" }} />
-          <span className="title-mono">{HEADLINE.field}</span>
+          <span className="title-mono title-plain">{HEADLINE.field}</span>
         </div>
       </header>
 
@@ -246,6 +246,7 @@ body { background-color: var(--cream);
 .contact a:hover { color: var(--terracotta); }
 .title-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--parchment); margin-top: 10px; }
 .title-mono { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-taupe); }
+.title-plain { text-transform: none; letter-spacing: 0.04em; }
 .title-dot { width: 5px; height: 5px; flex-shrink: 0; }
 .section-label { font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm-taupe);
   margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }

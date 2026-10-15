@@ -583,6 +583,7 @@ const GRAPH_CSS = `
   margin: 7px 0 0; font-family: var(--mono); font-size: 0.68rem;
   letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-soft);
 }
+.hdr-sub-x { text-transform: none; letter-spacing: 0.04em; }
 .hdr-nav { display: flex; gap: 20px; }
 .hdr-nav a {
   font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
