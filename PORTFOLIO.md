@@ -116,7 +116,8 @@ keyword search on the same topic reached 12.5% precision. Limits stated with the
 snowball and merge times came from cached reruns, so a first run takes longer; one rule in
 the inclusion statement (animal fibers) was added after the screen first ran and before
 precision was scored; and a hair-type coverage count was added after the run and is
-labeled post hoc.
+labeled post hoc. The map is live as a static page at
+[/demos/veridian/](https://sheljustdoes.github.io/demos/veridian/).
 
 **Earlier work, now parked.** veridian began as claim-checking over a frozen PubMed corpus.
 An audit (2026-09-23) found the original grounding, which compared a claim with the center
@@ -126,7 +127,7 @@ rebuilt as retrieve-then-judge: the sentences nearest the claim are selected, ne
 generated, and a judge returns one typed stance per sentence, so every citation exists in
 its source and a verdict can be *contested* as well as supported, contradicted or
 unsupported. The same engine verifies the curriculum lumen generates for scintilla. Along
-the way came a keyless browser demo whose embeddings run in the reader's browser on the
+the way came a keyless browser demo (retired from the site 2026-10-16) whose embeddings run in the reader's browser on the
 same quantized ONNX weights Python uses (agreeing to cosine 1.000000 once sequence length
 and batch composition were pinned), versioned Parquet stages with a token budget,
 resumable async PubMed ingestion, scispaCy entities and structured claim tuples. That work

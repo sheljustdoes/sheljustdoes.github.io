@@ -1,665 +1,420 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="robots" content="noindex, follow" />
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>veridian — literature check</title>
+<title>veridian — literature map</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,300;0,400;0,500;0,600;0,700&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap');
 :root {
-  --cream:#F5F1EB; --parchment:#EAE4D9; --taupe:#C8BFB0; --charcoal:#1E1C1A;
-  --terracotta:#D4603A; --amber:#E8A830; --indigo:#3A4D8F; --forest:#2E5A45; --ink2:#6A6257;
+  --cream:#F5F1EB; --parchment:#EAE4D9; --taupe:#C8BFB0; --charcoal:#1E1C1A; --paper:#FFFDF9;
+  --terracotta:#D4603A; --indigo:#3A4D8F; --ink2:#6A6257;
   --display:'Outfit', sans-serif; --serif:'Lora', Georgia, serif; --mono:'DM Mono', monospace;
 }
 * { box-sizing: border-box; }
 body { margin:0; background:var(--cream); color:var(--charcoal); font-family:var(--serif); }
-.wrap { max-width: 820px; margin: 0 auto; padding: 40px 16px 80px; }
-
-/* mono-is-utility */
-.banner, label, .meta, .tag, .status, footer, .score, .tabs button, .verdict, .stance, select { font-family: var(--mono); }
-.banner {
-  display:block; margin-bottom:28px; padding:10px 14px;
-  border:1px solid var(--terracotta); border-left-width:3px;
-  font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--terracotta);
-}
-/* display-is-structure */
-h1 { font-family:var(--display); font-size:2.4rem; font-weight:600; letter-spacing:-0.02em; margin:0 0 .3rem; }
-h2 { font-family:var(--display); font-size:1.25rem; font-weight:500; margin:0 0 .6rem; line-height:1.35; }
-.hit h3 { font-family:var(--display); font-size:1rem; font-weight:500; margin:0 0 .45rem; line-height:1.35; }
-/* serif-is-voice */
-.sub { font-size:0.95rem; color:var(--ink2); margin:0 0 2rem; }
-.lede { font-size:0.95rem; color:var(--ink2); margin:0 0 1.4rem; }
-
-.tabs { display:flex; gap:0; border-bottom:2px solid var(--charcoal); margin-bottom:1.8rem; }
-.tabs button { background:transparent; color:var(--ink2); border:none; border-bottom:3px solid transparent;
-               margin-bottom:-2px; padding:10px 16px 9px; }
-.tabs button[aria-selected="true"] { color:var(--charcoal); border-bottom-color:var(--terracotta); }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 40px 16px 80px; }
+.banner, label, .meta, .tag, .status, footer, .controls button, select, .seg button { font-family: var(--mono); }
+.banner { display:block; margin-bottom:28px; padding:10px 14px; border:1px solid var(--terracotta); border-left-width:3px;
+          font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--terracotta); }
+h1 { font-family:var(--display); font-size:2.2rem; font-weight:600; letter-spacing:-0.02em; margin:0 0 .3rem; }
+h2 { font-family:var(--display); font-size:1.15rem; font-weight:500; margin:0 0 .5rem; line-height:1.35; }
+h3 { font-family:var(--display); font-size:1rem; font-weight:500; margin:.2rem 0 .3rem; }
+.sub { font-size:0.95rem; color:var(--ink2); margin:0 0 1.2rem; }
+.lede { font-size:0.95rem; color:var(--ink2); margin:0 0 .8rem; max-width:760px; }
+.inclusion { border-left:2px solid var(--taupe); padding:2px 0 2px 14px; margin:0 0 1rem; font-style:italic; max-width:760px; }
+.runline { font-family:var(--mono); font-size:0.68rem; letter-spacing:0.05em; color:var(--ink2); margin:0 0 1.4rem; }
+label { display:block; font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink2); margin:0 0 .4rem; }
+a { color:var(--indigo); }
 [hidden] { display:none !important; }
 
-label { display:block; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink2); margin:0 0 .55rem; }
-textarea, input[type=text] {
-  width:100%; padding:13px 15px; font-family:var(--serif); font-size:1rem;
-  color:var(--charcoal); background:#FFFDF9; border:1px solid var(--taupe); border-radius:2px;
-}
-textarea { min-height:76px; resize:vertical; }
-textarea:focus, input:focus, select:focus { outline:none; border-color:var(--terracotta); }
-select { font-size:0.75rem; padding:9px 10px; background:#FFFDF9; border:1px solid var(--taupe); border-radius:2px; color:var(--charcoal); }
-.row { display:flex; gap:10px; align-items:center; margin-top:14px; flex-wrap:wrap; }
-button {
-  font-family:var(--mono); font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase;
-  padding:10px 18px; border-radius:2px; border:1px solid var(--charcoal);
-  background:var(--charcoal); color:var(--cream); cursor:pointer;
-}
-button.ghost { background:transparent; color:var(--charcoal); }
-button:disabled { opacity:.35; cursor:not-allowed; }
-.status { font-size:0.68rem; letter-spacing:0.06em; color:var(--ink2); }
+.controls { display:flex; flex-wrap:wrap; gap:14px 22px; align-items:end; margin-bottom:12px; }
+.seg { display:flex; }
+.seg button, .controls button { font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; padding:8px 12px;
+  border:1px solid var(--charcoal); background:transparent; color:var(--charcoal); border-radius:0; cursor:pointer; }
+.seg button + button { border-left:none; }
+.seg button[aria-pressed="true"] { background:var(--charcoal); color:var(--cream); }
+select { font-size:0.72rem; padding:8px 8px; background:var(--paper); border:1px solid var(--taupe); border-radius:2px;
+         color:var(--charcoal); max-width:300px; }
+.check { display:flex; gap:7px; align-items:center; text-transform:none; letter-spacing:0; font-family:var(--serif);
+         font-size:0.9rem; color:var(--charcoal); margin:0 0 8px; cursor:pointer; }
 
-.source { display:flex; gap:18px; flex-wrap:wrap; margin-bottom:1.2rem; font-size:0.92rem; }
-.source label { display:flex; gap:7px; align-items:center; text-transform:none; letter-spacing:0; font-family:var(--serif);
-                font-size:0.92rem; color:var(--charcoal); margin:0; cursor:pointer; }
-.panel { border:1px solid var(--parchment); background:#FFFDF9; padding:16px 18px; margin-bottom:1.6rem; }
-.corpus-line { font-family:var(--mono); font-size:0.68rem; letter-spacing:0.05em; color:var(--ink2); margin-top:12px; }
-.bar { height:3px; background:var(--parchment); margin-top:10px; }
-.bar > i { display:block; height:100%; width:0; background:var(--terracotta); transition:width .15s; }
-
-.hit { background:#FFFDF9; border:1px solid var(--parchment); border-radius:2px; padding:16px 18px; margin-top:14px; }
-.meta { display:flex; gap:9px; flex-wrap:wrap; align-items:center; font-size:0.62rem;
-        letter-spacing:0.08em; text-transform:uppercase; color:var(--ink2); margin-bottom:.6rem; }
-.tag { border:1px solid var(--parchment); border-radius:999px; padding:2px 9px; }
-.score { color:var(--terracotta); font-variant-numeric:tabular-nums; font-weight:500; }
-.abs { font-size:0.9rem; color:var(--ink2); max-height:5.2em; overflow:hidden; }
-.note { border-left:2px solid var(--charcoal); padding:14px 18px; margin:2.5rem 0 0; background:var(--parchment); font-size:0.92rem; }
-.note b { font-family:var(--mono); font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; }
-a { color:var(--indigo); }
-footer { margin-top:3rem; padding-top:18px; border-top:2px solid var(--charcoal);
-         font-size:0.65rem; letter-spacing:0.05em; color:var(--ink2); }
-
-/* worked examples */
-.claims { display:flex; flex-direction:column; gap:6px; margin-bottom:1.6rem; }
-.claims button { text-align:left; text-transform:none; letter-spacing:0; font-family:var(--serif); font-size:0.9rem;
-                 background:#FFFDF9; color:var(--charcoal); border:1px solid var(--parchment);
-                 display:flex; gap:10px; align-items:baseline; padding:9px 12px; }
-.claims button[aria-pressed="true"] { border-color:var(--charcoal); border-left:3px solid var(--terracotta); }
-.claims .dot { flex:none; font-family:var(--mono); font-size:0.62rem; letter-spacing:0.06em; }
-.verdict { display:inline-block; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase;
-           padding:4px 10px; border:1px solid currentColor; border-radius:2px; }
-.v-supported { color:var(--forest); } .v-contradicted { color:var(--terracotta); }
-.v-contested { color:var(--amber); } .v-unsupported { color:var(--ink2); }
-.pair { display:flex; gap:22px; flex-wrap:wrap; align-items:center; margin:.8rem 0 1rem; }
-.pair span.k { font-family:var(--mono); font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink2); margin-right:8px; }
-.miss { font-family:var(--mono); font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--terracotta); }
-.keynote { font-size:0.88rem; color:var(--ink2); font-style:italic; margin:0 0 1rem; }
-blockquote { margin:.2rem 0 .6rem; padding:0 0 0 14px; border-left:2px solid var(--taupe); font-size:0.95rem; }
-.why { font-size:0.86rem; color:var(--ink2); }
-.stance { font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:500; }
-
-/* explore map */
-.warn { border:1px solid var(--terracotta); border-left-width:3px; background:#FFFDF9; padding:14px 16px; font-size:0.9rem; }
-.warn b { font-family:var(--mono); font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--terracotta); display:block; margin-bottom:6px; }
-.explore-grid { display:grid; grid-template-columns: minmax(0, 1fr) 230px; gap:18px; align-items:start; margin-bottom:1.4rem; }
-@media (max-width: 700px) { .explore-grid { grid-template-columns: minmax(0, 1fr); } .explore-grid aside { order:-1; } }
-.map { position:relative; background:#FFFDF9; border:1px solid var(--parchment); }
-.map svg { display:block; width:100%; height:auto; }
-.map .pt { cursor:pointer; }
-.map .pt.dim { opacity:.18; }
-.tip { position:absolute; pointer-events:none; max-width:260px; background:var(--charcoal); color:var(--cream);
-       font-family:var(--serif); font-size:0.8rem; line-height:1.35; padding:8px 10px; border-radius:2px; }
+.grid { display:grid; grid-template-columns: minmax(0, 1fr) 340px; gap:18px; align-items:start; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.map { position:relative; background:var(--paper); border:1px solid var(--parchment); touch-action:none; }
+.map canvas { display:block; width:100%; cursor:grab; }
+.map canvas.dragging { cursor:grabbing; }
+.tip { position:absolute; pointer-events:none; max-width:280px; background:var(--charcoal); color:var(--cream);
+       font-size:0.8rem; line-height:1.35; padding:8px 10px; border-radius:2px; }
 .tip .m { font-family:var(--mono); font-size:0.6rem; letter-spacing:0.06em; text-transform:uppercase; opacity:.75; display:block; margin-top:4px; }
-.legend { display:flex; flex-wrap:wrap; gap:6px 16px; margin:8px 0 0; font-family:var(--serif); font-size:0.85rem; }
-.legend button { background:transparent; color:var(--charcoal); border:none; padding:2px 0; text-transform:none; letter-spacing:0;
-                 font-family:var(--serif); font-size:0.85rem; display:flex; gap:6px; align-items:center; }
+.legend { display:flex; flex-wrap:wrap; gap:6px 16px; margin:8px 0 0; font-size:0.85rem; }
+.legend button { background:transparent; color:var(--charcoal); border:none; padding:2px 0; font-family:var(--serif);
+                 font-size:0.85rem; display:flex; gap:6px; align-items:center; text-align:left; cursor:pointer; }
 .legend button[aria-pressed="true"] { text-decoration:underline; text-underline-offset:3px; }
-.kbars { font-family:var(--mono); font-size:0.64rem; color:var(--ink2); margin-top:12px; }
-.kbars .r { display:grid; grid-template-columns: 46px 1fr 30px; white-space:nowrap; gap:6px; align-items:center; margin:3px 0; }
-.kbars .t { position:relative; height:8px; background:var(--parchment); }
-.kbars .t i { position:absolute; left:0; top:0; bottom:0; background:var(--ink2); border-radius:0 2px 2px 0; }
-.kbars .t i.best { background:var(--charcoal); }
-.kbars .t s { position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--terracotta); }
-.cluster { background:#FFFDF9; border:1px solid var(--parchment); border-radius:2px; padding:16px 18px; margin-top:14px; }
-.cluster ol { margin:.4rem 0 .6rem; padding-left:1.2rem; font-size:0.9rem; }
-.cluster li { margin:.2rem 0; }
+.ramp { display:flex; gap:8px; align-items:center; font-family:var(--mono); font-size:0.66rem; color:var(--ink2); }
+.ramp i { display:block; width:160px; height:8px; }
+.mapline { font-family:var(--mono); font-size:0.64rem; letter-spacing:0.04em; color:var(--ink2); margin-top:8px; }
+
+.panel { background:var(--paper); border:1px solid var(--parchment); padding:16px 18px; }
+.panel .empty { color:var(--ink2); font-size:0.9rem; margin:0; }
+.meta { display:flex; gap:7px; flex-wrap:wrap; align-items:center; font-size:0.6rem; letter-spacing:0.07em;
+        text-transform:uppercase; color:var(--ink2); margin:0 0 .6rem; }
+.tag { border:1px solid var(--parchment); border-radius:999px; padding:2px 9px; }
+.reason { font-size:0.88rem; background:var(--cream); padding:8px 10px; margin:.6rem 0; }
+.abs { font-size:0.88rem; color:var(--ink2); line-height:1.5; max-height:22em; overflow:auto; }
+.status { font-size:0.66rem; letter-spacing:0.04em; color:var(--ink2); margin:.3rem 0 .8rem; }
+li .status { margin:0; }
+.refs { margin:.3rem 0 .8rem; padding-left:1.1rem; font-size:0.85rem; }
+.refs li { margin:.25rem 0; }
+.linkish { background:none; border:none; padding:0; color:var(--indigo); text-decoration:underline; text-underline-offset:2px;
+           font:inherit; text-align:left; cursor:pointer; }
+.warn { border:1px solid var(--taupe); border-left:3px solid var(--charcoal); background:var(--paper); padding:12px 14px;
+        font-size:0.88rem; margin:1.6rem 0 0; max-width:760px; }
+.warn b { font-family:var(--mono); font-size:0.64rem; letter-spacing:0.1em; text-transform:uppercase; display:block; margin-bottom:5px; }
+.cluster { background:var(--paper); border:1px solid var(--parchment); padding:16px 18px; margin-top:14px; }
+.cluster ol { margin:.4rem 0 .4rem; padding-left:1.2rem; font-size:0.9rem; }
+.cluster li { margin:.25rem 0; }
+footer { margin-top:3rem; padding-top:18px; border-top:2px solid var(--charcoal); font-size:0.65rem; letter-spacing:0.05em; color:var(--ink2); }
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="banner">Prototype · the interface is provisional and not yet designed</div>
-  <h1>veridian</h1>
+  <h1 id="title">Literature map</h1>
   <p class="sub" id="sub">Loading…</p>
+  <p class="lede">
+    Each point is one paper that the screen included. Points sit near papers with similar abstracts,
+    and a line joins two papers when one cites the other. Groups are named by the MeSH terms that set
+    them apart. The model only screens papers; it writes no text on this page except each paper's
+    one-line screening reason.
+  </p>
+  <p class="inclusion" id="inclusion"></p>
+  <p class="runline" id="runline"></p>
 
-  <div class="tabs" role="tablist">
-    <button role="tab" id="tab-examples" aria-selected="true" aria-controls="view-examples">Judged examples</button>
-    <button role="tab" id="tab-retrieve" aria-selected="false" aria-controls="view-retrieve">Retrieve evidence</button>
-    <button role="tab" id="tab-explore" aria-selected="false" aria-controls="view-explore">Explore map</button>
+  <div class="controls">
+    <div>
+      <label>Color by</label>
+      <div class="seg" id="colorby">
+        <button data-v="cluster" aria-pressed="true">Group</button>
+        <button data-v="year" aria-pressed="false">Year</button>
+      </div>
+    </div>
+    <div>
+      <label for="overlay">Highlight papers with</label>
+      <select id="overlay"><option value="">Nothing highlighted</option></select>
+    </div>
+    <label class="check"><input type="checkbox" id="edges" checked> Citation lines</label>
+    <button id="reset" type="button">Reset view</button>
   </div>
 
-  <!-- ───────────── judged examples ───────────── -->
-  <section id="view-examples" role="tabpanel">
-    <p class="lede" id="ex-lede">
-      The full Check pipeline — retrieve, select sentences, judge, decide — on held-out claims,
-      run offline with a hosted judge. Each verdict sits beside the answer-key label, and the
-      sentences are quoted from the papers, not written by the model.
-    </p>
-    <div class="corpus-line" style="margin:0 0 8px">● matches the key · ○ disagrees · color is the verdict:
-      <span class="v-supported">supported</span> · <span class="v-contradicted">contradicted</span> ·
-      <span class="v-unsupported">unsupported</span></div>
-    <div class="claims" id="ex-list"></div>
-    <div id="ex-detail"></div>
-  </section>
-
-  <!-- ───────────── live retrieval ───────────── -->
-  <section id="view-retrieve" role="tabpanel" hidden>
-    <div class="source" role="radiogroup" aria-label="Corpus">
-      <label><input type="radio" name="src" value="demo" checked> Frozen demo corpus</label>
-      <label><input type="radio" name="src" value="live"> Any topic, live from PubMed</label>
+  <div class="grid">
+    <div>
+      <div class="map" id="map"><canvas id="canvas"></canvas><div class="tip" id="tip" hidden></div></div>
+      <div class="legend" id="legend"></div>
+      <div class="mapline" id="mapline"></div>
     </div>
+    <aside class="panel" id="detail" aria-live="polite">
+      <p class="empty">Click a point to read the paper's abstract and see what it cites in this map.
+        Scroll to zoom, drag to pan.</p>
+    </aside>
+  </div>
 
-    <div class="panel" id="live-panel" hidden>
-      <label for="topic">PubMed search</label>
-      <input type="text" id="topic" placeholder="e.g. GLP-1 agonists alcohol use disorder">
-      <div class="row">
-        <select id="limit" aria-label="Number of papers">
-          <option value="10">10 papers</option>
-          <option value="25" selected>25 papers</option>
-          <option value="50">50 papers</option>
-        </select>
-        <button id="build">Build corpus</button>
-        <span class="status" id="build-status"></span>
-      </div>
-      <div class="bar" hidden id="bar"><i></i></div>
-    </div>
-    <div class="corpus-line" id="corpus-line"></div>
-
-    <div style="margin-top:1.4rem">
-      <label for="claim">Claim to ground</label>
-      <textarea id="claim">Metformin extends lifespan in humans.</textarea>
-      <div class="row">
-        <button id="go" disabled>Retrieve evidence</button>
-        <button id="flip" class="ghost" disabled>Negate the claim</button>
-        <span class="status" id="status"></span>
-      </div>
-    </div>
-
-    <div id="results"></div>
-
-    <div class="note">
-      <b>What this tab does and does not do.</b> It retrieves — it does not judge.
-      Everything runs in your browser: the demo corpus is precomputed, a live corpus is
-      fetched from PubMed and embedded on your machine, and your claim is embedded locally
-      with the same 23&nbsp;MB model. No key and no backend; the only requests are to
-      PubMed and, once, for the model.
-      <br><br>
-      Press <em>Negate the claim</em> and watch the same papers come back. That is not a
-      bug — a claim and its negation embed at cosine ≈ 0.93, so retrieval is a
-      <em>recall</em> device and cannot tell them apart. Deciding support versus
-      contradiction is a separate reading step; the <em>Judged examples</em> tab shows it.
-    </div>
-  </section>
-
-  <!-- ───────────── explore map ───────────── -->
-  <section id="view-explore" role="tabpanel" hidden>
-    <p class="lede">
-      Explore groups the demo corpus by meaning, names each group by the MeSH terms that set it
-      apart, and quotes the findings of the papers nearest its center. Nothing on this tab is
-      generated by a model: it is built offline from the same frozen corpus Check searches.
-    </p>
-    <div class="explore-grid">
-      <div>
-        <div class="map" id="map"><div class="tip" id="tip" hidden></div></div>
-        <div class="legend" id="legend"></div>
-        <div class="corpus-line" id="map-line"></div>
-      </div>
-      <aside>
-        <div class="warn" id="warn"></div>
-        <div class="kbars" id="kbars"></div>
-      </aside>
-    </div>
-    <div id="clusters"></div>
-  </section>
-
+  <div class="warn" id="warn"></div>
+  <div id="clusters"></div>
   <footer id="foot"></footer>
 </div>
 
 <script type="module">
-import { AutoTokenizer, AutoModel, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.6';
-env.allowLocalModels = false;
-
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const statusEl = $('status');
+const journalName = (j) => (j || '').split(' : ')[0];
 
-// ── tabs ──────────────────────────────────────────────────────────────
-for (const tab of document.querySelectorAll('[role=tab]')) {
-  tab.onclick = () => {
-    for (const t of document.querySelectorAll('[role=tab]')) {
-      const on = t === tab;
-      t.setAttribute('aria-selected', on);
-      $(t.getAttribute('aria-controls')).hidden = !on;
-    }
-  };
-}
-
-// ── embedding model (shared by corpus building and claims) ────────────
-let payload, embedder = null;
-let corpus = { articles: [], vectors: [], label: '' };   // what retrieval searches
-let demoCorpus = null;
-
-function decodeVectors(b64, dim) {
-  const bin = atob(b64);
-  const bytes = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-  const flat = new Float32Array(bytes.buffer);
-  const rows = [];
-  for (let i = 0; i < flat.length; i += dim) rows.push(flat.subarray(i, i + dim));
-  return rows;
-}
-
-async function getEmbedder(onStatus) {
-  if (embedder) return embedder;
-  const { model, max_length } = payload.embedding;
-  onStatus('loading embedding model (~23 MB, cached after first use)…');
-  const tokenizer = await AutoTokenizer.from_pretrained(model);
-  const net = await AutoModel.from_pretrained(model, { dtype: 'q8' });
-
-  // Mirrors OnnxEmbedder exactly: fixed-length padding, mean pooling over the
-  // attention mask, L2 normalize, one text at a time. The fixed length is not cosmetic —
-  // this model is int8-quantized and its output shifts with sequence length, so padding
-  // to the batch maximum instead would put this vector in a different space from the corpus.
-  embedder = async (text) => {
-    const enc = await tokenizer([text], { padding: 'max_length', max_length, truncation: true });
-    const out = await net(enc);
-    const h = out.last_hidden_state;
-    const [, seq, dim] = h.dims;
-    const mask = enc.attention_mask.data;
-    const vec = new Float32Array(dim);
-    let n = 0;
-    for (let i = 0; i < seq; i++) {
-      if (Number(mask[i]) === 0) continue;
-      n++;
-      for (let d = 0; d < dim; d++) vec[d] += h.data[i * dim + d];
-    }
-    let norm = 0;
-    for (let d = 0; d < dim; d++) { vec[d] /= n; norm += vec[d] * vec[d]; }
-    norm = Math.sqrt(norm) || 1;
-    for (let d = 0; d < dim; d++) vec[d] /= norm;
-    return vec;
-  };
-  return embedder;
-}
-
-// ── live PubMed corpus ────────────────────────────────────────────────
-// Same E-utilities calls and the same parsing rules as veridian/retrieval.py, done in the
-// browser: NCBI serves these endpoints with CORS open, so no proxy is needed. Unkeyed
-// requests are limited to 3 per second; a build makes two.
-const EUTILS = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/';
-const EVIDENCE_RANK = [
-  ['Meta-Analysis', 'synthesis'], ['Network Meta-Analysis', 'synthesis'], ['Systematic Review', 'synthesis'],
-  ['Practice Guideline', 'guideline'], ['Guideline', 'guideline'],
-  ['Randomized Controlled Trial', 'trial'], ['Controlled Clinical Trial', 'trial'], ['Clinical Trial', 'trial'],
-  ['Observational Study', 'observational'], ['Comparative Study', 'observational'],
-  ['Scoping Review', 'narrative_review'], ['Review', 'narrative_review'],
-  ['Case Reports', 'case_report'], ['Editorial', 'commentary'], ['Comment', 'commentary'], ['Letter', 'commentary'],
+// Four categorical colors, each with its own marker shape, so a group never depends on
+// color alone.
+const STYLE = [
+  { color: '#D4603A', shape: 'circle' }, { color: '#4A5FA8', shape: 'square' },
+  { color: '#2F8F6A', shape: 'triangle' }, { color: '#A8741A', shape: 'diamond' },
 ];
-const evidenceType = (types) => (EVIDENCE_RANK.find(([l]) => types.includes(l)) || [, 'primary_study'])[1];
+const style = (c) => STYLE[c % STYLE.length];
+const RAMP = [[226, 214, 196], [58, 77, 143]];     // oldest to newest
 
-function parsePubmed(xml) {
-  const doc = new DOMParser().parseFromString(xml, 'application/xml');
-  const out = [];
-  for (const node of doc.querySelectorAll('PubmedArticle')) {
-    const pmid = node.querySelector('PMID')?.textContent.trim();
-    const abstract = [...node.querySelectorAll('Abstract > AbstractText')].map((a) => {
-      const body = a.textContent.trim();
-      const label = a.getAttribute('Label');
-      return body && (label ? `${label}: ${body}` : body);
-    }).filter(Boolean).join(' ');
-    if (!pmid || !abstract) continue;            // like parse_articles: no abstract, no record
-    const yearText = node.querySelector('PubDate > Year')?.textContent
-      || node.querySelector('PubDate > MedlineDate')?.textContent?.slice(0, 4);
-    const types = [...node.querySelectorAll('PublicationType')].map((p) => p.textContent);
-    const mesh = [...node.querySelectorAll('MeshHeading')].map((h) => {
-      const d = h.querySelector('DescriptorName');
-      return d && {
-        term: d.textContent,
-        major: d.getAttribute('MajorTopicYN') === 'Y'
-          || [...h.querySelectorAll('QualifierName')].some((q) => q.getAttribute('MajorTopicYN') === 'Y'),
-      };
-    }).filter(Boolean);
-    out.push({
-      pmid, abstract, mesh, publication_types: types, evidence_type: evidenceType(types),
-      title: node.querySelector('ArticleTitle')?.textContent.trim() ?? '',
-      year: parseInt(yearText, 10) || null,
-      journal: node.querySelector('Journal > Title')?.textContent ?? null,
-    });
-  }
-  return out;
+function shapePath(ctx, shape, x, y, r) {
+  if (shape === 'circle') ctx.arc(x, y, r, 0, Math.PI * 2);
+  else if (shape === 'square') ctx.rect(x - r * 0.88, y - r * 0.88, r * 1.76, r * 1.76);
+  else if (shape === 'triangle') { ctx.moveTo(x, y - r * 1.15); ctx.lineTo(x + r * 1.05, y + r * 0.8); ctx.lineTo(x - r * 1.05, y + r * 0.8); ctx.closePath(); }
+  else { ctx.moveTo(x, y - r * 1.2); ctx.lineTo(x + r * 1.05, y); ctx.lineTo(x, y + r * 1.2); ctx.lineTo(x - r * 1.05, y); ctx.closePath(); }
 }
 
-async function buildLiveCorpus() {
-  const topic = $('topic').value.trim();
-  if (!topic) return;
-  const limit = Number($('limit').value);
-  const say = (t) => { $('build-status').textContent = t; };
-  const bar = $('bar'), fill = bar.firstElementChild;
-  $('build').disabled = $('go').disabled = $('flip').disabled = true;
-  try {
-    say('searching PubMed…');
-    const q = new URLSearchParams({ db: 'pubmed', term: topic, retmax: limit, retmode: 'json', sort: 'relevance', tool: 'veridian-demo' });
-    const search = await (await fetch(EUTILS + 'esearch.fcgi?' + q)).json();
-    const ids = search.esearchresult?.idlist ?? [];
-    const total = Number(search.esearchresult?.count ?? 0);
-    if (!ids.length) { say('no papers matched that search'); return; }
+function swatch(st) {
+  const c = document.createElement('canvas');
+  c.width = c.height = 24; c.style.width = c.style.height = '12px';
+  const ctx = c.getContext('2d');
+  ctx.scale(2, 2); ctx.beginPath(); shapePath(ctx, st.shape, 6, 6.5, 4.5);
+  ctx.fillStyle = st.color; ctx.fill();
+  c.setAttribute('aria-hidden', 'true');
+  return c;
+}
 
-    say(`fetching ${ids.length} records…`);
-    const f = new URLSearchParams({ db: 'pubmed', id: ids.join(','), retmode: 'xml', tool: 'veridian-demo' });
-    const res = await fetch(EUTILS + 'efetch.fcgi?' + f);
-    if (!res.ok) throw new Error(`PubMed returned HTTP ${res.status}`);
-    const articles = parsePubmed(await res.text());
-    if (!articles.length) { say('none of the matches has an abstract'); return; }
+const run = new URLSearchParams(location.search).get('run') || 'hair_fiber';
+if (!/^[a-z0-9_]+$/.test(run)) throw new Error('bad run name');
 
-    const embed = await getEmbedder(say);
-    bar.hidden = false;
-    const vectors = [];
-    const t0 = performance.now();
-    for (let i = 0; i < articles.length; i++) {
-      say(`embedding ${i + 1} / ${articles.length} on this machine…`);
-      fill.style.width = `${((i + 1) / articles.length) * 100}%`;
-      vectors.push(await embed(`${articles[i].title} ${articles[i].abstract}`));
+const res = await fetch(`${run}.json`);
+if (!res.ok) { $('sub').textContent = `Could not load ${run}.json (HTTP ${res.status}).`; throw new Error('load'); }
+const G = await res.json();
+const N = G.nodes;
+const index = new Map(N.map((n, i) => [n.id, i]));
+const cites = N.map(() => []), citedBy = N.map(() => []);
+const E = G.edges.map(({ source, target }) => {
+  const s = index.get(source), t = index.get(target);
+  cites[s].push(t); citedBy[t].push(s);
+  return [s, t];
+});
+const name = (c) => c.terms.slice(0, 2).map((t) => t.term).join(' · ') || `group ${c.id + 1}`;
+const years = N.map((n) => n.year).filter(Boolean);
+const y0 = Math.min(...years), y1 = Math.max(...years);
+
+// ── text around the map ──────────────────────────────────────────────
+const R = G.run, d = R.decisions;
+document.title = `veridian — ${R.topic}`;
+$('title').textContent = R.topic;
+$('sub').textContent = 'A map of the literature, built from one topic and one inclusion statement.';
+$('inclusion').textContent = `Included: ${R.inclusion}`;
+$('runline').textContent = `${R.candidates.toLocaleString()} candidate papers from PubMed and citation snowballing · `
+  + `screened by ${R.screen_model}: ${(d.include || 0).toLocaleString()} included, ${(d.maybe || 0).toLocaleString()} maybe, `
+  + `${(d.exclude || 0).toLocaleString()} excluded · topic to map in ${Math.round(R.wall_s / 60)} minutes · built ${R.built}`;
+$('mapline').textContent = `${G.papers.toLocaleString()} papers · ${G.edges_count.toLocaleString()} citations among them `
+  + `(${G.papers_with_references.toLocaleString()} papers have a reference list in OpenAlex) · `
+  + `layout: PCA of the abstract embeddings; the axes have no units`;
+const stab = G.k_evidence.stability?.[String(G.k)], sil = G.k_evidence.silhouette?.[String(G.k)];
+$('warn').innerHTML = G.k_stable
+  ? `<b>How firm the groups are</b>Refitting on resampled papers, ${G.k} groups agree with themselves at
+     ${stab?.toFixed(2)}, above the 0.80 this map requires. They are stable but not well separated
+     (silhouette ${sil?.toFixed(2)}), so read them as broad regions of one field with soft edges, not as separate fields.`
+  : `<b>No stable grouping</b>No number of groups agrees with itself under resampling well enough to trust. The
+     ${G.k} shown are a sketch: rerun on a different sample and papers move between them.`;
+$('foot').textContent = `Run ${R.name}. Topics are MeSH major headings; ancestry, population and country headings are
+  used in search and screening but never shown on the map.`;
+
+// ── controls ─────────────────────────────────────────────────────────
+const state = { colorBy: 'cluster', overlay: null, edges: true, focus: null, selected: null };
+const sel = $('overlay');
+for (const [kind, label] of [['mesh_major', 'MeSH major topic'], ['journal', 'Journal']]) {
+  const g = document.createElement('optgroup');
+  g.label = label;
+  for (const o of G.overlays[kind]) {
+    const opt = document.createElement('option');
+    opt.value = `${kind}\t${o.value}`;
+    opt.textContent = `${kind === 'journal' ? journalName(o.value) : o.value} (${o.papers})`;
+    g.append(opt);
+  }
+  sel.append(g);
+}
+sel.onchange = () => {
+  if (!sel.value) state.overlay = null;
+  else {
+    const [kind, value] = sel.value.split('\t');
+    state.overlay = kind === 'journal'
+      ? new Set(N.flatMap((n, i) => (n.journal === value ? [i] : [])))
+      : new Set(N.flatMap((n, i) => (n.mesh_major.includes(value) ? [i] : [])));
+  }
+  draw();
+};
+for (const b of $('colorby').children) b.onclick = () => {
+  state.colorBy = b.dataset.v;
+  for (const x of $('colorby').children) x.setAttribute('aria-pressed', x === b);
+  legend(); draw();
+};
+$('edges').onchange = (e) => { state.edges = e.target.checked; draw(); };
+$('reset').onclick = () => { view = { k: 1, tx: 0, ty: 0 }; draw(); };
+
+function legend() {
+  const el = $('legend');
+  el.innerHTML = '';
+  if (state.colorBy === 'year') {
+    el.innerHTML = `<span class="ramp">${y0}<i style="background:linear-gradient(90deg, rgb(${RAMP[0]}), rgb(${RAMP[1]}))"></i>${y1}</span>`;
+    return;
+  }
+  for (const c of G.clusters) {
+    const b = document.createElement('button');
+    b.setAttribute('aria-pressed', state.focus === c.id);
+    b.append(swatch(style(c.id)), `${name(c)} (${c.size})`);
+    b.onclick = () => { state.focus = state.focus === c.id ? null : c.id; legend(); draw(); };
+    el.append(b);
+  }
+}
+
+// ── the map ──────────────────────────────────────────────────────────
+const canvas = $('canvas'), ctx = canvas.getContext('2d');
+const xs = N.map((n) => n.x), ys = N.map((n) => n.y);
+const [xmin, xmax, ymin, ymax] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+let W = 0, H = 0, view = { k: 1, tx: 0, ty: 0 };
+const PAD = 16;
+const base = (i) => [PAD + (N[i].x - xmin) / (xmax - xmin) * (W - 2 * PAD),
+                     PAD + (1 - (N[i].y - ymin) / (ymax - ymin)) * (H - 2 * PAD)];
+const screen = (i) => { const [x, y] = base(i); return [x * view.k + view.tx, y * view.k + view.ty]; };
+
+function color(i) {
+  if (state.colorBy === 'cluster') return style(N[i].cluster).color;
+  const t = N[i].year ? (N[i].year - y0) / Math.max(1, y1 - y0) : 0;
+  return `rgb(${RAMP[0].map((a, j) => Math.round(a + (RAMP[1][j] - a) * t))})`;
+}
+
+function lit(i) {
+  if (state.focus !== null && N[i].cluster !== state.focus) return false;
+  if (state.overlay && !state.overlay.has(i)) return false;
+  return true;
+}
+
+function draw() {
+  ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  ctx.fillStyle = '#FFFDF9'; ctx.fillRect(0, 0, W, H);
+  const P = N.map((_, i) => screen(i));
+  const dimmed = state.focus !== null || state.overlay;
+  if (state.edges) {
+    ctx.beginPath();
+    for (const [s, t] of E) {
+      if (dimmed && !(lit(s) && lit(t))) continue;
+      ctx.moveTo(...P[s]); ctx.lineTo(...P[t]);
     }
-    corpus = {
-      articles, vectors,
-      label: `${articles.length} abstracts for “${topic}” — top ${ids.length} of ${total.toLocaleString()} PubMed matches by relevance, `
-        + `${ids.length - articles.length} skipped for having no abstract · embedded in ${((performance.now() - t0) / 1000).toFixed(1)} s`,
-    };
-    $('corpus-line').textContent = corpus.label;
-    say('ready');
-  } catch (err) {
-    say(`failed: ${err.message}`);
-  } finally {
-    bar.hidden = true; fill.style.width = '0';
-    $('build').disabled = false;
-    if (corpus.articles.length) $('go').disabled = $('flip').disabled = false;
+    ctx.strokeStyle = 'rgba(30, 28, 26, 0.07)'; ctx.lineWidth = 0.6; ctx.stroke();
+  }
+  const r = Math.min(7, 3.2 * Math.sqrt(view.k));
+  const order = N.map((_, i) => i).sort((a, b) => lit(a) - lit(b));   // highlighted on top
+  for (const i of order) {
+    ctx.globalAlpha = lit(i) ? 1 : 0.13;
+    ctx.beginPath(); shapePath(ctx, style(N[i].cluster).shape, ...P[i], r);
+    ctx.fillStyle = color(i); ctx.fill();
+    ctx.lineWidth = 0.8; ctx.strokeStyle = '#FFFDF9'; ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+  const s = state.selected;
+  if (s !== null) {
+    ctx.beginPath();
+    for (const t of cites[s]) { ctx.moveTo(...P[s]); ctx.lineTo(...P[t]); }
+    for (const t of citedBy[s]) { ctx.moveTo(...P[s]); ctx.lineTo(...P[t]); }
+    ctx.strokeStyle = 'rgba(30, 28, 26, 0.55)'; ctx.lineWidth = 1; ctx.stroke();
+    for (const t of [...cites[s], ...citedBy[s]]) {
+      ctx.beginPath(); shapePath(ctx, style(N[t].cluster).shape, ...P[t], r);
+      ctx.fillStyle = color(t); ctx.fill();
+    }
+    ctx.beginPath(); ctx.arc(...P[s], r + 4, 0, Math.PI * 2);
+    ctx.strokeStyle = '#1E1C1A'; ctx.lineWidth = 2; ctx.stroke();
   }
 }
 
-function useSource(src) {
-  $('live-panel').hidden = src !== 'live';
-  $('results').innerHTML = '';
-  if (src === 'demo') {
-    corpus = demoCorpus;
-  } else {
-    corpus = { articles: [], vectors: [], label: 'No live corpus yet — search a topic above.' };
+function resize() {
+  W = canvas.clientWidth; H = Math.round(Math.min(W * 0.72, 680));
+  canvas.style.height = `${H}px`;
+  canvas.width = W * devicePixelRatio; canvas.height = H * devicePixelRatio;
+  draw();
+}
+new ResizeObserver(resize).observe($('map'));
+
+function nearest(mx, my) {
+  let best = null, bd = 10 * 10;
+  for (let i = 0; i < N.length; i++) {
+    if (!lit(i) && i !== state.selected) continue;
+    const [x, y] = screen(i), dd = (x - mx) ** 2 + (y - my) ** 2;
+    if (dd < bd) { bd = dd; best = i; }
   }
-  $('corpus-line').textContent = corpus.label;
-  $('go').disabled = $('flip').disabled = !corpus.articles.length;
+  return best;
 }
 
-// ── retrieval over whichever corpus is active ─────────────────────────
-function render(hits) {
-  $('results').innerHTML = hits.map(({ article, score }) => {
-    const mesh = (article.mesh || []).filter((m) => m.major).slice(0, 4)
-      .map((m) => `<span class="tag">${esc(m.term)}</span>`).join('');
-    return `<div class="hit">
-      <h3>${esc(article.title)}</h3>
-      <div class="meta">
-        <span class="score">${score.toFixed(3)}</span>
-        <span class="tag">${esc(article.evidence_type.replace(/_/g, ' '))}</span>
-        <span>${esc(article.year ?? '')} · ${esc(article.journal ?? '')}</span>
-        <a href="https://pubmed.ncbi.nlm.nih.gov/${esc(article.pmid)}/" target="_blank" rel="noopener">PMID ${esc(article.pmid)}</a>
-        ${mesh}
-      </div>
-      <div class="abs">${esc(article.abstract)}</div>
-    </div>`;
-  }).join('');
-}
-
-async function retrieve() {
-  const claim = $('claim').value.trim();
-  if (!claim || !corpus.articles.length) return;
-  $('go').disabled = true;
-  try {
-    const embed = await getEmbedder((t) => { statusEl.textContent = t; });
-    statusEl.textContent = 'embedding claim…';
-    const t0 = performance.now();
-    const q = await embed(claim);
-    const scored = corpus.vectors.map((v, i) => {
-      let dot = 0;
-      for (let d = 0; d < q.length; d++) dot += v[d] * q[d];
-      return { article: corpus.articles[i], score: dot };
-    });
-    scored.sort((a, b) => b.score - a.score);
-    render(scored.slice(0, 5));
-    statusEl.textContent = `${Math.round(performance.now() - t0)} ms, in-browser`;
-  } catch (err) {
-    statusEl.textContent = `failed: ${err.message}`;
-  } finally {
-    $('go').disabled = false;
+const pos = (e) => { const b = canvas.getBoundingClientRect(); return [e.clientX - b.left, e.clientY - b.top]; };
+let drag = null;
+canvas.addEventListener('pointerdown', (e) => {
+  drag = { x: e.clientX, y: e.clientY, tx: view.tx, ty: view.ty, moved: false };
+  canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener('pointermove', (e) => {
+  if (drag) {
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true;
+    if (drag.moved) {
+      canvas.classList.add('dragging'); $('tip').hidden = true;
+      view.tx = drag.tx + dx; view.ty = drag.ty + dy; draw();
+      return;
+    }
   }
+  const [mx, my] = pos(e), i = nearest(mx, my), tip = $('tip');
+  if (i === null) { tip.hidden = true; return; }
+  const c = G.clusters[N[i].cluster];
+  tip.innerHTML = `${esc(N[i].title)}<span class="m">${esc(N[i].year ?? '')} · ${esc(journalName(N[i].journal))} · ${esc(name(c))}</span>`;
+  tip.hidden = false;
+  tip.style.left = `${Math.max(4, Math.min(mx + 12, W - 290))}px`;
+  tip.style.top = `${my + 14}px`;
+});
+canvas.addEventListener('pointerup', (e) => {
+  canvas.classList.remove('dragging');
+  const moved = drag?.moved;
+  drag = null;
+  if (moved) return;
+  const [mx, my] = pos(e);
+  select(nearest(mx, my));
+});
+canvas.addEventListener('pointerleave', () => { $('tip').hidden = true; });
+canvas.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const [mx, my] = pos(e), k = Math.min(12, Math.max(1, view.k * Math.exp(-e.deltaY * 0.0015)));
+  view.tx = mx - (mx - view.tx) * (k / view.k); view.ty = my - (my - view.ty) * (k / view.k); view.k = k;
+  if (k === 1) { view.tx = 0; view.ty = 0; }
+  draw();
+}, { passive: false });
+
+// ── the selected paper ───────────────────────────────────────────────
+function paperList(ids) {
+  const shown = ids.slice().sort((a, b) => citedBy[b].length - citedBy[a].length).slice(0, 8);
+  const more = ids.length - shown.length;
+  return `<ol class="refs">${shown.map((i) => `<li><a class="linkish" href="#" data-i="${i}">${esc(N[i].title)}</a>
+    <span class="status">${esc(N[i].year ?? '')}</span></li>`).join('')}</ol>`
+    + (more > 0 ? `<p class="status">and ${more} more</p>` : '');
 }
 
-function negate(text) {
-  const swaps = [
-    [/\bdoes not\b/i, 'does'], [/\bdo not\b/i, 'do'], [/\bis not\b/i, 'is'],
-    [/\bare not\b/i, 'are'], [/\bno longer\b/i, 'still'],
-    [/\bextends\b/i, 'does not extend'], [/\breduces\b/i, 'does not reduce'],
-    [/\bincreases\b/i, 'does not increase'], [/\bimproves\b/i, 'does not improve'],
-    [/\bprevents\b/i, 'does not prevent'], [/\bcauses\b/i, 'does not cause'],
-  ];
-  for (const [re, to] of swaps) if (re.test(text)) return text.replace(re, to);
-  return text.replace(/\.$/, '') + ' — this is not the case.';
-}
-
-// ── judged examples ───────────────────────────────────────────────────
-const vbadge = (v) => `<span class="verdict v-${esc(v)}">${esc(v)}</span>`;
-
-function showExample(ex, button, scroll = false) {
-  for (const b of $('ex-list').children) b.setAttribute('aria-pressed', b === button);
-  const flags = [ex.null_result && 'the only evidence is a null result, which the key counts as unsupported',
-                 ex.secondhand && 'the evidence is a review’s synthesis, flagged second-hand'].filter(Boolean);
-  const evidence = ex.evidence.length ? ex.evidence.map((e) => `<div class="hit">
-      <div class="meta">
-        <span class="stance v-${e.stance === 'supports' ? 'supported' : 'contradicted'}">${esc(e.stance)}</span>
-        ${e.section ? `<span class="tag">${esc(e.section.toLowerCase())}</span>` : ''}
-        ${e.population ? `<span class="tag">${esc(e.population)}</span>` : ''}
-        ${e.evidence_type ? `<span class="tag">${esc(e.evidence_type.replace(/_/g, ' '))}</span>` : ''}
-        <span>${esc(e.year ?? '')}</span>
-        <a href="https://pubmed.ncbi.nlm.nih.gov/${esc(e.pmid)}/" target="_blank" rel="noopener">PMID ${esc(e.pmid)}</a>
-      </div>
-      <h3>${esc(e.title)}</h3>
-      <blockquote>${esc(e.quote)}</blockquote>
-      <div class="why">${esc(e.reasoning)}</div>
-    </div>`).join('')
-    : `<p class="keynote">No sentence was judged to support or contradict the claim.</p>`;
-  $('ex-detail').innerHTML = `
-    <h2>${esc(ex.claim)}</h2>
-    <div class="pair">
-      <div><span class="k">Verdict</span>${vbadge(ex.verdict)}</div>
-      <div><span class="k">Answer key</span>${vbadge(ex.key)}</div>
-      ${ex.agrees ? '' : '<span class="miss">disagrees with the key</span>'}
-    </div>
-    ${ex.key_notes ? `<p class="keynote">Key note: ${esc(ex.key_notes)}</p>` : ''}
-    ${flags.length ? `<p class="keynote">${esc(flags.join('; '))}.</p>` : ''}
-    <div class="corpus-line">Read ${ex.sentences_read} sentences from ${ex.papers_read} papers · ${ex.evidence.length} judged as evidence</div>
-    ${evidence}`;
-  if (scroll) $('ex-detail').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-async function loadExamples() {
-  const res = await fetch('examples.json');
-  if (!res.ok) throw new Error(`examples.json — HTTP ${res.status}`);
-  const data = await res.json();
-  const { agree, n } = data.agreement;
-  $('ex-lede').insertAdjacentHTML('beforeend',
-    ` <br><br>This page shows one fresh run with <code>${esc(data.judge)}</code>: ${agree} of ${n} verdicts match the key.
-      The published accuracy — 86% on these 21 claims — comes from the single scored run; the
-      judge is not deterministic, so a verdict here can differ from it.`);
-  for (const ex of data.examples) {
-    const b = document.createElement('button');
-    b.innerHTML = `<span class="dot v-${esc(ex.verdict)}">${ex.agrees ? '●' : '○'}</span><span>${esc(ex.claim)}</span>`;
-    b.title = ex.agrees ? 'matches the answer key' : 'disagrees with the answer key';
-    b.onclick = () => showExample(ex, b, true);
-    $('ex-list').append(b);
+function select(i) {
+  state.selected = i;
+  draw();
+  const el = $('detail');
+  if (i === null) {
+    el.innerHTML = `<p class="empty">Click a point to read the paper's abstract and see what it cites in this map.</p>`;
+    return;
   }
-  const first = data.examples.find((e) => e.evidence.length) || data.examples[0];
-  showExample(first, $('ex-list').children[data.examples.indexOf(first)]);
+  const n = N[i], c = G.clusters[n.cluster];
+  el.innerHTML = `
+    <div class="meta"><span>${esc(n.year ?? '')}</span>${n.journal ? `<span class="tag">${esc(journalName(n.journal))}</span>` : ''}
+      <span style="display:flex;gap:5px;align-items:center" id="sw"></span></div>
+    <h2><a href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)}</a></h2>
+    ${n.reason ? `<div class="reason"><label style="margin:0 0 3px">Screening reason</label>${esc(n.reason)}</div>` : ''}
+    ${n.mesh_major.length ? `<div class="meta">${n.mesh_major.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}
+    <div class="abs">${n.abstract ? esc(n.abstract) : '<em>No abstract in PubMed or OpenAlex; the screen read the title only.</em>'}</div>
+    <label style="margin-top:1rem">Cites in this map (${cites[i].length})</label>
+    ${cites[i].length ? paperList(cites[i]) : '<p class="status">None of its references are in the map, or OpenAlex has no reference list for it.</p>'}
+    <label>Cited in this map by (${citedBy[i].length})</label>
+    ${citedBy[i].length ? paperList(citedBy[i]) : '<p class="status">No paper in the map cites it.</p>'}`;
+  $('sw').append(swatch(style(n.cluster)), name(c));
+  for (const b of el.querySelectorAll('[data-i]')) b.onclick = (e) => { e.preventDefault(); select(Number(b.dataset.i)); };
 }
 
-// ── explore map ───────────────────────────────────────────────────────
-// Three validated categorical colors (checked on the cream surface), each with its own
-// marker shape, so a cluster never depends on color alone.
-const CLUSTER_STYLE = [
-  { color: '#D4603A', shape: 'circle' }, { color: '#4A5FA8', shape: 'square' }, { color: '#2F8F6A', shape: 'triangle' },
-];
-const SVGNS = 'http://www.w3.org/2000/svg';
-
-function marker(shape, x, y, r) {
-  const el = document.createElementNS(SVGNS, shape === 'circle' ? 'circle' : shape === 'square' ? 'rect' : 'polygon');
-  if (shape === 'circle') { el.setAttribute('cx', x); el.setAttribute('cy', y); el.setAttribute('r', r); }
-  else if (shape === 'square') { el.setAttribute('x', x - r * 0.9); el.setAttribute('y', y - r * 0.9); el.setAttribute('width', r * 1.8); el.setAttribute('height', r * 1.8); el.setAttribute('rx', 1); }
-  else el.setAttribute('points', `${x},${y - r * 1.15} ${x + r * 1.05},${y + r * 0.8} ${x - r * 1.05},${y + r * 0.8}`);
-  return el;
-}
-
-function swatch(style) {
-  const s = document.createElementNS(SVGNS, 'svg');
-  s.setAttribute('width', 12); s.setAttribute('height', 12); s.setAttribute('aria-hidden', 'true');
-  const m = marker(style.shape, 6, 6.5, 4.5);
-  m.setAttribute('fill', style.color);
-  s.append(m);
-  return s;
-}
-
-const clusterName = (c) => c.terms.slice(0, 2).map(([t]) => t).join(' · ') || `group ${c.id + 1}`;
-
-function renderExplore(ex, articles) {
-  const byPmid = new Map(articles.map((a) => [a.pmid, a]));
-  const stab = ex.k_evidence.stability;
-  const best = stab[String(ex.k)];
-  const ks = Object.keys(stab).map(Number).sort((a, b) => a - b);
-
-  $('warn').innerHTML = ex.k_stable
-    ? `<b>Stable grouping</b>Refitting on resampled papers, ${ex.k} groups agree with themselves at ${best.toFixed(2)}, above the 0.80 this map requires.`
-    : `<b>No stable grouping</b>Refitting on resampled papers, no number of groups agrees with itself well enough to trust.
-       The most stable, ${ex.k} groups, reaches ${best.toFixed(2)}, below the 0.80 this map requires. Read the groups as a
-       sketch of this corpus, not a finding about the field: rerun on a different sample and papers move between them.`;
-
-  $('kbars').innerHTML = `<div style="margin-bottom:6px">Resampling stability (median ARI) by number of groups · line = 0.80</div>`
-    + ks.map((k) => `<div class="r"><span>k = ${k}</span><span class="t"><i class="${k === ex.k ? 'best' : ''}"
-        style="width:${Math.max(0, stab[k]) * 100}%"></i><s style="left:80%"></s></span><span>${stab[k].toFixed(2)}</span></div>`).join('');
-
-  // map
-  const W = 560, H = 400, pad = 18;
-  const svg = document.createElementNS(SVGNS, 'svg');
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  svg.setAttribute('role', 'img');
-  svg.setAttribute('aria-label', `Map of ${ex.points.length} papers in ${ex.k} groups; the group list below gives the same information as text.`);
-  const sx = (x) => pad + (x + 1) / 2 * (W - 2 * pad), sy = (y) => pad + (1 - (y + 1) / 2) * (H - 2 * pad);
-  const tip = $('tip');
-  const nodes = [];
-  for (const p of ex.points) {
-    const st = CLUSTER_STYLE[p.cluster % CLUSTER_STYLE.length];
-    const m = marker(st.shape, sx(p.x), sy(p.y), 4.5);
-    m.setAttribute('fill', st.color);
-    m.setAttribute('stroke', '#FFFDF9'); m.setAttribute('stroke-width', 2); m.setAttribute('paint-order', 'stroke');
-    m.classList.add('pt');
-    m.dataset.cluster = p.cluster;
-    const a = byPmid.get(p.pmid);
-    const show = () => {
-      tip.innerHTML = `${esc(a?.title ?? 'PMID ' + p.pmid)}<span class="m">${esc(clusterName(ex.clusters[p.cluster]))} · ${esc(a?.year ?? '')} · PMID ${esc(p.pmid)}</span>`;
-      tip.hidden = false;
-      const box = $('map').getBoundingClientRect(), r = m.getBoundingClientRect();
-      const left = Math.min(r.left - box.left + 12, box.width - 270);
-      tip.style.left = `${Math.max(4, left)}px`; tip.style.top = `${r.top - box.top + 12}px`;
-    };
-    m.addEventListener('mouseenter', show);
-    m.addEventListener('mouseleave', () => { tip.hidden = true; });
-    m.addEventListener('click', () => window.open(`https://pubmed.ncbi.nlm.nih.gov/${p.pmid}/`, '_blank', 'noopener'));
-    svg.append(m);
-    nodes.push(m);
-  }
-  $('map').prepend(svg);
-  $('map-line').textContent = `${ex.points.length} papers · layout: PCA of the abstract embeddings (the axes have no units) · digest ${ex.corpus_digest}`;
-
-  // legend doubles as a filter: click a group to isolate it
-  let focus = null;
-  const setFocus = (id) => {
-    focus = focus === id ? null : id;
-    for (const n of nodes) n.classList.toggle('dim', focus !== null && Number(n.dataset.cluster) !== focus);
-    for (const b of $('legend').children) b.setAttribute('aria-pressed', Number(b.dataset.cluster) === focus);
-  };
-  for (const c of ex.clusters) {
-    const b = document.createElement('button');
-    b.dataset.cluster = c.id;
-    b.setAttribute('aria-pressed', 'false');
-    b.append(swatch(CLUSTER_STYLE[c.id % CLUSTER_STYLE.length]), `${clusterName(c)} (${c.size})`);
-    b.onclick = () => setFocus(c.id);
-    $('legend').append(b);
-  }
-
-  // the groups as text: also the accessible view of the map
-  $('clusters').innerHTML = ex.clusters.map((c) => {
-    const reps = c.representatives.map((id) => {
-      const a = byPmid.get(id);
-      return `<li><a href="https://pubmed.ncbi.nlm.nih.gov/${esc(id)}/" target="_blank" rel="noopener">${esc(a?.title ?? 'PMID ' + id)}</a>
-        <span class="status">${esc(a?.year ?? '')}</span></li>`;
-    }).join('');
-    const findings = c.findings.length
-      ? c.findings.map((f) => `<blockquote>${esc(f.text)} <span class="status">— ${esc(f.section.toLowerCase())}, PMID ${esc(f.pmid)}</span></blockquote>`).join('')
-      : `<p class="keynote">None of the papers nearest this group's center has a labeled RESULTS or CONCLUSIONS section
-          (${c.representatives.filter((id) => /review/.test(byPmid.get(id)?.evidence_type ?? '')).length} of
-          ${c.representatives.length} are reviews), so there are no findings to quote.</p>`;
-    return `<div class="cluster">
-      <div class="meta">${swatch(CLUSTER_STYLE[c.id % CLUSTER_STYLE.length]).outerHTML}<span>${c.size} papers</span>
-        ${c.terms.map(([t, n]) => `<span class="tag">${esc(t)} · ${n}</span>`).join('')}</div>
-      <h3 style="font-family:var(--display);font-weight:500;margin:.2rem 0 .3rem">${esc(clusterName(c))}</h3>
-      <label style="margin:.6rem 0 0">Papers nearest the center</label><ol>${reps}</ol>
-      <label>Their findings, quoted</label>${findings}
-    </div>`;
-  }).join('');
-}
-
-async function loadExplore() {
-  const res = await fetch('explore.json');
-  if (!res.ok) throw new Error(`explore.json — HTTP ${res.status}`);
-  const ex = await res.json();
-  if (ex.corpus_digest !== payload.corpus_digest) {
-    throw new Error(`the map was built for corpus ${ex.corpus_digest}, but the demo corpus is ${payload.corpus_digest}`);
-  }
-  renderExplore(ex, payload.articles);
-}
-
-// ── boot ──────────────────────────────────────────────────────────────
-(async () => {
-  try {
-    const res = await fetch('payload.json');
-    if (!res.ok) throw new Error(`payload.json — HTTP ${res.status}`);
-    payload = await res.json();
-    demoCorpus = {
-      articles: payload.articles,
-      vectors: decodeVectors(payload.vectors_base64, payload.embedding.dim),
-      label: `${payload.articles.length} PubMed abstracts · query: ${payload.query} · frozen ${payload.built_at}`
-        + (payload.corpus_digest ? ` · digest ${payload.corpus_digest}` : ''),
-    };
-    $('sub').textContent = 'Check a claim against the literature, with the sentences behind the verdict.';
-    $('foot').innerHTML =
-      `Embeddings: <code>${esc(payload.embedding.model)}</code> (${esc(payload.embedding.dtype)}, ` +
-      `${payload.embedding.dim}d, padded to ${payload.embedding.max_length}). ` +
-      `The demo corpus is embedded offline in Python with the identical ONNX weights — the two runtimes ` +
-      `agree to cosine 1.000000, which is checked by a test.`;
-    useSource('demo');
-    loadExplore().catch((err) => { $('warn').innerHTML = `<b>Map unavailable</b>${esc(err.message)}`; });
-  } catch (err) {
-    $('sub').textContent = `Could not load the corpus: ${err.message}`;
-    $('sub').style.color = 'var(--terracotta)';
-  }
-  loadExamples().catch((err) => { $('ex-detail').textContent = `Could not load the examples: ${err.message}`; });
-})();
-
-for (const r of document.querySelectorAll('input[name=src]')) r.onchange = () => useSource(r.value);
-$('build').onclick = buildLiveCorpus;
-$('topic').onkeydown = (e) => { if (e.key === 'Enter') buildLiveCorpus(); };
-$('go').onclick = retrieve;
-$('flip').onclick = () => { $('claim').value = negate($('claim').value); retrieve(); };
+// ── the groups as text: also the accessible view of the map ─────────
+$('clusters').innerHTML = G.clusters.map((c) => `
+  <div class="cluster">
+    <div class="meta"><span data-sw="${c.id}"></span><span>${c.size} papers</span>
+      ${c.terms.map((t) => `<span class="tag">${esc(t.term)} · ${t.papers}</span>`).join('')}</div>
+    <h3>${esc(name(c))}</h3>
+    <p class="status">Most common journals: ${c.journals.map((j) => `${esc(journalName(j.journal))} (${j.papers})`).join(' · ')}</p>
+    <label style="margin:.8rem 0 0">Papers nearest the center</label>
+    <ol>${c.representatives.map((id) => { const i = index.get(id);
+      return `<li><a class="linkish" href="#" data-i="${i}">${esc(N[i].title)}</a> <span class="status">${esc(N[i].year ?? '')}</span></li>`; }).join('')}</ol>
+  </div>`).join('');
+for (const s of document.querySelectorAll('[data-sw]')) s.append(swatch(style(Number(s.dataset.sw))));
+for (const b of $('clusters').querySelectorAll('[data-i]')) b.onclick = (e) => {
+  e.preventDefault();
+  select(Number(b.dataset.i));
+  $('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+};
+canvas.setAttribute('role', 'img');
+canvas.setAttribute('aria-label', `Map of ${G.papers} papers in ${G.k} groups; the group list below the map gives the same groups as text.`);
+legend();
 </script>
 </body>
 </html>
