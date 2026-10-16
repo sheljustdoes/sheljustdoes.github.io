@@ -278,7 +278,21 @@ for 34 of 40 abstracts (147 tuples). That measures validity, not accuracy; scori
 tuples against labeled abstracts is Phase 5, and a cost comparison of approaches comes with
 it. The held-out claims and the result above are untouched.
 
-202 tests pass (3 skipped), running offline against committed fixtures.
+**Core loop on a new topic (2026-10-16).** The rework then narrowed to one loop that runs
+end to end from a topic: an LLM drafts PubMed queries from the topic and an inclusion
+statement, OpenAlex snowballing adds the references and citing papers of chosen seed papers,
+a screen on Haiku reads every title and abstract against the inclusion statement, and the
+included papers become a citation map, clustered with the cluster count chosen by
+stability. The first topic is the structure and properties of the human hair fiber. From
+3,205 candidates the screen kept 1,199 (383 more marked maybe) in about four minutes, at
+about $0.50 at API prices, and the map links them by 6,019 citations in four clusters that
+are stable under resampling but only weakly separated. Recall is measured against the
+in-scope references of a published review (Leerunyakul 2020): the search found 20 of its 24
+and the screen kept all 20, so recall is 83%, and the four misses are a search gap rather
+than screening errors. Topic to map took about six minutes against a 15-minute target.
+Precision waits on a 20-paper spot-check.
+
+230 tests pass (3 skipped), running offline against committed fixtures.
 
 ### recolo — bio-inspired memory for LLM agents
 **Status:** Results committed · Python, SQLite, numpy · v0.1.0, about 100 tests · LongMemEval, five protocols, 400 held-out questions · Memora, summary-first memory beats retrieval and rolling compaction
