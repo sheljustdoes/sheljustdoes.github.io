@@ -851,6 +851,11 @@ borrowing) on selection, and the panel beside it lists a genre's waves, such as 
 second waves of black metal, with years, region and bands, each wave cited to Wikipedia and
 linked to the matching artists in the library.
 
+Playlists can be smart, as in iTunes: rules on tags, the genre tree, measured tempo and
+energy, and each listener's likes and plays, matched all or any in nested groups, with an
+order and a limit by tracks, time or size. The rules compile to one SQL query, so a live
+playlist is chosen afresh every time it opens.
+
 Library hygiene is handled where the obvious approach doesn't work: the same recording often
 enters the library more than once, as separate encodes, so duplicate detection matches on tags
 and duration rather than file hashes, grades each match by how much agrees, and quarantines
