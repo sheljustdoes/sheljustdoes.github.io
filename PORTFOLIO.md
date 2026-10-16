@@ -34,7 +34,7 @@ applications, learning tools, and portfolio tooling.
 
 The frameworks the research builds on, each proven in real use rather than on a toy
 example. topos certifies whether structure in biological data is real enough to act on;
-veridian grounds claims in the literature; recolo tests what a biologically inspired
+veridian turns a topic into a screened, mapped literature corpus; recolo tests what a biologically inspired
 memory adds for an LLM agent; noul answers questions about code without generating text. Each
 is measured against a plain baseline, negative results stay in (none of recolo's
 original mechanisms helped), and fixes found by the studies that use a framework go back into it.
@@ -66,8 +66,8 @@ deterministic pipeline; a confound with no variance treated as untestable; relat
 capped with structure-robust kinship; grids deduplicated before settings are counted;
 and non-redundancy measured on rows both pipelines cluster, so extra coverage is not
 mistaken for different structure. fragaria's scored Stage 0 runs on the package and
-reproduces its committed results byte for byte; veridian's Explore uses it to choose its
-cluster count.
+reproduces its committed results byte for byte; veridian's literature map uses it to
+choose its cluster count.
 
 Three design commitments shape it: **matched-model comparison** (embedding choices
 compared under equivalent clustering assumptions, never cherry-picked pairings);
@@ -83,216 +83,54 @@ gates mandatory before a clustering is reported. What it adds is the matched
 linear-vs-nonlinear comparison, genotype-specific confound checks, a verdict over a grid
 fixed before scoring, and a role as a guardrail for analysis written by LLM agents.
 
-### veridian — literature review: map the disagreement, check the claim
-**Status:** Results committed (Check) · Explore rebuilt · Python, ONNX Runtime, transformers.js, PubMed E-utilities, Parquet, SQLite, asyncio, scispaCy, Anthropic API
+### veridian — literature review accelerator: from a topic to a screened, mapped corpus
+**Status:** Results committed · Python, Anthropic API, PubMed E-utilities, OpenAlex, ONNX Runtime, Parquet, SQLite, asyncio
 
-Entering an unfamiliar research domain means facing thousands of papers with no visible
-hierarchy of concepts, no sense of which interpretations are dominant versus emerging, and
-no way to tell whether a forming claim is actually supported or merely plausible-sounding.
-Most tools either summarize — compressing away the interpretive landscape — or generate,
-producing claims ungrounded in any specific corpus.
+Every literature review, whatever the field, begins with the same slow work: finding the
+papers, deciding which are in scope, and seeing how they group. Screening tools now speed up
+the middle step, but each starts from a search someone has already written and ends in a
+list rather than a map. veridian runs the whole loop from a one-line topic and a short
+inclusion statement, and it is built for any kind of review, not one field.
 
-veridian answers two questions against a fixed corpus instead, and every answer points
-back to the papers it came from. **Explore** maps the field — clusters, recurring MeSH
-concepts, and, as the target, *where papers disagree*. **Check** grounds a specific claim:
-supported, contradicted, contested or unsupported, with the sentences behind the verdict.
-The two are meant to connect through a map of disagreement: contested claims surface on the
-map, and opening one shows the evidence on both sides. That also fixes the original
-design's entry problem — a newcomer has no claims of their own to check until the map
-supplies some.
+**The loop.** An LLM drafts PubMed queries from the topic and the inclusion statement;
+OpenAlex snowballing adds the references and citing papers of a few seed reviews; the
+results are merged and deduplicated on PMID, DOI, OpenAlex ID and then title. A screen on
+Claude Haiku reads every title and abstract against the inclusion statement and returns
+include, maybe or exclude with a one-line reason, cached per paper by the inclusion
+statement, model and prompt, so a rerun reuses finished work. The included papers become a
+citation map, clustered on abstract embeddings, with the number of groups chosen by
+resampling stability (topos) and each group named by its most distinctive MeSH terms. The
+corpus exports as CSV and BibTeX. Every run reports three numbers, with targets fixed
+before the code was written: precision on 20 included papers drawn at random, recall
+against the in-scope references of one independent review, and wall time from topic to map.
 
-**Pipeline.** Retrieve from PubMed E-utilities → embed and partition with K-means, UMAP
-for projection → per-cluster thematic summaries grounded in member abstracts rather than
-the corpus as a whole → accept free-form user reasoning and extract atomic checkable
-claims → match claims to nearest clusters so alignment is judged against actual retrieved
-evidence → extract and resolve named entities into canonical nodes, linked to grounding
-clusters, producing a queryable knowledge graph rather than a flat similarity index →
-surface which claims are well-supported, weakly supported, or ungrounded, without issuing
-a grade.
+**Worked example: human hair fiber science (2026-10-16).** From 3,205 candidates the screen
+kept 1,199 (383 maybe), in 5.7 minutes of step time against a 15-minute target, at about
+$0.50 at API prices. All 20 randomly drawn inclusions were in scope (precision 1.00, 95% CI
+0.84–1.00, target 0.80). The corpus held 20 of the 24 in-scope references of a published
+review (recall 0.83, 0.64–0.93); all four misses were never retrieved, and the screen
+rejected none of them, so retrieval, not screening, limits recall. The map links the
+included papers by 6,019 citations in four groups that are stable under resampling (median
+ARI 0.81) but only weakly separated (silhouette 0.10). For comparison, an earlier fixed
+keyword search on the same topic reached 12.5% precision. Limits stated with the result:
+snowball and merge times came from cached reruns, so a first run takes longer; one rule in
+the inclusion statement (animal fibers) was added after the screen first ran and before
+precision was scored; and a hair-type coverage count was added after the run and is
+labeled post hoc.
 
-Ships as both CLI and Flask web app with an interactive cluster map, runnable locally
-against a pre-computed corpus with no API key. The legacy app has no live deployment — its
-GitHub Pages workflow required a public repository and has been retired; the rebuilt demo
-below is served from this site instead.
-
-**What the audit found (2026-09-23).** Checked against this repository's own committed
-demo payloads, the claim-grounding feature does not discriminate: all six claims map to
-the same cluster in both payloads, every similarity clears the threshold, and every
-verdict is identical. The cause is structural rather than a matter of tuning — cosine
-similarity between a claim and a cluster centroid measures topical *aboutness*, not
-evidential support, and a claim and its negation embed almost identically. A centroid is
-also the mean of ~18 abstracts, so it can never identify which paper supports a claim.
-Separately, cluster summarization injects the user's search rationale into every cluster's
-prompt, so summaries echo the query rather than distinguishing the clusters.
-
-Retrieval, UMAP projection, the interactive map and entity resolution work. The
-interpretation layer on top of them did not.
-
-**The rework rebuilt Check first**, since it was the broken half: a claim retrieves
-specific abstracts and receives a verdict with the evidence cited by PMID, measured against
-hand-labeled claims rather than asserted. **Explore was rebuilt next**, with nothing
-generated: clusters are labeled by the MeSH terms that distinguish them, represented by
-the papers nearest their centroid and the findings those papers state, and the cluster
-count is chosen by resampling stability using topos. On the frozen corpus no count is
-stable (the best, three clusters, reaches 0.63), and the legacy map's ten clusters score
-0.28, so that map was mostly arbitrary partitioning; the rebuilt map says so instead of
-drawing false confidence. The demo shows the map with that stability evidence beside it.
-A pre-registered positive control then showed the method works when structure exists: on a
-corpus of three unrelated topics it picks three stable groups and recovers them exactly
-(ARI 1.000), and on three related aging interventions nearly so (stable, ARI 0.794). So the
-metformin result describes the corpus, which has no separable subfields. The same engine also verifies lumen's
-curriculum, grounding each generated principle in its source before review.
-
-Retrieval itself is not the differentiator — general research agents and existing tools do
-that well. Calibrated judgment with a known error rate on a specific corpus is.
-
-**First piece landed:** the corpus layer now parses what PubMed already returns and the
-original parser discarded — PMIDs (without which nothing can be cited), MeSH headings with
-their descriptor UIs, and publication types. The knowledge graph gains an authority: keyed
-on MeSH UIs, "IL-6" and "interleukin-6" are one node rather than two unrelated strings,
-across every *indexed* article rather than the handful of sentences a user typed — though
-recent papers are often not yet indexed, and about 30% of the demo corpus carries no MeSH at
-all. Publication types are parsed so the evidence behind a verdict can be described; the
-verdict itself does not yet weight by study design.
-
-**Embeddings run in the reader's browser.** The demo is meant to be openable — type a
-claim, watch abstracts come back — with no API key and no backend, so the corpus and the
-query are embedded by the same 23 MB open model, with hosted providers behind the same
-interface for when retrieval quality is the binding constraint. Because a reader's claim
-is embedded client-side in transformers.js while the corpus is embedded offline in Python,
-the two must share a vector space exactly; rather than maintain two implementations,
-Python runs *the same quantized ONNX weights* the browser runs.
-
-Making them agree exactly surfaced two int8 quantization behaviors worth knowing about.
-The model's output depends on **sequence length** — the same text padded to 19 tokens and
-to 256 differs at cosine 0.992, though padding is masked out of the pooling — and on
-**batch composition**, since quantization scales are computed across the batch. Both are
-pinned: fixed-length padding on both sides, and one text at a time. The two runtimes then
-agree to cosine 1.000000, checked against a committed fixture.
-
-A test also records the property the whole rework rests on: a claim and its own negation
-embed at cosine **0.93**, while unrelated text sits at **0.01**. The embedding is a strong
-topical recall device and blind to polarity — which is precisely why grounding has to be
-retrieve-then-entail, and why no threshold on cosine-to-centroid could ever have separated
-a supported claim from a contradicted one.
-
-**The grounding replacement is built.** Retrieval finds candidate abstracts, a judge
-reads them, and a verdict is aggregated from per-abstract stances. Three things the old
-design could not do:
-
-- **Cite.** Every stance names the PMID it came from, so a verdict traces to a paper
-  rather than to the mean of eighteen of them.
-- **Express disagreement.** Verdicts are supported / contradicted / **contested** /
-  unsupported. A corpus that both supports and contradicts a claim is the normal state of
-  a live research question, and collapsing it to one similarity score destroys the
-  information a reader most needs.
-- **Cite real text.** Evidence is *selected*, never generated: abstracts are split into
-  sentences, the sentences nearest the claim are chosen, and the judge returns one typed
-  stance per sentence, so every quoted sentence exists in its source. That guarantees the
-  citation, not the reading — a judge can still misread direction or hedging, or credit an
-  animal result to a claim about humans, and isolating a sentence strips the context
-  (organism, dose, comparator) that usually lives elsewhere in the abstract.
-- **Use the abstract's own structure, where there is one.** Structured abstracts label
-  their sections, and BACKGROUND sentences are excluded from evidence. Most abstracts in
-  the demo corpus are unstructured, so this covers a minority, and the label list does not
-  yet catch every journal's conventions.
-
-The old rule survives as `centroid_baseline()` — unjustified 0.35 threshold and all — so
-the rework can be measured against what it replaced rather than merely asserted to be
-better.
-
-Narrowing the judge to a typed label per sentence had an unplanned consequence: it asks
-for nothing that requires writing prose, so a **typed-decision model** — one that returns
-classifications with confidences and no free text at all — is a first-class judge here
-rather than a degraded one. An adapter exists for one, which sets up a comparison the
-evaluation can make directly: typed-decision model against LLM judge against the embedding
-baseline, on the same hand-labeled claims.
-
-**Not yet done, and stated plainly:** the LLM judge has run live (the measured result is
-below); the typed-decision adapter has not, and is labeled unrun in the code. The legacy
-module is still the CLI entry, so anyone running the app today still gets the old behavior.
-
-A **browser demo** runs with no key and no backend. Its retrieval tab searches either the
-frozen corpus or **any PubMed topic**: the page queries E-utilities directly (NCBI serves
-them with CORS open), keeps the top 10, 25 or 50 papers by relevance, and embeds them on the
-reader's machine with the same model — 10 abstracts take about two seconds. A button negates
-your claim and returns the same papers, which is the architecture's own argument made
-visible. Judging needs a hosted model, so live topics get retrieval only; a second tab shows
-the full pipeline on the held-out claims — verdict beside the answer-key label, each quoted
-sentence with the judge's reasoning — precomputed offline from a fresh run of the scored
-configuration, disagreements included.
-
-**Measured result (2026-09-24).** On **21 held-out claims** — written before any fix and
-scored once — the rebuilt Check pipeline reached **86% verdict accuracy (18 of 21; 95%
-interval 65–95%)** against **48%** for the original rule, which answered "supported" to
-every claim. Evidence recall was 77% and precision 75%, and no animal evidence was credited
-to a claim about humans.
-
-It got there in two measured steps. The first run, on 51 development claims, scored 55%,
-and its errors were diagnosed rather than tuned away: ten came from a rule the answer key
-used and the judge was never told (a null result is not a contradiction), five from
-evidence that never reached the judge — abstracts truncated at 256 tokens were being ranked
-on their background — and the rest from genuine misreadings. The fixes were general: the
-judge was given every labeling rule and each sentence's paper context, and papers were
-ranked by their single best-matching sentence. Development accuracy rose to 86%. The
-held-out set, frozen before those fixes, scored the same — the evidence that they
-generalized rather than fitting the claims they were built on.
-
-Two of the three held-out errors fall on the claims that were hardest to label in the first
-place, and neither was re-labeled after scoring. The limits are stated with the number:
-both answer keys were drafted by Claude and reviewed by Shel — individually for every
-judgment call, in bulk for claims following established patterns — the held-out claims
-were written by the same hand as the fixes, and the corpus is 150 abstracts on one topic
-with no genuine contested claims in it. Total cost of every run: under $6.
-
-**Pipeline infrastructure (2026-10).** The next phases scale the work from one frozen
-topic to a production-style scientific text pipeline, and the plumbing came first. Every
-stage writes immutable, versioned Parquet with a manifest and a dead-letter file, keyed by
-its inputs, model and prompt, so reruns are idempotent and a cached LLM verdict is reused
-only when everything that produced it matches. LLM calls run through one client with a hard
-token budget, a dry-run mode and a per-call log of the model that actually answered.
-Ingestion is now concurrent: async PubMed fetches inside NCBI's rate limit, with retries
-that honor `Retry-After`, a raw-response cache, and a SQLite job queue with leases, so a
-killed run resumes where it stopped. It froze a second corpus of 2,587 abstracts across
-eight disciplines; at the unauthenticated limit, async fetching cut 1,000 abstracts from
-12 s to 5 s, and the rate limit, not concurrency, sets the floor.
-
-**Biomedical entities** come from scispaCy (chemicals and diseases), found sentence by
-sentence over the same sentences the judge reads, so every span is addressed by paper,
-sentence and character offset. Scored against public gold corpora, the largest error was
-the tokenizer rather than the model: it kept words like "doxorubicin-induced" whole, so
-the drug inside could never be tagged. Two splitting rules, chosen on the development
-split, raised strict F1 on the BC5CDR test split from 0.75 to 0.80. On a corpus the model
-was not trained on (NCBI disease) it scores 0.57, and the rules do not help, which is the
-honest expectation for the eight-discipline corpus. All 29,213 of its sentences were
-tagged in about two minutes on one process; spaCy's process pool was slower at this size,
-because each worker spends about 27 s receiving the pipeline before it tags anything.
-
-**Claim tuples (Phase 4).** Structured extraction is built and tested. One Claude Code CLI
-call per abstract returns tuples of subject, relation, object, polarity, certainty and the
-evidence sentence, under a closed relation vocabulary. The subject and object must be copied
-word for word from a sentence that states a finding, so an argument cannot be invented.
-Output is checked with Pydantic, gets one repair call if it fails, and anything still
-invalid goes to the dead-letter file. Two 20-abstract pilots on Haiku 4.5 gave valid tuples
-for 34 of 40 abstracts (147 tuples). That measures validity, not accuracy; scoring the
-tuples against labeled abstracts is Phase 5, and a cost comparison of approaches comes with
-it. The held-out claims and the result above are untouched.
-
-**Core loop on a new topic (2026-10-16).** The rework then narrowed to one loop that runs
-end to end from a topic: an LLM drafts PubMed queries from the topic and an inclusion
-statement, OpenAlex snowballing adds the references and citing papers of chosen seed papers,
-a screen on Haiku reads every title and abstract against the inclusion statement, and the
-included papers become a citation map, clustered with the cluster count chosen by
-stability. The first topic is the structure and properties of the human hair fiber. From
-3,205 candidates the screen kept 1,199 (383 more marked maybe) in about four minutes, at
-about $0.50 at API prices, and the map links them by 6,019 citations in four clusters that
-are stable under resampling but only weakly separated. Recall is measured against the
-in-scope references of a published review (Leerunyakul 2020): the search found 20 of its 24
-and the screen kept all 20, so recall is 83%, and the four misses are a search gap rather
-than screening errors. Topic to map took about six minutes against a 15-minute target.
-Precision waits on a 20-paper spot-check.
-
-230 tests pass (3 skipped), running offline against committed fixtures.
+**Earlier work, now parked.** veridian began as claim-checking over a frozen PubMed corpus.
+An audit (2026-09-23) found the original grounding, which compared a claim with the center
+of a cluster of papers, answered "supported" to every claim: cosine similarity measures
+what a claim is *about*, and a claim and its own negation embed at cosine 0.93. Check was
+rebuilt as retrieve-then-judge: the sentences nearest the claim are selected, never
+generated, and a judge returns one typed stance per sentence, so every citation exists in
+its source and a verdict can be *contested* as well as supported, contradicted or
+unsupported. The same engine verifies the curriculum lumen generates for scintilla. Along
+the way came a keyless browser demo whose embeddings run in the reader's browser on the
+same quantized ONNX weights Python uses (agreeing to cosine 1.000000 once sequence length
+and batch composition were pinned), versioned Parquet stages with a token budget,
+resumable async PubMed ingestion, scispaCy entities and structured claim tuples. That work
+is parked until the core loop ships; its code and tests are kept.
 
 ### recolo — bio-inspired memory for LLM agents
 **Status:** Results committed · Python, SQLite, numpy · v0.1.0, about 100 tests · LongMemEval, five protocols, 400 held-out questions · Memora, summary-first memory beats retrieval and rolling compaction
