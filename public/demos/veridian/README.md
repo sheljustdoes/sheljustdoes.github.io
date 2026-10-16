@@ -1,23 +1,17 @@
-# veridian demo — provisional
+# veridian demo: hair fiber literature map
 
-Deployed so it can be opened and shared. **The interface is not designed yet.**
+The citation map from veridian's `hair_fiber` run: 1,199 papers the LLM screen included,
+placed by a PCA layout and grouped into four stable groups, with citation edges between
+them. Click a paper for its abstract, the screen's reason and the papers it cites and is
+cited by in the map; highlight papers by MeSH major term or journal. Static page, no key, no backend.
 
-What is settled: the mechanism. The demo corpus and its embeddings are precomputed offline;
-a live corpus is fetched from PubMed E-utilities (CORS-open) and embedded in the browser;
-a reader's claim is embedded client-side by the same model. No key and no backend. The
-"negate the claim" control returns the same papers, which is the architecture's own argument
-made visible. `examples.json` holds judged held-out claims, precomputed offline. `explore.json` is the Explore
-map (built by `scripts/build_explore.py`), keyed to the payload's corpus digest; the page refuses
-to draw it for a different corpus.
+Group names and overlays are built from MeSH terms with ancestry and country terms removed;
+paper titles and abstracts are shown as published.
 
-What is not settled: everything about how it looks and how it is structured. The styling
-here borrows the site's tokens (`--cream` / `--charcoal` / `--terracotta`, and the
-serif-is-voice / display-is-structure / mono-is-utility rule) so it does not clash on this
-domain, but it is a holding pass, not a design. It is a hand-written static page rather
-than a route, deliberately: nothing here commits to a component structure, and deleting
-this directory removes it cleanly.
+Source of truth is the private `veridian` repo: `web/map.html` (copied here as
+`index.html`) and `web/hair_fiber.json`, written by `python scripts/run.py runs/hair_fiber/run.toml web`.
+Regenerate there and copy both files across. The page reads `?run=<name>`, default
+`hair_fiber`.
 
-It is linked from the veridian write-up with a prototype note, and not from the graph.
-
-Source of truth for the page and the payload builder is the private `veridian` repo
-(`web/`, `scripts/build_payload.py`). Regenerate `payload.json`, `examples.json` and `explore.json` there and copy them across.
+This replaces the earlier Check demo (claim-to-evidence ranking, now parked), retired on
+2026-10-16.
