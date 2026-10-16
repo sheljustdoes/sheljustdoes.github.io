@@ -99,12 +99,12 @@ export const PROJECTS: Project[] = [
       "A stability-certification protocol for deciding when latent structure in high-dimensional biological data is real enough to act on: eight gating stages ending in an explicit GO/KILL/HOLD verdict. Stage 0 is a tested Python package whose every module enforces a rule learned on real data — declared missing-value codes, stability from resampling rather than seeds, untestable confounds blocking a GO, kinship-based relatedness control, deduplicated grids, and non-redundancy measured on rows both pipelines cluster. fragaria's scored Stage 0 runs on it and reproduces its results exactly.",
   },
   {
-    id: "veridian", name: "veridian", area: "frameworks", status: "Results committed (Check)", date: "2025–", featured: true,
+    id: "veridian", name: "veridian", area: "frameworks", status: "Results committed", date: "2025–", featured: true,
     link: "/projects/veridian/", linkLabel: "Read the write-up →",
     resumeLine:
-      "Literature review tool that checks a claim against a frozen paper corpus and cites the sentences behind each verdict. Audited it, found the original rule called every claim supported, and rebuilt it: 86% verdict accuracy on 21 held-out claims (95% interval 65–95%), against 48% for the original rule.",
+      "Literature review accelerator for any field: from a one-line topic and an inclusion statement it drafts searches, snowballs citations, screens every abstract with an LLM and maps the result. On human hair fiber science it screened 3,205 candidates to 1,199 in 5.7 minutes, with all 20 sampled inclusions in scope and 20 of 24 references of an independent review found.",
     summary:
-      "A literature review tool with two modes over one frozen corpus: Explore maps a field and where it disagrees; Check grounds a claim against the papers, citing the sentences behind the verdict. After an audit found the original grounding answered “supported” to every claim, the rebuilt Check reached 86% verdict accuracy on 21 held-out claims written before any fix (95% interval 65–95%), against 48% for the original rule.",
+      "A literature review accelerator for any kind of review: a one-line topic and a short inclusion statement go in, and a screened corpus and a citation map come out. An LLM drafts PubMed queries, OpenAlex snowballing adds the citations of seed reviews, an LLM screen reads every abstract against the inclusion statement, and the map's groups are chosen by resampling stability. On human hair fiber science it went from 3,205 candidates to 1,199 included papers in 5.7 minutes against a 15-minute target; all 20 sampled inclusions were in scope (precision 1.00, 95% CI 0.84–1.00), and it found 20 of 24 in-scope references of an independent review, every miss a retrieval gap rather than a screening error.",
   },
   {
     id: "noul", name: "noul", area: "frameworks", status: "Results committed (`find` only)", date: "2026–", featured: true,
