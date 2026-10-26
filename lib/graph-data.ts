@@ -426,13 +426,13 @@ const AUTHORED: AuthoredNode[] = [
   { id: "cella", label: "Cella", type: "project", color: "blush-deep", r: 20, x: 1420, y: 1034,
     points: [
       "Household entertainment hub on Home Assistant; its music section, Audire, handles audio curation and library management as an add-on",
-      "FastAPI backend across 32 routers, SvelteKit client, Navidrome streaming, native macOS launcher, background queue worker",
-      "Library synchronization, ReplayGain normalization, cover art, and metadata enrichment from MusicBrainz and Wikipedia",
+      "FastAPI backend of about 220 endpoints across 46 routers with OpenAPI docs, SvelteKit client, Navidrome streaming over the Subsonic API, native macOS launcher, background queue worker",
+      "Library synchronization, ReplayGain normalization, cover art, and metadata enrichment from MusicBrainz, Discogs, iTunes, Last.fm, Bandcamp and Wikipedia",
       "Wikipedia-sourced genre family tree drawn as a radial lineage wheel, with sourced genre waves",
       "Deliberate failure handling against an uncooperative upstream: randomized pacing, one delayed retry resuming only what is missing, and no retry at all for permanent failures",
-      "About 1,900 tests, 130 tagged releases, in daily use",
+      "About 3,800 tests, 226 tagged releases, in daily use",
     ],
-    keywords: ["FastAPI", "SvelteKit", "Home Assistant", "nginx", "Queue Workers", "MusicBrainz", "ReplayGain", "Navidrome", "Release Management", "pytest", "Local-First"] },
+    keywords: ["FastAPI", "SvelteKit", "Home Assistant", "nginx", "Queue Workers", "MusicBrainz", "Subsonic API", "OpenAPI", "ReplayGain", "Navidrome", "Release Management", "pytest", "Local-First"] },
 
   // ---- Added 2026-09-25: every featured or Shipped project gets a node. ----
   { id: "oncos", label: "oncos", type: "project", color: "blush-deep", r: 21, x: 872, y: 1008,

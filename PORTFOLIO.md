@@ -829,13 +829,14 @@ pluggable data layer behind a single adapter seam, through which storage moved f
 Apps Script backend to Neon Postgres before launch.
 
 ### cella — household entertainment hub
-**Status:** Shipped · FastAPI, SvelteKit, Python · 32 API routers, about 1,900 tests, 130 tagged releases
+**Status:** Shipped · FastAPI, SvelteKit, Python · about 220 API endpoints across 46 routers, about 3,800 tests, 226 tagged releases
 
 Cella is the entertainment hub for one household, with Home Assistant as its hosting backbone.
 Its music section, Audire, is the only section live today: a curation and library-management
 platform for music the household already owns, packaged and deployed as a Home Assistant
-add-on. FastAPI backend across 32 routers, SvelteKit web client, a native macOS launcher, and a
-background queue worker behind nginx, with Navidrome for streaming, library synchronization,
+add-on. FastAPI backend of about 220 endpoints across 46 routers, with interactive OpenAPI docs,
+a SvelteKit web client, a native macOS launcher, and a background queue worker behind nginx,
+with Navidrome for streaming over the Subsonic API, library synchronization,
 ReplayGain normalization, cover art handling, and metadata enrichment from MusicBrainz and
 Wikipedia, with Apple's iTunes catalog and then Discogs as fallbacks for the singles, session
 recordings and limited editions MusicBrainz has no release for.
