@@ -82,7 +82,7 @@ export const EXPERIENCE: Role[] = [
     company: "Cooper Lab, North Carolina Research Campus",
     start: "2020-09",
     end: "2021-09",
-    lead: "Multicultural Postdoctoral Fellow, University of North Carolina at Charlotte.",
+    lead: "Multicultural Postdoc Fellow",
     bullets: [
       "Owned the lab's analytical pipelines for large-scale NGS datasets in Python across UNIX and cloud/HPC environments",
       "Developed pipelines for transposable element polymorphism detection and structural variant association analysis in tomato, linking insertion presence/absence to phenotypes",
@@ -95,6 +95,7 @@ export const EXPERIENCE: Role[] = [
     company: "Schlueter Lab, University of North Carolina at Charlotte",
     start: "2015-08",
     end: "2020-09",
+    lead: "GAANN Fellow (Graduate Assistance in Areas of National Need).",
     bullets: [
       "Conducted dissertation research on repeat landscapes in Avena (oat), building analytical pipelines in Python and Linux over large Illumina and PacBio sequencing datasets",
       "Integrated data from NCBI and GenBank into large-scale genomic processing workflows",
