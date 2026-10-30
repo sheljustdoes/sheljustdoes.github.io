@@ -192,9 +192,9 @@ export const PROJECTS: Project[] = [
     shot: { src: "/projects/supporting/menhir.webp", alt: "Athlete home in menhir: coach card, week schedule and today's prescribed session", caption: "Athlete and coach training platform; generated programs are validated before they commit." },
     link: "/projects/menhir/", linkLabel: "See the work →",
     resumeLine:
-      "Training platform for athletes and coaches, heading into open beta; owns all code and infrastructure, with a coaching partner owning the methodology. A multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines, and every program is validated before commit. Invite-based accounts, tiered billing and an offline PWA; about 84K lines of code, 90 test files, about 1,900 tests.",
+      "Co-owned training platform for athletes and coaches, heading into open beta, built under heurology with a coaching partner who owns the training content and engine logic. Designed and built the application from the ground up (screens, sign-in, data layer, AI wiring), now working alongside an associate engineer. A multi-provider LLM pipeline generates programs on top of 13 deterministic methodology engines, and every program is validated before commit. Invite-based accounts, tiered billing and an offline PWA; about 129K lines of code, 92 test files, 1,954 tests.",
     summary:
-      "A dual-role athlete and coach training platform, built with a coaching partner who owns the methodology; Shel owns the code and infrastructure. A multi-provider LLM pipeline generates programs on top of 14 deterministic methodology engines and an RPE calibration engine, and every generated program is validated and previewed before it can be committed. Invite-based accounts with role-aware access, tiered billing, Web Push, and an offline-capable PWA. About 84K lines of code, 90 test files, about 1,900 tests.",
+      "A dual-role athlete and coach training platform, co-owned with a coaching partner and built under heurology. The partner owns the training content and engine logic; Shel designed and built the application from the ground up, with an associate engineer on the team since October 2026. A multi-provider LLM pipeline generates programs on top of 13 deterministic methodology engines and an RPE calibration engine, and every generated program is validated and previewed before it can be committed. Invite-based accounts with role-aware access, tiered billing, Web Push, and an offline-capable PWA. About 129K lines of code, 92 test files, 1,954 tests.",
   },
   {
     id: "cella", name: "Cella", area: "production", status: "Shipped", date: "2026–",
@@ -212,9 +212,9 @@ export const PROJECTS: Project[] = [
     id: "mara", name: "mara", area: "production", status: "Shipped", date: "2026–", featured: true,
     shot: { src: "/projects/supporting/mara.webp", alt: "mara's quote form: local, long-distance, 400NG and survey tracks", caption: "Moving-industry pricing API; this quote form calls it live." },
     resumeLine:
-      "Designed and built a multi-tenant pricing API for the moving industry, in production as a client platform's pricing service: one survey endpoint estimates weight from job-site photos, routes the move, recommends a crew and returns priced line items. Per-tenant rates and hashed, scoped API keys; 10 test modules.",
+      "Designed and built, under heurology, a multi-tenant pricing API for the moving industry, in production as a client platform's pricing service: one survey endpoint estimates weight from job-site photos, routes the move, recommends a crew and returns priced line items. Per-tenant rates and hashed, scoped API keys; 10 test modules.",
     summary:
-      "A multi-tenant pricing API for the moving industry: local hourly, interstate tariff and military 400NG pricing behind one survey endpoint that estimates weight from job-site photos, routes the move, recommends a crew and returns priced line items. Per-tenant rate configuration, hashed scoped API keys, distance resolution that falls back to free routing, and self-refreshing fuel and tariff data. In production as a client platform's pricing service. 10 test modules.",
+      "A multi-tenant pricing API for the moving industry, built under heurology: local hourly, interstate tariff and military 400NG pricing behind one survey endpoint that estimates weight from job-site photos, routes the move, recommends a crew and returns priced line items. Per-tenant rate configuration, hashed scoped API keys, distance resolution that falls back to free routing, and self-refreshing fuel and tariff data. In production as a client platform's pricing service. 10 test modules.",
   },
 
   // ---- Supporting — learning & knowledge tools ----

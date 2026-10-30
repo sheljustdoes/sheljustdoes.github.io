@@ -32,8 +32,9 @@ dropped.
 
 Principal reframe done 2026-10-01: headline "Principal Data Scientist", matching the
 Boehringer contract title (Principal Applied Scientist); summary and bullets lead with
-ownership and decisions; project lines read as evaluations that drove a call; menhir is
-described as two partners (Shel owns code and infrastructure), not solo.
+ownership and decisions; project lines read as evaluations that drove a call; menhir was
+described as two partners (Shel owns code and infrastructure), not solo. Superseded 2026-10-29:
+co-owned with a coaching partner, built under heurology, three people on the repo (see lib/projects.ts).
 
 - [x] GAANN fellowship 2020 to 2021; course confirmed as BINF 8100 on the program page. Done 2026-10-01.
 - [ ] Certifications: which exam is closest, its target month, and its verification link;
@@ -54,7 +55,7 @@ described as two partners (Shel owns code and infrastructure), not solo.
       `PORTFOLIO.md`, `lib/projects.ts` (status, summary, `resumeLine`), the spec line in
       `app/projects/menhir/page.tsx`, the résumé summary in `lib/resume.ts`, and menhir's
       README status line.
-- [ ] menhir figures (~106K LOC, 349 files, 25 test modules, 458 commits) predate the Neon move; recount with one documented method and update every surface together.
+- [x] menhir figures recounted 2026-10-29 on heurology/menhir main 86ec91f: ~129K LOC (wc -l over tracked .ts, .tsx, .css, .mjs files, tests included), 92 test files, 1,954 tests (vitest run). Updated on every surface.
 - [ ] Versions B, C and D as private files (`Shel-Burkes-Resume-[version]-[date]`), never in
       this public repo.
 

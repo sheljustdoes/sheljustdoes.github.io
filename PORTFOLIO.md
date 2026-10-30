@@ -807,17 +807,19 @@ Privately hosted, single- or small-tenant web applications. Repositories are not
 the engineering is described here. Personal and third-party data is excluded by design.
 
 ### menhir — adaptive strength coaching platform
-**Status:** Implemented · Next.js (App Router), TypeScript, Stripe, Neon Postgres · about 84K lines of code, 90 test files, about 1,900 tests
+**Status:** Implemented · Next.js (App Router), TypeScript, Stripe, Neon Postgres · about 129K lines of code, 92 test files, 1,954 tests
 
 A dual-role platform serving both athletes and coaches. Its differentiator is adaptive
 programming driven by multiple autoregulation signals — readiness, sleep, performance
-trend, calibrated RPE — plus a structured coach↔athlete channel. Built by two partners:
-Shel owns the code and infrastructure, and a coaching partner owns the training methodology
-and content.
+trend, calibrated RPE — plus a structured coach↔athlete channel. Co-owned with a coaching
+partner and built under heurology. The partner owns the training content and the engines'
+training logic; Shel designed and built the application from the ground up (screens,
+sign-in, data layer, AI wiring), with an associate software engineer on the team since
+October 2026.
 
 The architecturally interesting part is the **AI pipeline sitting on top of deterministic
 engines rather than replacing them**: a provider abstraction across Groq, OpenAI and
-Anthropic generates programs, but 14 methodology generators and an RPE calibration engine
+Anthropic generates programs, but 13 methodology engines and an RPE calibration engine
 underneath enforce the training mathematics, and generated programs are validated and
 shown for preview before they can be committed or assigned. A mock mode runs the entire
 flow with live AI disabled.
@@ -922,7 +924,7 @@ typefaces come from the brand stylesheet it shares with scintilla and lumen.
 ### mara — multi-tenant pricing API
 **Status:** Shipped · Next.js route handlers, TypeScript, Postgres, Vercel Cron, Vitest
 
-A pricing API for the moving industry, built to take pricing out of one company's
+A pricing API for the moving industry, built under heurology to take pricing out of one company's
 operations platform and make it a service any mover could call. It prices three kinds of
 move: local hourly, interstate by weight and distance against a filed tariff, and military
 under the Department of Defense's published 400NG tariff. Its first tenant is a client's

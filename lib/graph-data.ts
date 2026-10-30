@@ -414,13 +414,13 @@ const AUTHORED: AuthoredNode[] = [
   // ---- Production systems. ----
   { id: "menhir", label: "menhir", type: "project", color: "blush-deep", r: 24, x: 1560, y: 900,
     points: [
-      "Dual-role platform serving athletes and coaches, built with a coaching partner; Shel owns the code and infrastructure",
+      "Dual-role platform serving athletes and coaches, co-owned with a coaching partner and built under heurology; Shel designed and built the application from the ground up",
       "Adaptive programming driven by multiple autoregulation signals — readiness, sleep, performance trend, calibrated RPE",
-      "Multi-provider LLM pipeline (Groq / OpenAI / Anthropic) generating programs on top of 14 deterministic methodology generators and an RPE calibration engine",
+      "Multi-provider LLM pipeline (Groq / OpenAI / Anthropic) generating programs on top of 13 deterministic methodology engines and an RPE calibration engine",
       "Generated programs are validated and previewed before they can be committed or assigned",
       "Invite-based email-and-password accounts with role-aware route protection; tiered Stripe billing across five plans",
       "Installable PWA with cached offline reads and background-sync offline writes",
-      "about 84K lines of code, 90 test files, about 1,900 tests, 759 commits",
+      "about 129K lines of code, 92 test files, 1,954 tests, 770 commits",
     ],
     keywords: ["Next.js", "TypeScript", "bcrypt", "Session Cookies", "Stripe", "Web Push", "PWA", "Offline Sync", "Background Sync", "Multi-Provider LLM", "Deterministic Engines", "RPE", "Autoregulation"] },
   { id: "cella", label: "Cella", type: "project", color: "blush-deep", r: 20, x: 1420, y: 1034,
