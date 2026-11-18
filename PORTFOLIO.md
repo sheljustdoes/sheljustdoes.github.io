@@ -315,7 +315,7 @@ baseline — clinical labels, a nuclei count, classical survival models — rath
 its own terms. Capture comes first, because lambent showed that the camera can move a
 score further than the skin does.
 
-**Flagship:** iridis. **Also here:** lambent (optics), argus (Cell Painting), oncos (3D CT), legere
+**Flagship:** iridis. **Also here:** lambent (optics), argus (Cell Painting), oncos (3D CT), grammata
 (handwriting).
 
 ### iridis — perceptual skin-tone phenotyping
@@ -561,7 +561,7 @@ survival baselines, with censoring handled explicitly, under an evaluation proto
 before any model was scored. Results and methods will be written up here once the work is
 further along.
 
-### legere — ensemble handwriting recognition scaffold
+### grammata — ensemble handwriting recognition scaffold
 **Status:** Designed (scaffold) · Python, module structure for TrOCR, Donut, PaddleOCR, SimpleHTR
 
 A structural design for extracting handwritten field values from mixed-content forms on
