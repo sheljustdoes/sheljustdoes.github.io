@@ -145,7 +145,7 @@ export const PROJECTS: Project[] = [
       "Work in progress: 3D deep learning for overall-survival prediction in non-small cell lung cancer from pre-treatment CT, on public imaging data, evaluated against classical survival baselines under a protocol fixed before any model was scored.",
   },
   {
-    id: "legere", name: "legere", area: "phenotyping", status: "Designed (scaffold)", date: "2026–",
+    id: "grammata", name: "grammata", area: "phenotyping", status: "Designed (scaffold)", date: "2026–",
     summary:
       "Architecture for on-premises handwriting extraction from mixed-content forms: template-based field segmentation, a benchmarking matrix that tests every model against every field type before routing, vision-language arbitration across predictions, and a human review queue with per-field provenance. The repository is the scaffold for that design; model adapters are interface stubs.",
   },

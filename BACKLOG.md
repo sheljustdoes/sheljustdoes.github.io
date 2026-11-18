@@ -101,7 +101,7 @@ visual summary.
 - [x] Keep the résumé route and `PORTFOLIO.md` consistent when either changes. Done
       2026-09-24: `lib/projects.ts` feeds the résumé, the graph and the Doc feed, and the
       post-build check fails on drift.
-- [x] Place graph nodes for the projects that have none: oncos, noul, legere,
+- [x] Place graph nodes for the projects that have none: oncos, noul, grammata,
       catasta, custos, bibliotheca, bibliotheca-archive, ponere, and this site. Done
       2026-09-25, with mara added too; the post-build check now fails when a featured or
       Shipped project has no node.
